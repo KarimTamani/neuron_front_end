@@ -1,0 +1,35 @@
+.dashboard-container {
+    background: #265ED7;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+}
+
+.sidebar-section {
+    max-width: 64px;
+    min-width: 64px;
+}
+
+.blur-filter {
+    transition-duration: 0.3s;
+    filter: blur(6px)
+}
+
+.content-section {
+    width: 100%;
+    background: #F5F6FA;
+    border-top-left-radius: 28px;
+    border-bottom-left-radius: 28px;
+    box-shadow: -2px 2px 12px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+}
+
+.pop-up-window {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 500;
+    overflow: auto;
+}

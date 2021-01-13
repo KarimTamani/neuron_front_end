@@ -1,0 +1,14 @@
+.main-container {
+    background: white;
+    position: relative;
+    padding: 16px 26px;
+    height: 380px;
+}
+
+h5 {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+canvas {}

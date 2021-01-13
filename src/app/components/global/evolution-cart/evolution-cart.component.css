@@ -1,0 +1,58 @@
+.cart-container {
+    padding: 16px;
+    color: white;
+    position: relative;
+    border-radius: 12px;
+    height: 160px;
+}
+
+.top i {
+    font-size: 46px;
+}
+
+.right {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+
+.right span i {
+    font-size: 12px;
+}
+
+.right span {
+    font-size: 16px;
+    text-align: right;
+    display: block;
+    font-weight: bold;
+}
+
+.right p {
+    font-size: 11px;
+    margin: 0px;
+    color: rgba(240, 240, 240);
+}
+
+.bottom {
+    font-size: 12px;
+    margin-top: 26px;
+}
+
+.bottom h6 {
+    font-size: 11px;
+    margin: 0px;
+    font-weight: bold;
+}
+
+.bottom span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.fa-chart-bar {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    font-size: 62px;
+    color: rgba(250, 250, 250, 0.6)
+}

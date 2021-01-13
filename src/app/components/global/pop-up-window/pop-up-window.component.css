@@ -1,0 +1,27 @@
+.main-container {
+    background: #F5F6FA;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 26px 0px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.main-container .header h5 {
+    background: rgb(38, 94, 215);
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    position: relative;
+    margin: 0px;
+}
+
+.main-container .header h5 i {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px;
+}

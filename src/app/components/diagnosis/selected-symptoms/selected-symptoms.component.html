@@ -1,0 +1,21 @@
+<div class="main-container">
+    <div class="search-container">
+        <input type="text" (keyup)="search()" placeholder="Rechercher un symptôme .." [(ngModel)]="searchQuery">
+        <div class="suggestions">
+            <ul>
+                <li *ngFor="let suggestion of searchResult" (click)="selectSymptom(suggestion)">{{suggestion.name}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="selected-symptoms">
+        <div class="symptom" *ngFor="let symptom of selectedSymptoms">
+            {{symptom.name}}
+            <i class="fa fa-times" (click)="deleteSymptom(symptom)"></i>
+        </div>
+    </div>
+    <div class="no-symptoms" *ngIf="selectedSymptoms.length == 0 ">
+        <img src="../../../assets/symptoms-background.png">
+        <p>Aucun symptôme</p>
+    </div>
+
+</div>

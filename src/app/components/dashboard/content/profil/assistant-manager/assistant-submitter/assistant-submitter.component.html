@@ -1,0 +1,95 @@
+<div class="main-container">
+    <form name="form" [formGroup]="form">
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="text" placeholder="Nom" [(ngModel)]="assistant.name" class="primary-input" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                        <div *ngIf="form.get('name').errors.required">le nom est requis</div>
+                        <div *ngIf="form.get('name').errors.minlength">au moins 4 caractères</div>
+                        <div *ngIf="form.get('name').errors.maxlength">moins de 20 caractères</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="text" placeholder="Prénom" class="primary-input" [(ngModel)]="assistant.lastname" formControlName="lastname" [ngClass]="{'is-invalid' : form.get('lastname').touched && form.get('lastname').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('lastname').touched && form.get('lastname').invalid">
+                        <div *ngIf="form.get('lastname').errors.required">le prénom est requis</div>
+                        <div *ngIf="form.get('lastname').errors.minlength">au moins 4 caractères</div>
+                        <div *ngIf="form.get('lastname').errors.maxlength">moins de 20 caractères</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <div class="form-group" (click)="assistant.gender = true">
+                    <div class="gender">
+                        <label>Homme </label>
+                        <i class="fa fa-check" [class.active]="assistant.gender === true"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <div class="form-group" (click)="assistant.gender = false">
+                    <div class="gender">
+                        <label>Femme </label>
+                        <i class="fa fa-check" [class.active]="assistant.gender === false"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="primary-input" formControlName="email" [(ngModel)]="assistant.email" [ngClass]="{'is-invalid' : form.get('email').touched && form.get('email').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('email').touched && form.get('email').invalid">
+                        <div *ngIf="form.get('email').errors.email">email invalide</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="text" placeholder="Numéro de telephone" class="primary-input" formControlName="phone" [(ngModel)]="assistant.phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('phone').touched && form.get('phone').invalid">
+                        <div *ngIf="form.get('phone').errors.required">Numéro de téléphone est requis</div>
+                        <div *ngIf="form.get('phone').errors.pattern">Numéro de téléphone invalide</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-12">
+                <div class="form-group">
+                    <input type="password" placeholder="Mote de pass" class="primary-input" formControlName="password" [(ngModel)]="assistant.password" [ngClass]="{'is-invalid' : form.get('password').touched && form.get('password').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('password').touched && form.get('password').invalid">
+                        <div *ngIf="form.get('password').errors.required">mote de pass est requis</div>
+                        <div *ngIf="form.get('password').errors.minlength">au moins 4 caractères</div>
+                        <div *ngIf="form.get('password').errors.maxlength">moins de 20 caractères</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-12">
+                <div class="form-group">
+                    <input type="password" placeholder="confirm Mote de pass" class="primary-input" formControlName="confirmPassword" [(ngModel)]="assistant.confirmPassword" [ngClass]="{'is-invalid' : form.get('confirmPassword').touched && form.get('confirmPassword').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('confirmPassword').touched && form.get('confirmPassword').invalid">
+                        <div *ngIf="form.get('confirmPassword').errors.required">confirmation est requis</div>
+                        <div *ngIf="form.get('confirmPassword').errors.minlength">au moins 4 caractères</div>
+                        <div *ngIf="form.get('confirmPassword').errors.maxlength">moins de 20 caractères</div>
+                        <div *ngIf="form.get('confirmPassword').errors.confirmedValidator">confermation est fausse</div>
+
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="col col-md-6"></div>
+            <div class="col col-md-6">
+                <div class="card-row">
+                    <button class="primary-button" [disabled]="!form.valid" (click)="submit()">Sauvgarder</button>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+</div>

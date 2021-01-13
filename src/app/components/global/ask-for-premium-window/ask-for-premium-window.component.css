@@ -1,0 +1,23 @@
+.main-container {
+    padding: 16px;
+}
+
+p {
+    margin: 0px;
+    background: white;
+    padding: 8px 16px;
+    border-radius: 16px;
+    color: #888888;
+}
+
+.control {
+    background: white;
+    padding: 8px 16px;
+    margin: 0px;
+    margin-top: 16px;
+    border-radius: 16px;
+}
+
+.primary-button {
+    float: right;
+}

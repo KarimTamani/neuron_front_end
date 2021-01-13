@@ -1,0 +1,11 @@
+<div class="main-container stretch-container">
+    <div class="image-container">
+        <img src="../../../../../../../assets/male.png" *ngIf="patient.gender">
+    </div>
+    <div class="info-container">
+        <h5>{{patient.lastname}} {{patient.name}}</h5>
+        <p class="age">l'age : <span>{{patient.age}} ans</span> </p>
+
+        <p class="visit-time"><span>{{patient.visit_start}}</span> - <span>{{patient.visit_end}}</span></p>
+    </div>
+</div>

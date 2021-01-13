@@ -1,0 +1,16 @@
+<div class="main-container" (click)="preventPropagation($event)">
+    <div class="header">
+        <h5>{{title}} <i class="fa fa-times" (click)="close()"></i></h5>
+    </div>
+    <div class="body">
+        <app-diagnosis *ngIf="windowPage == 'diagnosis'"></app-diagnosis>
+        <app-speciality-diagnosis *ngIf="windowPage == 'speciality-diagnosis'"></app-speciality-diagnosis>
+        <app-diagnosis-result *ngIf="windowPage == 'diagnosis-result'"></app-diagnosis-result>
+        <app-ask-for-premium-window *ngIf="windowPage == 'ask-for-premium'"></app-ask-for-premium-window>
+        <app-feedback-window *ngIf="windowPage == 'feedback-window'"></app-feedback-window>
+        <app-service-submitter *ngIf="windowPage == 'service-submitter'"></app-service-submitter>
+        <app-assistant-submitter *ngIf="windowPage =='assistant-submitter'" (closeEvent)="close()"></app-assistant-submitter>
+        <app-yes-no-message *ngIf="windowPage =='yes-no-message'" (closeEvent)="close()"></app-yes-no-message>
+        <app-medical-act-submitter *ngIf="windowPage =='medical-act-submitter'" (closeEvent)="close()"></app-medical-act-submitter>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+.main-container {
+    padding: 16px;
+}
+
+.symptoms-container-side,
+.diagnosis-result {
+    max-width: 460px;
+    min-width: 460px;
+    position: relative;
+    padding-right: 16px;
+}
+
+.human-body-container-side {
+    width: 700px;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.submitter {
+    width: 100%;
+    padding: 8px;
+    margin-top: 16px;
+    background: white;
+}
+
+.submitter button {
+    width: 200px;
+    background: rgb(38, 94, 215);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    float: right;
+    border: none;
+    margin-right: 16px;
+}
+
+.fa-arrow-left {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.header {
+    padding: 0px 16px;
+    padding-top: 16px;
+}
+
+.patient-info-container {
+    background: white;
+    margin-bottom: 16px;
+}
+
+.human-body {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.controller button {
+    background: white;
+    border: none;
+    width: 100%;
+    padding: 12px 8px;
+    border-radius: 8px;
+    color: #212121;
+    font-size: 14px;
+    border: 2px solid transparent;
+    outline: none;
+}
+
+.controller button.active {
+    background-color: rgba(38, 94, 215, 0.8);
+    color: white;
+}
+
+.symptoms-controllers-container {
+    background: white;
+    margin-top: 16px;
+    border-radius: 8px;
+    height: 600px;
+}
+
+.diagnosis-result {
+    background: white;
+    margin-right: 16px;
+    padding-right: 0px;
+}

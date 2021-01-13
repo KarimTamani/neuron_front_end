@@ -1,0 +1,83 @@
+.main-container {
+    padding: 16px 0px;
+}
+
+.header {
+    background: rgb(38, 94, 215);
+    border-radius: 4px;
+}
+
+span {
+    display: inline-block;
+    width: 22%;
+    text-align: center;
+    padding: 4px 0px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+span#controll-span {
+    min-width: 12%;
+    max-width: 12%;
+}
+
+span#controll-span i {
+    margin: 0px 4px;
+    display: inline-block;
+    background: rgb(38, 94, 215);
+    padding: 6px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transition-duration: 0.3s;
+}
+
+span#controll-span i.fa-trash {
+    background: rgb(254, 101, 85);
+}
+
+span#controll-span i.fa-trash:hover {
+    color: rgb(254, 101, 85);
+    background: transparent;
+}
+
+span#controll-span i.fa-edit:hover {
+    color: rgb(38, 94, 215);
+    background: transparent;
+}
+
+.medical-act span {
+    color: #212121;
+    font-weight: 100;
+}
+
+.medical-act {
+    margin: 4px 0px;
+    transition-duration: 0.3s;
+}
+
+.medical-act:hover span#controll-span i {
+    opacity: 1;
+}
+
+.medical-act:hover {
+    background: #eeeeee;
+}
+
+.body {
+    height: 180px;
+    max-height: 180px;
+    overflow: auto;
+}
+
+a {
+    margin-top: 16px;
+    float: right;
+}
+
+a:hover {
+    text-decoration: none;
+    color: white;
+}

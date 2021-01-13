@@ -1,0 +1,5 @@
+<div class="grid-header primary-radius">
+    <span *ngFor="let image of images" (click)="select(image)" [class.selected]="isImageSelected(image)">{{image.id}}
+        <i class="fa fa-check"></i>
+    </span>
+</div>

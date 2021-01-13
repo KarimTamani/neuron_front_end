@@ -1,0 +1,14 @@
+<div class="cart-container" [ngStyle]="classStyle">
+    <div class="top">
+        <i class="{{evolutionParam.icon}}"></i>
+        <div class="right">
+            <span>{{evolutionParam.evolutionPercentage}} % <i class="fa fa-arrow-up"></i> </span>
+            <p>rapport au dernier {{evolutionParam.period}}</p>
+        </div>
+    </div>
+    <div class="bottom">
+        <h6>{{evolutionParam.name}}</h6>
+        <span>{{evolutionParam.evolutionValue}}</span>
+        <i class="fa fa-chart-bar"></i>
+    </div>
+</div>

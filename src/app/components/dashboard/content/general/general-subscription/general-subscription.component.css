@@ -1,0 +1,38 @@
+.main-container {
+    background: white;
+    padding: 16px 26px;
+    height: 380px;
+}
+
+img {
+    width: 100%;
+}
+
+a {
+    display: block;
+    margin: 0px auto;
+    margin-top: 16px;
+    width: 120px;
+    text-align: center;
+    cursor: pointer;
+}
+
+a:hover {
+    color: white;
+}
+
+p {
+    background: #eeeeee;
+    color: #555555;
+    padding: 8px 16px;
+    margin-top: 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+h5 {
+    font-weight: 600;
+    margin-bottom: 16px;
+    font-size: 18px;
+}

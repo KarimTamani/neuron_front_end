@@ -1,0 +1,28 @@
+<div class="header">
+    <app-header></app-header>
+</div>
+<div class="body">
+    <div class="row">
+        <div class="col col-md-8">
+            <app-general-line-chart></app-general-line-chart>
+        </div>
+        <div class="col col-md-4">
+            <div class="evo-card" *ngFor="let evolution of evolutionParams">
+                <app-evolution-cart [evolutionParam]="evolution"></app-evolution-cart>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col col-md-4">
+            <app-general-waiting-room></app-general-waiting-room>
+        </div>
+
+        <div class="col col-md-4">
+            <app-general-disease-report></app-general-disease-report>
+        </div>
+        <div class="col col-md-4">
+            <app-general-subscription></app-general-subscription>
+        </div>
+    </div>
+</div>

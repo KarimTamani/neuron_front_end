@@ -1,0 +1,33 @@
+<div class="main-container" [class.female]="gender == false">
+    <div class="symptoms-container head" *ngIf="bodyAreaSymptoms.head.length > 0">
+        <ul>
+            <li *ngFor="let symptom of bodyAreaSymptoms.head">{{symptom.name}}</li>
+        </ul>
+    </div>
+    <div class="symptoms-container chest" *ngIf="bodyAreaSymptoms.chest.length > 0">
+        <ul>
+            <li *ngFor="let symptom of bodyAreaSymptoms.chest">{{symptom.name}}</li>
+
+        </ul>
+    </div>
+    <div class="symptoms-container abdomin" *ngIf="bodyAreaSymptoms.abdomin.length > 0">
+        <ul>
+            <li *ngFor="let symptom of bodyAreaSymptoms.abdomin">{{symptom.name}}</li>
+
+        </ul>
+    </div>
+    <div class="symptoms-container legs" *ngIf="bodyAreaSymptoms.legs.length > 0">
+        <ul>
+            <li *ngFor="let symptom of bodyAreaSymptoms.legs">{{symptom.name}}</li>
+
+        </ul>
+    </div>
+
+    <div class="symptoms-container arms" *ngIf="bodyAreaSymptoms.arms.length > 0">
+        <ul>
+            <li *ngFor="let symptom of bodyAreaSymptoms.arms">{{symptom.name}}</li>
+
+        </ul>
+    </div>
+    <img [src]="getImageSource()">
+</div>

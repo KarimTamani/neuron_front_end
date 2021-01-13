@@ -1,0 +1,29 @@
+<div class="main-container stretch-container" *ngIf="!showResult">
+    <div class="left-side">
+
+        <div class="speciality-container">
+            <button class="primary-radius" (click)="expandSpecialities = !expandSpecialities">
+                {{(selectedSpeciality) ? (selectedSpeciality.name) : ("Selectioneé une specialitie")}}
+            </button>
+            <ul *ngIf="expandSpecialities">
+                <li *ngFor="let speciality of specialities" (click)="onSpecialityChanged(speciality)">
+                    {{speciality.name}}
+                </li>
+            </ul>
+        </div>
+
+        <ul *ngIf="selectedSpeciality" class="collections primary-radius">
+            <li *ngFor="let collection of selectedSpeciality.collections" (click)="selectCollection(collection)" [class.selected]="selectedCollection && collection.id == selectedCollection.id">
+                {{collection.name}}
+            </li>
+        </ul>
+        <div class="controller primary-radius">
+            <button (click)="submit()">Analyser</button>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <div class="right-side">
+        <app-image-viewer [initImage]="image" (imageSelectedEvent)="onImageSelected($event)"></app-image-viewer>
+    </div>
+</div>
+<app-diagnosis-result *ngIf="showResult" (backEventListener)="back()"></app-diagnosis-result>

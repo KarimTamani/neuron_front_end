@@ -1,0 +1,5 @@
+<div class="regions-list" *ngIf="imageLoaded">
+    <div class="region-container" *ngFor="let output of detectionModel.output">
+        <app-region [region]="output" [image]="imageObj"></app-region>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    max-height: 590px;
+    overflow: auto;
+    background: white;
+}
+
+li {
+    padding: 10px 26px;
+}

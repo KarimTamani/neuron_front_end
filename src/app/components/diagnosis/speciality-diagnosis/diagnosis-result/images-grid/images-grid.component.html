@@ -1,0 +1,54 @@
+<div class="grid-container">
+    <div class="grid-controller" *ngIf="images.length > 0">
+        <app-grid-controller [images]="images" (selectedImageEvent)="onImageSelected($event)"></app-grid-controller>
+    </div>
+    <div class="grid-content primary-radius">
+        <!--
+            Two images switcher 
+        -->
+        <div class="images-switcher" *ngIf="selectedImages.length == 2">
+            <div class="prediction-image-container" *ngIf="showFist==true">
+                <img src="{{selectedImages[1].image}}">
+                <canvas *ngIf="selectedImages[1].detection" class="detection-canvas" id="{{selectedImages[1].id}}"></canvas>
+            </div>
+
+            <div class="prediction-image-container" *ngIf="showFist==false">
+                <img src="{{selectedImages[0].image}}">
+            </div>
+
+            <i class="switch-icons fas fa-chevron-right" (click)="showFist=!showFist"></i>
+            <i class="switch-icons fas fa-chevron-left" (click)="showFist=!showFist"></i>
+
+        </div>
+        <!--
+            One image viewer 
+        -->
+        <div class="images-switcher" *ngIf="selectedImages.length == 1">
+            <div class="prediction-image-container">
+                <img src="{{selectedImages[0].image}}">
+            </div>
+        </div>
+        <!--
+            Multiple image swicther 
+        -->
+        <div class="row" *ngIf="selectedImages.length > 2">
+            <div class="col col-md-6" *ngFor="let image of selectedImages">
+                <div class="prediction-image-container">
+                    <img src="{{image.image}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="predictions-container">
+
+
+    <div class="content">
+    </div>
+
+
+</div>
+
+
+-->

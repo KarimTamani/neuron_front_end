@@ -1,0 +1,9 @@
+canvas {
+    max-height: 260px;
+}
+
+.line-chart-container {
+    background: white;
+    padding: 16px 26px;
+    border-radius: 16px;
+}

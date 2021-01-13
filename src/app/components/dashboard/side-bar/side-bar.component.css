@@ -1,0 +1,54 @@
+.header {
+    height: 8vh;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.header img {
+    width: 52px;
+    height: 52px;
+}
+
+.sidebar-container {
+    padding: 8px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+ul {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+    width: 100%;
+}
+
+ul li {
+    text-align: center;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    margin: 16px 0px;
+    border-radius: 10px;
+}
+
+ul li a {
+    padding: 8px;
+    display: block;
+}
+
+ul li i {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+ul li:hover {
+    background: rgba(255, 255, 255, 0.2)
+}
+
+.nav {
+    height: 92vh;
+    display: grid;
+    align-items: center;
+}
+
+ul li.active {
+    background: rgba(255, 255, 255, 0.2)
+}

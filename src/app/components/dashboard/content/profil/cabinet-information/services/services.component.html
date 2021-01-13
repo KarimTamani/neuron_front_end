@@ -1,0 +1,13 @@
+<div class="main-container">
+    <div class="header">
+        <label>Services et parèmetres</label>
+        <a [routerLink]="" [queryParams]="{'pop-up-window' : true ,  'window-page' : 'service-submitter' , 'services'  : getServicesJSON()}">
+            modifier     <i class="fa fa-edit"></i>
+        </a>
+    </div>
+    <div class="container-fluid">
+        <span class="service" *ngFor="let service of services">
+            {{service.name }}
+        </span>
+    </div>
+</div>

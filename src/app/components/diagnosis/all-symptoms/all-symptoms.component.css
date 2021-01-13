@@ -1,0 +1,67 @@
+.main-container {
+    padding: 16px;
+}
+
+ul {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+.part span {
+    box-sizing: border-box;
+    padding: 8px;
+    color: #555555;
+    font-size: 14px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.part span:hover {
+    background: #eeeeee;
+    color: #212121;
+}
+
+.part:last-child span {
+    border-bottom: none;
+}
+
+.symptoms-list {
+    max-height: 360px;
+    overflow: auto;
+}
+
+.symptom {
+    padding: 8px;
+    color: #212121;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.symptom i {
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    padding: 2px;
+    font-size: 12px;
+    float: right;
+    color: transparent;
+}
+
+.symptom:hover {
+    color: rgba(38, 94, 215, 0.8);
+}
+
+.symptom:hover i {
+    border-color: rgba(38, 94, 215, 0.5);
+}
+
+.symptom.selected {
+    color: rgba(38, 94, 215, 0.8);
+}
+
+.symptom.selected i {
+    border-color: rgba(38, 94, 215, 0.5);
+    color: rgba(38, 94, 215, 0.5);
+}

@@ -1,0 +1,92 @@
+.main-container {
+    padding: 16px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-container input {
+    padding: 10px 16px;
+    background: #eeeeee;
+    border: none;
+    border-radius: 20px;
+    width: 100%;
+    outline: none;
+}
+
+.search-container .suggestions {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    left: 0px;
+    padding-top: 16px;
+}
+
+.suggestions ul {
+    max-height: 260px;
+    overflow: auto;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    background: white;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, .1), -1px -1px 8px rgba(0, 0, 0, .1);
+    border-radius: 8px;
+}
+
+.suggestions ul li {
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+.suggestions ul li:hover {
+    background: #eeeeee;
+}
+
+.no-symptoms {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: auto;
+    color: #888888;
+    font-size: 14px;
+}
+
+.no-symptoms img {
+    border-radius: 8px;
+}
+
+.no-symptoms p {
+    margin-top: 8px;
+}
+
+.selected-symptoms {
+    padding: 16px 0px;
+}
+
+.symptom {
+    background: #eeeeee;
+    padding: 8px 16px;
+    display: inline-block;
+    border-radius: 20px;
+    color: #555555;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.symptom i {
+    color: #aaaaaa;
+    background: #dddddd;
+    border-radius: 50%;
+    width: 26px;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    font-size: 13px;
+    line-height: 12px;
+    text-align: center;
+    margin-left: 8px;
+    cursor: pointer;
+}

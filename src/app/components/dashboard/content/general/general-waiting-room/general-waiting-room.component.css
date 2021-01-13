@@ -1,0 +1,10 @@
+.main-container {
+    background: white;
+    padding: 16px 26px;
+    height: 380px;
+}
+
+.main-container h5 {
+    font-size: 18px;
+    font-weight: 600;
+}

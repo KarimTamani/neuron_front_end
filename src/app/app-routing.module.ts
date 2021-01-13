@@ -1,0 +1,36 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GeneralComponent } from './components/dashboard/content/general/general.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { NotValidAccountComponent } from './components/login/not-valid-account/not-valid-account.component';
+import { ProfilComponent } from './components/dashboard/content/profil/profil.component';
+
+const routes: Routes = [
+  {
+    path: "", redirectTo: "login", pathMatch: "prefix"
+  },
+  {
+    path: "dashboard", component: DashboardComponent, canActivate: [AuthGuardService], children: [
+      {
+        path: "general", component: GeneralComponent
+      } , { 
+        path : "profil" , component : ProfilComponent
+      }
+    ]
+
+  },
+  {
+    path: "login", component: LoginComponent
+  },
+  {
+    path: "not-valid-account", component: NotValidAccountComponent
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

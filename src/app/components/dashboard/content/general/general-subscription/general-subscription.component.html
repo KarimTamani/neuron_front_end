@@ -1,0 +1,6 @@
+<div class="main-container primary-radius">
+    <h5>Version complète</h5>
+    <img src="../../../../../../assets/upgrad2.jpg">
+    <a class="primary-button" *ngIf="!allReadyRequested" [routerLink]="" [queryParams]="{'pop-up-window' : true , 'window-page' : 'ask-for-premium' , 'title' : 'demande de version final'}">Faire un demande</a>
+    <p *ngIf="allReadyRequested ">votre demande est prise en charge</p>
+</div>

@@ -1,0 +1,27 @@
+<div class="main-container">
+    <div class="row">
+        <div class="col col-md-6" *ngFor="let speciality of specialities">
+            <h5>{{speciality.name}} </h5>
+            <div class="collection-mark" *ngFor="let collection of speciality.collections">
+                <p>{{collection.name}}</p>
+                <div class="row">
+                    <div class="col col-md-4" (click)="setMark(collection , 'useless')">
+                        <span [class.selected]="collection.mark == 'useless'">inutile <i class="fa fa-check"></i></span>
+                    </div>
+                    <div class="col col-md-4" (click)="setMark(collection , 'useful')">
+                        <span [class.selected]="collection.mark == 'useful'">utile <i class="fa fa-check"></i></span>
+                    </div>
+                    <div class="col col-md-4" (click)="setMark(collection , 'very useful')">
+                        <span [class.selected]="collection.mark == 'very useful'">très utile<i class="fa fa-check"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-12">
+            <textarea placeholder="Votre remarque " [(ngModel)]="notice"></textarea>
+        </div>
+        <div class="col col-md-12">
+            <button class="primary-button" (click)="sendFeedback()" [disabled]="marks.length == 0 && notice.trim() == ''">Envoyer</button>
+        </div>
+    </div>
+</div>

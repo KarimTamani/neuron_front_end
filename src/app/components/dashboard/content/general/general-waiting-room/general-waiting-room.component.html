@@ -1,0 +1,8 @@
+<div class="main-container primary-radius">
+    <h5>
+        Salle d'attent
+    </h5>
+    <div class="patients-list">
+        <app-general-waiting-room-patient *ngFor="let patient of patients" [patient]="patient"></app-general-waiting-room-patient>
+    </div>
+</div>

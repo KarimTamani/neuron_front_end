@@ -1,0 +1,30 @@
+<div class="main-container">
+    <form name="form" [formGroup]="form">
+        <div class="row">
+            <div class="col col-md-9">
+                <div class="form-group">
+                    <label>Acte medical</label>
+                    <input type="text" [(ngModel)]="medicalAct.name" placeholder="Nom" formControlName="name" class="primary-input" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                        <div *ngIf="form.get('name').errors.required">l'acte medical est requis</div>
+                        <div *ngIf="form.get('name').errors.minlength">au moins 3 characters</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3">
+                <div class="form-group">
+                    <label>Montant (DA)</label>
+                    <input type="number" placeholder="Montant" [(ngModel)]="medicalAct.price" formControlName="price" class="primary-input" [ngClass]="{'is-invalid' : form.get('price').touched && form.get('price').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('price').touched && form.get('price').invalid">
+                        <div *ngIf="form.get('price').errors.required">le montant est requis</div>
+                        <div *ngIf="form.get('price').errors.invalidNumber">montant invalide</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <button class="primary-button" [disabled]="!form.valid" (click)="submit()">
+        Ajouter <i class="fa fa-plus"></i>
+    </button>
+    <div style="clear: both;"></div>
+</div>

@@ -1,0 +1,32 @@
+label {
+    font-weight: bold;
+}
+
+.header a {
+    float: right;
+    color: white;
+    background: rgb(38, 94, 215);
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.header {
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 8px;
+}
+
+.container-fluid {
+    height: 90px;
+    padding: 8px 0px;
+}
+
+.service {
+    background: #eeeeee;
+    color: #212121;
+    padding: 6px 10px;
+    margin: 4px;
+    border-radius: 20px;
+    display: inline-block;
+}

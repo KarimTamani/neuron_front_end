@@ -1,0 +1,15 @@
+<div class="main-container">
+    <ul>
+        <li class="part" *ngFor="let part of bodyParts" (click)="selectBodyPart(part)">
+            <span>
+                {{part.location}}
+            </span>
+            <ul *ngIf="part.symptoms && selectedPart && selectedPart.id == part.id" class="symptoms-list">
+                <li class="symptom" *ngFor="let symptom of part.symptoms" [class.selected]="symptom.selected" (click)="selectSymptom($event , symptom)">
+                    {{symptom.name}}
+                    <i class="fa fa-check"></i>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

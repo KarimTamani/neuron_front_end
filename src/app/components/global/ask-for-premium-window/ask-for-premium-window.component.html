@@ -1,0 +1,16 @@
+<div class="main-container">
+    <p *ngIf="!thanks">
+        si vous voulez avoir accès à la version finale de neuron, soumettez une demande et nous serons agréables de vous la fournir lors de son lancement.
+    </p>
+    <div class="control row" *ngIf="!thanks">
+        <div class="col col-md-6">
+            <button class="accent-button" (click)="close ( )">Non merci.</button>
+        </div>
+        <div class="col col-md-6">
+            <button class="primary-button" (click)="sendRequest()">Envoyer une demande</button>
+        </div>
+    </div>
+    <p *ngIf="thanks">
+        votre demande est prise en considération <br>Nous te remercions
+    </p>
+</div>

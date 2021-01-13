@@ -1,0 +1,37 @@
+<div class="patient-info-container stretch-container">
+    <div class="name-icon-container">
+        <div class="icon-container">
+            <span>{{patient.lastname[0]}}</span>
+        </div>
+    </div>
+    <div class="info-container">
+        <div class="row">
+            <div class="col col-md-4 center-v">
+                <div class="lastname-name">
+                    <h5>{{patient.lastname}} {{patient.name}}</h5>
+                    <p>{{patient.birthday}}</p>
+                </div>
+            </div>
+            <div class="col col-md-8">
+                <div class="row info-row">
+                    <div class="col col-md-6">
+                        <p class="info"><i class="fa fa-weight"></i> <span>{{patient.weight}} Kg </span> </p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p class="info"><i class="fa fa-arrows-alt-v"></i> <span>{{patient.height}} cm </span></p>
+
+                    </div>
+                    <div class="col col-md-6">
+                        <p class="info">Age : <span>{{age}} ans</span> </p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p class="info">IMC : <span>{{imc}} kg / m2</span> </p>
+                    </div>
+                    <div class="col col-md-12">
+                        <p class="info">Interprétation : <span>{{interpretation}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

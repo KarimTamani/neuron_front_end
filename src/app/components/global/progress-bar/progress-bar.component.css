@@ -1,0 +1,15 @@
+.progress-bar-container {
+    background: #eeeeee;
+    width: 100%;
+    height: 12px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-container .progress-line {
+    position: absolute;
+    left: 0%;
+    height: 100%;
+    border-radius: 8px;
+}

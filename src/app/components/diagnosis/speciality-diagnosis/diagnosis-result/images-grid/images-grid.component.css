@@ -1,0 +1,58 @@
+.grid-container {
+    height: 650px;
+}
+
+.grid-content {
+    background: white;
+    width: 100%;
+    padding: 4px 16px;
+    margin-top: 16px;
+}
+
+.images-switcher {
+    height: 580px;
+    position: relative;
+    padding: 12px 0px;
+}
+
+.switch-icons {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    color: white;
+    font-size: 48px;
+    transform: translateY(-50%) scaleY(1.2);
+    cursor: pointer;
+}
+
+.switch-icons.fa-chevron-right {
+    right: 16px;
+}
+
+.switch-icons.fa-chevron-left {
+    left: 16px;
+}
+
+.prediction-image-container {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+    border-radius: 8px;
+}
+
+.prediction-image-container img {
+    width: 100%;
+    position: absolute;
+    min-height: 100%;
+}
+
+.row .col {
+    height: 288px;
+    padding: 12px;
+}
+
+.detection-canvas {
+    background: "#ff000055";
+    position: absolute;
+    z-index: 1;
+}

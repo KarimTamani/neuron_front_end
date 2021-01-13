@@ -1,0 +1,63 @@
+img {
+    width: 86px;
+    height: 86px;
+    display: block;
+    margin: 0px auto;
+    border-radius: 50%;
+    box-shadow: 2px 2px 26px rgba(0, 0, 0, 0.1);
+}
+
+.image-side {
+    max-width: 160px;
+    min-width: 160px;
+    height: 120px;
+}
+
+h3 {
+    color: #212121;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: capitalize;
+    margin: 0px;
+}
+
+p {
+    margin: 0px;
+    margin-top: 8px;
+    color: #555555;
+    font-size: 14px;
+}
+
+p i {
+    margin-right: 16px;
+    color: rgb(38, 94, 215);
+}
+
+.fa-trash {
+    background: rgb(254, 101, 85);
+    color: white;
+    padding: 6px 7px;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    right: 0px;
+    transition-duration: 0.3s;
+    opacity: 0;
+    font-size: 12px;
+}
+
+.info-side {
+    position: relative;
+    width: 100%;
+}
+
+.info-side:hover .fa-trash {
+    opacity: 1;
+}
+
+.fa-trash:hover {
+    color: rgb(254, 101, 85);
+    background: transparent;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+}

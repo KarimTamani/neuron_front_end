@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.stretch-container {
+    display: flex;
+    align-items: stretch;
+}
+
+.center-v {
+    display: grid;
+    align-items: center;
+}
+
+.primary-radius {
+    border-radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.primary-button {
+    background: rgb(38, 94, 215);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: white;
+}
+
+.accent-button {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+
+.primary-input {
+    width: 100%;
+    background: #eeeeee;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 1px solid transparent;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    position: relative;
+}
+
+input.is-invalid {
+    border-color: rgb(254, 101, 85);
+}
+
+input.is-invalid::placeholder {
+    color: rgb(254, 101, 85);
+}
+
+.invalid-feedback {
+    position: absolute;
+    color: rgb(254, 101, 85);
+    font-size: 12px;
+}
+
+h5.card-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #212121;
+    margin-bottom: 26px;
+}

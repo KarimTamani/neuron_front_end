@@ -1,0 +1,36 @@
+.main-container {
+    height: 100vh;
+    position: relative;
+    background: #F5F6FA
+}
+
+.content {
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #eeeeee;
+    overflow: hidden;
+    width: 460px;
+}
+
+.header img {
+    width: 64px;
+    height: 64px;
+    background: #265ED7;
+    border-top-right-radius: 26px;
+    border-bottom-right-radius: 26px;
+}
+
+.header h5 {
+    display: inline-block;
+    font-weight: bold;
+    height: 100%;
+    padding: 6px 12px;
+}
+
+.body {
+    padding: 16px;
+    color: #888888;
+}

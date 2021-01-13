@@ -1,0 +1,75 @@
+.main-container {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 16px;
+    overflow: hidden;
+    width: 800px;
+    height: 600px;
+}
+
+.symptoms-container {
+    background: rgba(254, 101, 85, 0.1);
+    position: absolute;
+    color: rgba(254, 101, 85);
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    width: 200px;
+}
+
+.symptoms-container ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.head {
+    left: 11%;
+    top: 7.5%;
+}
+
+.chest {
+    top: 12%;
+    right: 11%;
+}
+
+.abdomin {
+    right: 11%;
+    top: 44.2%;
+}
+
+.arms {
+    left: 11%;
+    top: 33.5%;
+}
+
+.legs {
+    left: 11%;
+    top: 61.5%;
+}
+
+.female .head {
+    left: 15%;
+    top: 12%;
+}
+
+.female .chest {
+    top: 15.5%;
+    right: 15%;
+}
+
+.female .abdomin {
+    right: 15%;
+    top: 44.8%;
+}
+
+.female .legs {
+    left: 15%;
+    top: 60.5%;
+}
+
+.female .arms {
+    left: 15%;
+    top: 35%;
+}

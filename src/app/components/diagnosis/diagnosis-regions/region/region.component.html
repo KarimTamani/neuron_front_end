@@ -1,0 +1,12 @@
+<div class="stretch-container">
+    <div class="region-side">
+        <canvas #region width="80px" height="80px"></canvas>
+    </div>
+    <div class="info-side">
+        <div class="content">
+            <span [ngStyle]="{color : color }">{{roundPropability(progress)}} % </span>
+            <app-progress-bar [color]="color" [progress]="progress"></app-progress-bar>
+            <p>possibilité : {{getPossibility()}}</p>
+        </div>
+    </div>
+</div>

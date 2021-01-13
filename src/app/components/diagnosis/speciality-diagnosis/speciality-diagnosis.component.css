@@ -1,0 +1,118 @@
+.main-container {
+    width: 980px;
+    padding: 16px;
+}
+
+.left-side {
+    max-width: 300px;
+    min-width: 300px;
+    position: relative;
+    margin-right: 16px;
+}
+
+.right-side {
+    width: 100%;
+}
+
+.speciality {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: 1px solid #eeeeee;
+    margin-right: 8px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.speciality.selected {
+    color: rgb(38, 94, 215);
+    border-color: rgb(38, 94, 215);
+}
+
+.controller {
+    display: block;
+    width: 100%;
+    background: white;
+    margin-top: 16px;
+    padding: 8px 0px;
+}
+
+.controller button {
+    float: right;
+    margin-right: 16px;
+    background: rgb(38, 94, 215);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    width: 140px;
+    border-radius: 20px;
+}
+
+.speciality-container {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.speciality-container button {
+    background: white;
+    border: none;
+    color: white;
+    width: 100%;
+    padding: 12px 16px;
+    outline: none;
+    border-radius: 20px;
+    background: rgba(38, 94, 215, 0.8);
+}
+
+.speciality-container ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 8px;
+    position: absolute;
+    width: 100%;
+}
+
+.speciality-container ul li {
+    padding: 6px 16px;
+    font-size: 14px;
+    color: #212121;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.speciality-container ul li:hover {
+    background: #eeeeee;
+}
+
+.collections {
+    list-style-type: none;
+    margin: 0px;
+    padding: 8px;
+    margin-top: 16px;
+    background: white;
+    height: 380px;
+}
+
+.collections li {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #555555;
+    cursor: pointer;
+    border-radius: 6px;
+    transition-duration: 0.3s;
+    margin: 4px;
+}
+
+.collections li:hover {
+    background: #eeeeee;
+}
+
+.collections li.selected {
+    background: rgba(38, 94, 215, 0.1);
+    color: rgba(38, 94, 215, 0.8);
+}

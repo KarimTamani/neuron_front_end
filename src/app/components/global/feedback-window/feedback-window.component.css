@@ -1,0 +1,91 @@
+.main-container {
+    width: 860px;
+    margin: 0px;
+    padding: 16px;
+}
+
+.main-container .row {
+    margin: 0px;
+}
+
+.main-container .row {
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+}
+
+h5 {
+    color: #212121;
+    margin: 0px;
+    font-weight: bold;
+}
+
+.collection-mark {
+    margin-top: 16px;
+}
+
+.collection-mark p {
+    margin: 0px;
+    font-size: 14px;
+    color: #212121;
+    font-weight: bold;
+}
+
+.collection-mark .row {
+    margin: 0px;
+    font-size: 12px;
+    border: 1px solid #eeeeee;
+    padding: 4px 8px;
+    margin-top: 8px;
+}
+
+.collection-mark .row .col {
+    padding: 0px;
+}
+
+.collection-mark .row .col span {
+    position: relative;
+    width: 100%;
+    padding: 4px 0px;
+    display: block;
+    cursor: pointer;
+    color: #555555;
+}
+
+.collection-mark .row .col span i {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px;
+    border: 1px solid #eeeeee;
+    border-radius: 2px;
+    transition-duration: 0.3s;
+    color: transparent;
+}
+
+.collection-mark .row .col span.selected i {
+    color: rgba(38, 94, 215, 0.7);
+}
+
+.collection-mark .row .col:hover {
+    color: rgba(38, 94, 215, 0.7);
+}
+
+textarea {
+    width: 100%;
+    margin-top: 26px;
+    background: #eeeeee;
+    padding: 8px 16px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 160px;
+    min-height: 160px;
+}
+
+button {
+    margin-top: 16px;
+}

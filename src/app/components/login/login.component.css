@@ -1,0 +1,75 @@
+.main-container {
+    height: 100vh;
+    position: relative;
+    background: #F5F6FA
+}
+
+.login-form {
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #eeeeee;
+    overflow: hidden;
+    width: 360px;
+}
+
+.login-form form {
+    padding: 16px;
+}
+
+.login-header img {
+    width: 64px;
+    height: 64px;
+    background: #265ED7;
+    border-top-right-radius: 26px;
+    border-bottom-right-radius: 26px;
+}
+
+.login-header h5 {
+    display: inline-block;
+    font-weight: bold;
+    height: 100%;
+    padding: 6px 12px;
+}
+
+.form-group label {
+    display: block;
+    padding: 2px 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    background: #eeeeee;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 1px solid transparent;
+}
+
+.login-form button {
+    background: #265ED7;
+    border: none;
+    color: white;
+    width: 100%;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-top: 16px;
+}
+
+.form-group input.is-invalid {
+    border: 1px solid red;
+}
+
+.invalid-feedback {
+    position: absolute;
+    padding: 0px 8px;
+}
+
+.form-group {
+    margin-bottom: 26px;
+}

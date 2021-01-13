@@ -1,0 +1,7 @@
+<div class="image-viewer-container">
+    <div class="viewer" (click)="file.click()">
+        <i class="fa fa-camera"></i>
+        <input type="file" (change)="render(image)" #file>
+        <img #image>
+    </div>
+</div>
