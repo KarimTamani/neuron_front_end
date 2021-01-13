@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { NotValidAccountComponent } from './components/login/not-valid-account/not-valid-account.component';
 import { ProfilComponent } from './components/dashboard/content/profil/profil.component';
+import { WaitingRoomComponent } from './components/dashboard/content/waiting-room/waiting-room.component';
 
 const routes: Routes = [
   {
@@ -17,10 +18,13 @@ const routes: Routes = [
         path: "general", component: GeneralComponent
       } , { 
         path : "profil" , component : ProfilComponent
+      } , {
+        path : "waiting-room" , component : WaitingRoomComponent 
       }
     ]
 
   },
+
   {
     path: "login", component: LoginComponent
   },

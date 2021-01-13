@@ -28,7 +28,8 @@ export class SideBarComponent implements OnInit {
   private updateSideBarRouters(url: string) {
     if (url.includes("general"))
       this.activatedRouter = 1;
-
+    if (url.includes("waiting-room"))
+      this.activatedRouter = 2 ; 
     if (url.includes("profil"))
       this.activatedRouter = 6;
   }

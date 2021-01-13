@@ -6,7 +6,7 @@ export class Assistant {
     public gender : boolean ; 
     public email : string ; 
     public password : string ; 
-    public passwordConfirm : string ; 
+    public confirmPassword : string ; 
 
     public constructor() {
         this.gender = true ; 

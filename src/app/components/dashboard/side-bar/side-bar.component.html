@@ -9,6 +9,11 @@
                     <i class="fas fa-clinic-medical"></i>
                 </a>
             </li>
+            <li [class.active]="activatedRouter == 2">
+                <a routerLink="/dashboard/waiting-room">
+                    <i class="fa fa-restroom"></i>
+                </a>
+            </li>
             <li>
                 <a [queryParams]="{'pop-up-window' : true , 'window-page' : 'diagnosis' , 'title' : 'Diagnostic symptomatique'}" [routerLink]="">
                     <i class="fa fa-stethoscope"></i>
