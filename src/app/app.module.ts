@@ -58,6 +58,7 @@ import { MedicalActSubmitterComponent } from './components/dashboard/content/pro
 import { WaitingRoomComponent } from './components/dashboard/content/waiting-room/waiting-room.component';
 import { CalendarComponent } from './components/dashboard/content/waiting-room/calendar/calendar.component';
 import { AppointmentsManagerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-manager.component';
+import { AppointmentsControllerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-controller/appointments-controller.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { AppointmentsManagerComponent } from './components/dashboard/content/wai
     WaitingRoomComponent,
     CalendarComponent,
     AppointmentsManagerComponent,
+    AppointmentsControllerComponent,
   ],
   imports: [
     BrowserModule,
