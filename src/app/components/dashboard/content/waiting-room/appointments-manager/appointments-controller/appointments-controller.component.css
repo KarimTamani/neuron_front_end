@@ -1,0 +1,20 @@
+.main-container {
+    padding: 12px;
+}
+
+button {
+    width: 140px;
+    border-radius: 20px;
+}
+
+button .fa-plus {
+    margin-right: 8px;
+}
+
+button .fa-arrow-right {
+    margin-left: 8px;
+}
+
+.right {
+    float: right;
+}
