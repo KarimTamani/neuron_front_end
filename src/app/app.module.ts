@@ -57,6 +57,7 @@ import { YesNoMessageComponent } from './components/global/yes-no-message/yes-no
 import { MedicalActSubmitterComponent } from './components/dashboard/content/profil/medical-act-manager/medical-act-submitter/medical-act-submitter.component';
 import { WaitingRoomComponent } from './components/dashboard/content/waiting-room/waiting-room.component';
 import { CalendarComponent } from './components/dashboard/content/waiting-room/calendar/calendar.component';
+import { AppointmentsManagerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-manager.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { CalendarComponent } from './components/dashboard/content/waiting-room/c
     MedicalActSubmitterComponent,
     WaitingRoomComponent,
     CalendarComponent,
+    AppointmentsManagerComponent,
   ],
   imports: [
     BrowserModule,
