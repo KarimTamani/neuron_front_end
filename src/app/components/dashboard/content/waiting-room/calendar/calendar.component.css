@@ -1,0 +1,76 @@
+.calendar-container {
+    height: 100%;
+    position: relative;
+    background: white;
+    padding: 16px;
+    height: 520px;
+}
+
+.calendar-header h4 {
+    text-align: center;
+    width: 100%;
+    margin: 0px;
+    padding: 16px;
+}
+
+.calendar-header h4 i {
+    color: #006ED1;
+    cursor: pointer;
+}
+
+.fa-chevron-right {
+    float: right;
+}
+
+.fa-chevron-left {
+    float: left;
+    margin-top: 2px;
+}
+
+.calendar-header h4 span {
+    margin: 0px 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table tr th {
+    text-align: center;
+    color: #888888;
+    font-weight: 500;
+    padding: 6px 4px;
+}
+
+table tr td {
+    text-align: center;
+}
+
+table tr td span {
+    display: block;
+    width: 36px;
+    font-size: 14px;
+    padding: 7px 0px;
+    margin: 0px auto;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition-duration: 0.3s;
+}
+
+table tr td span:not(.current-day):hover {
+    background: #eeeeee;
+    border-color: #cccccc;
+    color: #212121;
+}
+
+.current-day {
+    background: #006ED1;
+    color: white;
+}
+
+.time-manager {
+    position: relative;
+    padding: 0px 16px;
+}

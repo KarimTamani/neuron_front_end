@@ -1,1 +1,25 @@
-<p>calendar works!</p>
+<div class="calendar-container primary-radius" *ngIf="loaded">
+    <div class="calendar-header">
+        <h4>
+            <i class="fa fa-chevron-left" (click)="previousMonth()"></i>
+            <span>{{this.day}}</span>
+            <span>{{this.monthes[this.currentMonth]}}</span>
+            <span>{{this.currentYear}}</span>
+            <i class="fa fa-chevron-right" (click)="nextMonth()"></i>
+        </h4>
+    </div>
+    <div class="calendar-body">
+        <table>
+            <tr>
+                <th *ngFor="let day of getMonthDays(currentDate)">{{day}}</th>
+            </tr>
+            <tr *ngFor="let i of [0,1,2,3,4]">
+                <td *ngFor="let d of getWeek(i)">
+                    <span [class.current-day]="d == this.day" (click)="selectDay(d)">
+                        {{d}}
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
