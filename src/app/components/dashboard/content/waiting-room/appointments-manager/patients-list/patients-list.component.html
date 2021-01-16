@@ -1,1 +1,8 @@
-<p>patients-list works!</p>
+<div class="main-container">
+    <div class="header">
+        <h5 [ngStyle]="{'background-color' : color , 'box-shadow' : '0px 6px 24px ' + color+'44'}">{{header}}</h5>
+    </div>
+    <div class="list">
+        <app-visit *ngFor="let visit of visits"></app-visit>
+    </div>
+</div>

@@ -3,6 +3,13 @@
         <app-appointments-controller></app-appointments-controller>
     </div>
     <div class="body primary-radius">
-
+        <div class="row">
+            <div class="col col-md-6">
+                <app-patients-list [header]="'En attent'" [color]="'#00C853'"></app-patients-list>
+            </div>
+            <div class="col col-md-6">
+                <app-patients-list [header]="'Done !'" [color]='"#FFB508"'></app-patients-list>
+            </div>
+        </div>
     </div>
 </div>
