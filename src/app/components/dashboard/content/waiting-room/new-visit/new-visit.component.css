@@ -1,0 +1,11 @@
+.main-container {
+    width: 100%;
+    padding: 16px;
+}
+
+.visit-container {
+    background: white;
+    width: 360px;
+    height: 560px;
+    padding: 16px;
+}

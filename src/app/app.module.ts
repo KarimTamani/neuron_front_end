@@ -61,6 +61,7 @@ import { AppointmentsManagerComponent } from './components/dashboard/content/wai
 import { AppointmentsControllerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-controller/appointments-controller.component';
 import { PatientsListComponent } from './components/dashboard/content/waiting-room/appointments-manager/patients-list/patients-list.component';
 import { VisitComponent } from './components/dashboard/content/waiting-room/appointments-manager/patients-list/visit/visit.component';
+import { NewVisitComponent } from './components/dashboard/content/waiting-room/new-visit/new-visit.component';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { VisitComponent } from './components/dashboard/content/waiting-room/appo
     AppointmentsControllerComponent,
     PatientsListComponent,
     VisitComponent,
+    NewVisitComponent,
   ],
   imports: [
     BrowserModule,

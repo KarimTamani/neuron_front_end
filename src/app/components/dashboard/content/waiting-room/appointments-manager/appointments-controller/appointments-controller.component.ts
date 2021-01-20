@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointments-controller',
@@ -7,7 +8,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class AppointmentsControllerComponent implements OnInit {
   @Output() nextEvent : EventEmitter<null> ; 
-  constructor() {
+  constructor(private router : Router) {
     this.nextEvent = new EventEmitter<null>() ; 
   }
   ngOnInit(): void {
@@ -17,4 +18,13 @@ export class AppointmentsControllerComponent implements OnInit {
     this.nextEvent.emit() ; 
   }
 
+  newVisit() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window" : true , 
+        "title" : "Nouvelle visit" , 
+        'window-page' : "new-visit"  
+      }
+    })
+  }
 }
