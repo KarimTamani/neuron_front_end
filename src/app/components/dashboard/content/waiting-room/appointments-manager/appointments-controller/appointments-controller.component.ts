@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-appointments-controller',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./appointments-controller.component.css']
 })
 export class AppointmentsControllerComponent implements OnInit {
-
-  constructor() { }
-
+  @Output() nextEvent : EventEmitter<null> ; 
+  constructor() {
+    this.nextEvent = new EventEmitter<null>() ; 
+  }
   ngOnInit(): void {
+    
+  }
+  next() { 
+    this.nextEvent.emit() ; 
   }
 
 }

@@ -1,8 +1,16 @@
 <div class="main-container">
     <div class="header">
-        <h5 [ngStyle]="{'background-color' : color , 'box-shadow' : '0px 6px 24px ' + color+'44'}">{{header}}</h5>
+        <h5 [ngStyle]="{'background-color' : color }">{{header}}</h5>
     </div>
-    <div class="list">
-        <app-visit *ngFor="let visit of visits"></app-visit>
+    <div class="list" *ngIf="!done">
+        <div class="visit" *ngFor="let visit of visits; let i = index">
+            <app-visit [visit]="visit" [nextSubject]="visitsSubjects[i].subject" [done]="done"></app-visit>
+        </div>
+    </div>
+
+    <div class="list" *ngIf="done">
+        <div class="visit" *ngFor="let visit of visits">
+            <app-visit [visit]="visit" [done]="done"></app-visit>
+        </div>
     </div>
 </div>

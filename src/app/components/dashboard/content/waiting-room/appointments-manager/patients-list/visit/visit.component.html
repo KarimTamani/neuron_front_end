@@ -1,1 +1,36 @@
-<p>visit works!</p>
+<div class="visit-container stretch-container" [class.next]="next" *ngIf="!done">
+
+    <div class="image-side">
+        <img src="{{(visit.medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
+    </div>
+    <div class="info-side">
+        <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
+        <p>
+            <i class="fa fa-clock"></i> temp d'arrivé : <span>{{visit.arrivalTime}}</span>
+        </p>
+        <p>
+            <i class="fa fa-sort-amount-up"></i>l'order :
+            <span>
+                {{visit.order}}
+            </span>
+        </p>
+    </div>
+</div>
+<div class="visit-done-container stretch-container" [class.done]="doneAnimate" *ngIf="done">
+    <div class="image-side">
+        <img src="{{(visit.medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
+    </div>
+    <div class="info-side">
+        <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
+        <p>
+            <i class="fa fa-clock"></i> temp d'arrivé : <span>{{visit.arrivalTime}}</span>
+        </p>
+        <p>
+            <i class="fa fa-sort-amount-up"></i>l'order :
+            <span>
+                {{visit.order}}
+            </span>
+        </p>
+    </div>
+</div>
+<div id="extra-margin" *ngIf="next"></div>

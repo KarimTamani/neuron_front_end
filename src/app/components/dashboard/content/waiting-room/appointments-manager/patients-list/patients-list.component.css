@@ -1,11 +1,16 @@
 .header h5 {
-    padding: 4px 16px;
+    padding: 6px 16px;
     color: white;
-    border-radius: 4px;
+    border-radius: 20px;
     font-weight: bold;
     margin: 0px;
 }
 
 .list {
     height: 520px;
+    margin-top: 16px;
+    padding: 0px;
+    border-radius: 8px;
 }
+
+.visit {}

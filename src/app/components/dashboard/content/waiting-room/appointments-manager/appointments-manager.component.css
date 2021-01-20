@@ -6,4 +6,5 @@
 .body {
     background: white;
     padding: 16px;
+    position: relative;
 }
