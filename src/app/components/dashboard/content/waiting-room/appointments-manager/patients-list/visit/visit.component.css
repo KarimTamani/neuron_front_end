@@ -83,7 +83,7 @@ p i {
     100% {
         left: 100%;
         transform: translateX(-32px);
-        top: 72px;
+        top: -16px;
         box-shadow: 2px 4px 26px rgba(0, 0, 0, 0.07), -2px -2px 26px rgba(0, 0, 0, 0.07);
     }
 }
@@ -106,7 +106,7 @@ p i {
     animation: nextAnimation 1s;
     animation-timing-function: ease;
     position: absolute;
-    top: 72px;
+    top: -16px;
     width: 64px;
     border-radius: 50%;
     z-index: 1;
@@ -118,7 +118,7 @@ p i {
 
 .visit-done-container {
     position: absolute;
-    top: 86px;
+    top: -16px;
     width: 64px;
     border-radius: 50%;
     z-index: 1;
@@ -155,7 +155,7 @@ p i {
     0% {
         left: 0%;
         transform: translateX(-32px);
-        top: 60px;
+        top: -16px;
         width: 64px;
         box-shadow: none;
     }

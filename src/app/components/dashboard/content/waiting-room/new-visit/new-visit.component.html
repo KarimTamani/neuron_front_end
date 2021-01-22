@@ -2,7 +2,59 @@
     <div class="visit-container primary-radius">
         <div class="row">
             <div class="col col-md-12">
-                <input type="text" class="primary-input" placeholder="Recherché un dossie medical">
+                <app-search-input [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
+            </div>
+            <div class="col col-md-12">
+                <div class="new-medicalfile-message stretch-container" *ngIf="visit.medicalFile == null">
+                    <p>
+                        Si le dossie medical n'existe pas
+                    </p>
+                    <button class="secondary-button">
+                        Creé le <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col col-md-12">
+
+                <h5>Les Actes medicaux</h5>
+                <div class="medical-acts-container">
+                    <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
+                        <span>
+                            {{medicalAct.name}} 
+
+                        </span>
+                        <span>
+                            {{medicalAct.price}} DA
+                        </span>
+                        <i class="fa fa-check">
+                        
+                        </i>
+                    </div>
+                </div>
+
+                <p>
+                    montant total : <span>{{totalPrice }}</span>
+                </p>
+            </div>
+            <div class="col col-md-12">
+                <h5>
+                    Motif de consultation ou symptoms
+                </h5>
+                <div class="symptoms-input-container stretch-container">
+                    <div class="search-input">
+                        <app-search-input (resultSelected)="symptomSelected($event)" [submittedItem]="submittedSymptom" [placeholder]="'Recherché un symptom'" [searchFunction]="symptomsSearchFunction"></app-search-input>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fa fa-plus primary-button" (click)="symptomSelected(submittedSymptom)"></i>
+                    </div>
+
+                </div>
+                <div class="symptoms-container">
+                    <span *ngFor="let symptom of symptoms" class="symptom">
+                        {{symptom.name}} <i class="fa fa-times" (click)="removeSymptom(symptom)"></i>
+                    </span>
+                </div>
+
             </div>
         </div>
     </div>

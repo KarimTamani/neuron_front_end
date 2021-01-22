@@ -1,0 +1,32 @@
+.search-container {
+    position: relative;
+}
+
+.search-result {
+    position: absolute;
+    margin-top: 16px;
+    background: white;
+    box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.05), -2px -2px 16px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    border-radius: 8px;
+    max-height: 220px;
+    overflow: auto;
+}
+
+.search-result ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.search-result ul li {
+    padding: 4px 8px;
+    color: #555555;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-result ul li:hover {
+    color: #212122;
+    background: #eeeeee;
+}

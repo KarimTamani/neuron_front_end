@@ -1,1 +1,10 @@
-<p>search-input works!</p>
+<div class="search-container">
+    <input (blur)="blur($event)" #input type="text" class="primary-input" [(ngModel)]="submittedItem.name" placeholder="{{placeholder}}" (keyup)="search($event)">
+    <div class="search-result" *ngIf="results.length > 0">
+        <ul>
+            <li *ngFor="let result of results" (click)="select(result)">
+                {{result.name}}
+            </li>
+        </ul>
+    </div>
+</div>

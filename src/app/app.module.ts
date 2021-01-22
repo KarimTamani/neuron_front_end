@@ -63,6 +63,7 @@ import { PatientsListComponent } from './components/dashboard/content/waiting-ro
 import { VisitComponent } from './components/dashboard/content/waiting-room/appointments-manager/patients-list/visit/visit.component';
 import { NewVisitComponent } from './components/dashboard/content/waiting-room/new-visit/new-visit.component';
 import { SearchInputComponent } from './components/global/search-input/search-input.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { SearchInputComponent } from './components/global/search-input/search-in
     ApolloModule,
     NgxImageZoomModule , 
     HttpLinkModule , 
-    ReactiveFormsModule, BrowserAnimationsModule   
+    ReactiveFormsModule, BrowserAnimationsModule  , 
+    AutocompleteLibModule
   ],
   providers: [
     {

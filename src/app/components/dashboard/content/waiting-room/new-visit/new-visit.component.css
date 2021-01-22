@@ -1,11 +1,123 @@
 .main-container {
     width: 100%;
     padding: 16px;
+    height: 800px;
 }
 
 .visit-container {
     background: white;
-    width: 360px;
-    height: 560px;
+    width: 460px;
     padding: 16px;
+}
+
+.row .col {
+    margin-bottom: 16px;
+}
+
+.new-medicalfile-message {
+    background: rgba(254, 101, 85, 0.2);
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.new-medicalfile-message p {
+    margin: 0px;
+    width: 100%;
+    color: rgb(254, 101, 85);
+    font-size: 12px;
+    display: grid;
+    align-content: center;
+}
+
+.new-medicalfile-message button {
+    max-width: 100px;
+    min-width: 100px;
+    border-radius: 20px;
+}
+
+.medical-act {
+    margin-bottom: 8px;
+    transition-duration: 0.3s;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+h5 {
+    color: #212112;
+    font-weight: bold;
+}
+
+.medical-act span {
+    width: 100%;
+    cursor: pointer;
+    color: #555555;
+}
+
+.medical-act span:nth-child(2) {
+    font-weight: bold;
+}
+
+.medical-act i {
+    border: 1px solid #eeeeee;
+    padding: 4px;
+    font-size: 12px;
+    border-radius: 2px;
+    color: transparent;
+}
+
+.medical-act:hover {
+    background: #eeeeee;
+}
+
+.medical-act:hover i {
+    border-color: rgb(38, 94, 215);
+}
+
+.medical-act.selected i {
+    border-color: rgb(38, 94, 215);
+    color: rgb(38, 94, 215);
+}
+
+.search-input {
+    width: 100%;
+    margin-right: 16px;
+}
+
+.icon-container {
+    display: grid;
+    align-items: center;
+}
+
+.icon-container i {
+    border-radius: 50%;
+    padding: 10px 11px;
+    cursor: pointer;
+}
+
+.symptoms-input-container {
+    margin-top: 16px;
+}
+
+.symptom {
+    background: #eeeeee;
+    padding: 8px 16px;
+    display: inline-block;
+    border-radius: 20px;
+    color: #555555;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.symptom i {
+    color: #aaaaaa;
+    background: #dddddd;
+    border-radius: 50%;
+    width: 26px;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    font-size: 13px;
+    line-height: 12px;
+    text-align: center;
+    margin-left: 8px;
+    cursor: pointer;
 }
