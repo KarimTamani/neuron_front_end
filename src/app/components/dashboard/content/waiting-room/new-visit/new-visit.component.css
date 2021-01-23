@@ -1,12 +1,11 @@
 .main-container {
     width: 100%;
     padding: 16px;
-    height: 800px;
 }
 
 .visit-container {
     background: white;
-    width: 460px;
+    width: 420px;
     padding: 16px;
 }
 
@@ -95,7 +94,7 @@ h5 {
 }
 
 .symptoms-input-container {
-    margin-top: 16px;
+    margin-top: 16px
 }
 
 .symptom {
@@ -120,4 +119,39 @@ h5 {
     text-align: center;
     margin-left: 8px;
     cursor: pointer;
+}
+
+.symptoms-container {
+    height: 260px;
+    padding: 8px 0px;
+}
+
+@keyframes expandMedicalFile {
+    from {
+        width: 0px;
+    }
+    to {
+        width: 560px;
+    }
+}
+
+@keyframes showContent {
+    from {
+        display: none;
+    }
+    to {
+        display: block;
+    }
+}
+
+.medical-file-container {
+    background: white;
+    margin-left: 16px;
+    width: 560px;
+    animation: expandMedicalFile 1s ease;
+}
+
+.content {
+    animation: showContent 1s;
+    animation-delay: 2s;
 }

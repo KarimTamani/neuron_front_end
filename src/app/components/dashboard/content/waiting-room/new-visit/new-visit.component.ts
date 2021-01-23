@@ -21,7 +21,7 @@ export class NewVisitComponent implements OnInit {
   public submittedSymptom: Symptom;
   public submittedMedicalFile: MedicalFile;
   public symptoms: Symptom[] = [];
-
+  public showNewMedicalFile : boolean = false ; 
   constructor(private apollo: Apollo) {
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();

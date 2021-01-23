@@ -45,12 +45,13 @@ export class SearchInputComponent implements OnInit {
       return;
     }
 
+
     if (this.handler)
       clearInterval(this.handler);
     // set a new hander every time the search is applied 
     this.handler = setTimeout(() => {
       // if the search query is empty set the results to empt list 
-      if (this.submittedItem.name.trim().length <= 2) {
+      if (this.submittedItem.name.trim().length == 0) {
         this.results = [];
       } else {
         let observable: Observable<any[]> = this.searchFunction(this.submittedItem.name);

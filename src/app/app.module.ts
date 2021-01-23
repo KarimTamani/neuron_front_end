@@ -64,6 +64,7 @@ import { VisitComponent } from './components/dashboard/content/waiting-room/appo
 import { NewVisitComponent } from './components/dashboard/content/waiting-room/new-visit/new-visit.component';
 import { SearchInputComponent } from './components/global/search-input/search-input.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { NewMedicalFileComponent } from './components/dashboard/content/waiting-room/new-medical-file/new-medical-file.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     VisitComponent,
     NewVisitComponent,
     SearchInputComponent,
+    NewMedicalFileComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
-import { Address } from "cluster";
+
 import { Antecedent } from "./Antecedent";
 import { Profession } from "./Profession";
+import { Address } from './Address';
 export class MedicalFile {
 
     public id: number;
@@ -15,4 +16,10 @@ export class MedicalFile {
     public updatedAt: String;
     public antecedents: Antecedent[];
     public profession: Profession;
+
+
+    public constructor () {
+        this.address = new Address() ; 
+        this.profession = new Profession() ; 
+    }
 }

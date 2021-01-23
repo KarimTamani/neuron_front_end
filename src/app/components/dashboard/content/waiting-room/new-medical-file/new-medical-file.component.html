@@ -1,0 +1,122 @@
+<div class="main-container">
+    <form name="form" [formGroup]="form">
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="text" placeholder="Nom" [(ngModel)]="medicalFile.name" class="primary-input" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                        <div *ngIf="form.get('name').errors.required">le nom est requis</div>
+                        <div *ngIf="form.get('name').errors.minlength">au moins 4 caractères</div>
+                        <div *ngIf="form.get('name').errors.maxlength">moins de 20 caractères</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="text" placeholder="Prénom" class="primary-input" [(ngModel)]="medicalFile.lastname" formControlName="lastname" [ngClass]="{'is-invalid' : form.get('lastname').touched && form.get('lastname').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('lastname').touched && form.get('lastname').invalid">
+                        <div *ngIf="form.get('lastname').errors.required">le prénom est requis</div>
+                        <div *ngIf="form.get('lastname').errors.minlength">au moins 4 caractères</div>
+                        <div *ngIf="form.get('lastname').errors.maxlength">moins de 20 caractères</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="form-group" (click)="medicalFile.gender = true">
+                    <div class="gender">
+                        <label>Homme </label>
+                        <i class="fa fa-check" [class.active]="medicalFile.gender === true"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="form-group" (click)="medicalFile.gender = false">
+                    <div class="gender">
+                        <label>Femme </label>
+                        <i class="fa fa-check" [class.active]="medicalFile.gender === false"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input class="primary-input" [(ngModel)]="medicalFile.birthday" type="date" placeholder="Date de naissance" formControlName="birthday" [ngClass]="{'is-invalid' : form.get('birthday').touched && form.get('birthday').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('birthday').touched && form.get('birthday').invalid">
+                        <div *ngIf="form.get('birthday').errors.required">date de n'assance invalide</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+
+            </div>
+            <div style="clear: both;"></div>
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="primary-input" formControlName="email" [(ngModel)]="medicalFile.email" [ngClass]="{'is-invalid' : form.get('email').touched && form.get('email').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('email').touched && form.get('email').invalid">
+                        <div *ngIf="form.get('email').errors.email">email invalide</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <input type="text" placeholder="Numéro de telephone" class="primary-input" formControlName="phone" [(ngModel)]="medicalFile.phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('phone').touched && form.get('phone').invalid">
+                        <div *ngIf="form.get('phone').errors.required">Numéro de téléphone est requis</div>
+                        <div *ngIf="form.get('phone').errors.pattern">Numéro de téléphone invalide</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <label>
+                        Address
+                    </label>
+                    <input type="text" placeholder="Address" [(ngModel)]="medicalFile.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
+                    <div class="invalid-feedback" *ngIf="form.get('address').touched && form.get('address').invalid">
+                        <div *ngIf="form.get('address').errors.required">l'address est requis</div>
+                        <div *ngIf="form.get('address').errors.minlength">au moins 4 caractères</div>
+                        <div *ngIf="form.get('address').errors.maxlength">moins de 64 caractères</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3">
+                <div class="form-group">
+                    <label>wilaya</label>
+                    <select (change)="wilayaSelected()" [(ngModel)]="medicalFile.address.commune.wilaya.id" formControlName="wilayaId" [ngClass]="{'is-invalid' : form.get('wilayaId').touched && form.get('wilayaId').invalid}">
+                        <option  hidden [value]="undefined">Selectioner</option>
+                        <option *ngFor="let wilaya of wilayas" [value]="wilaya.id">{{wilaya.name}}</option>
+                    </select>
+                    <div class="invalid-feedback" *ngIf="form.get('wilayaId').touched && form.get('wilayaId').invalid">
+                        <div *ngIf="form.get('wilayaId').errors.required">wilaya est requis</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3">
+                <div class="form-group">
+                    <div *ngIf="selectedWilaya">
+                        <label>Commune</label>
+                        <select formControlName="communeId" [(ngModel)]="medicalFile.address.commune.id" [ngClass]="{'is-invalid' : form.get('communeId').touched && form.get('communeId').invalid}">
+                        <option  hidden [value]="undefined">Selectioner</option>
+                        <option *ngFor="let commune of selectedWilaya.communes" [value]="commune.id">{{commune.name}}</option>
+                    </select>
+                        <div class="invalid-feedback" *ngIf="form.get('communeId').touched && form.get('communeId').invalid">
+                            <div *ngIf="form.get('communeId').errors.required">wilaya est requis</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <label>la profession : </label>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="form-group">
+                    <app-search-input [submittedItem]="medicalFile.profession" [placeholder]="'Recherché une profession'" [searchFunction]="professionSearchFunction"></app-search-input>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
