@@ -65,6 +65,7 @@ import { NewVisitComponent } from './components/dashboard/content/waiting-room/n
 import { SearchInputComponent } from './components/global/search-input/search-input.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NewMedicalFileComponent } from './components/dashboard/content/waiting-room/new-medical-file/new-medical-file.component';
+import { AntecedentsSubmitterComponent } from './components/dashboard/content/waiting-room/new-medical-file/antecedents-submitter/antecedents-submitter.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { NewMedicalFileComponent } from './components/dashboard/content/waiting-
     NewVisitComponent,
     SearchInputComponent,
     NewMedicalFileComponent,
+    AntecedentsSubmitterComponent,
   ],
   imports: [
     BrowserModule,
