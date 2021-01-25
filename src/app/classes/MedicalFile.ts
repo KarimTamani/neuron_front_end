@@ -11,10 +11,10 @@ export class MedicalFile {
     public phone: String;
     public email: String;
     public birthday: String;
-    public gender: Boolean;
+    public gender: Boolean = true;
     public createdAt: String;
     public updatedAt: String;
-    public antecedents: Antecedent[];
+    public antecedents: Antecedent[] = [];
     public profession: Profession;
 
 

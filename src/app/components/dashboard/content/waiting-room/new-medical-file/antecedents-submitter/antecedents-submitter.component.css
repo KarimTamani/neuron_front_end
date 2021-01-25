@@ -31,3 +31,52 @@ select {
 select.is-invalid {
     border-color: rgb(254, 101, 85);
 }
+
+.list {
+    height: 260px;
+    max-height: 260px;
+    overflow: auto;
+    border-top: 1px solid #eeeeee;
+    margin-top: 16px;
+}
+
+.antecedent .icon-container {
+    width: 36px;
+    margin-top: 0px;
+    cursor: pointer;
+}
+
+.antecedent {
+    margin-top: 8px;
+    color: #555555;
+}
+
+.antecedent i {
+    color: rgb(254, 101, 85);
+    background: transparent;
+    transition-duration: 0.3s;
+    font-size: 12px;
+    padding: 8px 9px;
+}
+
+.antecedent i:hover {
+    background-color: rgb(254, 101, 85);
+    color: white;
+}
+
+.type {
+    max-width: 80px;
+    min-width: 80px;
+    text-align: center;
+    margin-right: 56px;
+    color: #212121;
+    font-weight: bold;
+    display: grid;
+    align-items: center;
+}
+
+.name {
+    width: 100%;
+    display: grid;
+    align-items: center;
+}

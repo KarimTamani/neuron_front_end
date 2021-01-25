@@ -1,12 +1,11 @@
 <div class="main-container">
     <div class="row">
         <div class="col col-md-6">
-            <app-search-input [searchFunction]="searchFunction" [submittedItem]="submittedAntecedent" [placeholder]="'Recherché un antecdent'"></app-search-input>
+            <app-search-input [searchFunction]="searchFunction" (resultSelected)="addAntecedent()" [submittedItem]="submittedAntecedent" [placeholder]="'Recherché un antecdent'"></app-search-input>
         </div>
         <div class="col col-md-3">
             <select [(ngModel)]="submittedAntecedent.type">
                 <option [value]="undefined" hidden>Type</option>
-                <option [value]="null">Inconnue</option>
                 <option *ngFor="let type of types" [value]="type" >{{type}}</option>
             </select>
         </div>
@@ -17,6 +16,16 @@
         </div>
     </div>
     <div class="list">
-
+        <div class="antecedent stretch-container" *ngFor="let antecedent of antecedents">
+            <div class="name">
+                {{antecedent.name}}
+            </div>
+            <div class="type">
+                {{(antecedent.type) ? (antecedent.type) : ("Inconnue")}}
+            </div>
+            <div class="icon-container">
+                <i class="fa fa-trash" (click)="deleteAntecedent(antecedent)"></i>
+            </div>
+        </div>
     </div>
 </div>

@@ -118,8 +118,19 @@
                 </div>
             </div>
             <div class="col col-md-12">
-                <app-antecedents-submitter></app-antecedents-submitter>
+                <app-antecedents-submitter [antecedents]="medicalFile.antecedents"></app-antecedents-submitter>
+            </div>
+            <div class="col col-md-12">
+                <div class="controller">
+                    <button class="clear">Effacer</button>
+                    <button class="primary-button" (click)="save()"> Sauvgarder</button>
+                </div>
+
             </div>
         </div>
     </form>
 </div>
+
+<!--
+    [disabled]="!form.valid"
+-->

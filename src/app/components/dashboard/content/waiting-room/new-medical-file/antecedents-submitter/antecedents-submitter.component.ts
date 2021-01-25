@@ -10,9 +10,10 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./antecedents-submitter.component.css']
 })
 export class AntecedentsSubmitterComponent implements OnInit {
-  @Input() antecedents: Antecedent[] = [];
+  @Input() antecedents: Antecedent[] ;
   public submittedAntecedent: Antecedent = new Antecedent();
   public types: String[] = [];
+
   constructor(private apollo: Apollo) { }
 
   ngOnInit(): void {
@@ -27,10 +28,10 @@ export class AntecedentsSubmitterComponent implements OnInit {
     })
   }
 
-  public searchFunction : any = (query) => { 
+  public searchFunction: any = (query) => {
     // search function of the antecedents
     return this.apollo.query({
-      query : gql`
+      query: gql`
         {
           searchAntecedents(antecedent : {
             name : "${query}" , 
@@ -39,11 +40,37 @@ export class AntecedentsSubmitterComponent implements OnInit {
             id name type 
           }
         }`
-    }).pipe(map(value => (<any>value.data).searchAntecedents)) ; 
+    }).pipe(map(value => (<any>value.data).searchAntecedents));
   }
 
   public addAntecedent() {
-    console.log("hello world") ; 
-    console.log(this.submittedAntecedent) ; 
+    this.apollo.mutate({
+      mutation: gql`
+        mutation ADD_ANTECDENT($name : String! , $type : String) {
+          addAntecedent(antecedent : {
+            name : $name  , 
+            type : $type 
+          }){ 
+            id name type
+          }
+        } 
+      `,
+      variables: {
+        name: this.submittedAntecedent.name,
+        type: this.submittedAntecedent.type
+      }
+    }).pipe(map(value => (<any>value.data).addAntecedent)).subscribe((data) => {
+      console.log(data);
+      this.antecedents.push(data);
+      this.submittedAntecedent = new Antecedent();
+
+    })
+
+
+  }
+
+  public deleteAntecedent(antecedent) {
+    const index = this.antecedents.findIndex(value => value.id == antecedent.id);
+    this.antecedents.splice(index, 1);
   }
 }
