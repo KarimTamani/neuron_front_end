@@ -1,0 +1,30 @@
+.app-manager {
+    position: relative;
+}
+
+.no-waiting-room {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.no-waiting-room i {
+    font-size: 82px;
+    color: #F5F6FA;
+}
+
+.no-waiting-room {
+    text-align: center;
+}
+
+.no-waiting-room p {
+    margin: 8px 0px;
+    color: #888888;
+    font-size: 12px;
+}
+
+.no-waiting-room button {
+    padding: 4px 16px;
+    border-radius: 16px;
+}

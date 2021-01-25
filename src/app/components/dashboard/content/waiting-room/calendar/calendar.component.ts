@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-calendar',
@@ -10,24 +11,6 @@ import { map } from 'rxjs/operators';
 })
 export class CalendarComponent implements OnInit {
 
-  public monthes: string[] = [
-    "Janvier",
-    "Février",
-    "Mars",
-    "Avril",
-    "Mai",
-    "Juin",
-    "Juillet",
-    "Août",
-    "Septembre",
-    "October",
-    "Novembre",
-    "Décembre"
-  ];
-
-  public days: string[] = [
-    "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"
-  ];
 
   public currentDate: Date;
 
@@ -42,7 +25,7 @@ export class CalendarComponent implements OnInit {
   public loaded: boolean = false;
   //public schedule: Schedule;
   ngOnInit(): void { }
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo , private dataService : DataService) {
     /*this.dateService.getCurrentDate().subscribe((date) => {
     })*/
     this.apollo.query({
@@ -103,11 +86,11 @@ export class CalendarComponent implements OnInit {
   public getMonthDays(date: Date) {
     let startDay = this.getStartOfMonth(date).getDay();
     let days: string[] = [];
-    for (let index = startDay; index < this.days.length; index++) {
-      days.push(this.days[index]);
+    for (let index = startDay; index < this.dataService.days.length; index++) {
+      days.push(this.dataService.days[index]);
     }
     for (let index = 0; index < startDay; index++) {
-      days.push(this.days[index]);
+      days.push(this.dataService.days[index]);
     }
     return days;
   }

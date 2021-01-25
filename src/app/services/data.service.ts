@@ -5,6 +5,26 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
+
+  public monthes: string[] = [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "October",
+    "Novembre",
+    "Décembre"
+  ];
+
+  public days: string[] = [
+    "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"
+  ];
+
   constructor() { }
 
   public calculateImc(weight: number, height: number) {
@@ -24,6 +44,8 @@ export class DataService {
     var age = deltaTime / (1000 * 365 * 24 * 60 * 60)
     return Math.round(age);
   }
+
+  
   public getImcInterpretation(imc: number) {
     // get the interpretation of the imc 
     if (imc < 18.5)
@@ -40,5 +62,6 @@ export class DataService {
       return "Obésité morbide ou massive"
 
   }
+
 
 }

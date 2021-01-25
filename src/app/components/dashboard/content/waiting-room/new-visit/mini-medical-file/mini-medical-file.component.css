@@ -1,0 +1,46 @@
+.main-container {
+    border-radius: 16px;
+    box-shadow: 2px 2px 26px rgba(0, 0, 0, 0.05), -2px -2px 26px rgba(0, 0, 0, 0.05);
+}
+
+.image-side {
+    max-width: 120px;
+    min-width: 120px;
+    height: 120px;
+    position: relative;
+}
+
+.image-side img {
+    width: 86px;
+    height: 86px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+.info-side {
+    padding: 16px;
+    display: block;
+    min-width: 100%;
+}
+
+.info-side h5 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555555;
+    margin: 0px;
+    margin-bottom: 6px;
+}
+
+p {
+    color: #555555;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+p i {
+    color: rgb(38, 94, 215);
+    margin-right: 4px;
+}

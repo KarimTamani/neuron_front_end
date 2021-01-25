@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MedicalFile } from 'src/app/classes/MedicalFile';
 
 @Component({
   selector: 'app-mini-medical-file',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mini-medical-file.component.css']
 })
 export class MiniMedicalFileComponent implements OnInit {
-
-  constructor() { }
+  @Input() medicalFile : MedicalFile ; 
+  constructor() {}
 
   ngOnInit(): void {
+    
   }
 
 }

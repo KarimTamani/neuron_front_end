@@ -14,8 +14,8 @@
                     </button>
                 </div>
 
-                <div class="medical-file">
-                    <app-mini-medical-file></app-mini-medical-file>
+                <div class="medical-file" *ngIf="visit.medicalFile">
+                    <app-mini-medical-file [medicalFile]="visit.medicalFile"></app-mini-medical-file>
                 </div>
 
             </div>

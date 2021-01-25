@@ -116,5 +116,6 @@ export class NewVisitComponent implements OnInit {
   }
   selectMedicalFile($event) {
     this.visit.medicalFile = $event ; 
+
   }
 }

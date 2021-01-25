@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit {
       // get current data time and doctor last feed back time 
       let currentDate = new Date(data);
       let doctorAuth = JSON.parse(localStorage.getItem("doctorAuth"));
-      console.log(currentDate.toISOString() , doctorAuth.doctor.lastFeedback) ; 
       // substract the last feed back time from th current time and cast it to days 
       let deltaTime = currentDate.getTime() - new Date(doctorAuth.doctor.lastFeedback).getTime();
       deltaTime = deltaTime / 1000 / 3600 / 24;

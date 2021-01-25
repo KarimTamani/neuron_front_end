@@ -1,12 +1,22 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="body row">
-        <div class="col col-md-8">
+        <div class="col col-md-8 app-manager">
             <app-appointments-manager></app-appointments-manager>
+
+            <div class="no-waiting-room">
+                <i class="fa fa-calendar-plus"></i>
+                <p>
+                    Aucun salle d'attent de : {{this.currentDay}} {{dataService.monthes[this.currentMonth]}} {{this.currentYear}}
+                </p>
+                <button class="secondary-button">
+                    Créé le 
+                </button>
+            </div>
         </div>
         <div class="col col-md-4">
             <app-calendar></app-calendar>
-
         </div>
     </div>
+
 </div>

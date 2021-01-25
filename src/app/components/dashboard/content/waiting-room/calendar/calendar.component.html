@@ -3,7 +3,7 @@
         <h4>
             <i class="fa fa-chevron-left" (click)="previousMonth()"></i>
             <span>{{this.day}}</span>
-            <span>{{this.monthes[this.currentMonth]}}</span>
+            <span>{{this.dataService.monthes[this.currentMonth]}}</span>
             <span>{{this.currentYear}}</span>
             <i class="fa fa-chevron-right" (click)="nextMonth()"></i>
         </h4>
