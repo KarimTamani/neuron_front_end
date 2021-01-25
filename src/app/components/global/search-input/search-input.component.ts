@@ -11,15 +11,18 @@ export class SearchInputComponent implements OnInit {
 
   @Input() placeholder: string = "";
   @Input() searchFunction: any;
-  @Output() resultSelected: EventEmitter<any>;
+  @Output() itemSelected: EventEmitter<any>;
+  @Output() searchSubmitted : EventEmitter<any> ; 
   @Input() submittedItem: any;
   @ViewChild("input", {}) input;
+  @Input() type : string = "name"
 
   public results: any[] = [];
   private handler: any = null;
 
   constructor() {
-    this.resultSelected = new EventEmitter<any>();
+    this.itemSelected = new EventEmitter<any>();
+    this.searchSubmitted = new EventEmitter<any>() ; 
   }
   ngOnInit(): void {
   }
@@ -33,6 +36,7 @@ export class SearchInputComponent implements OnInit {
     this.submittedItem.name = item.name;
     this.submittedItem.id = item.id;
     this.input.nativeElement.focus();
+    this.itemSelected.emit (item) ; 
 
   }
   search($event) {
@@ -40,7 +44,7 @@ export class SearchInputComponent implements OnInit {
     // close it 
     if ($event.keyCode == 13) {
 
-      this.resultSelected.emit(this.submittedItem);
+      this.searchSubmitted.emit(this.submittedItem);
       this.submittedItem = {};
       return;
     }

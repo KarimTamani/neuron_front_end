@@ -2,18 +2,24 @@
     <div class="visit-container primary-radius">
         <div class="row">
             <div class="col col-md-12">
-                <app-search-input [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
+                <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
             </div>
             <div class="col col-md-12">
                 <div class="new-medicalfile-message stretch-container" *ngIf="visit.medicalFile == null">
                     <p>
                         Si le dossie medical n'existe pas
                     </p>
-                    <button class="secondary-button">
+                    <button class="secondary-button" (click)="showNewMedicalFile = true">
                         Creé le <i class="fa fa-plus"></i>
                     </button>
                 </div>
+
+                <div class="medical-file">
+                    <app-mini-medical-file></app-mini-medical-file>
+                </div>
+
             </div>
+
             <div class="col col-md-12">
 
                 <h5>Les Actes medicaux</h5>
@@ -42,7 +48,7 @@
                 </h5>
                 <div class="symptoms-input-container stretch-container">
                     <div class="search-input">
-                        <app-search-input (resultSelected)="symptomSelected($event)" [submittedItem]="submittedSymptom" [placeholder]="'Recherché un symptom'" [searchFunction]="symptomsSearchFunction"></app-search-input>
+                        <app-search-input (searchSubmitted)="symptomSelected($event)" [submittedItem]="submittedSymptom" [placeholder]="'Recherché un symptom'" [searchFunction]="symptomsSearchFunction"></app-search-input>
                     </div>
                     <div class="icon-container">
                         <i class="fa fa-plus primary-button" (click)="symptomSelected(submittedSymptom)"></i>
@@ -58,7 +64,7 @@
             </div>
         </div>
     </div>
-    <div class="medical-file-container primary-radius">
+    <div class="medical-file-container primary-radius" *ngIf="showNewMedicalFile">
         <div class="content">
             <app-new-medical-file></app-new-medical-file>
         </div>

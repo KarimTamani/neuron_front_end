@@ -22,6 +22,8 @@ export class NewVisitComponent implements OnInit {
   public submittedMedicalFile: MedicalFile;
   public symptoms: Symptom[] = [];
   public showNewMedicalFile : boolean = false ; 
+  
+  
   constructor(private apollo: Apollo) {
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();
@@ -55,6 +57,7 @@ export class NewVisitComponent implements OnInit {
               phone 
               email 
               birthday 
+              gender
             }
           }`
     }).pipe(map(result => (<any>result.data).searchMedicalFiles));
@@ -93,7 +96,6 @@ export class NewVisitComponent implements OnInit {
   }
 
   symptomSelected($event) {
-
     this.apollo.mutate({
       mutation: gql`
         mutation { 
@@ -111,5 +113,8 @@ export class NewVisitComponent implements OnInit {
   removeSymptom(symptom) {
     const index = this.symptoms.findIndex((value) => value.id == symptom.id);
     this.symptoms.splice(index, 1);
+  }
+  selectMedicalFile($event) {
+    this.visit.medicalFile = $event ; 
   }
 }

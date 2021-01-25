@@ -1,9 +1,15 @@
 <div class="search-container">
     <input (blur)="blur($event)" #input type="text" class="primary-input" [(ngModel)]="submittedItem.name" placeholder="{{placeholder}}" (keyup)="search($event)">
     <div class="search-result" *ngIf="results.length > 0">
-        <ul>
+        <ul *ngIf="type == 'name'">
             <li *ngFor="let result of results" (click)="select(result)">
                 {{result.name}}
+            </li>
+        </ul>
+        <ul *ngIf="type == 'medicalFile'">
+            <li *ngFor="let result of results" (click)="select(result)" class="medicalFile">
+                <p>{{result.name}} {{result.lastname}} <span class="right">{{result.birthday}}</span></p>
+                <p> {{result.email}} <span class="right">{{result.phone}}</span></p>
             </li>
         </ul>
     </div>

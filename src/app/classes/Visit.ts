@@ -20,4 +20,8 @@ export class Visit {
     //public checkUps : [CheckUp]
 
 
+
+    
+
+
 }

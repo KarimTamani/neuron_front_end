@@ -66,6 +66,7 @@ import { SearchInputComponent } from './components/global/search-input/search-in
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NewMedicalFileComponent } from './components/dashboard/content/waiting-room/new-medical-file/new-medical-file.component';
 import { AntecedentsSubmitterComponent } from './components/dashboard/content/waiting-room/new-medical-file/antecedents-submitter/antecedents-submitter.component';
+import { MiniMedicalFileComponent } from './components/dashboard/content/waiting-room/new-visit/mini-medical-file/mini-medical-file.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { AntecedentsSubmitterComponent } from './components/dashboard/content/wa
     SearchInputComponent,
     NewMedicalFileComponent,
     AntecedentsSubmitterComponent,
+    MiniMedicalFileComponent,
   ],
   imports: [
     BrowserModule,
