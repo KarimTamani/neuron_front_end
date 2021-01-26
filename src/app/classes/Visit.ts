@@ -1,6 +1,7 @@
 import { MedicalAct } from "./MedicalAct";
 import { MedicalFile } from "./MedicalFile";
 import { Symptom } from "./Symptom";
+import { WaitingRoom } from "./WaitingRoom" ; 
 export class Visit {
 
 
@@ -11,7 +12,7 @@ export class Visit {
     public payedMoney: number;
     public medicalActs: MedicalAct[];
     public medicalFile: MedicalFile;
-    //    public waitingRoom : WaitingRoom
+    public waitingRoom : WaitingRoom ; 
     public symptoms: Symptom[];
     public status: string;
     public debt: number;

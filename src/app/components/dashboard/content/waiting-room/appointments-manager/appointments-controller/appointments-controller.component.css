@@ -3,8 +3,9 @@
 }
 
 button {
-    width: 140px;
+    width: 160px;
     border-radius: 20px;
+    padding-top: 5px;
 }
 
 button .fa-plus {
@@ -17,4 +18,15 @@ button .fa-arrow-right {
 
 .right {
     float: right;
+}
+
+button[disabled] {
+    background: #eeeeee;
+    color: #212121;
+}
+
+button[disabled]:hover {
+    background: #eeeeee;
+    color: #212121;
+    cursor: not-allowed;
 }

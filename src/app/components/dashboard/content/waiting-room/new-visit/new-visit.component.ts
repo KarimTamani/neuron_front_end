@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Visit } from 'src/app/classes/Visit';
 import { Symptom } from 'src/app/classes/Symptom';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-visit',
@@ -14,6 +15,7 @@ import { MedicalFile } from 'src/app/classes/MedicalFile';
 })
 export class NewVisitComponent implements OnInit {
   @Output() closeEvent: EventEmitter<null>;
+  
   public medicalActs: MedicalAct[] = [];
   public visit: Visit;
   public selectedMedicalActs: MedicalAct[] = [];
@@ -21,10 +23,10 @@ export class NewVisitComponent implements OnInit {
   public submittedSymptom: Symptom;
   public submittedMedicalFile: MedicalFile;
   public symptoms: Symptom[] = [];
-  public showNewMedicalFile : boolean = false ; 
-  
-  
-  constructor(private apollo: Apollo) {
+  public showNewMedicalFile: boolean = false;
+
+
+  constructor(private apollo: Apollo, private route: ActivatedRoute) {
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();
     this.submittedSymptom = new Symptom();
@@ -42,6 +44,13 @@ export class NewVisitComponent implements OnInit {
         } `
     }).pipe(map(value => (<any>value.data).getAllMedicalActs)).subscribe((data) => {
       this.medicalActs = data;
+    })
+
+    this.route.queryParams.subscribe((params) => {
+      if (params["waiting-room"]) {
+        this.visit.waitingRoom = JSON.parse(params["waiting-room"]);
+
+      }
     })
   }
 
@@ -115,7 +124,40 @@ export class NewVisitComponent implements OnInit {
     this.symptoms.splice(index, 1);
   }
   selectMedicalFile($event) {
-    this.visit.medicalFile = $event ; 
-
+    this.visit.medicalFile = $event;
+  }
+  public saveVisit() {
+    console.log(this.selectedMedicalActs) ; 
+    this.apollo.mutate({
+      mutation : gql`
+        mutation ($symptoms : [ID!] , $medicalActs : [ID!]!){
+          addVisit (visit : {
+            waitingRoomId : "${this.visit.waitingRoom.id}" 
+            medicalFileId : "${this.visit.medicalFile.id}"
+            symptoms : $symptoms 
+            medicalActs : $medicalActs
+          }) {
+            id arrivalTime status 
+            medicalFile {
+              id name lastname
+            }
+            symptoms {
+              id name 
+            }
+            medicalActs {
+              id name 
+            }
+            order
+          }
+        }
+      ` , 
+      variables : {
+        symptoms : this.symptoms.map(value => value.id) , 
+        medicalActs : this.selectedMedicalActs.map(value => value.id)
+      }
+    }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
+      console.log(data) ; 
+      this.closeEvent.emit() ; 
+    })
   }
 }

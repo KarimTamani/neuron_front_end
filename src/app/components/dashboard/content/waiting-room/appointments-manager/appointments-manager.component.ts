@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Visit } from 'src/app/classes/Visit';
 import { Subject } from 'rxjs';
+import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 
 @Component({
   selector: 'app-appointments-manager',
@@ -9,15 +10,18 @@ import { Subject } from 'rxjs';
 })
 export class AppointmentsManagerComponent implements OnInit {
   public waitingVisits: Visit[] = [];
-
-
   public visitsDone: Visit[] = []
   public nextSubject: Subject<number>;
   public currentVisit: Visit;
+
+
+  @Input() waitingRoom : WaitingRoom ; 
   constructor() { }
 
   ngOnInit(): void {
     this.nextSubject = new Subject<number>();
+    this.waitingVisits = <any[]>this.waitingRoom.visits.filter(visit => visit.status == "waiting" || visit.status == "quited") ; 
+    console.log(this.waitingVisits) ; 
   }
   next() {
     if (this.currentVisit) { 

@@ -1,5 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 
 @Component({
   selector: 'app-appointments-controller',
@@ -8,10 +9,13 @@ import { Router } from '@angular/router';
 })
 export class AppointmentsControllerComponent implements OnInit {
   @Output() nextEvent : EventEmitter<null> ; 
+  @Input() activate : boolean = false;  
+  @Input() waitingRoom : WaitingRoom ; 
   constructor(private router : Router) {
     this.nextEvent = new EventEmitter<null>() ; 
   }
   ngOnInit(): void {
+    
     
   }
   next() { 
@@ -23,7 +27,8 @@ export class AppointmentsControllerComponent implements OnInit {
       queryParams : { 
         "pop-up-window" : true , 
         "title" : "Nouvelle visit" , 
-        'window-page' : "new-visit"  
+        'window-page' : "new-visit"  ,
+        "waiting-room" : JSON.stringify(this.waitingRoom)  
       }
     })
   }

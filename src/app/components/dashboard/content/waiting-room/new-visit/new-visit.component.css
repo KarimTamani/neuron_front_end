@@ -39,11 +39,14 @@
     transition-duration: 0.3s;
     padding: 6px 12px;
     border-radius: 20px;
+    font-size: 12px;
 }
 
 h5 {
     color: #212112;
     font-weight: bold;
+    margin: 0px;
+    margin-bottom: 12px;
 }
 
 .medical-act span {
@@ -58,8 +61,8 @@ h5 {
 
 .medical-act i {
     border: 1px solid #eeeeee;
-    padding: 4px;
-    font-size: 12px;
+    padding: 3px;
+    font-size: 10px;
     border-radius: 2px;
     color: transparent;
 }
@@ -154,4 +157,40 @@ h5 {
 .content {
     animation: showContent 1s;
     animation-delay: 2s;
+}
+
+p {
+    margin: 0px;
+    color: #555555;
+    font-size: 12px;
+}
+
+p i {
+    color: rgb(38, 94, 215);
+    margin-right: 8px;
+}
+
+.waiting-room-info span:last-child {
+    float: right;
+}
+
+.hightlight {
+    background: rgba(254, 101, 85, 0.3);
+    color: rgb(254, 101, 85);
+    padding: 4px 8px;
+    border-radius: 20px;
+    margin-left: 8px;
+    font-size: 10px;
+}
+
+.medical-acts-container {
+    height: 120px;
+    max-height: 120px;
+    overflow: auto;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 16px;
+}
+
+.controller button {
+    float: right;
 }

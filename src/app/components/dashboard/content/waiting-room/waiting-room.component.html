@@ -2,14 +2,14 @@
     <app-header></app-header>
     <div class="body row">
         <div class="col col-md-8 app-manager">
-            <app-appointments-manager></app-appointments-manager>
+            <app-appointments-manager *ngIf="waitingRoom" [waitingRoom]="waitingRoom"></app-appointments-manager>
 
-            <div class="no-waiting-room">
+            <div class="no-waiting-room" *ngIf="waitingRoom == null">
                 <i class="fa fa-calendar-plus"></i>
                 <p>
                     Aucun salle d'attent de : {{this.currentDay}} {{dataService.monthes[this.currentMonth]}} {{this.currentYear}}
                 </p>
-                <button class="secondary-button">
+                <button class="secondary-button" (click)="createWaitingRoom()">
                     Créé le 
                 </button>
             </div>

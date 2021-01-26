@@ -19,7 +19,14 @@
                 </div>
 
             </div>
+            <div class="col col-md-12">
+                <h5>Salle d'attent</h5>
+                <p class="waiting-room-info">
+                    <span><i class="fa fa-calendar"></i>{{visit.waitingRoom.date}}</span>
+                    <span><i class="fa fa-sort-amount-up"></i>{{visit.waitingRoom.visits.length + 1}} {{(visit.waitingRoom.visits.length == 0) ? ("er") : ("éme")}}</span>
 
+                </p>
+            </div>
             <div class="col col-md-12">
 
                 <h5>Les Actes medicaux</h5>
@@ -39,7 +46,7 @@
                 </div>
 
                 <p>
-                    montant total : <span>{{totalPrice }}</span>
+                    <i class="fa fa-money-bill-wave"></i>Montant total <span class="hightlight">{{totalPrice }} DA</span>
                 </p>
             </div>
             <div class="col col-md-12">
@@ -61,6 +68,12 @@
                     </span>
                 </div>
 
+            </div>
+            <div class="col col-md-12">
+                <div class="controller">
+                    <button class="primary-button" [disabled]="visit.medicalFile == null" (click)="saveVisit()">Ajouter <i class="fa fa-plus"></i></button>
+                    <div style="clear: both;"></div>
+                </div>
             </div>
         </div>
     </div>
