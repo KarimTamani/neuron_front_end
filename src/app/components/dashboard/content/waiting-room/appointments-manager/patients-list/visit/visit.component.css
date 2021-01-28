@@ -5,6 +5,7 @@
         margin-bottom: 16px;
         border: 1px solid #eeeeee;
         padding-bottom: 8px;
+        position: relative;
     }
     
     .image-side,
@@ -254,4 +255,78 @@
     
     .visit-container.end-animation {
         position: static;
+    }
+    
+    .controller {
+        position: absolute;
+        right: 16px;
+        width: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        transition-duration: 0.3s;
+        opacity: 0;
+    }
+    
+    .controller span {
+        display: block;
+        font-size: 10px;
+        background: rgb(38, 94, 215);
+        margin: 16px 0px;
+        color: white;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        transition-duration: 0.3s;
+    }
+    
+    .visit-container:hover .controller {
+        transition-duration: 0.3s;
+        opacity: 1;
+    }
+    
+    .controller span:hover {
+        color: rgb(38, 94, 215);
+        background: white;
+    }
+    
+    .controller span i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .controller span:after {
+        content: "jskds";
+        position: absolute;
+        right: 100%;
+        background: white;
+        color: rgb(38, 94, 215);
+        padding: 4px 6px;
+        border-radius: 20px;
+        width: 100px;
+        text-align: center;
+        box-shadow: 1px 1px 26px rgba(0, 0, 0, 0.1), -1px -1px 16px rgba(0, 0, 0, 0.1);
+        display: none;
+        opacity: 0;
+        transition-duration: 0.3s;
+    }
+    
+    .controller span:hover:after {
+        display: block;
+        opacity: 1;
+    }
+    
+    .controller span.edit:after {
+        content: "Modifier";
+    }
+    
+    .controller span.visit:after {
+        content: "Démaré la visite";
+    }
+    
+    .controller span.igonre:after {
+        content: "Annuler la visite";
     }

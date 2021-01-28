@@ -28,6 +28,19 @@
             <i class="fa fa-phone"></i> {{(visit.medicalFile.phone)? (visit.medicalFile.phone) : ("Inconnue")}}
         </p>
     </div>
+    <div class="controller">
+        <span class="edit">
+            <i class="fa fa-edit"></i>
+        </span>
+        <span class="visit">
+            <i class="fa fa-heartbeat"></i>
+
+        </span>
+        <span class="igonre">
+            <i class="fa fa-times"></i>
+        </span>
+    </div>
+
 </div>
 <div class="visit-container" [class.end-animation]="endAnimation" [class.visit-done-container]="newDone" [class.done]="doneAnimate" *ngIf="done">
     <div class="stretch-container">
