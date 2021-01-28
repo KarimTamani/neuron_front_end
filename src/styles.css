@@ -20,10 +20,6 @@ body {
     border-radius: 16px;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 .primary-button {
     background: rgb(38, 94, 215);
     border: none;

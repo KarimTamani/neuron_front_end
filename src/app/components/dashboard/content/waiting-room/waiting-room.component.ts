@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-waiting-room',
@@ -19,9 +20,7 @@ export class WaitingRoomComponent implements OnInit {
 
   public waitingRoom : WaitingRoom ; 
   
-  constructor(private apollo: Apollo, public dataService: DataService) {
-
-  }
+  constructor(private apollo: Apollo, public dataService: DataService , private interactionService : InteractionService) {}
   ngOnInit(): void {
     // get the current date
     this.apollo.query({
@@ -36,45 +35,54 @@ export class WaitingRoomComponent implements OnInit {
       this.currentMonth = date.getMonth();
       this.currentYear = date.getFullYear();
       this.currentDay = date.getDate();
-      
-      this.apollo.query({
-        query : gql`
-          {
-            getWaitingRoom(waitingRoom : {
-              date : "${this.dataService.castDateYMD(this.currentDate)}"
-            }) {
-              id date visits {
+      this.loadWaitingRoom();
+    })
+
+
+    this.interactionService.newVisitAdded.subscribe(() => {
+      this.waitingRoom = null ;
+      this.loadWaitingRoom(); 
+    })
+  }
+  private loadWaitingRoom() {
+    this.apollo.query({
+      query : gql`
+        {
+          getWaitingRoom(waitingRoom : {
+            date : "${this.dataService.castDateYMD(this.currentDate)}"
+          }) {
+            id date visits {
+              id 
+              arrivalTime 
+              status 
+              order 
+              startTime 
+              
+              endTime 
+              debt 
+              payedMoney 
+              medicalFile {
                 id 
-                arrivalTime 
-                status 
-                order 
-                startTime 
-                
-                endTime 
-                debt 
-                payedMoney 
-                medicalFile {
-                  id 
-                  name 
-                  gender
-                  lastname
-                  birthday 
-                  phone 
-                  email
-                }
-                medicalActs {
-                  id 
-                  name 
-                  price
-                }
+                name 
+                gender
+                lastname
+                birthday 
+                phone 
+                email
+              }
+              medicalActs {
+                id 
+                name 
+                price
               }
             }
           }
-        `
-      }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => { 
-
-        this.waitingRoom = data ;     
-      })
+        }
+      `
+    }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => { 
+      this.waitingRoom = data ;     
+      console.log(this.waitingRoom) ;  
+      
     })
   }
   public createWaitingRoom() {

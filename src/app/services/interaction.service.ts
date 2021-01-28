@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Service } from '../classes/Service';
 import { Assistant } from '../classes/Assistant';
 import { MedicalAct } from '../classes/MedicalAct';
+import { Visit } from '../classes/Visit';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class InteractionService {
   public assistantCreated: Subject<Assistant>;
   public medicalActCreated: Subject<MedicalAct>;
   public medicalActEdited : Subject<MedicalAct>; 
+  public newVisitAdded : Subject<null> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -21,6 +23,7 @@ export class InteractionService {
     this.assistantCreated = new Subject<Assistant>();
     this.medicalActCreated = new Subject<MedicalAct>();
     this.medicalActEdited = new Subject<MedicalAct>() ; 
+    this.newVisitAdded = new Subject<null>() ; 
   }
 
 

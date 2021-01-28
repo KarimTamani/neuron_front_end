@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Visit } from 'src/app/classes/Visit';
 import { Subject } from 'rxjs';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-patients-list',
@@ -8,16 +9,21 @@ import { Subject } from 'rxjs';
   styleUrls: ['./patients-list.component.css']
 })
 export class PatientsListComponent implements OnInit {
+  public visitsSubjects: any[] = [];
   @Input() header: string;
   @Input() color: string;
   @Input() visits: Visit[] = [];
-  public visitsSubjects: any[] = [];
   @Input() nextSubject: Subject<number>;
   @Input() done: boolean = false;
-  constructor() { }
-
+  @Input() currentVisit : Visit ; 
+  constructor(private interactionService: InteractionService) { }
+  
   ngOnInit(): void {
-    console.log(this.done) ; 
+    this.initSubjects(); 
+  }
+
+  private initSubjects() {
+    this.visitsSubjects = [];
     // init subjects of the visits ; 
     this.visits.forEach((visit) => {
       this.visitsSubjects.push({
@@ -27,10 +33,8 @@ export class PatientsListComponent implements OnInit {
     });
     // check if the next subject is defined 
     if (this.nextSubject && !this.done) {
-
       this.nextSubject.subscribe((id) => {
-        let visitSubject = this.visitsSubjects.find((value) => value.id == id) 
-        console.log(visitSubject , this.done)  ; 
+        let visitSubject = this.visitsSubjects.find((value) => value.id == id)
         visitSubject.subject.next()
       })
     }

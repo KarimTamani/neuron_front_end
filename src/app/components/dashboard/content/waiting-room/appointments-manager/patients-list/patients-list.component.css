@@ -7,10 +7,15 @@
 }
 
 .list {
-    height: 520px;
+    height: 490px;
+    max-height: 490px;
     margin-top: 16px;
     padding: 0px;
     border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.visit {}
+.main-container {
+    position: relative;
+}

@@ -11,19 +11,32 @@ export class VisitComponent implements OnInit {
   @Input() visit: Visit;
   public next: boolean = false;
   @Input() nextSubject: Subject<null>;
-  @Input() done : boolean = false ; 
-  public doneAnimate : boolean = false ; 
-  constructor() {}
+  @Input() done: boolean = false;
+  @Input() newDone: boolean = false;
+  @Input() currentVisit: boolean = false;
+  public doneAnimate: boolean = false;
+  public totalMoney: number;
+
+  public endAnimation : boolean = false;  
+  constructor() { }
   ngOnInit(): void {
 
-    if (this.nextSubject) { 
+    if (this.nextSubject) {
       this.nextSubject.subscribe(() => {
         this.next = true;
       })
     }
-    if (this.done)
-    setTimeout(() => { 
-      this.doneAnimate = true ; 
-    } , 100) ; 
+    if (this.done) {
+      if (this.newDone) {
+        this.doneAnimate = true;
+        setTimeout(() => {
+          this.endAnimation = true
+        } , 100 )
+      }
+      this.totalMoney = 0;
+      this.visit.medicalActs.forEach(act => {
+        this.totalMoney += act.price
+      })
+    }
   }
 }

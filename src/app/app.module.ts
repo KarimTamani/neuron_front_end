@@ -67,6 +67,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NewMedicalFileComponent } from './components/dashboard/content/waiting-room/new-medical-file/new-medical-file.component';
 import { AntecedentsSubmitterComponent } from './components/dashboard/content/waiting-room/new-medical-file/antecedents-submitter/antecedents-submitter.component';
 import { MiniMedicalFileComponent } from './components/dashboard/content/waiting-room/new-visit/mini-medical-file/mini-medical-file.component';
+import { DefaultOptions } from 'apollo-client';
 
 @NgModule({
   declarations: [
@@ -148,11 +149,24 @@ import { MiniMedicalFileComponent } from './components/dashboard/content/waiting
   ],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule {
+  private  defaultOptions: DefaultOptions = {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  }
   constructor(apollo: Apollo, httpLink: HttpLink) {
     apollo.create({
       link: httpLink.create({uri: "http://127.0.0.1:5000/graphql"}) , 
-      cache: new InMemoryCache()
+      cache: new InMemoryCache(),
+      defaultOptions : this.defaultOptions  
     })
   }
 }

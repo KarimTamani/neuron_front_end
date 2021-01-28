@@ -45,7 +45,7 @@ export class DataService {
     return Math.round(age);
   }
 
-  
+
   public getImcInterpretation(imc: number) {
     // get the interpretation of the imc 
     if (imc < 18.5)
@@ -66,22 +66,31 @@ export class DataService {
 
   public castDateYMD(date) {
     if (date == null)
-        return null;
+      return null;
     var dateObject = new Date(date)
-    var day : any = dateObject.getDate();
-    var month : any= dateObject.getMonth() + 1;
-    var year : any = dateObject.getFullYear();
+    var day: any = dateObject.getDate();
+    var month: any = dateObject.getMonth() + 1;
+    var year: any = dateObject.getFullYear();
 
     if (day < 10)
-        day = "0" + day;
+      day = "0" + day;
 
     if (month < 10)
-        month = "0" + month;
+      month = "0" + month;
 
     year = "" + year;
     return `${year}-${month}-${day}`;
-}
+  }
+  public getTime(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    if (hours < 10)
+        hours = "0" + hours;
+    if (minutes < 10)
+        minutes = "0" + minutes;
 
+    return `${hours}:${minutes}`
+}
 
 
 }

@@ -4,13 +4,13 @@
     </div>
     <div class="list" *ngIf="!done">
         <div class="visit" *ngFor="let visit of visits; let i = index">
-            <app-visit [visit]="visit" [nextSubject]="visitsSubjects[i].subject" [done]="done"></app-visit>
+            <app-visit [currentVisit]="currentVisit && currentVisit.id == visit.id" [visit]="visit" [nextSubject]="visitsSubjects[i].subject" [done]="done"></app-visit>
         </div>
     </div>
 
     <div class="list" *ngIf="done">
         <div class="visit" *ngFor="let visit of visits">
-            <app-visit [visit]="visit" [done]="done"></app-visit>
+            <app-visit [visit]="visit" [done]="done" [newDone]="visit.newDone"></app-visit>
         </div>
     </div>
 </div>
