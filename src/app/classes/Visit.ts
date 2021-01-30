@@ -17,6 +17,7 @@ export class Visit {
     public status: string;
     public debt: number;
     public order: number;
+    public waitingRoomId : any ; 
     //public visitDrugDosages : [VisitDrugDosage] 
     //public checkUps : [CheckUp]
 

@@ -2,9 +2,11 @@
     <div class="header">
         <h5 [ngStyle]="{'background-color' : color }">{{header}}</h5>
     </div>
-    <div class="list" *ngIf="!done">
-        <div class="visit" *ngFor="let visit of visits; let i = index">
-            <app-visit [currentVisit]="currentVisit && currentVisit.id == visit.id" [visit]="visit" [nextSubject]="visitsSubjects[i].subject" [done]="done"></app-visit>
+    <div class="list" *ngIf="!done" cdkDropList (cdkDropListDropped)="drop($event)">
+
+        <div class="visit" *ngFor="let visit of visits; let i = index" cdkDrag cdkDragLockAxis="y">
+            <app-visit (restoreVisitEvent)="restoreVisitEvent.emit($event)" (ignoreVisitEvent)="ignoreVisitEvent.emit($event)" (inVisitEvent)="inVisit($event)" [currentVisit]="currentVisit && currentVisit.id == visit.id" [visit]="visit" [nextSubject]="visitsSubjects[i].subject"
+                [done]="done"></app-visit>
         </div>
     </div>
 

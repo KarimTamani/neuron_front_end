@@ -19,3 +19,23 @@
 .main-container {
     position: relative;
 }
+
+.cdk-drag-placeholder * {
+    display: none;
+}
+
+.cdk-drag-animating {
+    transition: transform 500ms ease;
+}
+
+.cdk-drag-placeholder {
+    height: 148px;
+    width: 100%;
+    background: #eeeeee;
+    border-radius: 16px;
+}
+
+.cdk-drag-preview {
+    box-shadow: -3px -3px 26px rgba(0, 0, 0, 0.1), -3px -3px 26px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+}

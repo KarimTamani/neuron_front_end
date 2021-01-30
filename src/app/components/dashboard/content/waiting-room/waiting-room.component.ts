@@ -57,8 +57,9 @@ export class WaitingRoomComponent implements OnInit {
               status 
               order 
               startTime 
-              
               endTime 
+
+              waitingRoomId  
               debt 
               payedMoney 
               medicalFile {
@@ -81,7 +82,7 @@ export class WaitingRoomComponent implements OnInit {
       `
     }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => { 
       this.waitingRoom = data ;     
-      console.log(this.waitingRoom) ;  
+
       
     })
   }
@@ -103,4 +104,5 @@ export class WaitingRoomComponent implements OnInit {
       this.waitingRoom.visits = [] ; 
     })
   }
+  
 }

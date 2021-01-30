@@ -1,44 +1,52 @@
-<div class="visit-container" [class.next]="next" *ngIf="!done" [class.current-visit]="currentVisit">
-    <div class="stretch-container">
-        <div class="image-side">
-            <img src="{{(visit.medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
-        </div>
-        <div class="info-side">
-            <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
-            <p>
-                <i class="fa fa-clock"></i> temp d'arrivé : <span class="hightlight">{{visit.arrivalTime}}</span>
-            </p>
-            <p>
-                <i class="fa fa-sort-amount-up"></i>l'order :
-                <span>
+<div class="visit-container" [class.ignore]="ignore" [class.hide]="hide && !fadeOut" [class.fade-in]="fadeIn" [class.fade-out]="fadeOut" [class.next]="next" *ngIf="!done" [class.current-visit]="currentVisit">
+    <div class="relative-container">
+        <div class="stretch-container">
+            <div class="image-side">
+                <img src="{{(visit.medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
+            </div>
+            <div class="info-side">
+                <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
+                <p>
+                    <i class="fa fa-clock"></i> temp d'arrivé : <span class="hightlight">{{visit.arrivalTime}}</span>
+                </p>
+                <p>
+                    <i class="fa fa-sort-amount-up"></i>l'order :
+                    <span>
                 {{visit.order}}
             </span>
+                </p>
+                <p>
+                    <i class="round"></i>
+                    <span>{{visit.status}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="bottom-side stretch-container">
+            <p>
+                <i class="fa fa-envelope"></i> {{(visit.medicalFile.email)? (visit.medicalFile.email) : ("Inconnue")}}
             </p>
             <p>
-                <i class="round"></i>
-                <span>{{visit.status}}</span>
+                <i class="fa fa-phone"></i> {{(visit.medicalFile.phone)? (visit.medicalFile.phone) : ("Inconnue")}}
             </p>
         </div>
-    </div>
-    <div class="bottom-side stretch-container">
-        <p>
-            <i class="fa fa-envelope"></i> {{(visit.medicalFile.email)? (visit.medicalFile.email) : ("Inconnue")}}
-        </p>
-        <p>
-            <i class="fa fa-phone"></i> {{(visit.medicalFile.phone)? (visit.medicalFile.phone) : ("Inconnue")}}
-        </p>
-    </div>
-    <div class="controller">
-        <span class="edit">
-            <i class="fa fa-edit"></i>
-        </span>
-        <span class="visit">
-            <i class="fa fa-heartbeat"></i>
 
-        </span>
-        <span class="igonre">
-            <i class="fa fa-times"></i>
-        </span>
+        <div class="controller" *ngIf="!ignore">
+            <span class="edit">
+                <i class="fa fa-edit"></i>
+            </span>
+            <span class="visit" (click)="toVisit()">
+                <i class="fa fa-heartbeat"></i>
+            </span>
+            <span class="igonre" (click)="ignoreVisit()">
+                <i class="fa fa-times" ></i>
+            </span>
+        </div>
+
+        <div class="controller" *ngIf="ignore">
+            <span class="restore" (click)="restoreVisit()">
+                <i class="fa fa-sync-alt"></i>
+            </span>
+        </div>
     </div>
 
 </div>
@@ -73,4 +81,5 @@
     </div>
 </div>
 <div id="extra-margin" *ngIf="next"></div>
+
 <div id="init-margin" *ngIf="doneAnimate && !endAnimation"></div>
