@@ -30,9 +30,9 @@ export class AppointmentsManagerComponent implements OnInit {
     this.nextSubject = new Subject<number>();
     // get the waiting visits including the one in the doctor office
     this.waitingVisits = <any[]>this.waitingRoom.visits.filter(visit => visit.status == "waiting" || visit.status == "in visit");
-    
-    var quitedVisits = <any[]> this.waitingRoom.visits.filter(visit => visit.status == "visit quited") ; 
-    this.waitingVisits = this.waitingVisits.concat(quitedVisits) ; 
+
+    var quitedVisits = <any[]>this.waitingRoom.visits.filter(visit => visit.status == "visit quited");
+    this.waitingVisits = this.waitingVisits.concat(quitedVisits);
     // get the current visit
     this.currentVisit = this.waitingRoom.visits.find(visit => visit.status == "in visit");
     // get the visits dones
@@ -78,50 +78,52 @@ export class AppointmentsManagerComponent implements OnInit {
           this.currentVisit = this.waitingVisits[index];
           this.currentVisit.startTime = currentTime;
           this.currentVisit.status = "in visit";
-
-        }
-      } else
-        // in case there is no waiting patients
-        // assign current visit to null 
-        this.currentVisit = null;
+        } else
+          // in case there is no waiting patients
+          // assign current visit to null 
+          this.currentVisit = null;
+      }
     })
   }
   public inVisit($event) {
-
     this.currentVisit = $event;
+  }
+  public outVisit($event) {
+    this.currentVisit = null ; 
+    console.log(this.currentVisit) ; 
   }
 
   public ignoreVisit($event) {
     // get the index of the visit and delete it 
-    var index = this.waitingVisits.findIndex(value => value.id == $event.id) ; 
-    this.waitingVisits.splice(index , 1) ; 
-    
+    var index = this.waitingVisits.findIndex(value => value.id == $event.id);
+    this.waitingVisits.splice(index, 1);
+
 
     // try to find the propper index for the insertion
     // either there is no ignored visits then insert the new ignored visit at the bottom of the list
     // else try to find the order between the ignored visits 
-    for ( ; index < this.waitingVisits.length ; index ++) {
-      if (this.waitingVisits[index].status == "waiting") 
-        continue ;
-      else if(this.waitingVisits[index].order < $event.order) 
-        continue ; 
-      break ; 
+    for (; index < this.waitingVisits.length; index++) {
+      if (this.waitingVisits[index].status == "waiting")
+        continue;
+      else if (this.waitingVisits[index].order < $event.order)
+        continue;
+      break;
     }
-    this.waitingVisits.splice(index , 0 , $event) ; 
+    this.waitingVisits.splice(index, 0, $event);
   }
 
   public restoreVisit($event) {
     // delete the restored visit from the waiting visits to reorder it
-    var index = this.waitingVisits.findIndex(value => value.id == $event.id) ; 
-    this.waitingVisits.splice(index , 1 ) ; 
+    var index = this.waitingVisits.findIndex(value => value.id == $event.id);
+    this.waitingVisits.splice(index, 1);
 
 
     // find the proper index  to insert the restored visit
-    for ( index = 0 ; index < this.waitingVisits.length ; index ++) {
-        if (this.waitingVisits[index].order < $event.order) 
-          continue ; 
-        break ; 
+    for (index = 0; index < this.waitingVisits.length; index++) {
+      if (this.waitingVisits[index].order < $event.order && this.waitingVisits[index].status == "waiting")
+        continue;
+      break;
     }
-    this.waitingVisits.splice(index , 0 , $event) ; 
+    this.waitingVisits.splice(index, 0, $event);
   }
 }

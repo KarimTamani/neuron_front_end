@@ -3,7 +3,6 @@
         background: white;
         border-radius: 16px;
         margin-bottom: 16px;
-        border: 1px solid #eeeeee;
         padding-bottom: 8px;
         position: relative;
         transition-duration: 1s;
@@ -124,7 +123,6 @@
         animation: nextAnimation 1s;
         animation-timing-function: ease;
         position: absolute;
-        border: none;
         padding: 0px;
         width: 64px;
         top: -16px;
@@ -146,7 +144,6 @@
         transform: translateX(-16px);
         box-shadow: 2px 4px 26px rgba(0, 0, 0, 0.07), -2px -2px 26px rgba(0, 0, 0, 0.07);
         background: rgba(255, 255, 255, 0);
-        border: 1px solid #eeeeee;
         margin-bottom: 16px;
         max-height: 148px;
     }
@@ -222,7 +219,6 @@
         transform: translateX(-16px);
         box-shadow: 2px 4px 26px rgba(0, 0, 0, 0.07), -2px -2px 26px rgba(0, 0, 0, 0.07);
         background: rgba(255, 255, 255, 0);
-        border: none;
         padding: 0px;
     }
     
@@ -326,6 +322,7 @@
         display: none;
         opacity: 0;
         transition-duration: 0.3s;
+        z-index: 1;
     }
     
     .controller span:hover:after {
@@ -349,6 +346,14 @@
         content: "Renouvler";
     }
     
+    .controller span.out-visit:after {
+        content: "Pause";
+    }
+    
+    .controller span.start-visit:after {
+        content: "Démare la visite";
+    }
+    
     .visit-container.fade-in {
         opacity: 0;
     }
@@ -366,4 +371,28 @@
     .visit-container.ignore {
         opacity: 1;
         background: #eeeeee;
+    }
+    
+    .new-controller {
+        z-index: 1;
+        width: 100%;
+        right: 0px;
+        top: 0px;
+        transform: translateY(0%);
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(38, 94, 215, 0.3);
+        display: flex;
+        align-items: center;
+    }
+    
+    .new-controller span {
+        margin: 0px auto;
+    }
+    
+    .new-controller span:after {
+        right: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -26px;
     }

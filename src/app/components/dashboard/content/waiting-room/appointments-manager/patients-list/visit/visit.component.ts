@@ -29,11 +29,12 @@ export class VisitComponent implements OnInit {
   @Output() inVisitEvent: EventEmitter<Visit>;
   @Output() ignoreVisitEvent: EventEmitter<Visit>;
   @Output() restoreVisitEvent: EventEmitter<Visit>;
-
+  @Output() outVisitEvent: EventEmitter<Visit>;
   constructor(private apollo: Apollo) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
     this.restoreVisitEvent = new EventEmitter<Visit>();
+    this.outVisitEvent = new EventEmitter<Visit>();
   }
   ngOnInit(): void {
 
@@ -69,30 +70,8 @@ export class VisitComponent implements OnInit {
       mutation: gql`
         mutation{
           inVisit(waitingRoomId : ${this.visit.waitingRoomId} , visitId : ${this.visit.id}) {
-              id 
-              arrivalTime 
-              status 
-              order 
-              startTime 
-              endTime 
-              debt 
-              payedMoney 
-              medicalFile {
-                id 
-                name 
-                gender
-                lastname
-                birthday 
-                phone 
-                email
-              }
-              medicalActs {
-                id 
-                name 
-                price
-              }
-            }
-          
+            startTime 
+          }
         }
       `
     }).pipe(map(value => (<any>value.data).inVisit)).subscribe((data) => {
@@ -101,8 +80,10 @@ export class VisitComponent implements OnInit {
       setTimeout(() => {
         this.hide = true;
         this.fadeOut = true;
-        this.inVisitEvent.emit(data);
-        this.visit = data;
+        this.visit.status = "in visit" ; 
+        this.visit.startTime = data.startTime ; 
+        this.inVisitEvent.emit(this.visit);
+        
       }, 1000)
     })
   }
@@ -148,5 +129,27 @@ export class VisitComponent implements OnInit {
         this.restoreVisitEvent.emit(this.visit);
       }, 500)
     })
+  }
+
+  outVisit() {
+    console.log(this.visit);
+    this.apollo.mutate({
+      mutation: gql`
+        mutation {
+          outVisit(waitingRoomId : ${this.visit.waitingRoomId} , visitId : ${this.visit.id}) { 
+            id
+          }
+        }`
+    }).pipe(map(value => (<any>value.data).outVisit)).subscribe((data) => {
+
+      this.visit.status = "waiting";
+      this.outVisitEvent.emit(this.visit);
+      this.next = false;
+      this.currentVisit = false;
+      this.fadeOut = false ; 
+      this.hide = false ; 
+      this.fadeIn = false ; 
+    })
+
   }
 }

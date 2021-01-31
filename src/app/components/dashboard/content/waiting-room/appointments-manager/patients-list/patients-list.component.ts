@@ -24,11 +24,12 @@ export class PatientsListComponent implements OnInit {
   @Output() inVisitEvent: EventEmitter<Visit>;
   @Output() ignoreVisitEvent: EventEmitter<Visit>;
   @Output() restoreVisitEvent: EventEmitter<Visit>;
+  @Output() outVisitEvent : EventEmitter<Visit> ; 
   constructor(private apollo: Apollo) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
     this.restoreVisitEvent = new EventEmitter<Visit>();
-
+    this.outVisitEvent = new EventEmitter<Visit>()  ; 
   }
 
   ngOnInit(): void {
@@ -91,7 +92,7 @@ export class PatientsListComponent implements OnInit {
       else
         visits = this.visits.filter(value => value.order < visit.order && value.order >= order);
 
-        
+
       // update visits order
       for (let index = 0; index < visits.length; index++) {
         visits[index].order = visits[index].order + ((up) ? (-1) : (1));
@@ -100,9 +101,6 @@ export class PatientsListComponent implements OnInit {
       visit.order = order;
       // update the visits array 
       moveItemInArray(this.visits, $event.previousIndex, $event.currentIndex);
-
     })
-
-
   }
 }

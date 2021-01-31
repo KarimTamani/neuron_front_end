@@ -30,7 +30,7 @@
             </p>
         </div>
 
-        <div class="controller" *ngIf="!ignore">
+        <div class="controller" *ngIf="!ignore && !next && !currentVisit">
             <span class="edit">
                 <i class="fa fa-edit"></i>
             </span>
@@ -45,6 +45,15 @@
         <div class="controller" *ngIf="ignore">
             <span class="restore" (click)="restoreVisit()">
                 <i class="fa fa-sync-alt"></i>
+            </span>
+        </div>
+
+        <div class="new-controller controller" *ngIf="new || currentVisit">
+            <span class="out-visit" (click)="outVisit()">
+                <i class="fa fa-pause"></i>
+            </span>
+            <span class="start-visit">
+                <i class="fa fa-heartbeat"></i>
             </span>
         </div>
     </div>
