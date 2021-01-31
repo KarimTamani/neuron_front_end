@@ -68,7 +68,8 @@ import { NewMedicalFileComponent } from './components/dashboard/content/waiting-
 import { AntecedentsSubmitterComponent } from './components/dashboard/content/waiting-room/new-medical-file/antecedents-submitter/antecedents-submitter.component';
 import { MiniMedicalFileComponent } from './components/dashboard/content/waiting-room/new-visit/mini-medical-file/mini-medical-file.component';
 import { DefaultOptions } from 'apollo-client';
-import { DragDropModule} from "@angular/cdk/drag-drop" ; 
+import { DragDropModule} from "@angular/cdk/drag-drop";
+import { PayeVisitComponent } from './components/dashboard/content/waiting-room/appointments-manager/patients-list/visit/paye-visit/paye-visit.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,6 +127,7 @@ import { DragDropModule} from "@angular/cdk/drag-drop" ;
     NewMedicalFileComponent,
     AntecedentsSubmitterComponent,
     MiniMedicalFileComponent,
+    PayeVisitComponent,
   ],
   imports: [
     BrowserModule,
