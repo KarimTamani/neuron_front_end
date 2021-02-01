@@ -1,1 +1,61 @@
-<p>paye-visit works!</p>
+<div class="main-container">
+    <div class=header>
+        <span>Lacte medical</span>
+        <span>montant</span>
+    </div>
+    <div class="medical-acts">
+        <div class="medical-act" *ngFor="let medicalAct of visit.medicalActs">
+            <span>
+                {{medicalAct.name}}
+            </span>
+            <span>
+                {{medicalAct.price}} DA
+            </span>
+        </div>
+    </div>
+    <form name="form" [formGroup]="form">
+        <div class="price-container row">
+            <div class="col col-md-7">
+                <div class="row">
+                    <div class="col col-md-7">
+                        <div class="center-v">
+                            <p><i class="fa fa-money-bill"></i> Montant total <span class="hightlight">{{totalPrice}} DA</span> </p>
+                        </div>
+                    </div>
+                    <div class="col col-md-5">
+                        <div class="center-v">
+                            <p>
+                                Credit : <span class="hightlight">{{getDebt()}} DA</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-5">
+                <div class="row">
+                    <div class="col col-md-5">
+                        <div class="center-v">
+                            <p>
+                                Montant payé
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col col-md-7">
+                        <div class="form-group">
+                            <input type="number" [(ngModel)]="visit.payedMoney" placeholder="Montant payé" formControlName="price" class="primary-input" [ngClass]="{'is-invalid' : form.get('price').touched && form.get('price').invalid}">
+                            <div class="invalid-feedback" *ngIf="form.get('price').touched && form.get('price').invalid">
+                                <div *ngIf="form.get('price').errors.required">le montant est requis</div>
+                                <div *ngIf="form.get('price').errors.invalidPrice">montant invalide</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="controller">
+            <button class="secondary-button" (click)="closeEvent.emit()">Annuler</button>
+            <button class="primary-button" (click)="payeVisit()" [disabled]="!form.valid">Payé</button>
+        </div>
+    </form>
+
+</div>

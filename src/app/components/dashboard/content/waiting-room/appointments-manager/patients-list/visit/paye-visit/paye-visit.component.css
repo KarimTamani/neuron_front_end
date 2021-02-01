@@ -1,0 +1,72 @@
+.main-container {
+    background: white;
+    padding: 16px;
+    width: 620px;
+}
+
+.header {
+    margin-bottom: 8px;
+}
+
+.header span {
+    font-weight: bold;
+}
+
+.header span:last-child,
+.medical-act span:last-child {
+    float: right;
+}
+
+.medical-acts {
+    height: 120px;
+    overflow: auto;
+    margin-bottom: 16px;
+}
+
+.medical-act {
+    margin: 16px 0px;
+    font-size: 13px;
+    color: #555555;
+    display: block;
+}
+
+p .hightlight {
+    background: rgba(254, 101, 85, 0.2);
+    border-radius: 20px;
+    font-size: 10px;
+}
+
+p span {
+    color: rgb(254, 101, 85);
+    padding: 4px 6px;
+    font-size: 10px;
+}
+
+p {
+    font-size: 12px;
+    color: #888888;
+    margin: 0px;
+    margin-top: 4px;
+}
+
+p i {
+    color: rgb(38, 94, 215);
+    margin-right: 8px;
+}
+
+.center-v {
+    height: 38px;
+}
+
+.controller button {
+    width: 120px;
+    padding: 8px 16px;
+}
+
+.controller button:last-child {
+    float: right;
+}
+
+.controller {
+    margin-top: 26px;
+}

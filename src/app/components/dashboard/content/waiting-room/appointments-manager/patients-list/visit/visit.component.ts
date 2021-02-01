@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-visit',
@@ -30,7 +32,7 @@ export class VisitComponent implements OnInit {
   @Output() ignoreVisitEvent: EventEmitter<Visit>;
   @Output() restoreVisitEvent: EventEmitter<Visit>;
   @Output() outVisitEvent: EventEmitter<Visit>;
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo , private router : Router , private interactionService: InteractionService) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
     this.restoreVisitEvent = new EventEmitter<Visit>();
@@ -149,6 +151,21 @@ export class VisitComponent implements OnInit {
       this.fadeOut = false ; 
       this.hide = false ; 
       this.fadeIn = false ; 
+    })
+  }
+
+  public payeVisit() {
+    this.router.navigate([] , {
+      queryParams : {
+        "pop-up-window" : true , 
+        "window-page" : "paye-visit" , 
+        "title" : "Payé la visite" , 
+        "visit" : encodeURIComponent(JSON.stringify(this.visit))
+      }
+    }) ; 
+    const subscription = this.interactionService.visitPayed.subscribe((visit) => {
+      this.visit = visit ; 
+      subscription.unsubscribe() ; 
     })
 
   }

@@ -354,6 +354,10 @@
         content: "Démare la visite";
     }
     
+    .controller span.paye-visit:after {
+        content: "Payé la visite"
+    }
+    
     .visit-container.fade-in {
         opacity: 0;
     }

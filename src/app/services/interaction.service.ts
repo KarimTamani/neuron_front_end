@@ -16,6 +16,7 @@ export class InteractionService {
   public medicalActCreated: Subject<MedicalAct>;
   public medicalActEdited : Subject<MedicalAct>; 
   public newVisitAdded : Subject<null> ; 
+  public visitPayed : Subject<Visit> ;  
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -24,6 +25,7 @@ export class InteractionService {
     this.medicalActCreated = new Subject<MedicalAct>();
     this.medicalActEdited = new Subject<MedicalAct>() ; 
     this.newVisitAdded = new Subject<null>() ; 
+    this.visitPayed = new Subject<Visit>() ; 
   }
 
 
