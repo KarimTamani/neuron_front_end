@@ -20,7 +20,8 @@ export class WaitingRoomComponent implements OnInit {
 
   public waitingRoom : WaitingRoom ; 
   
-  constructor(private apollo: Apollo, public dataService: DataService , private interactionService : InteractionService) {}
+  constructor(private apollo: Apollo, public dataService: DataService , 
+    private interactionService : InteractionService) {}
   ngOnInit(): void {
     // get the current date
     this.apollo.query({
@@ -38,10 +39,10 @@ export class WaitingRoomComponent implements OnInit {
       this.loadWaitingRoom();
     })
 
-
     this.interactionService.newVisitAdded.subscribe(() => {
       this.waitingRoom = null ;
       this.loadWaitingRoom(); 
+      this.interactionService.updateReport.next() ; 
     })
   }
   private loadWaitingRoom() {

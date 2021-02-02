@@ -27,7 +27,7 @@ export class NewVisitComponent implements OnInit {
   public showNewMedicalFile: boolean = false;
 
 
-  private edit: boolean = false;
+  public  edit: boolean = false;
   constructor(private apollo: Apollo, private route: ActivatedRoute, private interactionservice: InteractionService) {
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();

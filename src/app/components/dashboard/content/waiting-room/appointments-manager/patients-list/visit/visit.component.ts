@@ -86,7 +86,8 @@ export class VisitComponent implements OnInit {
         this.visit.status = "in visit";
         this.visit.startTime = data.startTime;
         this.inVisitEvent.emit(this.visit);
-
+        
+        this.interactionService.updateReport.next() ; 
       }, 1000)
     })
   }
@@ -109,7 +110,9 @@ export class VisitComponent implements OnInit {
       setTimeout(() => {
         this.ignore = true;
         this.fadeIn = false;
-        this.ignoreVisitEvent.emit(this.visit)
+        this.ignoreVisitEvent.emit(this.visit) ; 
+
+        this.interactionService.updateReport.next() ; 
       }, 1000)
     })
   }
@@ -130,12 +133,15 @@ export class VisitComponent implements OnInit {
       setTimeout(() => {
         this.fadeIn = false;
         this.restoreVisitEvent.emit(this.visit);
+
+        this.interactionService.updateReport.next() ; 
+
       }, 500)
     })
   }
 
   outVisit() {
-    console.log(this.visit);
+    
     this.apollo.mutate({
       mutation: gql`
         mutation {
@@ -152,6 +158,8 @@ export class VisitComponent implements OnInit {
       this.fadeOut = false;
       this.hide = false;
       this.fadeIn = false;
+      this.interactionService.updateReport.next() ; 
+   
     })
   }
 
@@ -166,12 +174,14 @@ export class VisitComponent implements OnInit {
     });
     const subscription = this.interactionService.visitPayed.subscribe((visit) => {
       this.visit = visit;
+      this.interactionService.updateReport.next() ; 
+   
       subscription.unsubscribe();
     })
   }
 
   editVisit() {
-    console.log(this.waitingRoom) ; 
+
     this.router.navigate([] , {
       queryParams: {
         "pop-up-window": true,

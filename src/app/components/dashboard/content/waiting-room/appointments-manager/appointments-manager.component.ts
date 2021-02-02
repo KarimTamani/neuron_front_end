@@ -22,7 +22,7 @@ export class AppointmentsManagerComponent implements OnInit {
 
 
   @Input() waitingRoom: WaitingRoom;
-  constructor(private apollo: Apollo, private dataService: DataService) {
+  constructor(private apollo: Apollo, private dataService: DataService , private interactionService : InteractionService) {
 
   }
 
@@ -83,14 +83,17 @@ export class AppointmentsManagerComponent implements OnInit {
           // assign current visit to null 
           this.currentVisit = null;
       }
+
+      this.interactionService.updateReport.next() ; 
     })
   }
   public inVisit($event) {
     this.currentVisit = $event;
+   
   }
   public outVisit($event) {
-    this.currentVisit = null ; 
-    console.log(this.currentVisit) ; 
+    this.currentVisit = null;
+   
   }
 
   public ignoreVisit($event) {
@@ -110,6 +113,7 @@ export class AppointmentsManagerComponent implements OnInit {
       break;
     }
     this.waitingVisits.splice(index, 0, $event);
+   
   }
 
   public restoreVisit($event) {
@@ -125,5 +129,6 @@ export class AppointmentsManagerComponent implements OnInit {
       break;
     }
     this.waitingVisits.splice(index, 0, $event);
+   
   }
 }
