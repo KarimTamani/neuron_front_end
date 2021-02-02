@@ -70,3 +70,11 @@ p i {
 .controller {
     margin-top: 26px;
 }
+
+.old-payment {
+    margin: 16px 0px;
+}
+
+.old-payment .col:last-child p {
+    text-align: right;
+}

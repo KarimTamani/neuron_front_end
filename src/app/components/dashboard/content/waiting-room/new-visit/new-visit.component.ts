@@ -27,7 +27,8 @@ export class NewVisitComponent implements OnInit {
   public showNewMedicalFile: boolean = false;
 
 
-  constructor(private apollo: Apollo, private route: ActivatedRoute , private interactionservice : InteractionService) {
+  private edit: boolean = false;
+  constructor(private apollo: Apollo, private route: ActivatedRoute, private interactionservice: InteractionService) {
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();
     this.submittedSymptom = new Symptom();
@@ -46,11 +47,27 @@ export class NewVisitComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).getAllMedicalActs)).subscribe((data) => {
       this.medicalActs = data;
     })
-
     this.route.queryParams.subscribe((params) => {
+      if (params["visit"]) {
+        // if the visit is defined for the edit mode
+        // load medical act into selected medical acts 
+        // load symptoms into symptoms
+        // calculate the total price for the visit  
+        this.visit = JSON.parse(decodeURIComponent(params["visit"]));
+        this.selectedMedicalActs = this.visit.medicalActs;
+        this.symptoms = this.visit.symptoms;
+        this.totalPrice = 0;
+        this.selectedMedicalActs.forEach((act) => {
+          this.totalPrice += act.price;
+        })
+        this.edit = true;
+      }
       if (params["waiting-room"]) {
-        this.visit.waitingRoom = JSON.parse(params["waiting-room"]);
-
+        // get the waiting room from the params 
+        // if not in edit mode calculate the order of the visit
+        this.visit.waitingRoom = JSON.parse(decodeURIComponent(params["waiting-room"]));
+        if (this.edit == false)
+          this.visit.order = this.visit.waitingRoom.visits.length + 1;
       }
     })
   }
@@ -146,7 +163,27 @@ export class NewVisitComponent implements OnInit {
       }
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
       this.closeEvent.emit();
-      this.interactionservice.newVisitAdded.next() ; 
+      this.interactionservice.newVisitAdded.next();
+    })
+  }
+
+  public editVisit() {
+    this.apollo.mutate({
+      mutation: gql`
+        mutation ($symptoms : [ID!] , $medicalActs : [ID!]!){
+          editVisit (visitId : ${this.visit.id} , visit : {
+            symptoms : $symptoms 
+            medicalActs : $medicalActs
+          }) 
+        }
+      ` ,
+      variables: {
+        symptoms: this.symptoms.map(value => value.id),
+        medicalActs: this.selectedMedicalActs.map(value => value.id)
+      }
+    }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
+      this.closeEvent.emit();
+      this.interactionservice.newVisitAdded.next();
     })
   }
 }

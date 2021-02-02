@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 
 @Component({
   selector: 'app-visit',
@@ -14,12 +15,12 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class VisitComponent implements OnInit {
   @Input() visit: Visit;
-  public next: boolean = false;
   @Input() nextSubject: Subject<null>;
   @Input() done: boolean = false;
   @Input() newDone: boolean = false;
-
   @Input() currentVisit: boolean = false;
+  @Input() waitingRoom : WaitingRoom ; 
+  public next: boolean = false;
   public doneAnimate: boolean = false;
   public totalMoney: number;
   public fadeIn: boolean = false;
@@ -32,7 +33,7 @@ export class VisitComponent implements OnInit {
   @Output() ignoreVisitEvent: EventEmitter<Visit>;
   @Output() restoreVisitEvent: EventEmitter<Visit>;
   @Output() outVisitEvent: EventEmitter<Visit>;
-  constructor(private apollo: Apollo , private router : Router , private interactionService: InteractionService) {
+  constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
     this.restoreVisitEvent = new EventEmitter<Visit>();
@@ -82,10 +83,10 @@ export class VisitComponent implements OnInit {
       setTimeout(() => {
         this.hide = true;
         this.fadeOut = true;
-        this.visit.status = "in visit" ; 
-        this.visit.startTime = data.startTime ; 
+        this.visit.status = "in visit";
+        this.visit.startTime = data.startTime;
         this.inVisitEvent.emit(this.visit);
-        
+
       }, 1000)
     })
   }
@@ -148,25 +149,37 @@ export class VisitComponent implements OnInit {
       this.outVisitEvent.emit(this.visit);
       this.next = false;
       this.currentVisit = false;
-      this.fadeOut = false ; 
-      this.hide = false ; 
-      this.fadeIn = false ; 
+      this.fadeOut = false;
+      this.hide = false;
+      this.fadeIn = false;
     })
   }
 
   public payeVisit() {
-    this.router.navigate([] , {
-      queryParams : {
-        "pop-up-window" : true , 
-        "window-page" : "paye-visit" , 
-        "title" : "Payé la visite" , 
-        "visit" : encodeURIComponent(JSON.stringify(this.visit))
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "paye-visit",
+        "title": "Payé la visite",
+        "visit": encodeURIComponent(JSON.stringify(this.visit))
       }
-    }) ; 
+    });
     const subscription = this.interactionService.visitPayed.subscribe((visit) => {
-      this.visit = visit ; 
-      subscription.unsubscribe() ; 
+      this.visit = visit;
+      subscription.unsubscribe();
     })
+  }
 
+  editVisit() {
+    console.log(this.waitingRoom) ; 
+    this.router.navigate([] , {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "new-visit",
+        "title": "Modifier la visite",
+        "waiting-room" : encodeURIComponent(JSON.stringify(this.waitingRoom)) , 
+        "visit": encodeURIComponent(JSON.stringify(this.visit))
+      }
+    })
   }
 }

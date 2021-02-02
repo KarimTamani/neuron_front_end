@@ -13,6 +13,22 @@
             </span>
         </div>
     </div>
+    <div class="old-payment" *ngIf="edit">
+        <div class="row">
+            <div class="col col-md-6">
+                <p>
+                    Montant déja payé <span class="hightlight">{{oldPayedMoney}} DA</span>
+                </p>
+
+            </div>
+            <div class="col col-md-6">
+                <p>
+                    ancienne credit <span class="hightlight">{{oldDebt}} DA</span>
+
+                </p>
+            </div>
+        </div>
+    </div>
     <form name="form" [formGroup]="form">
         <div class="price-container row">
             <div class="col col-md-7">
@@ -54,7 +70,9 @@
         </div>
         <div class="controller">
             <button class="secondary-button" (click)="closeEvent.emit()">Annuler</button>
-            <button class="primary-button" (click)="payeVisit()" [disabled]="!form.valid">Payé</button>
+            <button class="primary-button" *ngIf="!edit" (click)="payeVisit()" [disabled]="!form.valid">Payé</button>
+            <button class="primary-button" *ngIf="edit" (click)="editVisitPayment()" [disabled]="!form.valid">Modifier <i class="fa fa-edit"></i></button>
+
         </div>
     </form>
 

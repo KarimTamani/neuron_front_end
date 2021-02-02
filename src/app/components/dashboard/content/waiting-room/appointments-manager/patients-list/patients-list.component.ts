@@ -7,6 +7,7 @@ import { visitWithTypeInfo } from 'graphql';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 
 @Component({
   selector: 'app-patients-list',
@@ -25,6 +26,7 @@ export class PatientsListComponent implements OnInit {
   @Output() ignoreVisitEvent: EventEmitter<Visit>;
   @Output() restoreVisitEvent: EventEmitter<Visit>;
   @Output() outVisitEvent : EventEmitter<Visit> ; 
+  @Input() waitingRoom : WaitingRoom ; 
   constructor(private apollo: Apollo) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();

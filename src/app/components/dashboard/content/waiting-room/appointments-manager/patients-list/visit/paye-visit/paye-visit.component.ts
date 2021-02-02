@@ -18,7 +18,12 @@ export class PayeVisitComponent implements OnInit , OnDestroy{
   public visit : Visit ; 
   public totalPrice : number ;
   public form : FormGroup = null ;
-  public subsc : Subscription ;   
+  public subsc : Subscription ; 
+
+  public edit : boolean = false ; 
+  public oldPayedMoney : number = 0 ; 
+  public oldDebt : number = 0 ; 
+  
   constructor(private route : ActivatedRoute , private apollo : Apollo , private interactionService : InteractionService) {
     this.closeEvent = new EventEmitter<null>() ; 
   }
@@ -27,6 +32,11 @@ export class PayeVisitComponent implements OnInit , OnDestroy{
     this.subsc = this.route.queryParams.subscribe((params) => {
       // get the visit from the url and decode it 
       this.visit = JSON.parse(decodeURIComponent(params.visit)) ; 
+      if (this.visit.status == "visit payed") {
+        this.edit = true ; 
+        this.oldPayedMoney = this.visit.payedMoney ; 
+        this.oldDebt = this.visit.debt ;  
+      }
       this.visit.payedMoney =  0 ; 
       /// loop over the medical acts to calculate the total price
       this.visit.medicalActs.forEach((act) => {
@@ -84,5 +94,21 @@ export class PayeVisitComponent implements OnInit , OnDestroy{
   }
   ngOnDestroy () {
     this.subsc.unsubscribe() ; 
+  }
+
+  public editVisitPayment() {
+      this.apollo.mutate({
+        mutation : gql`
+          mutation {
+            editVisitPayment(visitId : ${this.visit.id} ,payedMoney : ${this.visit.payedMoney}) {
+              id 
+            }
+          }
+        `
+      }).pipe(map(value => (<any>value.data).editVisitPayment)).subscribe((data) => {
+        this.interactionService.visitPayed.next(this.visit) ; 
+        this.closeEvent.emit() ;       
+          
+      })
   }
 }

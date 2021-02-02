@@ -76,6 +76,9 @@ export class WaitingRoomComponent implements OnInit {
                 name 
                 price
               }
+              symptoms {
+                id name
+              }
             }
           }
         }

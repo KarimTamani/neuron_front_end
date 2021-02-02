@@ -31,7 +31,7 @@
         </div>
 
         <div class="controller" *ngIf="!ignore && !next && !currentVisit">
-            <span class="edit">
+            <span class="edit" (click)="editVisit ( )">
                 <i class="fa fa-edit"></i>
             </span>
             <span class="visit" (click)="toVisit()">
