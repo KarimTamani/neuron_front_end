@@ -22,7 +22,7 @@ export class AppointmentsManagerComponent implements OnInit {
 
 
   @Input() waitingRoom: WaitingRoom;
-  constructor(private apollo: Apollo, private dataService: DataService , private interactionService : InteractionService) {
+  constructor(private apollo: Apollo, private dataService: DataService, private interactionService: InteractionService) {
 
   }
 
@@ -84,16 +84,16 @@ export class AppointmentsManagerComponent implements OnInit {
           this.currentVisit = null;
       }
 
-      this.interactionService.updateReport.next() ; 
+      this.interactionService.updateReport.next();
     })
   }
   public inVisit($event) {
     this.currentVisit = $event;
-   
+
   }
   public outVisit($event) {
     this.currentVisit = null;
-   
+
   }
 
   public ignoreVisit($event) {
@@ -113,7 +113,7 @@ export class AppointmentsManagerComponent implements OnInit {
       break;
     }
     this.waitingVisits.splice(index, 0, $event);
-   
+
   }
 
   public restoreVisit($event) {
@@ -129,6 +129,19 @@ export class AppointmentsManagerComponent implements OnInit {
       break;
     }
     this.waitingVisits.splice(index, 0, $event);
-   
+
+  }
+
+
+
+  public visitDone($event) {
+    // find the visit from the waiting visits to delete it 
+    // and mark it as new done visit and added it to the visitsDone
+    
+    const index = this.waitingVisits.findIndex(value => value.id == this.currentVisit.id);
+    this.waitingVisits.splice(index, 1);
+    (<any>this.currentVisit).newDone = true;
+    this.visitsDone.splice(0, 0, this.currentVisit); 
+    this.currentVisit = null ; 
   }
 }

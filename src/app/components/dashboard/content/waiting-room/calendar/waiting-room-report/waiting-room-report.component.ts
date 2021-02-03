@@ -16,7 +16,7 @@ export class WaitingRoomReportComponent implements OnInit {
 
   public waitingRoomReport: WaitingRoomReport;
 
-  constructor(private apollo: Apollo, private dataService: DataService , private interactionService : InteractionService) {
+  constructor(private apollo: Apollo, private dataService: DataService, private interactionService: InteractionService) {
     this.waitingRoomReport = new WaitingRoomReport();
   }
 
@@ -24,17 +24,17 @@ export class WaitingRoomReportComponent implements OnInit {
     // get the date from the ucrrent date
     // and load the report 
     const date = this.dataService.castDateYMD(this.currentDate.toString());
-    this.loadWaitingRoomReport(date) ; 
+    this.loadWaitingRoomReport(date);
     // every time something changes in the waiting room 
     // update the reports 
-    this.interactionService.updateReport.subscribe(() => { 
+    this.interactionService.updateReport.subscribe(() => {
 
-      this.loadWaitingRoomReport(date) ; 
+      this.loadWaitingRoomReport(date);
     })
-    
+
   }
 
-  private loadWaitingRoomReport(date ) { 
+  private loadWaitingRoomReport(date) {
     this.apollo.query({
       query: gql`
         {
@@ -68,22 +68,24 @@ export class WaitingRoomReportComponent implements OnInit {
           }
         }`
     }).pipe(map(value => (<any>value.data).getWaitingRoomReport)).subscribe((data) => {
-      if (data.waiting)
-        this.waitingRoomReport.waiting = data.waiting;
-      else 
-        this.waitingRoomReport.waiting = new Report() ; 
-      if (data.done)
-        this.waitingRoomReport.done = data.done;
-      else 
-        this.waitingRoomReport.done = new Report() ; 
-      if (data.ignored)
-        this.waitingRoomReport.ignored = data.ignored;
-      else 
-        this.waitingRoomReport.ignored = new Report() ; 
-      if (data.inVisit)
-        this.waitingRoomReport.inVisit  = data.inVisit;
-      else 
-        this.waitingRoomReport.inVisit = new Report() ; 
+      if (data != null) {
+        if (data.waiting)
+          this.waitingRoomReport.waiting = data.waiting;
+        else
+          this.waitingRoomReport.waiting = new Report();
+        if (data.done)
+          this.waitingRoomReport.done = data.done;
+        else
+          this.waitingRoomReport.done = new Report();
+        if (data.ignored)
+          this.waitingRoomReport.ignored = data.ignored;
+        else
+          this.waitingRoomReport.ignored = new Report();
+        if (data.inVisit)
+          this.waitingRoomReport.inVisit = data.inVisit;
+        else
+          this.waitingRoomReport.inVisit = new Report();
+      }
     })
 
   }

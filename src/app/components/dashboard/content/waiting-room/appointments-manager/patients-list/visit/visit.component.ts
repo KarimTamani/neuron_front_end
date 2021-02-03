@@ -19,7 +19,7 @@ export class VisitComponent implements OnInit {
   @Input() done: boolean = false;
   @Input() newDone: boolean = false;
   @Input() currentVisit: boolean = false;
-  @Input() waitingRoom : WaitingRoom ; 
+  @Input() waitingRoom: WaitingRoom;
   public next: boolean = false;
   public doneAnimate: boolean = false;
   public totalMoney: number;
@@ -33,11 +33,13 @@ export class VisitComponent implements OnInit {
   @Output() ignoreVisitEvent: EventEmitter<Visit>;
   @Output() restoreVisitEvent: EventEmitter<Visit>;
   @Output() outVisitEvent: EventEmitter<Visit>;
+  @Output() visitDoneEvent: EventEmitter<Visit>;
   constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
     this.restoreVisitEvent = new EventEmitter<Visit>();
     this.outVisitEvent = new EventEmitter<Visit>();
+    this.visitDoneEvent = new EventEmitter<Visit>();
   }
   ngOnInit(): void {
 
@@ -86,8 +88,8 @@ export class VisitComponent implements OnInit {
         this.visit.status = "in visit";
         this.visit.startTime = data.startTime;
         this.inVisitEvent.emit(this.visit);
-        
-        this.interactionService.updateReport.next() ; 
+
+        this.interactionService.updateReport.next();
       }, 1000)
     })
   }
@@ -110,9 +112,9 @@ export class VisitComponent implements OnInit {
       setTimeout(() => {
         this.ignore = true;
         this.fadeIn = false;
-        this.ignoreVisitEvent.emit(this.visit) ; 
+        this.ignoreVisitEvent.emit(this.visit);
 
-        this.interactionService.updateReport.next() ; 
+        this.interactionService.updateReport.next();
       }, 1000)
     })
   }
@@ -134,14 +136,14 @@ export class VisitComponent implements OnInit {
         this.fadeIn = false;
         this.restoreVisitEvent.emit(this.visit);
 
-        this.interactionService.updateReport.next() ; 
+        this.interactionService.updateReport.next();
 
       }, 500)
     })
   }
 
   outVisit() {
-    
+
     this.apollo.mutate({
       mutation: gql`
         mutation {
@@ -158,8 +160,8 @@ export class VisitComponent implements OnInit {
       this.fadeOut = false;
       this.hide = false;
       this.fadeIn = false;
-      this.interactionService.updateReport.next() ; 
-   
+      this.interactionService.updateReport.next();
+
     })
   }
 
@@ -174,22 +176,40 @@ export class VisitComponent implements OnInit {
     });
     const subscription = this.interactionService.visitPayed.subscribe((visit) => {
       this.visit = visit;
-      this.interactionService.updateReport.next() ; 
-   
+      this.interactionService.updateReport.next();
+
       subscription.unsubscribe();
     })
   }
 
   editVisit() {
 
-    this.router.navigate([] , {
+    this.router.navigate([], {
       queryParams: {
         "pop-up-window": true,
         "window-page": "new-visit",
         "title": "Modifier la visite",
-        "waiting-room" : encodeURIComponent(JSON.stringify(this.waitingRoom)) , 
+        "waiting-room": encodeURIComponent(JSON.stringify(this.waitingRoom)),
         "visit": encodeURIComponent(JSON.stringify(this.visit))
       }
     })
+  }
+
+  visitDone() {
+
+    this.apollo.mutate({
+      mutation : gql`
+        mutation {
+          visitDone(waitingRoomId : ${this.waitingRoom.id} , visitId : ${this.visit.id}) { 
+            endTime
+            status
+          }
+        }`
+    }).pipe(map(value => (<any>value.data).visitDone)).subscribe((data) => {
+      this.visit.endTime = data.endTime ; 
+      this.visit.status = data.status ; 
+      this.visitDoneEvent.emit(this.visit) ; 
+    })
+
   }
 }

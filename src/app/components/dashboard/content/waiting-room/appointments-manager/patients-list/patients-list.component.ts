@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Visit } from 'src/app/classes/Visit';
 import { Subject } from 'rxjs';
-import { InteractionService } from 'src/app/services/interaction.service';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
-import { visitWithTypeInfo } from 'graphql';
+
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
@@ -25,13 +24,16 @@ export class PatientsListComponent implements OnInit {
   @Output() inVisitEvent: EventEmitter<Visit>;
   @Output() ignoreVisitEvent: EventEmitter<Visit>;
   @Output() restoreVisitEvent: EventEmitter<Visit>;
-  @Output() outVisitEvent : EventEmitter<Visit> ; 
-  @Input() waitingRoom : WaitingRoom ; 
+  @Output() outVisitEvent: EventEmitter<Visit>;
+  @Output() visitDoneEvent : EventEmitter<Visit> ; 
+
+  @Input() waitingRoom: WaitingRoom;
   constructor(private apollo: Apollo) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
     this.restoreVisitEvent = new EventEmitter<Visit>();
-    this.outVisitEvent = new EventEmitter<Visit>()  ; 
+    this.outVisitEvent = new EventEmitter<Visit>();
+    this.visitDoneEvent = new EventEmitter<Visit>() ; 
   }
 
   ngOnInit(): void {
@@ -67,14 +69,14 @@ export class PatientsListComponent implements OnInit {
 
   public drop($event: CdkDragDrop<Visit[]>) {
 
-    
+
     // get the visit that we want to deplace based from the previous index 
     // get the order that we want to order it 
     var visit = this.visits[$event.previousIndex];
     var order = this.visits[$event.currentIndex].order;
     // if the visit is ignored or somethings like that to take it in considiration
-    if (visit.status != "waiting") 
-      return ; 
+    if (visit.status != "waiting")
+      return;
     this.apollo.mutate({
       mutation: gql`
         mutation {

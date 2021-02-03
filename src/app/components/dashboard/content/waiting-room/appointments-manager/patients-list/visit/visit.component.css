@@ -358,6 +358,10 @@
         content: "Payé la visite"
     }
     
+    .controller span.visit-done:after {
+        content: "Visite terminé"
+    }
+    
     .visit-container.fade-in {
         opacity: 0;
     }
@@ -391,7 +395,26 @@
     }
     
     .new-controller span {
-        margin: 0px auto;
+        position: absolute;
+        bottom: -26px;
+        margin: 0px;
+        left: 0px;
+    }
+    
+    .new-controller span.out-visit {
+        left: -22px;
+        bottom: -4px;
+    }
+    
+    .new-controller span.start-visit {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .new-controller span.visit-done {
+        right: -22px;
+        left: 100%;
+        bottom: -4px;
     }
     
     .new-controller span:after {

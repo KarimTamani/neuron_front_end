@@ -5,8 +5,8 @@
     <div class="body primary-radius">
         <div class="row">
             <div class="col col-md-6">
-                <app-patients-list [waitingRoom]="waitingRoom" (outVisitEvent)="outVisit($event)" (restoreVisitEvent)="restoreVisit($event)" (ignoreVisitEvent)="ignoreVisit($event)" (inVisitEvent)="inVisit($event)" [currentVisit]="currentVisit" [header]="'visites d\'attente'"
-                    [color]="'rgb(254, 101, 85)'" [visits]="waitingVisits" [nextSubject]="nextSubject"></app-patients-list>
+                <app-patients-list (visitDoneEvent)="visitDone($event)" [waitingRoom]="waitingRoom" (outVisitEvent)="outVisit($event)" (restoreVisitEvent)="restoreVisit($event)" (ignoreVisitEvent)="ignoreVisit($event)" (inVisitEvent)="inVisit($event)" [currentVisit]="currentVisit"
+                    [header]="'visites d\'attente'" [color]="'rgb(254, 101, 85)'" [visits]="waitingVisits" [nextSubject]="nextSubject"></app-patients-list>
             </div>
             <div class="col col-md-6">
                 <app-patients-list [done]="true" [header]="'visites terminées'" [color]='"rgb(38, 94, 215)"' [visits]="visitsDone"></app-patients-list>
