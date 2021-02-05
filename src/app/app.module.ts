@@ -71,7 +71,8 @@ import { DefaultOptions } from 'apollo-client';
 import { DragDropModule} from "@angular/cdk/drag-drop";
 import { PayeVisitComponent } from './components/dashboard/content/waiting-room/appointments-manager/patients-list/visit/paye-visit/paye-visit.component';
 import { WaitingRoomReportComponent } from './components/dashboard/content/waiting-room/calendar/waiting-room-report/waiting-room-report.component';
-import { VitalSettingComponent } from './components/dashboard/content/waiting-room/new-visit/vital-setting/vital-setting.component' ; 
+import { VitalSettingComponent } from './components/dashboard/content/waiting-room/new-visit/vital-setting/vital-setting.component';
+import { PatientVisitComponent } from './components/dashboard/content/patient-visit/patient-visit.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -132,6 +133,7 @@ import { VitalSettingComponent } from './components/dashboard/content/waiting-ro
     PayeVisitComponent,
     WaitingRoomReportComponent,
     VitalSettingComponent,
+    PatientVisitComponent,
   ],
   imports: [
     BrowserModule,
