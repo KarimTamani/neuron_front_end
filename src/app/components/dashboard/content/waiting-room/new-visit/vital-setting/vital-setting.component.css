@@ -1,0 +1,85 @@
+.main-container {
+    padding: 16px;
+}
+
+h5 {
+    font-size: 16px;
+    color: #212121;
+    font-weight: bold;
+}
+
+h5 i {
+    color: rgb(38, 94, 215);
+    margin-right: 16px;
+}
+
+.icon-container {
+    width: 26px;
+    max-width: 26px;
+    min-width: 26px;
+}
+
+.icon-container i,
+.icon-container img {
+    color: rgb(38, 94, 215);
+    font-size: 16px;
+}
+
+.icon-container img {
+    width: 16px;
+}
+
+.label-container {
+    width: 100%;
+    color: #555555;
+    font-size: 14px;
+    padding-left: 16px
+}
+
+.icon-container,
+.label-container,
+.unite-container {
+    display: grid;
+    align-items: center;
+}
+
+.unite-container {
+    width: 56px;
+    max-width: 56px;
+    min-width: 56px;
+    font-weight: bold;
+    color: #212221;
+    font-size: 14px;
+    text-align: right;
+}
+
+.input-container {
+    width: 120px;
+    max-width: 120px;
+    min-width: 120px;
+}
+
+.input-container i {
+    float: right;
+    padding: 4px;
+    border: 1px solid #aaaaaa;
+    border-radius: 4px;
+    color: transparent;
+    transition-duration: 0.5s;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.input-container i:hover {
+    color: rgb(38, 94, 215);
+    border-color: rgb(38, 94, 215);
+}
+
+.stretch-container {
+    margin: 16px 0px;
+}
+
+.input-container i.activated {
+    color: rgb(38, 94, 215);
+    border-color: rgb(38, 94, 215);
+}

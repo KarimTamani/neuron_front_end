@@ -2,6 +2,7 @@ import { MedicalAct } from "./MedicalAct";
 import { MedicalFile } from "./MedicalFile";
 import { Symptom } from "./Symptom";
 import { WaitingRoom } from "./WaitingRoom" ; 
+import { VitalSetting } from './VitalSetting';
 export class Visit {
 
 
@@ -20,10 +21,5 @@ export class Visit {
     public waitingRoomId : any ; 
     //public visitDrugDosages : [VisitDrugDosage] 
     //public checkUps : [CheckUp]
-
-
-
-    
-
-
+    public vitalSetting : VitalSetting = new VitalSetting();  
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { VitalSetting } from 'src/app/classes/VitalSetting';
 
 @Component({
   selector: 'app-vital-setting',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vital-setting.component.css']
 })
 export class VitalSettingComponent implements OnInit {
+  @Input() vitalSetting : VitalSetting ; 
+  constructor() {
 
-  constructor() { }
+  }
 
   ngOnInit(): void {
+    
   }
 
 }

@@ -1,1 +1,142 @@
-<p>vital-setting works!</p>
+<div class="main-container">
+    <h5>
+        <i class="fa fa-user-cog"></i> Les pramétres vitaux
+    </h5>
+    <div class="content">
+        <div class="stretch-container">
+            <div class="icon-container">
+                <i class="fa fa-temperature-low"></i>
+            </div>
+            <div class="label-container">
+                tempurature
+            </div>
+            <div class="input-container">
+                <input type="number" [(ngModel)]="vitalSetting.temperature" placeholder="tempurature" class="primary-input">
+            </div>
+            <div class="unite-container">
+                °C
+            </div>
+        </div>
+
+        <div class="stretch-container">
+            <div class="icon-container">
+
+                <img src="../../../../../../../assets/lungs.png">
+            </div>
+            <div class="label-container">
+                La fréquence respiratoire
+            </div>
+            <div class="input-container">
+                <input type="number" [(ngModel)]="vitalSetting.respiratoryRate" class="primary-input" placeholder="fréquence">
+            </div>
+            <div class="unite-container">
+                CPM
+            </div>
+        </div>
+
+
+        <div class="stretch-container">
+            <div class="icon-container">
+                <i class="fa fa-heartbeat"></i>
+            </div>
+            <div class="label-container">
+                La fréquence cardiaque
+            </div>
+            <div class="input-container">
+                <input type="number" [(ngModel)]="vitalSetting.cardiacFrequency" class=" primary-input " placeholder="fréquence ">
+            </div>
+            <div class="unite-container ">
+                CPM
+            </div>
+        </div>
+
+        <div class="stretch-container ">
+            <div class="icon-container ">
+                <i class="fa fa-tint "></i>
+            </div>
+            <div class="label-container ">
+                La Pression artérielle
+            </div>
+            <div class="input-container ">
+                <input type="text " [(ngModel)]="vitalSetting.bloodPressure" placeholder="pression " class="primary-input ">
+            </div>
+            <div class="unite-container ">
+                mmHg
+            </div>
+        </div>
+
+        <div class="stretch-container ">
+            <div class="icon-container ">
+                <img src="../../../../../../../assets/kidney.png ">
+            </div>
+            <div class="label-container ">
+                La diurèse
+            </div>
+            <div class="input-container ">
+                <input type="text " class="primary-input" [(ngModel)]="vitalSetting.diuresis" placeholder="diurèse">
+            </div>
+            <div class="unite-container ">
+                ml
+            </div>
+        </div>
+
+
+
+
+        <div class="stretch-container ">
+            <div class="icon-container ">
+                <i class="fa fa-weight "></i>
+            </div>
+            <div class="label-container ">
+                Poids
+            </div>
+            <div class="input-container ">
+                <input type="text" class="primary-input" [(ngModel)]="vitalSetting.weight" placeholder="Poids ">
+            </div>
+            <div class="unite-container ">
+                KG
+            </div>
+        </div>
+
+        <div class="stretch-container ">
+            <div class="icon-container ">
+                <i class="fa fa-arrows-alt-v "></i>
+            </div>
+            <div class="label-container ">
+                Taille
+            </div>
+            <div class="input-container ">
+                <input type="text " class="primary-input " placeholder="Taille " [(ngModel)]="vitalSetting.size">
+            </div>
+            <div class="unite-container ">
+                cm
+            </div>
+        </div>
+
+
+        <div class="stretch-container ">
+            <div class="icon-container ">
+                <img src="../../../../../../../assets/stomack.png ">
+            </div>
+            <div class="label-container ">
+                Obsesity
+            </div>
+            <div class="input-container ">
+                <i class="fa fa-check" (click)="vitalSetting.obesity = !vitalSetting.obesity" [class.activated]="vitalSetting.obesity"></i>
+            </div>
+        </div>
+
+
+        <div class="stretch-container ">
+            <div class="icon-container ">
+                <i class="fa fa-smoking "></i>
+            </div>
+            <div class="label-container ">
+                Fumeur
+            </div>
+            <div class="input-container ">
+                <i class="fa fa-check" (click)="vitalSetting.smoker = !vitalSetting.smoker" [class.activated]="vitalSetting.smoker"></i>
+            </div>
+        </div>
+    </div>
+</div>

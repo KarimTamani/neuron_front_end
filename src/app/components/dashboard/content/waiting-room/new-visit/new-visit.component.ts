@@ -8,6 +8,7 @@ import { Symptom } from 'src/app/classes/Symptom';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
 import { ActivatedRoute } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { VitalSetting } from 'src/app/classes/VitalSetting';
 
 @Component({
   selector: 'app-new-visit',
@@ -25,9 +26,10 @@ export class NewVisitComponent implements OnInit {
   public submittedMedicalFile: MedicalFile;
   public symptoms: Symptom[] = [];
   public showNewMedicalFile: boolean = false;
+  public showVitalSetting: boolean = true;
 
 
-  public  edit: boolean = false;
+  public edit: boolean = false;
   constructor(private apollo: Apollo, private route: ActivatedRoute, private interactionservice: InteractionService) {
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();
@@ -145,21 +147,22 @@ export class NewVisitComponent implements OnInit {
     this.visit.medicalFile = $event;
   }
   public saveVisit() {
-
     this.apollo.mutate({
       mutation: gql`
-        mutation ($symptoms : [ID!] , $medicalActs : [ID!]!){
+        mutation ($symptoms : [ID!] , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput){
           addVisit (visit : {
             waitingRoomId : "${this.visit.waitingRoom.id}" 
             medicalFileId : "${this.visit.medicalFile.id}"
             symptoms : $symptoms 
-            medicalActs : $medicalActs
+            medicalActs : $medicalActs 
+            vitalSetting : $vitalSetting
           }) {id }
         }
       ` ,
       variables: {
         symptoms: this.symptoms.map(value => value.id),
-        medicalActs: this.selectedMedicalActs.map(value => value.id)
+        medicalActs: this.selectedMedicalActs.map(value => value.id) , 
+        vitalSetting : (this.isVitalSettingEdited())? (<VitalSetting>this.visit.vitalSetting) : (null)
       }
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
       this.closeEvent.emit();
@@ -168,22 +171,36 @@ export class NewVisitComponent implements OnInit {
   }
 
   public editVisit() {
+    delete (<any>this.visit.vitalSetting).__typename  ; 
     this.apollo.mutate({
       mutation: gql`
-        mutation ($symptoms : [ID!] , $medicalActs : [ID!]!){
+        mutation ($symptoms : [ID!] , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput){
           editVisit (visitId : ${this.visit.id} , visit : {
             symptoms : $symptoms 
             medicalActs : $medicalActs
+            vitalSetting : $vitalSetting
           }) 
         }
       ` ,
       variables: {
         symptoms: this.symptoms.map(value => value.id),
-        medicalActs: this.selectedMedicalActs.map(value => value.id)
+        medicalActs: this.selectedMedicalActs.map(value => value.id) , 
+        vitalSetting : (this.isVitalSettingEdited())? (<VitalSetting>this.visit.vitalSetting) : (null)
       }
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
       this.closeEvent.emit();
       this.interactionservice.newVisitAdded.next();
     })
   }
+
+
+
+
+  private isVitalSettingEdited() {
+    var keys = Object.keys(this.visit.vitalSetting) ; 
+    return keys.length > 0 ; 
+  }
+
+
 }
+

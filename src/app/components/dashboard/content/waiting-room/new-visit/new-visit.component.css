@@ -125,7 +125,7 @@ h5 {
 }
 
 .symptoms-container {
-    height: 260px;
+    height: 210px;
     padding: 8px 0px;
 }
 
@@ -135,6 +135,15 @@ h5 {
     }
     to {
         width: 560px;
+    }
+}
+
+@keyframes expandVitalSetting {
+    from {
+        width: 0px;
+    }
+    to {
+        width: 460px;
     }
 }
 
@@ -152,6 +161,13 @@ h5 {
     margin-left: 16px;
     width: 560px;
     animation: expandMedicalFile 1s ease;
+}
+
+.vital-setting-container {
+    background: white;
+    margin-left: 16px;
+    width: 460px;
+    animation: expandVitalSetting 1s ease;
 }
 
 .content {
@@ -193,4 +209,17 @@ p i {
 
 .controller button {
     float: right;
+}
+
+.primary-vital .icon-container:not(.button-icon) i {
+    color: rgb(38, 94, 215);
+    padding: 0px;
+}
+
+.primary-vital input {
+    width: 100%;
+}
+
+.primary-vital .icon-container {
+    margin-right: 16px;
 }

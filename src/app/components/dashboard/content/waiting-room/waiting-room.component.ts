@@ -80,14 +80,24 @@ export class WaitingRoomComponent implements OnInit {
               symptoms {
                 id name
               }
+              vitalSetting { 
+                temperature 
+                respiratoryRate  
+                cardiacFrequency 
+                bloodPressure 
+                diuresis 
+                weight  
+                size  
+                obesity 
+                smoker  
+              }
             }
           }
         }
       `
     }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => { 
       this.waitingRoom = data ;     
-
-      
+      console.log(this.waitingRoom)  ; 
     })
   }
   public createWaitingRoom() {

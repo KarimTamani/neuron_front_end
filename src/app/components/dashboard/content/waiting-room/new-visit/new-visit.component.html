@@ -26,7 +26,6 @@
                 </p>
             </div>
             <div class="col col-md-12">
-
                 <h5>Les Actes medicaux</h5>
                 <div class="medical-acts-container">
                     <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
@@ -42,10 +41,38 @@
                         </i>
                     </div>
                 </div>
-
                 <p>
                     <i class="fa fa-money-bill-wave"></i>Montant total <span class="hightlight">{{totalPrice }} DA</span>
                 </p>
+            </div>
+            <div class="col col-md-12">
+                <h5>
+                    Pramaétres vitaux
+                </h5>
+                <div class="row primary-vital">
+
+                    <div class="col col-md-5">
+                        <div class="stretch-container">
+                            <div class="icon-container">
+                                <i class="fa fa-weight"></i>
+                            </div>
+                            <input type="number" [(ngModel)]="visit.vitalSetting.weight" placeholder="poid (KG)" class="primary-input">
+                        </div>
+                    </div>
+                    <div class="col col-md-5">
+                        <div class="stretch-container">
+                            <div class="icon-container">
+                                <i class="fa fa-arrows-alt-v"></i>
+                            </div>
+                            <input type="number" [(ngModel)]="visit.vitalSetting.size" placeholder="taille (cm)" class="primary-input">
+                        </div>
+                    </div>
+                    <div class="col col-md-2">
+                        <div class="button-icon icon-container">
+                            <i class="fa fa-plus primary-button" (click)="showVitalSetting = true"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col col-md-12">
                 <h5>
@@ -82,4 +109,11 @@
             <app-new-medical-file></app-new-medical-file>
         </div>
     </div>
+
+    <div class="vital-setting-container primary-radius" *ngIf="showVitalSetting">
+        <div class="content">
+            <app-vital-setting [vitalSetting]="visit.vitalSetting"></app-vital-setting>
+        </div>
+    </div>
+
 </div>
