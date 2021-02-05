@@ -32,6 +32,8 @@ export class SideBarComponent implements OnInit {
       this.activatedRouter = 2 ; 
     if (url.includes("profil"))
       this.activatedRouter = 6;
+    if (url.includes("visit")) 
+      this.activatedRouter = 5 ; 
   }
 
 }
