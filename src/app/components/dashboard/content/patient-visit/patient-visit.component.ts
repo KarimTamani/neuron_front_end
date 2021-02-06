@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  public page : number = 1 ; 
+  constructor() {}
+  ngOnInit(): void {}
+  select($event) { 
+    this.page = $event ; 
   }
-
 }

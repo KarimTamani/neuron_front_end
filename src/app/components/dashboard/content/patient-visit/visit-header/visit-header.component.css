@@ -7,6 +7,7 @@
     padding: 6px 16px;
     border-radius: 20px;
     font-size: 12px;
+    font-weight: bold;
     color: #666666;
     cursor: pointer;
     transition-duration: 0.5s;
@@ -26,4 +27,8 @@
 .option.selected {
     color: white;
     background: rgb(38, 94, 215);
+}
+
+.main-container {
+    margin: 0px -16px;
 }

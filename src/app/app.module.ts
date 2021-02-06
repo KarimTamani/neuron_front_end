@@ -73,7 +73,12 @@ import { PayeVisitComponent } from './components/dashboard/content/waiting-room/
 import { WaitingRoomReportComponent } from './components/dashboard/content/waiting-room/calendar/waiting-room-report/waiting-room-report.component';
 import { VitalSettingComponent } from './components/dashboard/content/waiting-room/new-visit/vital-setting/vital-setting.component';
 import { PatientVisitComponent } from './components/dashboard/content/patient-visit/patient-visit.component';
-import { VisitHeaderComponent } from './components/dashboard/content/patient-visit/visit-header/visit-header.component' ; 
+import { VisitHeaderComponent } from './components/dashboard/content/patient-visit/visit-header/visit-header.component';
+import { VisitInformationComponent } from './components/dashboard/content/patient-visit/visit-information/visit-information.component';
+import { VisitPrescriptionComponent } from './components/dashboard/content/patient-visit/visit-prescription/visit-prescription.component';
+import { VisitCheckUpComponent } from './components/dashboard/content/patient-visit/visit-check-up/visit-check-up.component';
+import { VisitDocumentsComponent } from './components/dashboard/content/patient-visit/visit-documents/visit-documents.component';
+import { VisitLoaderComponent } from './components/dashboard/content/patient-visit/visit-information/visit-loader/visit-loader.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -136,6 +141,11 @@ import { VisitHeaderComponent } from './components/dashboard/content/patient-vis
     VitalSettingComponent,
     PatientVisitComponent,
     VisitHeaderComponent,
+    VisitInformationComponent,
+    VisitPrescriptionComponent,
+    VisitCheckUpComponent,
+    VisitDocumentsComponent,
+    VisitLoaderComponent,
   ],
   imports: [
     BrowserModule,
