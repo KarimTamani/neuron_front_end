@@ -12,22 +12,6 @@ i {
     margin-top: 4px;
 }
 
-select {
-    background: white;
-    padding: 10px 16px;
-    width: 100%;
-    border: none;
-    color: #212121;
-    border: #cccccc solid 1px;
-    border-radius: 8px;
-    outline: none;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
 select.is-invalid {
     border-color: rgb(254, 101, 85);
 }

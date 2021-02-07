@@ -1,1 +1,54 @@
-<p>visit-loader works!</p>
+<div class="main-container primary-radius">
+    <div class="row">
+        <div class="col col-md-12" *ngIf="!edit">
+            <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
+        </div>
+        <div class="col col-md-12">
+            <div class="new-medicalfile-message stretch-container" *ngIf="visit.medicalFile == null">
+                <p>
+                    Si le dossie medical n'existe pas
+                </p>
+                <button class="secondary-button" (click)="showNewMedicalFile = true">
+                    Creé le <i class="fa fa-plus"></i>
+                </button>
+            </div>
+            <div class="medical-file" *ngIf="visit.medicalFile">
+                <app-mini-medical-file [medicalFile]="visit.medicalFile"></app-mini-medical-file>
+            </div>
+        </div>
+        <div class="col col-md-12" *ngIf="visit.waitingRoom">
+            <h5>Salle d'attent</h5>
+            <p class="waiting-room-info">
+                <span><i class="fa fa-calendar"></i>{{visit.waitingRoom.date}}</span>
+                <span><i class="fa fa-sort-amount-up"></i>{{visit.order}} {{(visit.order == 1) ? ("er") : ("éme")}}</span>
+            </p>
+        </div>
+        <div class="col col-md-12">
+            <h5>Motif de consultation et symptoms</h5>
+            <div class="symptoms-container">
+                <span *ngFor="let symptom of visit.symptoms">{{symptom.name}}</span>
+            </div>
+        </div>
+        <div class="col col-md-12">
+            <div class="antecedents-header stretch-container">
+                <h5>
+                    Antecedents
+                </h5>
+
+                <select [(ngModel)]="selectedType">
+                    <option [value]="undefined" hidden>Tout</option>
+                    <option *ngFor="let type of types" [value]="type" >{{type}}</option>
+                </select>
+
+            </div>
+            <div class="antecedents-container">
+                <span *ngFor="let antecedent of visit.medicalFile.antecedents">
+                    {{antecedent.name}}
+                </span>
+            </div>
+        </div>
+        <div class="controller col col-md-12">
+            <button class="primary-button"> Sauvgarder la visite <i class="fa fa-save"></i></button>
+        </div>
+    </div>
+</div>

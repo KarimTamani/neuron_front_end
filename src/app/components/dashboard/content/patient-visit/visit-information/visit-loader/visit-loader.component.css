@@ -1,0 +1,88 @@
+.main-container {
+    width: 100%;
+    padding: 16px;
+    background: white;
+}
+
+.new-medicalfile-message {
+    background: rgba(254, 101, 85, 0.2);
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.new-medicalfile-message p {
+    margin: 0px;
+    width: 100%;
+    color: rgb(254, 101, 85);
+    font-size: 12px;
+    display: grid;
+    align-content: center;
+}
+
+.new-medicalfile-message button {
+    max-width: 100px;
+    min-width: 100px;
+    border-radius: 20px;
+}
+
+.row .col {
+    margin-bottom: 16px;
+}
+
+h5 {
+    color: #212112;
+    font-weight: bold;
+    margin: 0px;
+    margin-bottom: 12px;
+}
+
+.waiting-room-info span:last-child {
+    float: right;
+}
+
+p {
+    margin: 0px;
+    color: #555555;
+    font-size: 12px;
+}
+
+p i {
+    color: rgb(38, 94, 215);
+    margin-right: 8px;
+}
+
+.symptoms-container span,
+.antecedents-container span {
+    background: #eeeeee;
+    padding: 8px 16px;
+    display: inline-block;
+    border-radius: 20px;
+    color: #555555;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.symptoms-container,
+.antecedents-container {
+    margin-right: -8px;
+    margin-top: -8px;
+    height: 120px;
+    max-height: 120px;
+    overflow: hidden;
+}
+
+.antecedents-header h5 {
+    width: 100%;
+    margin: 0px;
+    display: grid;
+    align-items: center;
+}
+
+.antecedents-header select {
+    width: 120px;
+    text-align: center;
+}
+
+.controller button {
+    float: right;
+}
