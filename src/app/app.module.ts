@@ -78,7 +78,8 @@ import { VisitInformationComponent } from './components/dashboard/content/patien
 import { VisitPrescriptionComponent } from './components/dashboard/content/patient-visit/visit-prescription/visit-prescription.component';
 import { VisitCheckUpComponent } from './components/dashboard/content/patient-visit/visit-check-up/visit-check-up.component';
 import { VisitDocumentsComponent } from './components/dashboard/content/patient-visit/visit-documents/visit-documents.component';
-import { VisitLoaderComponent } from './components/dashboard/content/patient-visit/visit-information/visit-loader/visit-loader.component' ; 
+import { VisitLoaderComponent } from './components/dashboard/content/patient-visit/visit-information/visit-loader/visit-loader.component';
+import { VisitClincalExamComponent } from './components/dashboard/content/patient-visit/visit-information/visit-clincal-exam/visit-clincal-exam.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -146,6 +147,7 @@ import { VisitLoaderComponent } from './components/dashboard/content/patient-vis
     VisitCheckUpComponent,
     VisitDocumentsComponent,
     VisitLoaderComponent,
+    VisitClincalExamComponent,
   ],
   imports: [
     BrowserModule,
