@@ -22,4 +22,5 @@ export class Visit {
     //public visitDrugDosages : [VisitDrugDosage] 
     //public checkUps : [CheckUp]
     public vitalSetting : VitalSetting = new VitalSetting();  
+    public clinicalExam : string ; 
 }
