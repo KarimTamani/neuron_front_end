@@ -1,1 +1,139 @@
-<p>visit-vital-setting works!</p>
+<div class="main-container primary-radius">
+    <h5>
+        Les pramétres vitaux
+    </h5>
+
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+                    <i class="fa fa-temperature-low"></i>
+                </div>
+                <div class="value-container">
+                    <span [class.value]="vitalSetting.temperature">{{(vitalSetting.temperature) ? (vitalSetting.temperature + " °C") : ("Inconnue")}} </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+                    <img src="../../../../../../../assets/lungs.png">
+                </div>
+                <div class="value-container">
+                    <span [class.value]="vitalSetting.respiratoryRate">{{(vitalSetting.respiratoryRate) ? (vitalSetting.respiratoryRate + " CPM") : ("Inconnue")}} </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+                    <i class="fa fa-heartbeat"></i>
+                </div>
+                <div class="value-container">
+                    <span [class.value]="vitalSetting.cardiacFrequency">{{(vitalSetting.cardiacFrequency) ? (vitalSetting.cardiacFrequency + " °C") : ("Inconnue")}} </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+                    <i class="fa fa-tint"></i>
+                </div>
+                <div class="value-container">
+                    <span [class.value]="vitalSetting.bloodPressure">{{(vitalSetting.bloodPressure) ? (vitalSetting.bloodPressure + " mmHg") : ("Inconnue")}} </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+                    <img src="../../../../../../../assets/kidney.png ">
+
+                </div>
+                <div class="value-container">
+                    <span [class.value]="vitalSetting.diuresis">{{(vitalSetting.diuresis) ? (vitalSetting.diuresis + " ml") : ("Inconnue")}} </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+
+                    <i class="fa fa-weight "></i>
+                </div>
+                <div class="value-container">
+                    <span [class.value]="vitalSetting.weight"> {{(vitalSetting.weight) ? (vitalSetting.weight + " Kg") : ("Inconnue")}} </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+                    <i class="fa fa-arrows-alt-v"></i>
+                </div>
+                <div class="value-container">
+                    <span [class.value]="vitalSetting.size">{{(vitalSetting.size) ? (vitalSetting.size + " Cm") : ("Inconnue")}} </span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+                    <img src="../../../../../../../assets/stomack.png ">
+
+                </div>
+
+                <div class="value-container">
+                    <span *ngIf="vitalSetting.obesity === null">Inconnue</span>
+                    <span *ngIf="vitalSetting.obesity != null" class="value">
+                        {{(vitalSetting.obesity == true) ? ("Oui") : ("No")}}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col col-md-6">
+            <div class="stretch-container">
+                <div class="icon-container">
+                    <i class="fa fa-smoking "></i>
+                </div>
+                <div class="value-container">
+                    <span *ngIf="vitalSetting.smoker === null">Inconnue</span>
+                    <span *ngIf="vitalSetting.smoker != null" class="value">
+                        {{(vitalSetting.smoker == true) ? ("Oui") : ("No")}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-12">
+            <div class="stretch-container">
+                IMC <span class="bold"> {{imc}} Kg / m </span> interpretation <span class="bold">{{ interpretation }}</span>
+            </div>
+        </div>
+        <div class="col col-md-12">
+            <div class="stretch-container edit">
+                <div>
+                    <p>Modifier les paramétres vitaux ici </p>
+
+                </div>
+                <button class="secondary-button">Modifier <i class="fa fa-edit"></i></button>
+            </div>
+        </div>
+
+    </div>
+</div>

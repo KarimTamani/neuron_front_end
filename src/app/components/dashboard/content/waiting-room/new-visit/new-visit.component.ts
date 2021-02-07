@@ -171,6 +171,7 @@ export class NewVisitComponent implements OnInit {
   }
 
   public editVisit() {
+    console.log(this.visit.vitalSetting) ; 
     delete (<any>this.visit.vitalSetting).__typename  ; 
     this.apollo.mutate({
       mutation: gql`

@@ -1,0 +1,70 @@
+.main-container {
+    padding: 16px;
+    background: white;
+}
+
+h5 {
+    margin: 0px;
+    color: #212121;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.icon-container {
+    width: 26px;
+    max-width: 26px;
+    min-width: 26px;
+}
+
+.icon-container i,
+.icon-container img {
+    color: rgb(38, 94, 215);
+    font-size: 16px;
+}
+
+.icon-container img {
+    width: 16px;
+}
+
+.icon-container {
+    display: grid;
+    align-items: center;
+}
+
+.stretch-container {
+    margin: 8px 0px;
+    font-size: 12px;
+    color: #555555;
+}
+
+.value-container span.value {
+    color: rgb(254, 101, 85);
+    background: rgb(254, 101, 85, 0.3);
+    padding: 2px 6px;
+    font-size: 10px;
+    border-radius: 20px;
+    font-weight: 100;
+}
+
+.bold {
+    color: #212121;
+    font-weight: bold;
+    margin: 0px 4px;
+}
+
+.edit p {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+}
+
+.edit div {
+    width: 100%;
+}
+
+.edit button {
+    max-width: 120px;
+    min-width: 120px;
+    border-radius: 12px;
+}

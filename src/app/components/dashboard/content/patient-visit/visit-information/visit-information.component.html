@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container primary-radius">
 
     <div class="row">
         <div class="col col-md-4">
@@ -6,6 +6,14 @@
         </div>
         <div class="col col-md-4">
             <app-visit-clincal-exam [exam]="visit.clinicalExam"></app-visit-clincal-exam>
+        </div>
+        <div class="col col-md-4">
+            <div>
+                <app-visit-vital-setting [vitalSetting]="visit.vitalSetting"></app-visit-vital-setting>
+            </div>
+            <div class="side-card">
+                <app-visit-medical-acts [selectedMedicalActs]="visit.medicalActs"></app-visit-medical-acts>
+            </div>
         </div>
     </div>
 

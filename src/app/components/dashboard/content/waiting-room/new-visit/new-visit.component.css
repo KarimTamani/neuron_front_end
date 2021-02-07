@@ -190,15 +190,6 @@ p i {
     float: right;
 }
 
-.hightlight {
-    background: rgba(254, 101, 85, 0.3);
-    color: rgb(254, 101, 85);
-    padding: 4px 8px;
-    border-radius: 20px;
-    margin-left: 8px;
-    font-size: 10px;
-}
-
 .medical-acts-container {
     height: 120px;
     max-height: 120px;

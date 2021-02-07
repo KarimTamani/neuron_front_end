@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { map } from 'rxjs/operators';
+import { MedicalAct } from 'src/app/classes/MedicalAct';
 
 @Component({
   selector: 'app-visit-medical-acts',
@@ -6,10 +10,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visit-medical-acts.component.css']
 })
 export class VisitMedicalActsComponent implements OnInit {
-
-  constructor() { }
+  public medicalActs: MedicalAct[] = [];
+  @Input() selectedMedicalActs: MedicalAct[] = [];
+  public totalPrice: number = 0;
+  constructor(private apollo: Apollo) { }
 
   ngOnInit(): void {
+    this.apollo.query({
+      query: gql`
+        { 
+          getAllMedicalActs {
+            id name price
+          }
+        }
+      `
+    }).pipe(map(value => (<any>value.data).getAllMedicalActs)).subscribe((data) => {
+      this.medicalActs = data;
+      // calculate the total price of the visit 
+      this.totalPrice = 0;
+      this.selectedMedicalActs.forEach((act) => {
+        this.totalPrice += act.price;
+      })
+    })
+
+  }
+
+  public selectMedicalAct(medicalAct) {
+    // if the medical act is allready selected remove it 
+    // else push it 
+    let index = this.selectedMedicalActs.findIndex(value => value.id == medicalAct.id);
+    if (index >= 0) {
+      this.selectedMedicalActs.splice(index, 1);
+    } else
+      this.selectedMedicalActs.push(medicalAct);
+    // calculate the total price of the visit 
+    this.totalPrice = 0;
+    this.selectedMedicalActs.forEach((act) => {
+      this.totalPrice += act.price;
+    })
+  }
+
+  public isMedicalActSelected(medicalAct) {
+    let index = this.selectedMedicalActs.findIndex(value => value.id == medicalAct.id);
+    return index >= 0;
   }
 
 }

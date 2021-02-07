@@ -73,7 +73,6 @@ export class VisitInformationComponent implements OnInit {
       }`
     }).pipe(map(value => (<any>value.data).getCurrentVisit)).subscribe((data) => { 
       this.visit = data ; 
-      console.log(this.visit) ; 
     })
   
   }

@@ -1,1 +1,18 @@
-<p>visit-medical-acts works!</p>
+<div class="main-container primary-radius">
+    <h5>Les Actes medicaux</h5>
+    <div class="medical-acts-container">
+        <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
+            <span>
+                {{medicalAct.name}} 
+
+            </span>
+            <span>
+                {{medicalAct.price}} DA
+            </span>
+            <i class="fa fa-check"></i>
+        </div>
+    </div>
+    <div class="info">
+        Montant Total <span class="hightlight">{{totalPrice}} DA</span>
+    </div>
+</div>
