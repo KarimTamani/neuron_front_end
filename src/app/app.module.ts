@@ -79,7 +79,9 @@ import { VisitPrescriptionComponent } from './components/dashboard/content/patie
 import { VisitCheckUpComponent } from './components/dashboard/content/patient-visit/visit-check-up/visit-check-up.component';
 import { VisitDocumentsComponent } from './components/dashboard/content/patient-visit/visit-documents/visit-documents.component';
 import { VisitLoaderComponent } from './components/dashboard/content/patient-visit/visit-information/visit-loader/visit-loader.component';
-import { VisitClincalExamComponent } from './components/dashboard/content/patient-visit/visit-information/visit-clincal-exam/visit-clincal-exam.component' ; 
+import { VisitClincalExamComponent } from './components/dashboard/content/patient-visit/visit-information/visit-clincal-exam/visit-clincal-exam.component';
+import { VisitVitalSettingComponent } from './components/dashboard/content/patient-visit/visit-information/visit-vital-setting/visit-vital-setting.component';
+import { VisitMedicalActsComponent } from './components/dashboard/content/patient-visit/visit-information/visit-medical-acts/visit-medical-acts.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -148,6 +150,8 @@ import { VisitClincalExamComponent } from './components/dashboard/content/patien
     VisitDocumentsComponent,
     VisitLoaderComponent,
     VisitClincalExamComponent,
+    VisitVitalSettingComponent,
+    VisitMedicalActsComponent,
   ],
   imports: [
     BrowserModule,
