@@ -26,7 +26,7 @@ export class NewVisitComponent implements OnInit {
   public submittedMedicalFile: MedicalFile;
   public symptoms: Symptom[] = [];
   public showNewMedicalFile: boolean = false;
-  public showVitalSetting: boolean = true;
+  public showVitalSetting: boolean = false;
   public edit: boolean = false;
 
   
@@ -144,7 +144,9 @@ export class NewVisitComponent implements OnInit {
     this.symptoms.splice(index, 1);
   }
   selectMedicalFile($event) {
+
     this.visit.medicalFile = $event;
+    this.submittedMedicalFile = new MedicalFile() ; 
   }
   public saveVisit() {
     this.apollo.mutate({
@@ -171,7 +173,7 @@ export class NewVisitComponent implements OnInit {
   }
 
   public editVisit() {
-    console.log(this.visit.vitalSetting) ; 
+
     delete (<any>this.visit.vitalSetting).__typename  ; 
     this.apollo.mutate({
       mutation: gql`
@@ -202,6 +204,13 @@ export class NewVisitComponent implements OnInit {
     return keys.length > 0 ; 
   }
 
+
+  public closeMedicalFile() { 
+    this.visit.medicalFile = null ; 
+  }
+  public editMedicalFile() { 
+
+  }
 
 }
 

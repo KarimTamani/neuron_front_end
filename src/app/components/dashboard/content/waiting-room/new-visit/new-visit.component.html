@@ -14,7 +14,7 @@
                     </button>
                 </div>
                 <div class="medical-file" *ngIf="visit.medicalFile">
-                    <app-mini-medical-file [medicalFile]="visit.medicalFile"></app-mini-medical-file>
+                    <app-mini-medical-file (closeEvent)="closeMedicalFile()" (editEvent)="editMedicalFile()" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
                 </div>
             </div>
             <div class="col col-md-12">
@@ -43,7 +43,7 @@
                     <i class="fa fa-money-bill-wave"></i>Montant total <span class="hightlight">{{totalPrice }} DA</span>
                 </p>
             </div>
-            <div class="col col-md-12">
+            <div class="col col-md-12" *ngIf="visit.medicalFile">
                 <h5>
                     Pramaétres vitaux
                 </h5>

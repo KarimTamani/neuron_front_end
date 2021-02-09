@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
 
 @Component({
@@ -7,11 +7,24 @@ import { MedicalFile } from 'src/app/classes/MedicalFile';
   styleUrls: ['./mini-medical-file.component.css']
 })
 export class MiniMedicalFileComponent implements OnInit {
-  @Input() medicalFile : MedicalFile ; 
-  constructor() {}
+  @Input() medicalFile: MedicalFile;
+  @Output() closeEvent: EventEmitter<null>;
+  @Output() editEvent: EventEmitter<null>;
+  constructor() {
+    this.closeEvent = new EventEmitter<null>();
+    this.editEvent = new EventEmitter<null>();
+  }
 
   ngOnInit(): void {
-    
+
+  }
+
+  editMedicalFile() {
+    this.editEvent.emit();
+  }
+
+  closeMedicalFile() {
+    this.closeEvent.emit();
   }
 
 }

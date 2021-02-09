@@ -1,4 +1,5 @@
 <div class="main-container stretch-container">
+
     <div class="image-side">
         <img src="{{(medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
     </div>
@@ -14,5 +15,15 @@
         <p>
             <i class="fa fa-phone"></i> {{(medicalFile.phone) ? (medicalFile.phone) : ("Inconnue")}}
         </p>
+    </div>
+
+
+    <div class="controller">
+        <span class="edit" (click)="editMedicalFile()">
+            <i class="fa fa-edit"></i>
+        </span>
+        <span class="igonre" (click)="closeMedicalFile()">
+            <i class="fa fa-times"></i>
+        </span>
     </div>
 </div>
