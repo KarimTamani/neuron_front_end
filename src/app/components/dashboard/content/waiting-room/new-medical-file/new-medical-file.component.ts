@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
 import { Apollo } from 'apollo-angular';
@@ -6,6 +6,9 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Profession } from 'src/app/classes/Profession';
 import { Observable } from 'rxjs';
+import { Antecedent } from 'src/app/classes/Antecedent';
+import { Address } from 'src/app/classes/Address';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-new-medical-file',
@@ -46,13 +49,66 @@ export class NewMedicalFileComponent implements OnInit {
   public wilayas: any[] = [];
   public selectedWilaya: any = null;
   public professions: Profession[] = [];
-
+  public showSubmitter: boolean = false;
+  @Output() blackWindowEvent: EventEmitter<null>;
   @Input() medicalFile: MedicalFile;
-  constructor(private apollo: Apollo) { }
+  public edit: boolean = false;
+
+
+  constructor(private apollo: Apollo, private dataService: DataService) {
+    this.blackWindowEvent = new EventEmitter<null>();
+  }
 
   ngOnInit(): void {
     if (this.medicalFile == null)
       this.medicalFile = new MedicalFile();
+    else {
+      this.apollo.query({
+        query: gql`
+        {
+          getMedicalFile(medicalFileId : ${this.medicalFile.id}) {
+            
+              id
+              name
+              lastname
+              gender
+              phone
+              email
+              birthday
+              address {
+                  id
+                  address
+                  commune {
+                      id
+                      postalCode
+                      name
+                      wilaya {
+                          id
+                          name
+                      }
+                  }
+              }
+              profession {
+                id name
+              }
+              antecedents {
+                id name type
+              }  
+          }
+        
+        }
+        `
+      }).pipe(map(value => (<any>value.data).getMedicalFile)).subscribe((data) => {
+        this.medicalFile = data;
+
+        if (this.medicalFile.address == null)
+          this.medicalFile.address = new Address();
+        if (this.medicalFile.profession == null)
+          this.medicalFile.profession = new Profession();
+
+        this.edit = true;
+      })
+    }
     // get all the wilayas 
     this.apollo.query({
       query: gql`
@@ -127,7 +183,7 @@ export class NewMedicalFileComponent implements OnInit {
 
     if (this.medicalFile.address.commune.id)
       variables.address = {
-        address: this.medicalFile.address,
+        address: this.medicalFile.address.address,
         communeId: this.medicalFile.address.commune.id
       };
 
@@ -187,6 +243,59 @@ export class NewMedicalFileComponent implements OnInit {
       variables: variables
     }).pipe(map(value => (<any>value.data).addMedicalFile)).subscribe((data) => {
       console.log(data);
+    })
+  }
+
+
+  public editMedicalFile() {
+    var variables = <any>{
+      name: this.medicalFile.name,
+      lastname: this.medicalFile.lastname,
+      birthday: this.medicalFile.birthday,
+      gender: this.medicalFile.gender,
+      phone: this.medicalFile.phone,
+      email: this.medicalFile.email,
+      professionId: this.medicalFile.profession.id,
+      antecedents: this.medicalFile.antecedents.map(value => value.id)
+    }
+
+    if (this.medicalFile.address.commune.id)
+      variables.address = {
+        address: this.medicalFile.address.address,
+        communeId: this.medicalFile.address.commune.id
+      };
+
+    this.apollo.mutate({
+      mutation : gql`
+      mutation EDIT_MEDICAL_FILE(
+        $name : String!, 
+        $lastname : String!
+        $birthday : String! 
+        $phone : String 
+        $email : String
+        $address : AddressInput , 
+        $professionId : ID , 
+        $gender : Boolean! 
+        $antecedents : [ID!]!
+      ){
+        editMedicalFile(
+          medicalFileId : ${this.medicalFile.id} , 
+          medicalFile: {
+              name: $name
+              lastname: $lastname
+              birthday: $birthday
+              gender : $gender
+              phone: $phone
+              email: $email
+              address: $address 
+              professionId : $professionId , 
+              antecedents : $antecedents
+          }
+        ) 
+      }` , 
+      variables : variables
+    }).pipe(map(value => (<any>value.data).editMedicalFile)).subscribe((data) => { 
+      console.log("hello world") ; 
     })
   }
 }

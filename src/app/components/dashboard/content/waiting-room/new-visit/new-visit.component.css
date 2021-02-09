@@ -1,6 +1,7 @@
 .main-container {
     width: 100%;
     padding: 16px;
+    position: relative;
 }
 
 .visit-container {
@@ -213,4 +214,24 @@ p i {
 
 .primary-vital .icon-container {
     margin-right: 16px;
+}
+
+.content-header {
+    padding: 16px;
+}
+
+.content-header button {
+    padding: 8px 16px;
+    width: 160px;
+    border-radius: 16px;
+}
+
+.black-window {
+    background: rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
 }

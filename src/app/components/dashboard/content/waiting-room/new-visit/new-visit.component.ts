@@ -25,10 +25,10 @@ export class NewVisitComponent implements OnInit {
   public submittedSymptom: Symptom;
   public submittedMedicalFile: MedicalFile;
   public symptoms: Symptom[] = [];
-  public showNewMedicalFile: boolean = false;
+  public showNewMedicalFile: boolean = false ;
   public showVitalSetting: boolean = false;
   public edit: boolean = false;
-
+  public blackWindow : boolean = false ; 
   
   constructor(private apollo: Apollo, private route: ActivatedRoute, private interactionservice: InteractionService) {
     this.closeEvent = new EventEmitter<null>();
@@ -209,7 +209,7 @@ export class NewVisitComponent implements OnInit {
     this.visit.medicalFile = null ; 
   }
   public editMedicalFile() { 
-
+    this.showNewMedicalFile = true ; 
   }
 
 }

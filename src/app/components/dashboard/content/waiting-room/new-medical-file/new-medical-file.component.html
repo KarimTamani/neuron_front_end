@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="col col-md-6">
+            <div class="col col-md-6" *ngIf="medicalFile.address">
                 <div class="form-group">
                     <label>
                         Address
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-md-3">
+            <div class="col col-md-3" *ngIf="medicalFile.address">
                 <div class="form-group">
                     <label>wilaya</label>
                     <select (change)="wilayaSelected()" [(ngModel)]="medicalFile.address.commune.wilaya.id" formControlName="wilayaId" [ngClass]="{'is-invalid' : form.get('wilayaId').touched && form.get('wilayaId').invalid}">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-md-3">
+            <div class="col col-md-3" *ngIf="medicalFile.address">
                 <div class="form-group">
                     <div *ngIf="selectedWilaya">
                         <label>Commune</label>
@@ -107,25 +107,35 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-md-6">
+            <div class="col col-md-6" *ngIf="medicalFile.profession">
                 <div class="form-group">
                     <label>la profession : </label>
                 </div>
             </div>
-            <div class="col col-md-6">
+            <div class="col col-md-6" *ngIf="medicalFile.profession">
                 <div class="form-group">
                     <app-search-input [submittedItem]="medicalFile.profession" [placeholder]="'Recherché une profession'" [searchFunction]="professionSearchFunction"></app-search-input>
                 </div>
             </div>
+
+            <div class="antecedents-container primary-radius" *ngIf="showSubmitter">
+                <app-antecedents-submitter (closeEvent)="blackWindowEvent.emit() ; showSubmitter = false" [antecedents]="medicalFile.antecedents"></app-antecedents-submitter>
+            </div>
             <div class="col col-md-12">
-                <app-antecedents-submitter [antecedents]="medicalFile.antecedents"></app-antecedents-submitter>
+                <label>
+                    Les antecedents
+                </label>
+                <span class="edit" (click)="showSubmitter = true ;blackWindowEvent.emit()">Modifier <i class="fa fa-edit"></i></span>
+                <div class="antecedents-list">
+                    <span *ngFor="let antecedent of medicalFile.antecedents">{{antecedent.name}}</span>
+                </div>
             </div>
             <div class="col col-md-12">
                 <div class="controller">
                     <button class="clear">Effacer</button>
-                    <button class="primary-button" (click)="save()"> Sauvgarder</button>
+                    <button *ngIf="!edit" class="primary-button" (click)="save()"> Sauvgarder <i class="fa fa-save"></i></button>
+                    <button *ngIf="edit" class="primary-button" (click)="editMedicalFile()"> Modifier<i class="fa fa-edit"></i></button>
                 </div>
-
             </div>
         </div>
     </form>

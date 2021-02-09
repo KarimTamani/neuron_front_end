@@ -1,4 +1,5 @@
 <div class="main-container stretch-container">
+    <div class="black-window" *ngIf="blackWindow"></div>
     <div class="visit-container primary-radius">
         <div class="row">
             <div class="col col-md-12" *ngIf="!edit">
@@ -104,7 +105,12 @@
     </div>
     <div class="medical-file-container primary-radius" *ngIf="showNewMedicalFile">
         <div class="content">
-            <app-new-medical-file></app-new-medical-file>
+            <div class="content-header">
+                <button class="secondary-button" (click)="showNewMedicalFile = false ">
+                    <i class="fa fa-arrow-left"></i> Annuler
+                </button>
+            </div>
+            <app-new-medical-file [medicalFile]="visit.medicalFile" (blackWindowEvent)="blackWindow = !blackWindow"></app-new-medical-file>
         </div>
     </div>
 

@@ -1,27 +1,45 @@
-i {
-    background: rgb(38, 94, 215);
-    color: white;
-    padding: 10px 12px;
-    border-radius: 50%;
+.main-container {
+    padding: 16px;
 }
 
-.icon-container {
-    height: 100%;
+.types {
+    width: 140px;
+    max-width: 140px;
+    min-width: 140px;
+}
+
+.types .type {
+    margin: 8px 0px;
+    padding: 4px 8px;
+    border: 1px solid #eeeeee;
+    border-radius: 20px;
+    text-align: center;
+    color: #888888;
+    cursor: pointer;
+    transition-duration: 0.3s
+}
+
+.types .type:hover {
+    border-color: rgb(38, 94, 215);
+    color: rgb(38, 94, 215);
+}
+
+.submitter {
     width: 100%;
-    text-align: right;
-    margin-top: 4px;
 }
 
-select.is-invalid {
-    border-color: rgb(254, 101, 85);
+.type.selected {
+    border-color: transparent;
+    color: white !important;
+    background-color: rgb(38, 94, 215);
 }
 
-.list {
-    height: 260px;
-    max-height: 260px;
-    overflow: auto;
-    border-top: 1px solid #eeeeee;
-    margin-top: 16px;
+.submitter-input {
+    width: 200px;
+}
+
+.submitter {
+    padding: 8px 16px;
 }
 
 .antecedent .icon-container {
@@ -41,6 +59,7 @@ select.is-invalid {
     transition-duration: 0.3s;
     font-size: 12px;
     padding: 8px 9px;
+    border-radius: 50%;
 }
 
 .antecedent i:hover {
@@ -48,7 +67,13 @@ select.is-invalid {
     color: white;
 }
 
-.type {
+.name {
+    width: 100%;
+    display: grid;
+    align-items: center;
+}
+
+.ant-type {
     max-width: 80px;
     min-width: 80px;
     text-align: center;
@@ -59,8 +84,20 @@ select.is-invalid {
     align-items: center;
 }
 
-.name {
+.icon-container {
+    height: 100%;
     width: 100%;
-    display: grid;
-    align-items: center;
+    text-align: right;
+    margin-top: 4px;
+}
+
+h5 {
+    margin: 0px;
+    color: #212121;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+h5 i {
+    float: right;
 }

@@ -65,3 +65,36 @@ select.is-invalid {
 .controller .primary-button {
     float: right;
 }
+
+.antecedents-container {
+    position: absolute;
+    background: white;
+    width: 680px;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.1), -2px -2px 16px rgba(0, 0, 0, 0.1);
+}
+
+.antecedents-list {
+    max-height: 180px;
+    height: 180px;
+    overflow: auto;
+}
+
+.antecedents-list span {
+    background: #eeeeee;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-top: 4px;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+.edit {
+    color: rgb(38, 94, 215);
+    float: right;
+    text-decoration: underline;
+    cursor: pointer;
+}

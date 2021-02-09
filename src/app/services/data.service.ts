@@ -81,6 +81,25 @@ export class DataService {
     year = "" + year;
     return `${year}-${month}-${day}`;
   }
+
+
+  public castDateMDY(date) { 
+    if (date == null) 
+      return null ; 
+    var dateObject = new Date(date) ; 
+    var day: any = dateObject.getDate();
+    var month: any = dateObject.getMonth() + 1;
+    var year: any = dateObject.getFullYear();
+
+    if (day < 10)
+      day = "0" + day;
+
+    if (month < 10)
+      month = "0" + month;
+
+    year = "" + year;
+    return month+"/"+day+"/"+year ; 
+  }
   public getTime(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();

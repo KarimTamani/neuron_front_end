@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Antecedent } from 'src/app/classes/Antecedent';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -10,11 +10,13 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./antecedents-submitter.component.css']
 })
 export class AntecedentsSubmitterComponent implements OnInit {
-  @Input() antecedents: Antecedent[] ;
+  @Input() antecedents: Antecedent[]  ;
   public submittedAntecedent: Antecedent = new Antecedent();
-  public types: String[] = [];
-
-  constructor(private apollo: Apollo) { }
+  public types: string[] = [];
+  @Output() closeEvent : EventEmitter<null>
+  constructor(private apollo: Apollo) {
+    this.closeEvent = new EventEmitter<null>() ; 
+  }
 
   ngOnInit(): void {
     // get the antecdents types     
@@ -25,6 +27,7 @@ export class AntecedentsSubmitterComponent implements OnInit {
         }`
     }).pipe(map(value => (<any>value.data).getAntecedentTypes)).subscribe((data) => {
       this.types = data;
+      this.submittedAntecedent.type = this.types[0] ; 
     })
   }
 
@@ -44,6 +47,7 @@ export class AntecedentsSubmitterComponent implements OnInit {
   }
 
   public addAntecedent() {
+
     this.apollo.mutate({
       mutation: gql`
         mutation ADD_ANTECDENT($name : String! , $type : String) {
@@ -60,17 +64,22 @@ export class AntecedentsSubmitterComponent implements OnInit {
         type: this.submittedAntecedent.type
       }
     }).pipe(map(value => (<any>value.data).addAntecedent)).subscribe((data) => {
-      console.log(data);
+      
       this.antecedents.push(data);
+      const saveType  = this.submittedAntecedent.type ; 
       this.submittedAntecedent = new Antecedent();
+      this.submittedAntecedent.type = saveType ; 
 
     })
+  }
 
-
+  public getAntecedents() {
+    return this.antecedents.filter(antecedent => antecedent.type == this.submittedAntecedent.type) ; 
   }
 
   public deleteAntecedent(antecedent) {
     const index = this.antecedents.findIndex(value => value.id == antecedent.id);
     this.antecedents.splice(index, 1);
   }
+
 }
