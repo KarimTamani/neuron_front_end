@@ -26,13 +26,24 @@ export class SpecialityDiagnosisComponent implements OnInit {
 
     this.apollo.query({
       query: gql`{
-          getNeuronSpecialities {id , name , collections {id , name , models}}
+        getAllSpecialities {
+          id 
+          name  
+          neuronCollections {
+            id 
+            name
+            models {
+              id 
+              name
+            }
+          }
         }
-      `
-    }).pipe(map(result => (<any>result.data).getNeuronSpecialities)).subscribe((data) => {
+      }`
+    }).pipe(map(result => (<any>result.data).getAllSpecialities)).subscribe((data) => {
       this.specialities = data;
+      
       this.selectedSpeciality = data[0];
-      this.selectedCollection = this.selectedSpeciality.collections[0];
+      this.selectedCollection = this.selectedSpeciality.neuronCollections[0];
 
       this.route.queryParamMap.subscribe((paramMap: ParamMap) => {
         // subscribe to the query param map chenges and extract the speciality 
@@ -40,13 +51,13 @@ export class SpecialityDiagnosisComponent implements OnInit {
         // and aassign it to the selected Speciality
         var speciality_id = paramMap.get("speciality_id");
         var collection_id = paramMap.get("collection_id");
-        
+
         if (speciality_id !== null) {
           this.selectedSpeciality = this.specialities.find((value) => value.id == speciality_id)
           if (collection_id != null) {
-            this.selectedCollection = this.selectedSpeciality.collections.find((value) => value.id == collection_id);
+            this.selectedCollection = this.selectedSpeciality.neuronCollections.find((value) => value.id == collection_id);
           } else
-            this.selectedCollection = this.selectedSpeciality.collections[0];
+            this.selectedCollection = this.selectedSpeciality.neuronCollections[0];
         }
       })
     })
@@ -58,8 +69,8 @@ export class SpecialityDiagnosisComponent implements OnInit {
         "pop-up-window": true,
         "window-page": "speciality-diagnosis",
         "speciality_id": this.selectedSpeciality.id,
-        "title": this.selectedSpeciality.name , 
-        "collection_id" : this.selectedCollection.id 
+        "title": this.selectedSpeciality.name,
+        "collection_id": this.selectedCollection.id
       }
     });
     // set show result to false 
@@ -74,7 +85,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
       var params = JSON.parse(JSON.stringify(this.route.snapshot.queryParams))
       params.title = speciality.name;
       params.speciality_id = speciality.id;
-      params.collection_id = null ; 
+      params.collection_id = null;
       this.router.navigate([], {
         queryParams: params
       })
@@ -86,13 +97,13 @@ export class SpecialityDiagnosisComponent implements OnInit {
   public selectCollection(collection) {
     // assign collection to selected collection every time a new collection has been choosen 
     var params = JSON.parse(JSON.stringify(this.route.snapshot.queryParams))
-    
-    params.collection_id = collection.id ; 
+
+    params.collection_id = collection.id;
     this.router.navigate([], {
       queryParams: params
     })
-    this.selectedSpeciality = collection;
-  
+    this.selectedCollection = collection;
+
   }
 
 
@@ -122,7 +133,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
       `,
       variables: {
         image: this.image,
-        models: this.selectedCollection.models,
+        models: this.selectedCollection.models.map( model => model.name),
         collectionId: this.selectedCollection.id
       },
       context: {

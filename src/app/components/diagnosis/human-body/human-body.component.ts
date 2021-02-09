@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./human-body.component.css']
 })
 export class HumanBodyComponent implements OnInit {
-  public gender: boolean = true
+  @Input() gender: boolean = true
   @Input() bodyAreaSymptoms : any = null  
   
   constructor() { }

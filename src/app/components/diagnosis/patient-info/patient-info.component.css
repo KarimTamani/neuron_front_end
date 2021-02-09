@@ -1,3 +1,11 @@
+.primary-col {
+    height: 100%;
+}
+
+.info-row .col {
+    margin: 8px 0px;
+}
+
 .name-icon-container {
     max-width: 160px;
     min-width: 160px;
@@ -62,11 +70,6 @@
     color: #555555;
     margin: 0px;
     font-size: 13px;
-}
-
-.info-row .col {
-    display: flex;
-    align-items: center;
 }
 
 .info i {

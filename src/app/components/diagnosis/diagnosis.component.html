@@ -37,10 +37,10 @@
 
     <div class="human-body-container-side ">
         <div class="patient-info-container primary-radius ">
-            <app-patient-info></app-patient-info>
+            <app-patient-info [visit]="visit"></app-patient-info>
         </div>
         <div class="human-body ">
-            <app-human-body [bodyAreaSymptoms]="bodyAreaSymptoms "></app-human-body>
+            <app-human-body [bodyAreaSymptoms]="bodyAreaSymptoms" [gender]="visit.medicalFile.gender"></app-human-body>
         </div>
     </div>
 

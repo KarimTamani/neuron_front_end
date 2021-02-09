@@ -31,8 +31,8 @@ export class SelectedSymptomsComponent implements OnInit {
       //  this.searchResult = this.symptoms.filter((symptom) => symptom.disease_name.toLowerCase().includes(this.searchQuery.toLowerCase()))
       this.apollo.query({
         query : gql`{
-            searchSymptom(symptom : "${this.searchQuery.trim()}" , language : "fr") {
-              id , name , body_part_id 
+            searchSymptom(symptom : "${this.searchQuery.trim()}") {
+              id , name , bodyPartId 
             }
           } 
         `

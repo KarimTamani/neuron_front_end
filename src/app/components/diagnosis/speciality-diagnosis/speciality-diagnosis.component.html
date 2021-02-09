@@ -13,7 +13,7 @@
         </div>
 
         <ul *ngIf="selectedSpeciality" class="collections primary-radius">
-            <li *ngFor="let collection of selectedSpeciality.collections" (click)="selectCollection(collection)" [class.selected]="selectedCollection && collection.id == selectedCollection.id">
+            <li *ngFor="let collection of selectedSpeciality.neuronCollections" (click)="selectCollection(collection)" [class.selected]="selectedCollection && collection.id == selectedCollection.id">
                 {{collection.name}}
             </li>
         </ul>

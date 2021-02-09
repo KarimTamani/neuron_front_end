@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { Visit } from 'src/app/classes/Visit';
 
 @Component({
   selector: 'app-patient-info',
@@ -7,24 +8,24 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./patient-info.component.css']
 })
 export class PatientInfoComponent implements OnInit {
-  public patient : any = {
-    name  : "Prénom" , 
-    lastname : "Nom" , 
-    birthday : "11-30-1996" , 
-    height : 187 , 
-    weight : 80 , 
-    gender : true 
-  }
-  public imc : number = 0 ; 
-  public age : number = 0 ; 
+
+  @Input() visit: Visit;
+
+
+  public imc: number = 0;
+  public age: number = 0;
   public interpretation
 
-  constructor(private dataService : DataService) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.imc = this.dataService.calculateImc(this.patient.weight , this.patient.height) ; 
-    this.interpretation = this.dataService.getImcInterpretation(this.imc) ; 
-    this.age = this.dataService.calculateAge(this.patient.birthday) ; 
+    console.log(this.visit ) ; 
+    // check if the weight and the size are both defined 
+    if (this.visit.vitalSetting.weight && this.visit.vitalSetting.size) {
+      this.imc = this.dataService.calculateImc(this.visit.vitalSetting.weight, this.visit.vitalSetting.size);
+      this.interpretation = this.dataService.getImcInterpretation(this.imc);
+    }
+    this.age = this.dataService.calculateAge(this.visit.medicalFile.birthday);
   }
-  
+
 }

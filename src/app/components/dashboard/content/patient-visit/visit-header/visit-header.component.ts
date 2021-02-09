@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Visit } from 'src/app/classes/Visit';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-visit-header',
@@ -7,8 +9,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class VisitHeaderComponent implements OnInit {
   @Output() selectPageEvent : EventEmitter<number> ; 
+  @Input() visit : Visit ; 
   public selectedPage : number = 1 ; 
-  constructor() {
+  constructor(private router : Router) {
     this.selectPageEvent = new EventEmitter<number>();  
   }
 
@@ -17,5 +20,17 @@ export class VisitHeaderComponent implements OnInit {
   select(page : number) { 
     this.selectedPage = page ; 
     this.selectPageEvent.emit (page) ; 
+  }
+
+  openDiagnosis() { 
+    console.log(this.visit) ; 
+     this.router.navigate([] , {
+       queryParams : {
+        'pop-up-window' : true , 
+        'window-page' : 'diagnosis' , 
+        'title' : "Diagnostic symptomatique" , 
+        'visit' : decodeURIComponent(JSON.stringify(this.visit))
+       }
+     }) ; 
   }
 }

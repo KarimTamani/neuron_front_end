@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 import { map } from "rxjs/operators"
+import { ActivatedRoute } from '@angular/router';
+import { Visit } from 'src/app/classes/Visit';
 
 @Component({
   selector: 'app-diagnosis',
@@ -11,6 +13,7 @@ import { map } from "rxjs/operators"
 export class DiagnosisComponent implements OnInit {
   // init search query , search result , and the symptoms array  
   // init the selected Symptoms
+  public visit : Visit ; 
   public showResult: boolean = false;
   public selectedSymptoms: any[] = []
   public predictions: any = null;
@@ -31,8 +34,15 @@ export class DiagnosisComponent implements OnInit {
   }
   // select either all symptoms list or search for a semptoms 
   public symptomsControllerMode: boolean = true;
-  constructor(private apollo: Apollo) { }
-  ngOnInit(): void { }
+  constructor(private apollo: Apollo , private route : ActivatedRoute) { }
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => { 
+      this.visit = JSON.parse(decodeURIComponent(params.visit)) ; 
+      this.selectedSymptoms = this.visit.symptoms ; 
+      this.updateBodyAreaSymptoms() ; 
+      console.log(this.selectedSymptoms) ; 
+    })
+  }
 
 
   private updateBodyAreaSymptoms() {
@@ -40,7 +50,7 @@ export class DiagnosisComponent implements OnInit {
     // empty the symptoms 
     this.bodyAreaSymptoms.clear()
     for (let index = 0; index < this.selectedSymptoms.length; index++)
-      switch (this.selectedSymptoms[index].body_part_id) {
+      switch (parseInt(this.selectedSymptoms[index].bodyPartId)) {
         case 1:
           this.bodyAreaSymptoms.head.push(this.selectedSymptoms[index]);
           break;

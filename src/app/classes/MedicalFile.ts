@@ -8,12 +8,12 @@ export class MedicalFile {
     public name: string;
     public lastname: string;
     public address: Address
-    public phone: String;
-    public email: String;
-    public birthday: String;
+    public phone: string;
+    public email: string;
+    public birthday: string;
     public gender: Boolean = true;
-    public createdAt: String;
-    public updatedAt: String;
+    public createdAt: string;
+    public updatedAt: string;
     public antecedents: Antecedent[] = [];
     public profession: Profession;
 
