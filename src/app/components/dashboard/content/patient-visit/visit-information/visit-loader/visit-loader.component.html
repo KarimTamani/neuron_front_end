@@ -34,12 +34,6 @@
                 <h5>
                     Antecedents
                 </h5>
-
-                <select [(ngModel)]="selectedType">
-                    <option [value]="undefined" hidden>Tout</option>
-                    <option *ngFor="let type of types" [value]="type" >{{type}}</option>
-                </select>
-
             </div>
             <div class="antecedents-container">
                 <span *ngFor="let antecedent of visit.medicalFile.antecedents">

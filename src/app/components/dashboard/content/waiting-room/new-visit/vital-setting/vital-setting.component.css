@@ -2,6 +2,11 @@
     padding: 16px;
 }
 
+.main-container.from-router {
+    background: white;
+    width: 500px;
+}
+
 h5 {
     font-size: 16px;
     color: #212121;
@@ -82,4 +87,12 @@ h5 i {
 .input-container i.activated {
     color: rgb(38, 94, 215);
     border-color: rgb(38, 94, 215);
+}
+
+.controller button {
+    float: right;
+}
+
+.controller {
+    margin-top: 20px;
 }

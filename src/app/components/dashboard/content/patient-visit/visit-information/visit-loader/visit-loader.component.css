@@ -66,8 +66,8 @@ p i {
 .antecedents-container {
     margin-right: -8px;
     margin-top: -8px;
-    height: 120px;
-    max-height: 120px;
+    height: 128px;
+    max-height: 128px;
     overflow: hidden;
 }
 
@@ -81,6 +81,10 @@ p i {
 .antecedents-header select {
     width: 120px;
     text-align: center;
+}
+
+.antecedents-container {
+    margin-top: 0px;
 }
 
 .controller button {

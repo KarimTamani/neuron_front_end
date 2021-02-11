@@ -4,7 +4,7 @@ import { Service } from '../classes/Service';
 import { Assistant } from '../classes/Assistant';
 import { MedicalAct } from '../classes/MedicalAct';
 import { Visit } from '../classes/Visit';
-import { SubjectSubscriber } from 'rxjs/internal/Subject';
+import { VitalSetting } from '../classes/VitalSetting';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class InteractionService {
   public newVisitAdded: Subject<null>;
   public visitPayed: Subject<Visit>;
   public updateReport: Subject<null>;
+  public vitalSettingEdited : Subject<VitalSetting> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -29,6 +30,7 @@ export class InteractionService {
     this.newVisitAdded = new Subject<null>();
     this.visitPayed = new Subject<Visit>();
     this.updateReport = new Subject<null>() ; 
+    this.vitalSettingEdited = new Subject<VitalSetting>() ;  
   }
 
 

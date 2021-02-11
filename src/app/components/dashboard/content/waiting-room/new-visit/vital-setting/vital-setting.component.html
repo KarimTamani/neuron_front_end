@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" [class.from-router]="fromRouter">
     <h5>
         <i class="fa fa-user-cog"></i> Les pramétres vitaux
     </h5>
@@ -137,6 +137,10 @@
             <div class="input-container ">
                 <i class="fa fa-check" (click)="vitalSetting.smoker = !vitalSetting.smoker" [class.activated]="vitalSetting.smoker"></i>
             </div>
+        </div>
+        <div class="controller">
+            <button class="primary-button" (click)="edit()">Modifier <i class="fa fa-edit"></i></button>
+            <div style="clear: both;"></div>
         </div>
     </div>
 </div>
