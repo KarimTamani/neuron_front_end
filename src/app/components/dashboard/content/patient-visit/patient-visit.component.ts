@@ -30,6 +30,7 @@ export class PatientVisitComponent implements OnInit {
           status
           startTime 
           endTime 
+          clinicalExam
           order 
           payedMoney 
           debt 

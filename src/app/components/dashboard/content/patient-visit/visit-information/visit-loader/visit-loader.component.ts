@@ -47,7 +47,6 @@ export class VisitLoaderComponent implements OnInit {
   }
 
   public saveVsit() {
-    console.log(this.visit.clinicalExam) ; 
     this.apollo.mutate({
       mutation : gql`
         mutation ($symptoms : [ID!] , $clinicalExam :String , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput)
@@ -63,7 +62,7 @@ export class VisitLoaderComponent implements OnInit {
         symptoms : this.visit.symptoms.map(value => value.id) , 
         medicalActs : this.visit.medicalActs.map(value => value.id) , 
         vitalSetting : (this.isVitalSettingEdited()) ? (this.visit.vitalSetting) : (null) , 
-        clincalExam : (this.visit.clinicalExam && this.visit.clinicalExam.trim().length > 3) ? (this.visit.clinicalExam) : (null)
+        clinicalExam : (this.visit.clinicalExam && this.visit.clinicalExam.trim().length > 3) ? (this.visit.clinicalExam) : (null)
       }
     }).subscribe((data) => {
 
