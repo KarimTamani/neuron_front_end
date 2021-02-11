@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class ClincalExamManagerComponent implements OnInit {
   @Output() closeEvent : EventEmitter<null> ; 
-  public addClincalExam : boolean = true ; 
+  public addClincalExam : boolean = false ; 
   public clinicalExams : ClinicalExam[] = [] ; 
   constructor(private apollo : Apollo) {
     this.closeEvent = new EventEmitter<null>() ; 

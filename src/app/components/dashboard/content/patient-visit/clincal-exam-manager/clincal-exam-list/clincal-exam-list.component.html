@@ -5,6 +5,19 @@
         <button (click)="addExamEvent.emit()" class="secondary-button">Creé le <i class="fa fa-plus"></i></button>
     </div>
     <div class="list">
-        <div class="clinical-exam" *ngFor="let clinicalExam of clinicalExams">{{clinicalExam.name}}</div>
+        <div class="clinical-exam" *ngFor="let clinicalExam of clinicalExams">
+            <div class="exam-header" (click)="selectClinicalExam(clinicalExam)">
+                <i class="fa fa-sort-down" *ngIf="selectedExam && selectedExam.id == clinicalExam.id"></i>
+                <label>{{clinicalExam.name}}</label>
+                <i class="fa fa-edit"></i>
+                <i class="fa fa-trash"></i>
+            </div>
+            <div class="exam" *ngIf="selectedExam && selectedExam.id == clinicalExam.id">
+                <p>
+                    {{clinicalExam.exam}}
+                    <span (click)="use(clinicalExam)">Charger</span>
+                </p>
+            </div>
+        </div>
     </div>
 </div>

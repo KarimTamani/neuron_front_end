@@ -5,6 +5,7 @@ import { Assistant } from '../classes/Assistant';
 import { MedicalAct } from '../classes/MedicalAct';
 import { Visit } from '../classes/Visit';
 import { VitalSetting } from '../classes/VitalSetting';
+import { ClinicalExam } from '../classes/ClincalExam';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class InteractionService {
   public visitPayed: Subject<Visit>;
   public updateReport: Subject<null>;
   public vitalSettingEdited : Subject<VitalSetting> ; 
+  public useClinicalExam : Subject<ClinicalExam> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -31,6 +33,7 @@ export class InteractionService {
     this.visitPayed = new Subject<Visit>();
     this.updateReport = new Subject<null>() ; 
     this.vitalSettingEdited = new Subject<VitalSetting>() ;  
+    this.useClinicalExam = new Subject<ClinicalExam>() ;  
   }
 
 

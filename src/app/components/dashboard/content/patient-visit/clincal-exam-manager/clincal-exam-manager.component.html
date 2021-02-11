@@ -1,6 +1,6 @@
 <div class="main-container stretch-container">
     <div class="exam-col exams-list primary-radius">
-        <app-clincal-exam-list (addExamEvent)="addClincalExam = true" [clinicalExams]="clinicalExams"></app-clincal-exam-list>
+        <app-clincal-exam-list (closeEvent)="closeEvent.emit()" (addExamEvent)="addClincalExam = true" [clinicalExams]="clinicalExams"></app-clincal-exam-list>
     </div>
     <div class="exam-col exams-add primary-radius" *ngIf="addClincalExam">
         <app-add-clincal-exam (closeEvent)="addClincalExam= false" (addClincalExamEvent)="onAddClinicalExam($event)"></app-add-clincal-exam>
