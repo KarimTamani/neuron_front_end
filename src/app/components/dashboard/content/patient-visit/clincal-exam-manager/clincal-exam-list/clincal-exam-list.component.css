@@ -1,0 +1,36 @@
+.main-container {
+    padding: 16px;
+}
+
+h5 {
+    margin: 0px;
+    color: #212121;
+    font-weight: bold;
+}
+
+.message {
+    background: rgba(254, 101, 85, 0.2);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-top: 16px;
+}
+
+.message p {
+    margin: 0px;
+    width: 100%;
+    color: rgb(254, 101, 85);
+    font-size: 12px;
+    display: grid;
+    align-content: center;
+}
+
+.message button {
+    max-width: 100px;
+    min-width: 100px;
+    border-radius: 20px;
+}
+
+.list {
+    height: 360px;
+    overflow: auto;
+}

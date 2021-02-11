@@ -1,1 +1,24 @@
-<p>add-clincal-exam works!</p>
+<div class="main-container">
+    <h5>Ajouter un examen clinique</h5>
+    <div class="body">
+
+        <form name="form" [formGroup]="form">
+            <div class="form-group">
+                <input type="text" [(ngModel)]="clinicalExam.name" placeholder="Nom de l'examen" class="primary-input" formControlName="name" [class.is-invalid]="form.get('name').touched && form.get('name').invalid">
+                <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                    <div *ngIf="form.get('name').errors.minlength">au moins 3 caractères</div>
+                    <div *ngIf="form.get('name').errors.required">le nom est requis</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="l'examen" [(ngModel)]="clinicalExam.exam" class="primary-input" formControlName="exam" [class.is-invalid]="form.get('exam').touched && form.get('exam').invalid"></textarea>
+                <div class="invalid-feedback" *ngIf="form.get('exam').touched && form.get('exam').invalid">
+                    <div *ngIf="form.get('exam').errors.minlength">au moins 3 caractères</div>
+                    <div *ngIf="form.get('exam').errors.maxlength">l'examn est requis</div>
+                </div>
+            </div>
+            <button class="primary-button" [disabled]="form.invalid" (click)="addClinicalExam()"> Sauvgarder <i class="fa fa-save"></i></button>
+            <div style="clear : both"></div>
+        </form>
+    </div>
+</div>

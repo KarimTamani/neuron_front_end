@@ -1,0 +1,20 @@
+.main-container {
+    padding: 16px;
+}
+
+h5 {
+    margin: 0px;
+    font-weight: bold;
+    color: #212121;
+    margin-bottom: 16px;
+}
+
+textarea {
+    height: 420px;
+    max-height: 420px;
+    min-height: 420px;
+}
+
+button {
+    float: right;
+}
