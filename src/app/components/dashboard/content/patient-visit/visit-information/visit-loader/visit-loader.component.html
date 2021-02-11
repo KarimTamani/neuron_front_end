@@ -1,6 +1,6 @@
 <div class="main-container primary-radius">
     <div class="row">
-        <div class="col col-md-12" *ngIf="!edit">
+        <div class="col col-md-12" *ngIf="edit">
             <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
         </div>
         <div class="col col-md-12">
@@ -39,6 +39,14 @@
                 <span *ngFor="let antecedent of visit.medicalFile.antecedents">
                     {{antecedent.name}}
                 </span>
+            </div>
+        </div>
+        <div class="col col-md-12">
+            <div class="stretch-container">
+                <label>Condition ou maladie</label>
+                <div class="search-container">
+                    <app-search-input [submittedItem]="visit.condition" [searchFunction]="searchCondtion" [placeholder]="'Recherché une condition'"></app-search-input>
+                </div>
             </div>
         </div>
         <div class="controller col col-md-12">

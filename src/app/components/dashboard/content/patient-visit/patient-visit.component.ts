@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { Visit } from 'src/app/classes/Visit';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { Condition } from 'src/app/classes/Condition';
 
 @Component({
   selector: 'app-patient-visit',
@@ -33,6 +34,9 @@ export class PatientVisitComponent implements OnInit {
           clinicalExam
           order 
           payedMoney 
+          condition {
+            id name
+          }
           debt 
           medicalActs {
             id name price 
@@ -74,6 +78,8 @@ export class PatientVisitComponent implements OnInit {
       }`
     }).pipe(map(value => (<any>value.data).getCurrentVisit)).subscribe((data) => { 
       this.visit = data ; 
+      if (this.visit.condition == null) 
+        this.visit.condition = new Condition() ; 
     })
   }
   

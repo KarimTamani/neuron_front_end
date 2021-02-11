@@ -3,6 +3,7 @@ import { MedicalFile } from "./MedicalFile";
 import { Symptom } from "./Symptom";
 import { WaitingRoom } from "./WaitingRoom" ; 
 import { VitalSetting } from './VitalSetting';
+import { Condition } from "./Condition" ; 
 export class Visit {
 
 
@@ -23,4 +24,5 @@ export class Visit {
     //public checkUps : [CheckUp]
     public vitalSetting : VitalSetting = new VitalSetting();  
     public clinicalExam : string ; 
+    public condition : Condition = new Condition() ; 
 }
