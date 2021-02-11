@@ -46,4 +46,34 @@ export class VisitLoaderComponent implements OnInit {
     }).pipe(map(result => (<any>result.data).searchMedicalFiles));
   }
 
+  public saveVsit() {
+    console.log(this.visit.clinicalExam) ; 
+    this.apollo.mutate({
+      mutation : gql`
+        mutation ($symptoms : [ID!] , $clinicalExam :String , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput)
+        {
+          editVisit(visitId : ${this.visit.id} , visit : {
+            symptoms : $symptoms
+            medicalActs : $medicalActs 
+            vitalSetting : $vitalSetting 
+            clinicalExam : $clinicalExam
+          })
+        }
+      `,variables : {
+        symptoms : this.visit.symptoms.map(value => value.id) , 
+        medicalActs : this.visit.medicalActs.map(value => value.id) , 
+        vitalSetting : (this.isVitalSettingEdited()) ? (this.visit.vitalSetting) : (null) , 
+        clincalExam : (this.visit.clinicalExam && this.visit.clinicalExam.trim().length > 3) ? (this.visit.clinicalExam) : (null)
+      }
+    }).subscribe((data) => {
+
+    })
+  }
+
+
+  private isVitalSettingEdited() {
+    var keys = Object.keys(this.visit.vitalSetting) ; 
+    return keys.length > 0 ; 
+  }
+
 }

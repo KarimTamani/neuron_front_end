@@ -3,5 +3,5 @@
     <p (click)="openManager()">
         Charger un examen predefiné <i class="fa fa-file-medical-alt"></i>
     </p>
-    <textarea [(ngModel)]="exam" placeholder="Examen clinique"></textarea>
+    <textarea (keyup)="change()" [(ngModel)]="exam" placeholder="Examen clinique"></textarea>
 </div>

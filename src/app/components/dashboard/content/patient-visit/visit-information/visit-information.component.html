@@ -5,7 +5,7 @@
             <app-visit-loader [visit]="visit"></app-visit-loader>
         </div>
         <div class="col col-md-4">
-            <app-visit-clincal-exam [exam]="visit.clinicalExam"></app-visit-clincal-exam>
+            <app-visit-clincal-exam [exam]="visit.clinicalExam" (onChange)="visit.clinicalExam = $event"></app-visit-clincal-exam>
         </div>
         <div class="col col-md-4">
             <div>
