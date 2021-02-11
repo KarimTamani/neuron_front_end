@@ -81,7 +81,10 @@ import { VisitDocumentsComponent } from './components/dashboard/content/patient-
 import { VisitLoaderComponent } from './components/dashboard/content/patient-visit/visit-information/visit-loader/visit-loader.component';
 import { VisitClincalExamComponent } from './components/dashboard/content/patient-visit/visit-information/visit-clincal-exam/visit-clincal-exam.component';
 import { VisitVitalSettingComponent } from './components/dashboard/content/patient-visit/visit-information/visit-vital-setting/visit-vital-setting.component';
-import { VisitMedicalActsComponent } from './components/dashboard/content/patient-visit/visit-information/visit-medical-acts/visit-medical-acts.component' ; 
+import { VisitMedicalActsComponent } from './components/dashboard/content/patient-visit/visit-information/visit-medical-acts/visit-medical-acts.component';
+import { ClincalExamManagerComponent } from './components/dashboard/content/patient-visit/clincal-exam-manager/clincal-exam-manager.component';
+import { ClincalExamListComponent } from './components/dashboard/content/patient-visit/clincal-exam-manager/clincal-exam-list/clincal-exam-list.component';
+import { AddClincalExamComponent } from './components/dashboard/content/patient-visit/clincal-exam-manager/add-clincal-exam/add-clincal-exam.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -152,6 +155,9 @@ import { VisitMedicalActsComponent } from './components/dashboard/content/patien
     VisitClincalExamComponent,
     VisitVitalSettingComponent,
     VisitMedicalActsComponent,
+    ClincalExamManagerComponent,
+    ClincalExamListComponent,
+    AddClincalExamComponent,
   ],
   imports: [
     BrowserModule,
