@@ -1,1 +1,28 @@
-<p>search-header works!</p>
+<div class="main-container primary-radius">
+    <div class="stretch-container">
+        <div class="search-input">
+            <input type="text" placeholder="Recherché nom , prénom , email , telephone , date de n'assance" class="primary-input">
+        </div>
+        <div class="address">
+            <input type="text" placeholder="Address" class="primary-input">
+        </div>
+        <div class="wilaya">
+            <select (change)="wilayaSelected()" [(ngModel)]="selectedWilayaId">
+                <option  hidden [value]="undefined">Selectioner</option>
+                <option *ngFor="let wilaya of wilayas" [value]="wilaya.id">{{wilaya.name}}</option>
+            </select>
+        </div>
+        <div class="commune">
+            <select *ngIf="selectedWilaya">
+                <option  hidden [value]="undefined">Selectioner</option>
+                <option *ngFor="let commune of selectedWilaya.communes" [value]="commune.id">{{commune.name}}</option>
+            </select>
+        </div>
+        <div class="search-button">
+            <i class="fa fa-search"></i>
+        </div>
+        <div class="advanced-search">
+            <a>recherche avancé</a>
+        </div>
+    </div>
+</div>

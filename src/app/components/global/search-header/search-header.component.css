@@ -1,0 +1,68 @@
+.main-container {
+    background: white;
+    padding: 12px;
+    margin: 0px -8px;
+}
+
+.search-input,
+.address,
+.wilaya,
+.commune,
+.search-button,
+.advanced-search {
+    margin: 0px 8px;
+}
+
+.search-input {
+    width: 100%;
+}
+
+.wilaya,
+.commune {
+    width: 120px;
+    max-width: 120px;
+    min-width: 120px;
+}
+
+.search-button {
+    width: 42px;
+    min-width: 42px;
+    max-width: 42px;
+    display: flex;
+    align-items: center;
+}
+
+.advanced-search {
+    width: 120px;
+    min-width: 120px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+select {
+    height: 40px;
+}
+
+.address {
+    width: 50%;
+}
+
+i,
+a {
+    color: rgb(38, 94, 215);
+}
+
+i {
+    display: block;
+    margin: 0px auto;
+    padding: 8px;
+    border-radius: 50%;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+i:hover {
+    background: rgb(38, 94, 215);
+    color: white;
+}
