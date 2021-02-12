@@ -14,9 +14,14 @@
                     <i class="fa fa-restroom"></i>
                 </a>
             </li>
-            <li>
-                <a [queryParams]="{'pop-up-window' : true , 'window-page' : 'diagnosis' , 'title' : 'Diagnostic symptomatique'}" [routerLink]="">
-                    <i class="fa fa-stethoscope"></i>
+            <li [class.active]="activatedRouter == 3">
+                <a routerLink="/dashboard/visits">
+                    <i class="fa fa-calendar-check"></i>
+                </a>
+            </li>
+            <li [class.active]="activatedRouter == 4">
+                <a routerLink="/dashboard/medical-files">
+                    <i class="fa fa-file-medical-alt"></i>
                 </a>
             </li>
             <li>

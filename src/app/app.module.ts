@@ -86,7 +86,8 @@ import { ClincalExamManagerComponent } from './components/dashboard/content/pati
 import { ClincalExamListComponent } from './components/dashboard/content/patient-visit/clincal-exam-manager/clincal-exam-list/clincal-exam-list.component';
 import { AddClincalExamComponent } from './components/dashboard/content/patient-visit/clincal-exam-manager/add-clincal-exam/add-clincal-exam.component';
 import { MedicalFilesManagerComponent } from './components/dashboard/content/medical-files-manager/medical-files-manager.component';
-import { VisitsManagerComponent } from './components/dashboard/content/visits-manager/visits-manager.component' ; 
+import { VisitsManagerComponent } from './components/dashboard/content/visits-manager/visits-manager.component';
+import { SearchHeaderComponent } from './components/global/search-header/search-header.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -162,6 +163,7 @@ import { VisitsManagerComponent } from './components/dashboard/content/visits-ma
     AddClincalExamComponent,
     MedicalFilesManagerComponent,
     VisitsManagerComponent,
+    SearchHeaderComponent,
   ],
   imports: [
     BrowserModule,

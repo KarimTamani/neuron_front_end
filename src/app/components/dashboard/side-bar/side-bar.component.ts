@@ -12,15 +12,15 @@ export class SideBarComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    
+
     // update side bar router at the beginings to the app 
     this.updateSideBarRouters(this.router.url)
-    
+
     // every time the navigation changed update sidebar routers
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) 
+      if (event instanceof NavigationEnd)
         this.updateSideBarRouters(this.router.url)
-      
+
     })
   }
 
@@ -28,12 +28,16 @@ export class SideBarComponent implements OnInit {
   private updateSideBarRouters(url: string) {
     if (url.includes("general"))
       this.activatedRouter = 1;
-    if (url.includes("waiting-room"))
-      this.activatedRouter = 2 ; 
-    if (url.includes("profil"))
+    else if (url.includes("waiting-room"))
+      this.activatedRouter = 2;
+    else if (url.includes("visits"))
+      this.activatedRouter = 3
+    else if (url.includes("medical-files"))
+      this.activatedRouter = 4;
+    else if (url.includes("profil"))
       this.activatedRouter = 6;
-    if (url.includes("visit")) 
-      this.activatedRouter = 5 ; 
+    else if (url.includes("visit"))
+      this.activatedRouter = 5;
   }
 
 }
