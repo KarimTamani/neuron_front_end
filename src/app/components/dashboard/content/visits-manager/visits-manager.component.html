@@ -4,10 +4,8 @@
         <div class="search-header">
             <app-search-header></app-search-header>
         </div>
-        <div class="row">
-            <div class="col col-md-4" *ngFor="let visit of visits">
-                <app-visit [visit]="visit"></app-visit>
-            </div>
+        <div class="visits-list" *ngIf="visits.length > 0">
+            <app-visits-list [visits]="visits"></app-visits-list>
         </div>
     </div>
 

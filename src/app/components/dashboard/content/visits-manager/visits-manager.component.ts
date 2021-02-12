@@ -32,6 +32,8 @@ export class VisitsManagerComponent implements OnInit {
               lastname 
               birthday 
               gender 
+              email 
+              phone 
               address {
                 id address commune {
                   id name wilaya { 

@@ -88,7 +88,8 @@ import { AddClincalExamComponent } from './components/dashboard/content/patient-
 import { MedicalFilesManagerComponent } from './components/dashboard/content/medical-files-manager/medical-files-manager.component';
 import { VisitsManagerComponent } from './components/dashboard/content/visits-manager/visits-manager.component';
 import { SearchHeaderComponent } from './components/global/search-header/search-header.component';
-import { VisitsListComponent } from './components/dashboard/content/visits-manager/visits-list/visits-list.component' ; 
+import { VisitsListComponent } from './components/dashboard/content/visits-manager/visits-list/visits-list.component';
+import { VisitRowComponent } from './components/dashboard/content/visits-manager/visits-list/visit-row/visit-row.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -166,6 +167,7 @@ import { VisitsListComponent } from './components/dashboard/content/visits-manag
     VisitsManagerComponent,
     SearchHeaderComponent,
     VisitsListComponent,
+    VisitRowComponent,
   ],
   imports: [
     BrowserModule,

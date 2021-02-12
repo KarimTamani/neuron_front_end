@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Visit } from 'src/app/classes/Visit';
 
 @Component({
   selector: 'app-visits-list',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visits-list.component.css']
 })
 export class VisitsListComponent implements OnInit {
-
+  @Input() visits :Visit[] = [] ; 
   constructor() { }
 
   ngOnInit(): void {
