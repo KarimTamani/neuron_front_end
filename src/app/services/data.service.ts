@@ -83,10 +83,10 @@ export class DataService {
   }
 
 
-  public castDateMDY(date) { 
-    if (date == null) 
-      return null ; 
-    var dateObject = new Date(date) ; 
+  public castDateMDY(date) {
+    if (date == null)
+      return null;
+    var dateObject = new Date(date);
     var day: any = dateObject.getDate();
     var month: any = dateObject.getMonth() + 1;
     var year: any = dateObject.getFullYear();
@@ -98,18 +98,43 @@ export class DataService {
       month = "0" + month;
 
     year = "" + year;
-    return month+"/"+day+"/"+year ; 
+    return month + "/" + day + "/" + year;
   }
   public getTime(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
     if (hours < 10)
-        hours = "0" + hours;
+      hours = "0" + hours;
     if (minutes < 10)
-        minutes = "0" + minutes;
+      minutes = "0" + minutes;
 
     return `${hours}:${minutes}`
-}
+  }
 
 
+  public getPeriod(startTime, endTime) {
+    var startTimeMinutes = this.convertIntoMinutes(startTime);
+    var endTimeMinutes = this.convertIntoMinutes(endTime);
+    return this.convertMinutesIntoTime(endTimeMinutes - startTimeMinutes)
+  }
+
+
+  public convertMinutesIntoTime(minutes) {
+    var hours  :any = Math.trunc(minutes / 60);
+    minutes = minutes % 60;
+    if (hours <= 9) {
+      hours = "0" + hours;
+    }
+
+    if (minutes <= 9) {
+      minutes = "0" + minutes;
+    }
+    return hours + ":" + minutes;
+  }
+  public convertIntoMinutes(time) {
+    var hours = parseInt(time.split(":")[0]);
+    var minutes = parseInt(time.split(":")[1]);
+
+    return hours * 60 + minutes;
+  }
 }

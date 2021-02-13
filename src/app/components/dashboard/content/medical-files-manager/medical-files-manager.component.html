@@ -1,1 +1,14 @@
-<p>medical-files-manager works!</p>
+<div class="main-container">
+    <app-header></app-header>
+    <div class="body">
+        <div class="search-header">
+            <app-search-header (searchEvent)="search($event)"></app-search-header>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-4" *ngFor="let medicalFile of medicalFiles">
+            <app-mini-medical-file [medicalFile]="medicalFile"></app-mini-medical-file>
+        </div>
+    </div>
+
+</div>

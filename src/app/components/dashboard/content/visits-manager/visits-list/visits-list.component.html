@@ -39,4 +39,9 @@
             period de la visit
         </span>
     </div>
+    <div class="body primary-radius">
+        <div class="visit-row" *ngFor="let visit of visits">
+            <app-visit-row [visit]="visit"></app-visit-row>
+        </div>
+    </div>
 </div>

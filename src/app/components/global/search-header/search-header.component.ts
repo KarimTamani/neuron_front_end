@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Wilaya } from 'src/app/classes/Wilaya';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -12,8 +12,13 @@ import { map } from 'rxjs/operators';
 export class SearchHeaderComponent implements OnInit {
   public wilayas : Wilaya[] = [] ;  
   public selectedWilaya : Wilaya ; 
-  public selectedWilayaId : number ; 
-  constructor(private apollo : Apollo) {}
+  public searchQuery : any = {} ; 
+
+  @Output() searchEvent : EventEmitter<any> ; 
+  constructor(private apollo : Apollo) {
+    this.searchEvent = new EventEmitter<any>() ; 
+
+  }
 
   ngOnInit(): void {
   
@@ -35,6 +40,10 @@ export class SearchHeaderComponent implements OnInit {
   
   public wilayaSelected() {
     // filter by if to find the selected wilaya 
-    this.selectedWilaya = this.wilayas.find(wilaya => wilaya.id ==  this.selectedWilayaId);
+    this.selectedWilaya = this.wilayas.find(wilaya => wilaya.id ==  this.searchQuery.wilayaId);
+  }
+
+  public search() {
+    this.searchEvent.emit (this.searchQuery) ; 
   }
 }

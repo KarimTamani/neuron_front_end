@@ -2,11 +2,10 @@
     <app-header></app-header>
     <div class="body">
         <div class="search-header">
-            <app-search-header></app-search-header>
+            <app-search-header (searchEvent)="search($event)"></app-search-header>
         </div>
         <div class="visits-list" *ngIf="visits.length > 0">
             <app-visits-list [visits]="visits"></app-visits-list>
         </div>
     </div>
-
 </div>

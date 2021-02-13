@@ -1,0 +1,14 @@
+.visit-container {
+    background: white;
+    padding: 8px 12px;
+}
+
+span {
+    width: 50%;
+    color: #555555;
+    font-size: 13px;
+}
+
+span.red {
+    color: rgb(254, 101, 85);
+}
