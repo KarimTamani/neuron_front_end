@@ -11,11 +11,25 @@ import { Visit } from 'src/app/classes/Visit';
 })
 export class VisitsManagerComponent implements OnInit {
   public visits: Visit[] = [];
-
+  public count: number = 0;
+  public offset: number = 0;
+  public limit: number = 1;
+  
   constructor(private apollo: Apollo) { }
 
   ngOnInit(): void {
-    this.searchVisits();
+    this.searchVisits(null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      this.offset,
+      this.limit);
   }
 
   private searchVisits(searchQuery = null, address = null, wilayaId = null, communeId = null, medicalActs = null, symptoms = null, debt = null, status = null, startDate = null, endDate = null, offset = null, limit = null) {
@@ -49,6 +63,7 @@ export class VisitsManagerComponent implements OnInit {
             offset : $offset 
             limit : $limit
           ) {
+            rows { 
             id 
             arrivalTime 
             status 
@@ -77,6 +92,8 @@ export class VisitsManagerComponent implements OnInit {
               id name
             }
           }
+          count 
+          }
         }
       `,
       variables: {
@@ -94,24 +111,25 @@ export class VisitsManagerComponent implements OnInit {
         limit: limit
       }
     }).pipe(map(value => (<any>value.data).searchVisits)).subscribe((data) => {
-      this.visits = data;
+      this.visits = data.rows;
+      this.count = data.count;
     })
   }
 
   search($event) {
     this.searchVisits(
-      $event.searchQuery ,  
-      $event.address ,
-      $event.wilayaId ,
+      $event.searchQuery,
+      $event.address,
+      $event.wilayaId,
       $event.communeId,
-      $event.medicalActs ,
-      $event.symptoms ,
-      $event.debt ,
-      $event.startDate ,
-      $event.endDate ,
+      $event.medicalActs,
+      $event.symptoms,
+      $event.debt,
+      $event.startDate,
+      $event.endDate,
       $event.status,
-      $event.offset ,
-      $event.limit 
+      this.offset,
+      this.limit
     )
   }
 }

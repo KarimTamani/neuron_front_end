@@ -8,4 +8,8 @@
             <app-visits-list [visits]="visits"></app-visits-list>
         </div>
     </div>
+
+    <div class="pagination-container">
+        <app-pagination [count]="count" [loaded]="visits.length" [offset]="offset" [limit]="limit"></app-pagination>
+    </div>
 </div>

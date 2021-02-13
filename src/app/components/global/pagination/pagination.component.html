@@ -1,1 +1,23 @@
-<p>pagination works!</p>
+<div class="main-container primary-radius">
+    <div class="stretch-container">
+        <div class="info-side center-v">
+            <span>{{loaded }} / {{count}}</span>
+        </div>
+        <div class="pagination-side stretch-container">
+            <div class="center-v">
+                <i class="fa fa-chevron-left"></i>
+            </div>
+            <div class="pages">
+                <div class="page" *ngFor="let page of getPages()" [class.selected]="currentPage() == page">
+                    <span>{{page}}</span>
+                </div>
+            </div>
+            <div class="center-v">
+                <i class="fa fa-chevron-right"></i>
+            </div>
+        </div>
+        <div class="info-side center-v">
+            <span>{{currentPage()}} / {{pagesNum()}} </span>
+        </div>
+    </div>
+</div>
