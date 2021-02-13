@@ -5,10 +5,12 @@
             <app-search-header (searchEvent)="search($event)"></app-search-header>
         </div>
     </div>
-    <div class="row">
+    <div class="row files-list">
         <div class="col col-md-4" *ngFor="let medicalFile of medicalFiles">
             <app-mini-medical-file [medicalFile]="medicalFile"></app-mini-medical-file>
         </div>
     </div>
-
+    <div class="pagination-container">
+        <app-pagination [offset]="offset" (pageSelected)="selectPage($event)" [limit]="limit" [count]="count" [loaded]="medicalFiles.length"></app-pagination>
+    </div>
 </div>

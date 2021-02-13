@@ -11,9 +11,25 @@ import { map } from 'rxjs/operators';
 })
 export class MedicalFilesManagerComponent implements OnInit {
   public medicalFiles: MedicalFile[] = [];
+  public count : number ; 
+  public offset : number = 0 ; 
+  public limit : number =  2 ; 
+  public lastSearch : any = {}  ;
+
   constructor(private apollo: Apollo) {}    
   ngOnInit(): void {
-    this.searchMedicalFiles(); 
+    this.searchMedicalFiles(
+      null , 
+      null ,  
+      null , 
+      null, 
+      null , 
+      null , 
+      null , 
+      null , 
+      this.offset , 
+      this.limit 
+    ); 
   }
   private searchMedicalFiles(
     searchQuery = null, address = null, communeId = null, wilayaId = null, professionId = null, antecedents = null, startDate = null, endDate = null, offset = null, limit = null
@@ -44,7 +60,8 @@ export class MedicalFilesManagerComponent implements OnInit {
             endDate : $endDate , 
             offset : $offset , 
             limit : $limit       
-          ) { 
+          )  { 
+          rows { 
             id 
             name 
             lastname 
@@ -56,6 +73,8 @@ export class MedicalFilesManagerComponent implements OnInit {
               id name 
             }
           }
+          count 
+        }
         }
         
       ` , variables: {
@@ -71,11 +90,44 @@ export class MedicalFilesManagerComponent implements OnInit {
         limit: limit
       }
     }).pipe(map(value => (<any>value.data).searchMedicalFiles)).subscribe((data) => { 
-      this.medicalFiles = data ; 
+      this.count = data.count ; 
+      this.medicalFiles = data.rows ; 
     })
   }
 
   public search($event) { 
-    
+    this.offset = 0 ; 
+    this.lastSearch = $event ; 
+    this.searchMedicalFiles(
+        $event.searchQuery , 
+        $event.address , 
+        $event.communeId , 
+        $event.wilayaId , 
+        $event.professionId , 
+        $event.antecedents , 
+        $event.startDate , 
+        $event.endDate , 
+        this.offset , 
+        this.limit 
+      )  
+  }
+
+  public selectPage($event) { 
+ 
+    this.offset = $event ; 
+
+    this.searchMedicalFiles(
+      this.lastSearch.searchQuery , 
+      this.lastSearch.address , 
+      this.lastSearch.communeId , 
+      this.lastSearch.wilayaId , 
+      this.lastSearch.professionId , 
+      this.lastSearch.antecedents , 
+      this.lastSearch.startDate , 
+      this.lastSearch.endDate , 
+      this.offset , 
+      this.limit 
+    ) ; 
+
   }
 }
