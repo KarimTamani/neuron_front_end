@@ -1,7 +1,7 @@
 .main-container {
     width: 100%;
     background: white;
-    padding: 4px 16px;
+    padding: 8px 16px;
 }
 
 .pagination-side {
@@ -28,7 +28,11 @@
     cursor: pointer;
 }
 
-.pagination-side i:hover {
+.pagination-side i.disabled {
+    color: #eeeeee;
+}
+
+.pagination-side i:not(.disabled):hover {
     color: rgb(38, 94, 215);
 }
 

@@ -10,6 +10,6 @@
     </div>
 
     <div class="pagination-container">
-        <app-pagination [count]="count" [loaded]="visits.length" [offset]="offset" [limit]="limit"></app-pagination>
+        <app-pagination (pageSelected)="selectPage($event)" [count]="count" [loaded]="visits.length" [offset]="offset" [limit]="limit"></app-pagination>
     </div>
 </div>
