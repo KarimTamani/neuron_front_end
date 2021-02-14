@@ -5,6 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
+  public DAY = 60 * 60 * 24 ; 
+  public WEEK = this.DAY * 7  ;
+  public MONTH = this.DAY * 30 ; 
+  public TRIMESTER = this.MONTH * 4 ; 
+  public SEMESTER = this.MONTH * 6 ; 
+  public YEAR = this.MONTH * 356 ; 
 
   public monthes: string[] = [
     "Janvier",
@@ -134,7 +140,14 @@ export class DataService {
   public convertIntoMinutes(time) {
     var hours = parseInt(time.split(":")[0]);
     var minutes = parseInt(time.split(":")[1]);
-
     return hours * 60 + minutes;
+  }
+
+  public dateMinusPeriod(date : string , period : number ) { 
+    var dateObj = new Date (date) ; 
+    var time = dateObj.getTime() ; 
+    time -= (period * 1000) ; 
+    var result = new Date(time) ; 
+    return result ; 
   }
 }

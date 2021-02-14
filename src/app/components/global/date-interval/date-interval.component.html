@@ -1,1 +1,22 @@
-<p>date-interval works!</p>
+<div class="main-container">
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="center-v">
+                <p>{{placeholder}}</p>
+            </div>
+        </div>
+        <div class="col col-md-6">
+            <select [(ngModel)]="selectedOption" (change)="selectPeriod()"> 
+                <option (click)="selectPeriod()" *ngFor="let option of options" [value]="option">{{option}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row" *ngIf="selectedOption == 'custumizable'">
+        <div class="col col-md-6">
+            <input type="date" class="primary-input" [(ngModel)]="startDate">
+        </div>
+        <div class="col col-md-6">
+            <input type="date" class="primary-input" [(ngModel)]="endDate">
+        </div>
+    </div>
+</div>

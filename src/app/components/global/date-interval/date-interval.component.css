@@ -1,0 +1,15 @@
+.row {
+    margin: 16px -16px;
+}
+
+.col {
+    height: 42px;
+}
+
+.col .center-v {
+    height: 100%;
+}
+
+p {
+    margin: 0px;
+}
