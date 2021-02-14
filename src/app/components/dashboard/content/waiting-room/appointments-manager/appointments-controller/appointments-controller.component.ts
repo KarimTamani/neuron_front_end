@@ -28,7 +28,7 @@ export class AppointmentsControllerComponent implements OnInit {
         "pop-up-window" : true , 
         "title" : "Nouvelle visit" , 
         'window-page' : "new-visit"  ,
-        "waiting-room" : JSON.stringify(this.waitingRoom)  
+        "waiting-room" : encodeURIComponent(JSON.stringify( this.waitingRoom) )   
       }
     })
   }

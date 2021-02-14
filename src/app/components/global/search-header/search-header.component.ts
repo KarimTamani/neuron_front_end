@@ -4,6 +4,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-search-header',
@@ -16,7 +17,7 @@ export class SearchHeaderComponent implements OnInit {
   public searchQuery : any = {} ; 
   @Input() advancedSearchOption : string ; 
   @Output() searchEvent : EventEmitter<any> ; 
-  constructor(private apollo : Apollo , private router : Router)  {
+  constructor(private apollo : Apollo , private router : Router, private interactionService : InteractionService)  {
     this.searchEvent = new EventEmitter<any>() ; 
 
   }
@@ -49,6 +50,11 @@ export class SearchHeaderComponent implements OnInit {
   }
 
   public openAdvancedSearch() { 
+    const subscription = this.interactionService.advancedSearchValidated.subscribe((searchQuery) => { 
+      this.searchQuery = searchQuery ; 
+      subscription.unsubscribe() ; 
+      console.log(this.searchQuery) ; 
+    })
     this.router.navigate([] , { 
       queryParams : { 
         "pop-up-window" : true , 
@@ -56,6 +62,6 @@ export class SearchHeaderComponent implements OnInit {
         "title" : "La recherche avancé"  , 
         "search-query" : encodeURIComponent(JSON.stringify(this.searchQuery)) 
       }
-    })
+    }); 
   }
 }

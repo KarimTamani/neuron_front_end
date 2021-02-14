@@ -13,7 +13,7 @@ export class VisitsManagerComponent implements OnInit {
   public visits: Visit[] = [];
   public count: number = 0;
   public offset: number = 0;
-  public limit: number = 1;
+  public limit: number = 4;
   public lastSearch : any = {} ; 
   constructor(private apollo: Apollo) { }
 

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MedicalAct } from 'src/app/classes/MedicalAct';
 import { Symptom } from 'src/app/classes/Symptom';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-visit-advanced-search',
@@ -17,11 +18,14 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public searchQuery: any = {};
   public medicalActs: MedicalAct[] = [];
-  public submittedSymptom : Symptom ; 
-  public selectedSymptoms : Symptom[] = [] ; 
-  constructor(private router: ActivatedRoute, private apollo: Apollo) {
+  public submittedSymptom: Symptom;
+  public selectedSymptoms: Symptom[] = [];
+  public status: string[] = [];
+  public withDebt: boolean = true;
+  public noDebt: boolean = true;
+  constructor(private router: ActivatedRoute, private apollo: Apollo , private interactionService : InteractionService) {
     this.closeEvent = new EventEmitter<null>();
-    this.submittedSymptom = new Symptom() ; 
+    this.submittedSymptom = new Symptom();
   }
 
   ngOnInit(): void {
@@ -29,10 +33,12 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
       this.router.queryParams.subscribe((params) => {
         if (params["search-query"]) {
           this.searchQuery = JSON.parse(decodeURIComponent(params["search-query"]));
-          this.searchQuery.medicalActs = [] ; 
-          this.searchQuery.symptoms = []  ;
-        }
+          if (this.searchQuery.medicalActs === undefined)
+            this.searchQuery.medicalActs = [];
+          if (this.searchQuery.symptoms === undefined)
+            this.searchQuery.symptoms = [];
 
+        }
       })
     )
     this.apollo.query({
@@ -44,6 +50,16 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
         }`
     }).pipe(map(value => (<any>value.data).getAllMedicalActs)).subscribe((data) => {
       this.medicalActs = data;
+    });
+    // get visit status  
+    this.apollo.query({
+      query: gql`
+        {
+          getVisitStatus
+        }
+      `
+    }).pipe(map(value => (<any>value.data).getVisitStatus)).subscribe((data) => {
+      this.status = data;
     })
   }
 
@@ -86,13 +102,43 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
         }
       `
     }).pipe(map((response) => (<any>response.data).addSymptom)).subscribe((data) => {
-      this.selectedSymptoms.splice(0, 0, data );
+      this.selectedSymptoms.splice(0, 0, data);
     })
   }
   removeSymptom(symptom) {
     const index = this.selectedSymptoms.findIndex((value) => value.id == symptom.id);
     this.selectedSymptoms.splice(index, 1);
   }
+
+  public selectDebt(debt) {
+  
+    if (debt == "debt") {
+      if (this.noDebt == true)
+        this.withDebt = !this.withDebt;
+      this.searchQuery.debt = true;
+    } else {
+      if (this.withDebt == true)
+        this.noDebt = !this.noDebt;
+      this.searchQuery.debt = false;
+    }
+  }
+
+  public onDateIntervalChange($event) {
+    this.searchQuery.startDate = $event.startDate ; 
+    this.searchQuery.endDate = $event.endDate ; 
+  }
+  public submit() {
+    if (this.withDebt && this.noDebt) 
+      this.searchQuery.debt = null ; 
+    else if (this.withDebt) 
+      this.searchQuery.debt = true ; 
+    else if (this.noDebt) 
+      this.searchQuery.debt = false ; 
+    this.searchQuery.symptoms = this.selectedSymptoms.map(symptom => symptom.id);
+    
+    this.interactionService.advancedSearchValidated.next(this.searchQuery) ; 
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach((subs) => {
       subs.unsubscribe();

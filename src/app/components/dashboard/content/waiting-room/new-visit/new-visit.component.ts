@@ -56,6 +56,7 @@ export class NewVisitComponent implements OnInit {
         // load symptoms into symptoms
         // calculate the total price for the visit  
         this.visit = JSON.parse(decodeURIComponent(params["visit"]));
+        
         this.selectedMedicalActs = this.visit.medicalActs;
         this.symptoms = this.visit.symptoms;
         this.totalPrice = 0;
@@ -68,6 +69,7 @@ export class NewVisitComponent implements OnInit {
         // get the waiting room from the params 
         // if not in edit mode calculate the order of the visit
         this.visit.waitingRoom = JSON.parse(decodeURIComponent(params["waiting-room"]));
+
         if (this.edit == false)
           this.visit.order = this.visit.waitingRoom.visits.length + 1;
       }

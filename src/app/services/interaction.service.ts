@@ -22,6 +22,7 @@ export class InteractionService {
   public updateReport: Subject<null>;
   public vitalSettingEdited : Subject<VitalSetting> ; 
   public useClinicalExam : Subject<ClinicalExam> ; 
+  public advancedSearchValidated : Subject<any> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -34,6 +35,7 @@ export class InteractionService {
     this.updateReport = new Subject<null>() ; 
     this.vitalSettingEdited = new Subject<VitalSetting>() ;  
     this.useClinicalExam = new Subject<ClinicalExam>() ;  
+    this.advancedSearchValidated = new Subject<any>() ; 
   }
 
 

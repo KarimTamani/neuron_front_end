@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
@@ -26,8 +26,11 @@ export class DateIntervalComponent implements OnInit {
   public selectedOption: string;
   public startDate: string;
   public endDate: string;
+  @Output() changeEvent : EventEmitter<any> ; 
   constructor(private apollo: Apollo, private dataService: DataService) {
+  
     this.selectedOption = this.options[0];
+    this.changeEvent = new EventEmitter<null>() ; 
   }
   ngOnInit(): void {
     this.apollo.query({
@@ -71,5 +74,18 @@ export class DateIntervalComponent implements OnInit {
       default :   
         break;
     }
+  
+    this.changeEvent.emit({ 
+      startDate : this.startDate , 
+      endDate : this.endDate  
+    })
+  
   }
+
+  public inputChange()  {  
+    this.changeEvent.emit({ 
+      startDate : this.startDate , 
+      endDate : this.endDate  
+    })
+  } 
 }

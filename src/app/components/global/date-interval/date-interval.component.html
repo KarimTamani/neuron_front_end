@@ -13,10 +13,10 @@
     </div>
     <div class="row" *ngIf="selectedOption == 'custumizable'">
         <div class="col col-md-6">
-            <input type="date" class="primary-input" [(ngModel)]="startDate">
+            <input type="date" class="primary-input" (change)="inputChange()" [(ngModel)]="startDate">
         </div>
         <div class="col col-md-6">
-            <input type="date" class="primary-input" [(ngModel)]="endDate">
+            <input type="date" class="primary-input" (change)="inputChange()" [(ngModel)]="endDate">
         </div>
     </div>
 </div>

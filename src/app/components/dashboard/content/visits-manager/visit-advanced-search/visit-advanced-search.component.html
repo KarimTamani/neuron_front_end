@@ -31,13 +31,40 @@
             </div>
             <div class="symptoms-container">
                 <span *ngFor="let symptom of selectedSymptoms" class="symptom">
+                
                     {{symptom.name}} <i class="fa fa-times" (click)="removeSymptom(symptom)"></i>
                 </span>
             </div>
         </div>
     </div>
+    <div class="col col-md-6">
+        <div class="center-v">
+            <p>L'etat de la visite : </p>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <select [(ngModel)]="searchQuery.status">
+            <option  [value]="undefined">Tout</option>      
+            <option *ngFor="let state of status" [value]="state">{{state}}</option>
+        </select>
+    </div>
+    <div class="col col-md-6">
+        <div class="debt-label" [class.selected]="noDebt" (click)="selectDebt ('no-debt')">
+            <label>Sans Credit</label>
+            <i class="fa fa-check"></i>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="debt-label" [class.selected]="withDebt" (click)="selectDebt ('debt')">
+            <label>Avec Credit</label>
+            <i class="fa fa-check"></i>
+        </div>
+    </div>
     <div class="col col-md-12">
-        <app-date-interval [placeholder]="'intervale des visits'"></app-date-interval>
+        <app-date-interval (changeEvent)="onDateIntervalChange($event)" [placeholder]="'intervale des visits'"></app-date-interval>
+    </div>
+    <div class="col col-md-12">
+        <button class="primary-button" (click)="submit()">Validé   <i class="fa fa-check"></i></button>
     </div>
     <div style="clear: both;"></div>
 </div>

@@ -18,7 +18,7 @@
                     <app-mini-medical-file (closeEvent)="closeMedicalFile()" (editEvent)="editMedicalFile()" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
                 </div>
             </div>
-            <div class="col col-md-12">
+            <div class="col col-md-12" *ngIf="visit.waitingRoom">
                 <h5>Salle d'attent</h5>
                 <p class="waiting-room-info">
                     <span><i class="fa fa-calendar"></i>{{visit.waitingRoom.date}}</span>
