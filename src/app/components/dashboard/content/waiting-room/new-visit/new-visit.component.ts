@@ -80,16 +80,18 @@ export class NewVisitComponent implements OnInit {
       query: gql`
           {
             searchMedicalFiles(searchQuery : "${query}") {
-              id 
-              name 
-              lastname 
-              phone 
-              email 
-              birthday 
-              gender
+              rows { 
+                id 
+                name 
+                lastname 
+                phone 
+                email 
+                birthday 
+                gender
+              }
             }
           }`
-    }).pipe(map(result => (<any>result.data).searchMedicalFiles));
+    }).pipe(map(result => (<any>result.data).searchMedicalFiles.rows));
   }
 
   public symptomsSearchFunction: any = (query) => {

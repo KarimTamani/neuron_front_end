@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Wilaya } from 'src/app/classes/Wilaya';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-header',
@@ -13,9 +14,9 @@ export class SearchHeaderComponent implements OnInit {
   public wilayas : Wilaya[] = [] ;  
   public selectedWilaya : Wilaya ; 
   public searchQuery : any = {} ; 
-
+  @Input() advancedSearchOption : string ; 
   @Output() searchEvent : EventEmitter<any> ; 
-  constructor(private apollo : Apollo) {
+  constructor(private apollo : Apollo , private router : Router)  {
     this.searchEvent = new EventEmitter<any>() ; 
 
   }
@@ -45,5 +46,16 @@ export class SearchHeaderComponent implements OnInit {
 
   public search() {
     this.searchEvent.emit (this.searchQuery) ; 
+  }
+
+  public openAdvancedSearch() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window" : true , 
+        "window-page" : this.advancedSearchOption  , 
+        "title" : "La recherche avancé"  , 
+        "search-query" : encodeURIComponent(JSON.stringify(this.searchQuery)) 
+      }
+    })
   }
 }

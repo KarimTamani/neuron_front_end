@@ -1,1 +1,39 @@
-<p>visit-advanced-search works!</p>
+<div class="main-container">
+    <div class="row">
+        <div class="col col-md-12">
+            <h5>Les Actes medicaux</h5>
+            <div class="medical-acts-container">
+                <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
+                    <span>
+            {{medicalAct.name}} 
+
+        </span>
+                    <span>
+            {{medicalAct.price}} DA
+        </span>
+                    <i class="fa fa-check"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-12">
+
+            <h5>
+                Motif de consultation ou symptoms
+            </h5>
+            <div class="symptoms-input-container stretch-container">
+                <div class="search-input">
+                    <app-search-input (searchSubmitted)="symptomSelected($event)" [submittedItem]="submittedSymptom" [placeholder]="'Recherché un symptom'" [searchFunction]="symptomsSearchFunction"></app-search-input>
+                </div>
+                <div class="icon-container">
+                    <i class="fa fa-plus primary-button" (click)="symptomSelected(submittedSymptom)"></i>
+                </div>
+
+            </div>
+            <div class="symptoms-container">
+                <span *ngFor="let symptom of selectedSymptoms" class="symptom">
+                    {{symptom.name}} <i class="fa fa-times" (click)="removeSymptom(symptom)"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

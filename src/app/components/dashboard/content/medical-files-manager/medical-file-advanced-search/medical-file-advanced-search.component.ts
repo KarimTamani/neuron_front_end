@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-medical-file-advanced-search',
@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./medical-file-advanced-search.component.css']
 })
 export class MedicalFileAdvancedSearchComponent implements OnInit {
-
-  constructor() { }
+  @Output() closeEvent : EventEmitter<null> ; 
+  
+  constructor() {
+    this.closeEvent = new EventEmitter<null>()  ; 
+  }
 
   ngOnInit(): void {
   }

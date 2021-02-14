@@ -92,7 +92,8 @@ import { VisitsListComponent } from './components/dashboard/content/visits-manag
 import { VisitRowComponent } from './components/dashboard/content/visits-manager/visits-list/visit-row/visit-row.component';
 import { PaginationComponent } from './components/global/pagination/pagination.component';
 import { MedicalFileAdvancedSearchComponent } from './components/dashboard/content/medical-files-manager/medical-file-advanced-search/medical-file-advanced-search.component';
-import { VisitAdvancedSearchComponent } from './components/dashboard/content/visits-manager/visit-advanced-search/visit-advanced-search.component' ; 
+import { VisitAdvancedSearchComponent } from './components/dashboard/content/visits-manager/visit-advanced-search/visit-advanced-search.component';
+import { DateIntervalComponent } from './components/global/date-interval/date-interval.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -174,6 +175,7 @@ import { VisitAdvancedSearchComponent } from './components/dashboard/content/vis
     PaginationComponent,
     MedicalFileAdvancedSearchComponent,
     VisitAdvancedSearchComponent,
+    DateIntervalComponent,
   ],
   imports: [
     BrowserModule,
