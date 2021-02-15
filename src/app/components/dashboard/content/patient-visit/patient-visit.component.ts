@@ -11,7 +11,7 @@ import { Condition } from 'src/app/classes/Condition';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit {
-  public page : number = 1 ; 
+  public page : number = 3 ; 
   public visit : Visit ; 
   constructor(private apollo : Apollo) {}
   ngOnInit(): void {
@@ -54,6 +54,9 @@ export class PatientVisitComponent implements OnInit {
             size  
             obesity 
             smoker  
+          }
+          visitDrugDosages {
+            dosage { name } drug { name } qsp
           }
           medicalFile {
             id

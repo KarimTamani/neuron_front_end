@@ -7,7 +7,7 @@
                 <app-visit-information [visit]="visit"></app-visit-information>
             </div>
             <div class="page" *ngIf="page == 3">
-                <app-visit-prescription></app-visit-prescription>
+                <app-visit-prescription [visit]="visit"></app-visit-prescription>
             </div>
             <div class="page" *ngIf="page == 4">
                 <app-visit-check-up></app-visit-check-up>
