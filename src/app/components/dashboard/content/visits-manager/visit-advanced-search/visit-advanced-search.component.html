@@ -31,7 +31,6 @@
             </div>
             <div class="symptoms-container">
                 <span *ngFor="let symptom of searchQuery.symptoms" class="symptom">
-                
                     {{symptom.name}} <i class="fa fa-times" (click)="removeSymptom(symptom)"></i>
                 </span>
             </div>
