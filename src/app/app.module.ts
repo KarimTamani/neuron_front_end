@@ -94,7 +94,8 @@ import { PaginationComponent } from './components/global/pagination/pagination.c
 import { MedicalFileAdvancedSearchComponent } from './components/dashboard/content/medical-files-manager/medical-file-advanced-search/medical-file-advanced-search.component';
 import { VisitAdvancedSearchComponent } from './components/dashboard/content/visits-manager/visit-advanced-search/visit-advanced-search.component';
 import { DateIntervalComponent } from './components/global/date-interval/date-interval.component';
-import { DrugSubmitterComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-submitter/drug-submitter.component' ; 
+import { DrugSubmitterComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-submitter/drug-submitter.component';
+import { PrescriptionComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -178,6 +179,7 @@ import { DrugSubmitterComponent } from './components/dashboard/content/patient-v
     VisitAdvancedSearchComponent,
     DateIntervalComponent,
     DrugSubmitterComponent,
+    PrescriptionComponent,
   ],
   imports: [
     BrowserModule,
