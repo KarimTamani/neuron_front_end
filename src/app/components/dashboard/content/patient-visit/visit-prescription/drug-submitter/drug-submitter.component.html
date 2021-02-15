@@ -16,7 +16,7 @@
             </div>
             <div class="col col-md-4">
                 <div class="form-group">
-                    <input type="number" placeholder="Nombre des unité" class="primary-input">
+                    <input type="number" formControlName="unitNumber" [(ngModel)]="submittedVisitDrugDosage.unitNumber" placeholder="Nombre des unité" class="primary-input">
                 </div>
             </div>
             <div class="col col-md-8">
@@ -41,5 +41,10 @@
             </div>
         </div>
     </form>
-
+    <div class="visit-drug-dosages">
+        <h5 class="primary-title">List des medicaments</h5>
+        <div class="drug-dosage" *ngFor="let visitDrugDosage of visitDrugDosages">
+            <app-drug-dosage [visitDrugDosage]="visitDrugDosage"></app-drug-dosage>
+        </div>
+    </div>
 </div>

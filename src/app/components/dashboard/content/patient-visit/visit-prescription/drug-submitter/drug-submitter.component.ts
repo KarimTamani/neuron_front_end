@@ -12,17 +12,7 @@ import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
   styleUrls: ['./drug-submitter.component.css']
 })
 export class DrugSubmitterComponent implements OnInit {
-  @Input() visitDrugDosages: VisitDrugDosage[] = [<VisitDrugDosage>{ 
-    drug : { 
-      name : "DOliprna 500 mg" 
-    }, 
-    dosage : { 
-      name : "1 cp 3 foix par jours matin medi soire a jeun"
-    } , 
-    unitNumber : 1 , 
-    qsp : "7 jours"  
-
-  }];
+  @Input() visitDrugDosages: VisitDrugDosage[] = [] ; 
   public submittedVisitDrugDosage: VisitDrugDosage;
   public submitedQSP : any = {
     name : "" 
@@ -37,11 +27,15 @@ export class DrugSubmitterComponent implements OnInit {
       Validators.required,
       Validators.minLength(3)
     ]),
+    unitNumber : new FormControl("" , [
+      Validators.minLength(3)
+    ])
   })
   constructor(private apollo: Apollo) {
     this.submittedVisitDrugDosage = new VisitDrugDosage();
     this.submittedVisitDrugDosage.drug.name = "";
     this.submittedVisitDrugDosage.dosage.name = "";
+
   }
 
 
@@ -79,7 +73,9 @@ export class DrugSubmitterComponent implements OnInit {
     return this.apollo.query({
       query: gql`
         query SEARCH_QSP ($qsp : String){
-          searchQSP(qsp : $qsp)
+          searchQSP(qsp : $qsp) { 
+            name
+          }
         }` ,
       variables: {
         qsp: query
@@ -101,8 +97,16 @@ export class DrugSubmitterComponent implements OnInit {
 
     this.form.setValue({
       drug: this.submittedVisitDrugDosage.drug.name,
-      dosage: this.submittedVisitDrugDosage.dosage.name
+      dosage: this.submittedVisitDrugDosage.dosage.name , 
+      unitNumber : this.submittedVisitDrugDosage.unitNumber 
     });
+
+    this.submittedVisitDrugDosage.qsp = this.submitedQSP.name ; 
+    if (this.form.invalid) 
+      return ; 
+    
+  
+    this.visitDrugDosages.push(this.submittedVisitDrugDosage) ; 
 
   }
   public clear() {
