@@ -1,0 +1,55 @@
+.main-container {
+    padding: 16px;
+    width: 460px;
+    position: relative;
+}
+
+h5 {
+    color: #212112;
+    font-weight: bold;
+    margin: 0px;
+    margin-bottom: 12px;
+}
+
+.antecedents-container {
+    height: 210px;
+}
+
+h5 span {
+    color: rgb(38, 94, 215);
+    font-weight: 100;
+    float: right;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+h5 span:hover {
+    text-decoration: underline;
+}
+
+.antecedents-submitter {
+    position: absolute;
+    background: white;
+    z-index: 1;
+    width: 580px;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.1), -2px -2px 16px rgba(0, 0, 0, 0.1);
+}
+
+.antecedents-container span {
+    background: #eeeeee;
+    padding: 8px 16px;
+    display: inline-block;
+    border-radius: 20px;
+    color: #555555;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+button.primary-button {
+    float: right;
+    width: 120px;
+}

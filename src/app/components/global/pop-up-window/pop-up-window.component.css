@@ -1,11 +1,10 @@
 .main-container {
-    background: #F5F6FA;
     position: absolute;
+    background: white;
     left: 50%;
     transform: translateX(-50%);
     margin: 26px 0px;
-    border-radius: 6px;
-    overflow: hidden;
+    border-radius: 8px;
 }
 
 .main-container .header h5 {
@@ -15,6 +14,8 @@
     color: white;
     position: relative;
     margin: 0px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .main-container .header h5 i {

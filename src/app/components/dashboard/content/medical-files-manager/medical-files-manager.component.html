@@ -7,7 +7,7 @@
     </div>
     <div class="row files-list">
         <div class="col col-md-4" *ngFor="let medicalFile of medicalFiles">
-            <app-mini-medical-file [medicalFile]="medicalFile"></app-mini-medical-file>
+            <app-mini-medical-file [disabelShadow]="true" [medicalFile]="medicalFile"></app-mini-medical-file>
         </div>
     </div>
     <div class="pagination-container">

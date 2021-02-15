@@ -98,13 +98,14 @@ export class MedicalFilesManagerComponent implements OnInit {
   public search($event) { 
     this.offset = 0 ; 
     this.lastSearch = $event ; 
+
     this.searchMedicalFiles(
         $event.searchQuery , 
         $event.address , 
         $event.communeId , 
         $event.wilayaId , 
         $event.professionId , 
-        $event.antecedents , 
+        ($event.antecedents && $event.antecedents.length > 0) ? ($event.antecedents.map(value => value.id)) : ($event.antecedents)  , 
         $event.startDate , 
         $event.endDate , 
         this.offset , 

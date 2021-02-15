@@ -19,7 +19,6 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
   public searchQuery: any = {};
   public medicalActs: MedicalAct[] = [];
   public submittedSymptom: Symptom;
-  public selectedSymptoms: Symptom[] = [];
   public status: string[] = [];
   public withDebt: boolean = true;
   public noDebt: boolean = true;
@@ -77,7 +76,7 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
     }).pipe(map(value => (<any>value.data).searchSymptom));
   }
   public isMedicalActSelected(medicalAct) {
-    let index = this.searchQuery.medicalActs.findIndex(value => value == medicalAct.id);
+    let index = this.searchQuery.medicalActs.findIndex(value => value.id == medicalAct.id);
     return index >= 0;
   }
 
@@ -88,7 +87,7 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.searchQuery.medicalActs.splice(index, 1);
     } else
-      this.searchQuery.medicalActs.push(medicalAct.id);
+      this.searchQuery.medicalActs.push(medicalAct);
   }
 
 
@@ -104,12 +103,12 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
         }
       `
     }).pipe(map((response) => (<any>response.data).addSymptom)).subscribe((data) => {
-      this.selectedSymptoms.splice(0, 0, data);
+      this.searchQuery.symptoms.splice(0, 0, data);
     })
   }
   removeSymptom(symptom) {
-    const index = this.selectedSymptoms.findIndex((value) => value.id == symptom.id);
-    this.selectedSymptoms.splice(index, 1);
+    const index =  this.searchQuery.symptoms.findIndex((value) => value.id == symptom.id);
+    this.searchQuery.symptoms.splice(index, 1);
   }
 
   public selectDebt(debt) {
@@ -138,8 +137,7 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
       this.searchQuery.debt = false ; 
     if (this.searchQuery.status == "undefined")
       this.searchQuery.status = null ;   
-
-    this.searchQuery.symptoms = this.selectedSymptoms.map(symptom => symptom.id);    
+ 
     this.interactionService.advancedSearchValidated.next(this.searchQuery) ; 
     this.closeEvent.emit() ; 
   

@@ -118,16 +118,16 @@ export class VisitsManagerComponent implements OnInit {
   }
 
   search($event) {
-    console.log($event) ; 
     this.offset = 0 ; 
+    console.log($event) ; 
     this.lastSearch = $event  ; 
     this.searchVisits(
       $event.searchQuery,
       $event.address,
       $event.wilayaId,
       $event.communeId,
-      $event.medicalActs,
-      $event.symptoms,
+      (($event.medicalActs && $event.medicalActs.length > 0) ? ($event.medicalActs.map(value => value.id)) : ($event.medicalActs)),
+      (($event.symptoms && $event.symptoms.length > 0) ? ($event.symptoms.map(value => value.id)) : ($event.symptoms)),
       $event.debt,
       $event.status,
       $event.startDate,
