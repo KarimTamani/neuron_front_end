@@ -11,14 +11,14 @@ import { Condition } from 'src/app/classes/Condition';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit {
-  public page : number = 3 ; 
-  public visit : Visit ; 
-  constructor(private apollo : Apollo) {}
+  public page: number = 3;
+  public visit: Visit;
+  constructor(private apollo: Apollo) { }
   ngOnInit(): void {
 
 
     this.apollo.query({
-      query : gql`
+      query: gql`
       { 
         getCurrentVisit {
           id
@@ -79,14 +79,19 @@ export class PatientVisitComponent implements OnInit {
           }
         }
       }`
-    }).pipe(map(value => (<any>value.data).getCurrentVisit)).subscribe((data) => { 
-      this.visit = data ; 
-      if (this.visit.condition == null) 
-        this.visit.condition = new Condition() ; 
+    }).pipe(map(value => (<any>value.data).getCurrentVisit)).subscribe((data) => {
+      this.visit = data;
+      if (this.visit.condition == null)
+        this.visit.condition = new Condition();
+      if (this.visit.visitDrugDosages == null)
+        this.visit.visitDrugDosages = [];
+
+
+      console.log(this.visit);
     })
   }
-  
-  select($event) { 
-    this.page = $event ; 
+
+  select($event) {
+    this.page = $event;
   }
 }

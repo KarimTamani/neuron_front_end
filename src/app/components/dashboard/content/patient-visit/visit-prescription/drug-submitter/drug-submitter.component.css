@@ -1,0 +1,28 @@
+.input-container {
+    border: 1px solid transparent;
+    border-radius: 20px;
+}
+
+::ng-deep .input-container.is-invalid input {
+    color: rgb(254, 101, 85);
+}
+
+.main-container {
+    padding: 16px;
+}
+
+.controller {
+    margin-top: 16px;
+}
+
+.controller button {
+    width: 33.33%;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+}
+
+.controller .primary-button {
+    float: right;
+}

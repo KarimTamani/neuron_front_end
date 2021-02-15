@@ -14,6 +14,7 @@ export class SearchInputComponent implements OnInit {
   @Output() itemSelected: EventEmitter<any>;
   @Output() searchSubmitted : EventEmitter<any> ; 
   @Input() submittedItem: any;
+  @Input() formControlName : string ; 
   @ViewChild("input", {}) input;
   @Input() type : string = "name"
 

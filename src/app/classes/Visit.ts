@@ -4,6 +4,7 @@ import { Symptom } from "./Symptom";
 import { WaitingRoom } from "./WaitingRoom" ; 
 import { VitalSetting } from './VitalSetting';
 import { Condition } from "./Condition" ; 
+import {VisitDrugDosage} from "./VisitDrugDosage" ; 
 export class Visit {
 
 
@@ -20,7 +21,7 @@ export class Visit {
     public debt: number;
     public order: number;
     public waitingRoomId : any ; 
-    //public visitDrugDosages : [VisitDrugDosage] 
+    public visitDrugDosages : VisitDrugDosage[] = []  ; 
     //public checkUps : [CheckUp]
     public vitalSetting : VitalSetting = new VitalSetting();  
     public clinicalExam : string ; 

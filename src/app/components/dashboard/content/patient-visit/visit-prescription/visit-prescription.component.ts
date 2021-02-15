@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Visit } from 'src/app/classes/Visit';
+import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
 
 @Component({
   selector: 'app-visit-prescription',
@@ -7,12 +8,11 @@ import { Visit } from 'src/app/classes/Visit';
   styleUrls: ['./visit-prescription.component.css']
 })
 export class VisitPrescriptionComponent implements OnInit {
-  @Input() visit : Visit ; 
+  @Input() visit : Visit  ; 
   constructor() { }
 
   ngOnInit(): void {
   
-    console.log(this.visit) ; 
   }
 
 }

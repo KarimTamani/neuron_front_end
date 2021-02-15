@@ -95,7 +95,8 @@ import { MedicalFileAdvancedSearchComponent } from './components/dashboard/conte
 import { VisitAdvancedSearchComponent } from './components/dashboard/content/visits-manager/visit-advanced-search/visit-advanced-search.component';
 import { DateIntervalComponent } from './components/global/date-interval/date-interval.component';
 import { DrugSubmitterComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-submitter/drug-submitter.component';
-import { PrescriptionComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription.component' ; 
+import { PrescriptionComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription.component';
+import { DrugDosageComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-submitter/drug-dosage/drug-dosage.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -180,6 +181,7 @@ import { PrescriptionComponent } from './components/dashboard/content/patient-vi
     DateIntervalComponent,
     DrugSubmitterComponent,
     PrescriptionComponent,
+    DrugDosageComponent,
   ],
   imports: [
     BrowserModule,
