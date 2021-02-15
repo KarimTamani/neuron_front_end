@@ -37,6 +37,8 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
             this.searchQuery.medicalActs = [];
           if (this.searchQuery.symptoms === undefined)
             this.searchQuery.symptoms = [];
+          if (this.searchQuery.status == null)  
+            this.searchQuery.status = undefined ; 
 
         }
       })
@@ -134,9 +136,13 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
       this.searchQuery.debt = true ; 
     else if (this.noDebt) 
       this.searchQuery.debt = false ; 
-    this.searchQuery.symptoms = this.selectedSymptoms.map(symptom => symptom.id);
-    
+    if (this.searchQuery.status == "undefined")
+      this.searchQuery.status = null ;   
+
+    this.searchQuery.symptoms = this.selectedSymptoms.map(symptom => symptom.id);    
     this.interactionService.advancedSearchValidated.next(this.searchQuery) ; 
+    this.closeEvent.emit() ; 
+  
   }
 
   ngOnDestroy() {

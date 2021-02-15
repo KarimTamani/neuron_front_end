@@ -53,7 +53,7 @@ export class SearchHeaderComponent implements OnInit {
     const subscription = this.interactionService.advancedSearchValidated.subscribe((searchQuery) => { 
       this.searchQuery = searchQuery ; 
       subscription.unsubscribe() ; 
-      console.log(this.searchQuery) ; 
+
     })
     this.router.navigate([] , { 
       queryParams : { 

@@ -18,7 +18,8 @@ export class VisitsManagerComponent implements OnInit {
   constructor(private apollo: Apollo) { }
 
   ngOnInit(): void {
-    this.searchVisits(null,
+    this.searchVisits(
+      null,
       null,
       null,
       null,
@@ -40,8 +41,8 @@ export class VisitsManagerComponent implements OnInit {
             $address : String 
             $wilayaId : ID
             $communeId : ID 
-            $medicalActs : [Int!]  
-            $symptoms : [Int!] 
+            $medicalActs : [ID!]  
+            $symptoms : [ID!] 
             $debt : Boolean 
             $status : String 
             $startDate : String 
@@ -104,9 +105,9 @@ export class VisitsManagerComponent implements OnInit {
         medicalActs: medicalActs,
         symptoms: symptoms,
         debt: debt,
+        status: status,
         startDate: startDate,
         endDate: endDate,
-        status: status,
         offset: offset,
         limit: limit
       }
@@ -117,6 +118,7 @@ export class VisitsManagerComponent implements OnInit {
   }
 
   search($event) {
+    console.log($event) ; 
     this.offset = 0 ; 
     this.lastSearch = $event  ; 
     this.searchVisits(
@@ -127,9 +129,9 @@ export class VisitsManagerComponent implements OnInit {
       $event.medicalActs,
       $event.symptoms,
       $event.debt,
+      $event.status,
       $event.startDate,
       $event.endDate,
-      $event.status,
       this.offset,
       this.limit
     ); 
@@ -144,9 +146,9 @@ export class VisitsManagerComponent implements OnInit {
       this.lastSearch.medicalActs,
       this.lastSearch.symptoms,
       this.lastSearch.debt,
+      this.lastSearch.status,
       this.lastSearch.startDate,
       this.lastSearch.endDate,
-      this.lastSearch.status,
       this.offset,
       this.limit
     )
