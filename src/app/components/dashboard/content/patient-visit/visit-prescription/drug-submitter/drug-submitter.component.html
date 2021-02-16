@@ -43,8 +43,10 @@
     </form>
     <div class="visit-drug-dosages">
         <h5 class="primary-title">List des medicaments</h5>
-        <div class="drug-dosage" *ngFor="let visitDrugDosage of visitDrugDosages">
-            <app-drug-dosage [visitDrugDosage]="visitDrugDosage"></app-drug-dosage>
+        <div class="list">
+            <div class="drug-dosage" *ngFor="let visitDrugDosage of visitDrugDosages">
+                <app-drug-dosage (deleteEvent)="deleteVisitDrugDosage($event)" [visitDrugDosage]="visitDrugDosage"></app-drug-dosage>
+            </div>
         </div>
     </div>
 </div>

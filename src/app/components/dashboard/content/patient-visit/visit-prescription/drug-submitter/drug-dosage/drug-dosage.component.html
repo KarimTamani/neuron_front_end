@@ -1,4 +1,5 @@
 <div class="main-container">
+    <span class="delete" (click)="deleteEvent.emit(visitDrugDosage)">Supprimer<i class="fa fa-times"></i></span>
     <div class="drug">
         <p>{{visitDrugDosage.drug.name}} <span>{{visitDrugDosage.unitNumber}}</span></p>
 

@@ -9,8 +9,43 @@ p {
 .drug {
     color: #212121;
     font-weight: bold;
+    margin-bottom: 16px;
 }
 
 .dosage {
     color: #888888;
+}
+
+.main-container {
+    padding: 8px 16px;
+    padding-bottom: 4px;
+    border-radius: 16px;
+    position: relative;
+}
+
+.delete {
+    position: absolute;
+    color: rgb(38, 94, 215);
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    cursor: pointer;
+}
+
+.main-container:hover .delete {
+    display: block;
+}
+
+.delete:hover {
+    text-decoration: underline;
+}
+
+.delete i {
+    margin-left: 4px;
+}
+
+.main-container:hover {
+    background-color: #eeeeee;
 }

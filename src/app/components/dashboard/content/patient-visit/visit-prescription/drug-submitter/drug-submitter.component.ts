@@ -12,11 +12,11 @@ import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
   styleUrls: ['./drug-submitter.component.css']
 })
 export class DrugSubmitterComponent implements OnInit {
-  @Input() visitDrugDosages: VisitDrugDosage[] = [] ; 
+  @Input() visitDrugDosages: VisitDrugDosage[] = [];
   public submittedVisitDrugDosage: VisitDrugDosage;
-  public submitedQSP : any = {
-    name : "" 
-  } ; 
+  public submitedQSP: any = {
+    name: ""
+  };
   // init the form control to set the name of the drug and the dosage required 
   public form: FormGroup = new FormGroup({
     drug: new FormControl("", [
@@ -27,7 +27,7 @@ export class DrugSubmitterComponent implements OnInit {
       Validators.required,
       Validators.minLength(3)
     ]),
-    unitNumber : new FormControl("" , [
+    unitNumber: new FormControl("", [
       Validators.minLength(3)
     ])
   })
@@ -83,10 +83,20 @@ export class DrugSubmitterComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).searchQSP));
   }
   ngOnInit(): void {
-
+   
   }
 
-
+  public deleteVisitDrugDosage($event) {
+    // get the index of the visit drug soage that we want to delete 
+    // by comparing every attribute because the if is not defined
+    const index = this.visitDrugDosages.findIndex(value =>
+      $event.drug.name == value.drug.name &&
+      $event.dosage.name == value.dosage.name &&
+      $event.unitNumber == value.unitNumber &&
+      $event.qsp == value.qsp
+    );
+    this.visitDrugDosages.splice(index , 1) ; 
+  }
   public add() {
     // whene we add a visit drug dosage to the visit 
     // we must check the form validation first 
@@ -97,16 +107,19 @@ export class DrugSubmitterComponent implements OnInit {
 
     this.form.setValue({
       drug: this.submittedVisitDrugDosage.drug.name,
-      dosage: this.submittedVisitDrugDosage.dosage.name , 
-      unitNumber : this.submittedVisitDrugDosage.unitNumber 
+      dosage: this.submittedVisitDrugDosage.dosage.name,
+      unitNumber: this.submittedVisitDrugDosage.unitNumber
     });
 
-    this.submittedVisitDrugDosage.qsp = this.submitedQSP.name ; 
-    if (this.form.invalid) 
-      return ; 
-    
-  
-    this.visitDrugDosages.push(this.submittedVisitDrugDosage) ; 
+    this.submittedVisitDrugDosage.qsp = this.submitedQSP.name;
+    if (this.form.invalid)
+      return;
+
+    this.visitDrugDosages.push(this.submittedVisitDrugDosage);
+    this.submittedVisitDrugDosage = new VisitDrugDosage() ; 
+    this.submitedQSP = { 
+      name : "" 
+    }
 
   }
   public clear() {

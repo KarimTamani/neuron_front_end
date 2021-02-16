@@ -30,3 +30,9 @@
 .visit-drug-dosages {
     margin-top: 16px;
 }
+
+.list {
+    height: 300px;
+    overflow: auto;
+    max-height: 300px;
+}

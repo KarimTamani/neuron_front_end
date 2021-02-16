@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
 
 @Component({
@@ -8,10 +8,13 @@ import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
 })
 export class DrugDosageComponent implements OnInit {
   @Input() visitDrugDosage : VisitDrugDosage ; 
-  constructor() { }
+  @Output() deleteEvent : EventEmitter<VisitDrugDosage> ; 
+  constructor() {
+    this.deleteEvent = new EventEmitter<VisitDrugDosage>() ; 
+  }
 
   ngOnInit(): void {
-    console.log(this.visitDrugDosage) ;
+    
   }
 
 }
