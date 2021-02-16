@@ -85,9 +85,8 @@ export class PatientVisitComponent implements OnInit {
         this.visit.condition = new Condition();
       if (this.visit.visitDrugDosages == null)
         this.visit.visitDrugDosages = [];
+      
 
-
-      console.log(this.visit);
     })
   }
 

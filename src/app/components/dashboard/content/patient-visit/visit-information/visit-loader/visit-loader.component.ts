@@ -4,6 +4,7 @@ import { MedicalFile } from 'src/app/classes/MedicalFile';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { valueFromASTUntyped } from 'graphql';
 
 @Component({
   selector: 'app-visit-loader',
@@ -25,7 +26,6 @@ export class VisitLoaderComponent implements OnInit {
   selectMedicalFile($event) {
     this.visit.medicalFile = $event;
     this.submittedMedicalFile = new MedicalFile();
-
   }
   public searchCondtion: any = (query) => {
     // search for conditions and diseases 
@@ -60,6 +60,7 @@ export class VisitLoaderComponent implements OnInit {
   }
 
   public saveVsit() {
+    /*
     this.apollo.mutate({
       mutation: gql`
         mutation ($symptoms : [ID!] , $clinicalExam :String , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput , $condition : ConditionInput)
@@ -84,7 +85,41 @@ export class VisitLoaderComponent implements OnInit {
     }).subscribe((data) => {
 
     })
-
+    */ 
+    this.apollo.mutate({
+      mutation : gql`
+        mutation ADD_VISIT_DRUG_DOSAGES($visitId : ID! , $visitDrugDosages : [VisitDrugDosageInput!]! ){ 
+          addVisitDrugDosages(visitId : $visitId , visitDrugDosages : $visitDrugDosages) { 
+            drug {
+              id 
+              name
+            } 
+            dosage { 
+              id name 
+            }
+            qsp  
+            unitNumber 
+          }
+        }
+      ` , variables : { 
+        visitId : this.visit.id , 
+        visitDrugDosages : this.visit.visitDrugDosages.map(function(value) { 
+          return {
+            drug : { 
+              name : value.drug.name
+            } , 
+            dosage : { 
+              name : value.dosage.name 
+            }  , 
+            qsp : (value.qsp && value.qsp.trim().length > 0) ? (value.qsp) : (null) , 
+            unitNumber : (value.unitNumber && value.unitNumber != 0) ? (value.unitNumber) : (1) , 
+          
+          }
+        }) 
+      }
+    }).pipe(map(value => (<any>value.data).addVisitDrugDosages)).subscribe((data) => { 
+      this.visit.visitDrugDosages = data ; 
+    })
   }
 
 
