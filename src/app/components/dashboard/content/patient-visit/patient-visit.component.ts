@@ -34,6 +34,8 @@ export class PatientVisitComponent implements OnInit {
           clinicalExam
           order 
           payedMoney 
+          createdAt 
+          updatedAt
           condition {
             id name
           }

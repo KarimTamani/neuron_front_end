@@ -26,4 +26,6 @@ export class Visit {
     public vitalSetting : VitalSetting = new VitalSetting();  
     public clinicalExam : string ; 
     public condition : Condition = new Condition() ; 
+    public createdAt : string ; 
+    public updatedAt : string ; 
 }

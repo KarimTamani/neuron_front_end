@@ -40,11 +40,12 @@ export class DataService {
     return imc;
   }
 
-  public calculateAge(birthday: string) {
+  public calculateAge(birthday: string , currentDate : Date) {
     // a simple function to calculate the age of the patient 
     // and round it 
     let birthTime = new Date(birthday).getTime();
-    const currentTime = new Date().getTime();
+    
+    const currentTime = currentDate.getTime();
 
     var deltaTime = (currentTime - birthTime);
     var age = deltaTime / (1000 * 365 * 24 * 60 * 60)
