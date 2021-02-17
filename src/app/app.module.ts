@@ -97,7 +97,8 @@ import { DateIntervalComponent } from './components/global/date-interval/date-in
 import { DrugSubmitterComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-submitter/drug-submitter.component';
 import { PrescriptionComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription.component';
 import { DrugDosageComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-submitter/drug-dosage/drug-dosage.component';
-import { PrescriptionHeaderComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-header/prescription-header.component' ; 
+import { PrescriptionHeaderComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-header/prescription-header.component';
+import { PrescriptionDrugDosagesComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-drug-dosages/prescription-drug-dosages.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -184,6 +185,7 @@ import { PrescriptionHeaderComponent } from './components/dashboard/content/pati
     PrescriptionComponent,
     DrugDosageComponent,
     PrescriptionHeaderComponent,
+    PrescriptionDrugDosagesComponent,
   ],
   imports: [
     BrowserModule,
