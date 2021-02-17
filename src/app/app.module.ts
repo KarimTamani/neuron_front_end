@@ -99,7 +99,8 @@ import { PrescriptionComponent } from './components/dashboard/content/patient-vi
 import { DrugDosageComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-submitter/drug-dosage/drug-dosage.component';
 import { PrescriptionHeaderComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-header/prescription-header.component';
 import { PrescriptionDrugDosagesComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-drug-dosages/prescription-drug-dosages.component';
-import { PrescriptionPatientInfoComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-patient-info/prescription-patient-info.component' ; 
+import { PrescriptionPatientInfoComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-patient-info/prescription-patient-info.component';
+import { PrescriptionDrugDosageComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/precription-drug-dosages/prescription-drug-dosage/prescription-drug-dosage.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -188,6 +189,7 @@ import { PrescriptionPatientInfoComponent } from './components/dashboard/content
     PrescriptionHeaderComponent,
     PrescriptionDrugDosagesComponent,
     PrescriptionPatientInfoComponent,
+    PrescriptionDrugDosageComponent,
   ],
   imports: [
     BrowserModule,
