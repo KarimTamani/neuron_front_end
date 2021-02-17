@@ -2,4 +2,9 @@
     <div class="patient-info">
         <app-prescription-patient-info [visit]="visit"></app-prescription-patient-info>
     </div>
+    <div class="visit-drug-dosages">
+        <div class="drug-dosage" *ngFor="let drugDosage of visit.visitDrugDosages">
+            <app-prescription-drug-dosage [visitDrugDosage]="drugDosage"></app-prescription-drug-dosage>
+        </div>
+    </div>
 </div>

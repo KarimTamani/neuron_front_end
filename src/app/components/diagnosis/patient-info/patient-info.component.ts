@@ -18,14 +18,13 @@ export class PatientInfoComponent implements OnInit {
 
   constructor(private dataService: DataService) { }
 
-  ngOnInit(): void {
-    console.log(this.visit ) ; 
+  ngOnInit(): void { 
     // check if the weight and the size are both defined 
     if (this.visit.vitalSetting.weight && this.visit.vitalSetting.size) {
       this.imc = this.dataService.calculateImc(this.visit.vitalSetting.weight, this.visit.vitalSetting.size);
       this.interpretation = this.dataService.getImcInterpretation(this.imc);
     }
-    this.age = this.dataService.calculateAge(this.visit.medicalFile.birthday);
+    this.age = this.dataService.calculateAge(this.visit.medicalFile.birthday , new Date (parseInt(this.visit.createdAt)));
   }
 
 }

@@ -40,7 +40,6 @@ export class DiagnosisComponent implements OnInit {
       this.visit = JSON.parse(decodeURIComponent(params.visit)) ; 
       this.selectedSymptoms = this.visit.symptoms ; 
       this.updateBodyAreaSymptoms() ; 
-      console.log(this.selectedSymptoms) ; 
     })
   }
 

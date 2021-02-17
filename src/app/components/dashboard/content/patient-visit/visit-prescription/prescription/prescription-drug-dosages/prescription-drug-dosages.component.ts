@@ -11,6 +11,7 @@ export class PrescriptionDrugDosagesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.visit.visitDrugDosages) ; 
   }
 
 }
