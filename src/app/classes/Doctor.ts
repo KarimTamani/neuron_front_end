@@ -9,4 +9,6 @@ export class Doctor {
     public speciality : Speciality ; 
     public graduation : string ; 
     public orderNumber : string ; 
+    public nameAr : string ; 
+    public lastnameAr : string ; 
 }

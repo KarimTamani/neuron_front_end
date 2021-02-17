@@ -1,5 +1,10 @@
 <div class="main-container">
     <div class="prescription">
+        <div class="header" *ngIf="doctor && cabinet">
+            <app-prescription-header [doctor]="doctor" [cabinet]="cabinet"></app-prescription-header>
+        </div>
+        <div class="body">
 
+        </div>
     </div>
 </div>

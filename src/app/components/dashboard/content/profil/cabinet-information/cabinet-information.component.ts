@@ -141,7 +141,7 @@ export class CabinetInformationComponent implements OnInit {
             phone : "${this.form.value.phone}" , 
             email : "${this.form.value.email}" ,  
             address : { address  : "${this.form.value.address}" , communeId : ${this.form.value.communeId} }
-            services : ${ this.cabinet.services.map(value => value.id ) }
+            services : ${ this.cabinet.services.map(value => value.id) }
           }
         ) {  id
           name

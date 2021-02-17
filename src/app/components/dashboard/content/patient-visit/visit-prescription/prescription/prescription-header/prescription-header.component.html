@@ -1,1 +1,46 @@
-<p>prescription-header works!</p>
+<div class="main-container roboto">
+    <h2 class="amiri">{{title}}</h2>
+    <div class="row doctor-info">
+        <div class="col col-md-6">
+            <p>Dr <span>{{doctor.name}} {{doctor.lastname}}</span></p>
+            <p *ngIf="doctor.speciality">Specialitié <span>{{doctor.speciality.name}}</span></p>
+            <p *ngIf="doctor.graduation">Diplomé <span>{{doctor.graduation}}</span></p>
+        </div>
+        <img id="logo" src="../../../../../../../../assets/med_logo.png">
+        <div class="col col-md-6 ar amiri">
+            <p *ngIf="doctor.lastnameAr || doctor.nameAr"> الدكتور <span>{{doctor.lastnameAr}} {{doctor.nameAr}}</span></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12 digital-info">
+            <p *ngIf="doctor.email">
+                <i class="fa fa-envelope"></i> {{doctor.email}}
+            </p>
+            <p *ngIf="doctor.phone">
+                <i class="fa fa-phone"></i> {{doctor.phone}}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12 cabinet-title">
+            <h3 class="amiri" *ngIf="cabinet.headerAr">{{cabinet.headerAr}}</h3>
+            <h3 *ngIf="!cabinet.headerAr">{{cabinet.header}}</h3>
+            <p *ngIf="cabinet.header || cabinet.name">{{cabinet.header}} <span>{{cabinet.name}}</span></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-6 services">
+            <label>Les Services</label>
+            <div>
+                <span class="service" *ngFor="let service of servicesFr">{{service.name}}</span>
+            </div>
+        </div>
+        <div class="col col-md-6 services ar amiri">
+            <label *ngIf="servicesAr.length > 0">الخدمات</label>
+            <div>
+                <span class="service" *ngFor="let service of servicesAr">{{service.name}}</span>
+            </div>
+        </div>
+    </div>
+
+</div>

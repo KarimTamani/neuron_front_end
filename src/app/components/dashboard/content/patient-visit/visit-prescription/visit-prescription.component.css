@@ -1,12 +1,11 @@
 .side {
     background: white;
-    height: 560px;
 }
 
 .prescription-side {
-    width: 560px;
-    max-width: 560px;
-    min-width: 560px;
+    width: 540px;
+    max-width: 540px;
+    min-width: 540px;
     margin-left: 8px;
 }
 

@@ -1,0 +1,101 @@
+.main-container {
+    font-size: 12px;
+    border-bottom: 1px solid;
+    padding-bottom: 4px;
+}
+
+h2 {
+    display: block;
+    text-align: center;
+    margin: 0px;
+    margin-bottom: 8px;
+}
+
+p {
+    color: #666;
+    margin: 0px;
+    margin-top: 4px;
+}
+
+p span {
+    font-weight: bold;
+    color: #212121;
+}
+
+h3 {
+    display: block;
+    text-align: center;
+    margin: 0px;
+    margin-top: 8px;
+}
+
+.cabinet-title p {
+    text-align: center;
+    font-size: 11px;
+}
+
+.services label {
+    font-weight: bold;
+}
+
+.ar {
+    text-align: right;
+    font-size: 16px;
+}
+
+.digital-info p {
+    display: inline-block;
+    margin: 0px 4px;
+    font-size: 11px;
+}
+
+.digital-info {
+    text-align: center;
+    font-size: 12px;
+}
+
+.doctor-info {
+    position: relative;
+}
+
+#logo {
+    position: absolute;
+    width: auto;
+    height: 58px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.amiri {
+    font-family: 'Amiri', serif;
+}
+
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.services:not(.services.ar) span {
+    font-size: 11px;
+}
+
+.services {
+    font-size: 12px;
+}
+
+.services span {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.services span:last-child:after {
+    content: "";
+}
+
+.services span:after {
+    content: ","
+}
+
+.services.ar label {
+    font-size: 16px;
+    line-height: 14px;
+}
