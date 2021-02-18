@@ -1,0 +1,36 @@
+.footer-down p {
+    display: inline-block;
+    font-size: 11px;
+    margin: 0px;
+    margin-right: 4px;
+}
+
+.footer-down {
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    left: 0px;
+}
+
+.footer-up {
+    position: relative;
+}
+
+.signature-container {
+    position: absolute;
+    right: 16px;
+}
+
+.signature-container p {
+    margin: 0px;
+    margin-bottom: 4px;
+    font-size: 10px;
+}
+
+.signature {
+    border: 1px solid #212121;
+    width: 96px;
+    height: 82px;
+    border-radius: 8px;
+}

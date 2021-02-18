@@ -1,5 +1,6 @@
 .main-container {
     padding: 16px;
+    position: relative;
 }
 
 .prescription {
@@ -10,5 +11,5 @@
 }
 
 .body {
-    height: 340px;
+    height: 320px;
 }

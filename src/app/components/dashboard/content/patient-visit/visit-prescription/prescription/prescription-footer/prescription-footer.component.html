@@ -10,16 +10,15 @@
     <div class="footer-down">
         <p *ngIf="cabinet && cabinet.address">
             <i class="fa fa-map-marker-alt"></i>
-            <span *ngIf="cabient.address.address">
+            <span *ngIf="cabinet.address.address">
                 {{cabinet.address.address}}
             </span>
-
             <span *ngIf="cabinet.address.commune && cabinet.address.commune.wilaya">
                 {{cabinet.address.commune.wilaya.name}}
             </span>
 
             <span *ngIf="cabinet.address.commune">
-                {{cabinet.address.address.commune.name}}
+                {{cabinet.address.commune.name}}
             </span>
         </p>
         <p *ngIf="doctor">
