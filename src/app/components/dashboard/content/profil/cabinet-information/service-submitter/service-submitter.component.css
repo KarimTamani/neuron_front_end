@@ -57,6 +57,7 @@ span {
     border-radius: 20px;
     font-size: 12px;
     margin: 4px 6px;
+    display: inline-block;
 }
 
 span i {
