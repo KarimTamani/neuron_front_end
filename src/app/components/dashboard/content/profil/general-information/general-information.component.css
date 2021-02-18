@@ -82,3 +82,7 @@ select {
 .primary-button {
     width: 100%;
 }
+
+.ar {
+    text-align: right;
+}

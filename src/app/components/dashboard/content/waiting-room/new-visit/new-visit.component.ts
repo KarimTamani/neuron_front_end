@@ -200,14 +200,16 @@ export class NewVisitComponent implements OnInit {
     })
   }
 
-
+  public newMedicalFile($event) { 
+    this.visit.medicalFile = $event ; 
+    this.showNewMedicalFile = false ; 
+  }
 
 
   private isVitalSettingEdited() {
     var keys = Object.keys(this.visit.vitalSetting) ; 
     return keys.length > 0 ; 
   }
-
 
   public closeMedicalFile() { 
     this.visit.medicalFile = null ; 

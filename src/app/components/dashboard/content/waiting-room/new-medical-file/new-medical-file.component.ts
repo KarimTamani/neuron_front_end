@@ -52,11 +52,13 @@ export class NewMedicalFileComponent implements OnInit {
   public showSubmitter: boolean = false;
   @Output() blackWindowEvent: EventEmitter<null>;
   @Input() medicalFile: MedicalFile;
+  @Output() newMedicalFileEvent : EventEmitter<MedicalFile> ; 
   public edit: boolean = false;
 
 
   constructor(private apollo: Apollo, private dataService: DataService) {
     this.blackWindowEvent = new EventEmitter<null>();
+    this.newMedicalFileEvent = new EventEmitter<MedicalFile>() ; 
   }
 
   ngOnInit(): void {
@@ -242,7 +244,8 @@ export class NewMedicalFileComponent implements OnInit {
           } ` ,
       variables: variables
     }).pipe(map(value => (<any>value.data).addMedicalFile)).subscribe((data) => {
-      console.log(data);
+      this.medicalFile = data ; 
+      this.newMedicalFileEvent.emit(this.medicalFile)
     })
   }
 

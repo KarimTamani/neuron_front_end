@@ -110,7 +110,7 @@
                     <i class="fa fa-arrow-left"></i> Annuler
                 </button>
             </div>
-            <app-new-medical-file [medicalFile]="visit.medicalFile" (blackWindowEvent)="blackWindow = !blackWindow"></app-new-medical-file>
+            <app-new-medical-file (newMedicalFileEvent)="newMedicalFile($event)" [medicalFile]="visit.medicalFile" (blackWindowEvent)="blackWindow = !blackWindow"></app-new-medical-file>
         </div>
     </div>
 
@@ -119,5 +119,4 @@
             <app-vital-setting [vitalSetting]="visit.vitalSetting"></app-vital-setting>
         </div>
     </div>
-
 </div>

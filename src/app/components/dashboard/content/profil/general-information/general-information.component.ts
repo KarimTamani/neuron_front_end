@@ -24,6 +24,12 @@ export class GeneralInformationComponent implements OnInit {
       Validators.minLength(4),
       Validators.maxLength(20)
     ]),
+    nameAr : new FormControl("" ,[
+      Validators.minLength(4)  
+    ]), 
+    lastnameAr : new FormControl("" ,[
+      Validators.minLength(4) 
+    ]), 
     email: new FormControl("", [
       Validators.required,
       Validators.email
@@ -55,6 +61,8 @@ export class GeneralInformationComponent implements OnInit {
           id
           name
           lastname 
+          nameAr 
+          lastnameAr
           lastFeedback 
           premiumRequest 
           phone
@@ -97,13 +105,17 @@ export class GeneralInformationComponent implements OnInit {
           gender : ${this.doctor.gender}
           graduation : "${this.form.value.graduation}" , 
           orderNumber : "${this.form.value.orderNumber}" 
-          specialityId : ${this.form.value.specialityId}
+          specialityId : ${this.form.value.specialityId}, 
+          nameAr : "${this.form.value.nameAr}" ,
+          lastnameAr : "${this.form.value.lastnameAr}" ,
         })  {
           token , 
           doctor {
             id
             name
             lastname 
+            nameAr 
+            lastnameAr
             lastFeedback 
             premiumRequest 
             phone
@@ -117,7 +129,7 @@ export class GeneralInformationComponent implements OnInit {
       }
       `
     }).pipe(map(value => (<any>value.data).editDoctor)).subscribe((data) => {
-      console.log(data)
+      
       localStorage.setItem("doctorAuth", JSON.stringify(data))
     })
   }

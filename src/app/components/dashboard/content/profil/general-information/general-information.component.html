@@ -49,6 +49,24 @@
                     </div>
                 </div>
 
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="الاسم" [(ngModel)]="doctor.nameAr" class="primary-input ar" formControlName="nameAr" [ngClass]="{'is-invalid' : form.get('nameAr').touched && form.get('nameAr').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('nameAr').touched && form.get('nameAr').invalid">
+                            <div *ngIf="form.get('name').errors.minlength">au moins 4 caractères</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="اللقب" class="primary-input ar" [(ngModel)]="doctor.lastnameAr" formControlName="lastnameAr" [ngClass]="{'is-invalid' : form.get('lastnameAr').touched && form.get('lastnameAr').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('lastnameAr').touched && form.get('lastnameAr').invalid">
+                            <div *ngIf="form.get('lastnameAr').errors.minlength">au moins 4 caractères</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col col-md-12">
                     <div class="form-group">
                         <input type="text" placeholder="Email" class="primary-input" formControlName="email" [(ngModel)]="doctor.email" [ngClass]="{'is-invalid' : form.get('email').touched && form.get('email').invalid}">
