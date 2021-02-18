@@ -1,5 +1,4 @@
 <div class="main-container">
-    <span class="delete" (click)="deleteEvent.emit(visitDrugDosage)">Supprimer<i class="fa fa-times"></i></span>
     <div class="drug">
         <p>{{visitDrugDosage.drug.name}} <span>{{visitDrugDosage.unitNumber}}</span></p>
 
@@ -8,8 +7,12 @@
     <div class="dosage">
         <p>
             {{visitDrugDosage.dosage.name}}
-            <span>{{visitDrugDosage.qsp}}</span>
+            <span> pendant {{visitDrugDosage.qsp}}</span>
 
         </p>
+        <div class="control-container">
+            <span class="delete" (click)="deleteEvent.emit(visitDrugDosage)">Supprimer<i class="fa fa-times"></i></span>
+            <span class="edit" (click)="editEvent.emit(visitDrugDosage)">Modifier <i class="fa fa-edit"></i></span>
+        </div>
     </div>
 </div>

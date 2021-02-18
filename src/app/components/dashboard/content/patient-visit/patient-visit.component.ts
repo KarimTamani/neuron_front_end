@@ -58,7 +58,7 @@ export class PatientVisitComponent implements OnInit {
             smoker  
           }
           visitDrugDosages {
-            dosage { name } drug { name } qsp
+            dosage { name } drug { name } qsp unitNumber 
           }
           medicalFile {
             id

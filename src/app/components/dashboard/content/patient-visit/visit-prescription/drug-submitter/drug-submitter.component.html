@@ -45,7 +45,7 @@
         <h5 class="primary-title">List des medicaments</h5>
         <div class="list">
             <div class="drug-dosage" *ngFor="let visitDrugDosage of visitDrugDosages">
-                <app-drug-dosage (deleteEvent)="deleteVisitDrugDosage($event)" [visitDrugDosage]="visitDrugDosage"></app-drug-dosage>
+                <app-drug-dosage (editEvent)="editVisitDrugDosage($event)" (deleteEvent)="deleteVisitDrugDosage($event)" [visitDrugDosage]="visitDrugDosage"></app-drug-dosage>
             </div>
         </div>
     </div>

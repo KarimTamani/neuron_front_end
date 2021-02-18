@@ -86,6 +86,12 @@ export class DrugSubmitterComponent implements OnInit {
    
   }
 
+  public editVisitDrugDosage($event) { 
+    this.submittedVisitDrugDosage  = $event ; 
+    this.submitedQSP = { name : $event.qsp } ; 
+    this.deleteVisitDrugDosage($event) ;  
+  }
+
   public deleteVisitDrugDosage($event) {
     // get the index of the visit drug soage that we want to delete 
     // by comparing every attribute because the if is not defined
