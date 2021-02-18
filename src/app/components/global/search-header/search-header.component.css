@@ -25,9 +25,9 @@
 }
 
 .search-button {
-    width: 42px;
-    min-width: 42px;
-    max-width: 42px;
+    width: 68px;
+    min-width: 68px;
+    max-width: 68px;
     display: flex;
     align-items: center;
 }
@@ -60,6 +60,16 @@ i {
     border-radius: 50%;
     transition-duration: 0.3s;
     cursor: pointer;
+}
+
+i.fa-times {
+    padding: 8px 10px;
+    color: rgb(254, 101, 85);
+}
+
+i.fa-times:hover {
+    background: rgb(254, 101, 85);
+    color: white;
 }
 
 i:hover {

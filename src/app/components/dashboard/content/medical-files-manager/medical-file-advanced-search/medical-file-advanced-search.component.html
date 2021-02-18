@@ -1,32 +1,35 @@
-<div class="main-container">
-    <div class="antecedents-submitter primary-radius" *ngIf="showAntecedentsManager">
-        <app-antecedents-submitter (closeEvent)="showAntecedentsManager = false" [antecedents]="searchQuery.antecedents"></app-antecedents-submitter>
-    </div>
-    <div class="row">
-        <div class="col col-md-12">
-            <h5>Antecedents <span (click)="showAntecedentsManager = true">Modifier <i class="fa fa-edit"></i></span></h5>
-            <div class="antecedents-container">
-                <span *ngFor="let antecedent of searchQuery.antecedents">{{antecedent.name}}</span>
-            </div>
+<div id="container">
+    <div class="main-container primary-radius">
+
+        <div class="antecedents-submitter primary-radius" *ngIf="showAntecedentsManager">
+            <app-antecedents-submitter (closeEvent)="showAntecedentsManager = false" [antecedents]="searchQuery.antecedents"></app-antecedents-submitter>
         </div>
-        <div class="col col-md-6">
-            <div class="center-v">
-                <label>Prefession : </label>
+        <div class="row">
+            <div class="col col-md-12">
+                <h5>Antecedents <span (click)="showAntecedentsManager = true">Modifier <i class="fa fa-edit"></i></span></h5>
+                <div class="antecedents-container">
+                    <span *ngFor="let antecedent of searchQuery.antecedents">{{antecedent.name}}</span>
+                </div>
             </div>
-        </div>
-        <div class="col col-md-6">
-            <select [(ngModel)]="searchQuery.professionId">
+            <div class="col col-md-6">
+                <div class="center-v">
+                    <label>Prefession : </label>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <select [(ngModel)]="searchQuery.professionId">
                 <option [value]="undefined">Tout</option>
                 <option *ngFor="let profession of professions"[value]="profession.id">{{profession.name }}</option>
             </select>
-        </div>
-        <div class="col col-md-12">
-            <app-date-interval (changeEvent)="onDateChanged($event)" [placeholder]="'date de creation'"></app-date-interval>
-        </div>
-        <div class="col col-md-12">
-            <button class="primary-button" (click)="valid()">Validé <i class="fa fa-check"></i></button>
-            <div style="clear: both;"></div>
-        </div>
+            </div>
+            <div class="col col-md-12">
+                <app-date-interval (changeEvent)="onDateChanged($event)" [placeholder]="'date de creation'"></app-date-interval>
+            </div>
+            <div class="col col-md-12">
+                <button class="primary-button" (click)="valid()">Validé <i class="fa fa-check"></i></button>
+                <div style="clear: both;"></div>
+            </div>
 
+        </div>
     </div>
 </div>

@@ -49,10 +49,13 @@ export class SearchHeaderComponent implements OnInit {
     this.searchEvent.emit (this.searchQuery) ; 
   }
 
+  public clear() { 
+    this.searchQuery = {} ; 
+    this.searchEvent.emit(this.searchQuery) ; 
+  }
   public openAdvancedSearch() { 
     const subscription = this.interactionService.advancedSearchValidated.subscribe((searchQuery) => { 
       this.searchQuery = searchQuery ; 
-      console.log(this.searchQuery) ; 
       subscription.unsubscribe() ; 
 
     })
