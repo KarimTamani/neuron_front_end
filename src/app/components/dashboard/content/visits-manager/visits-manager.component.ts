@@ -73,6 +73,7 @@ export class VisitsManagerComponent implements OnInit {
             debt 
             payedMoney
             order 
+            createdAt
             medicalFile{
               id
               name 

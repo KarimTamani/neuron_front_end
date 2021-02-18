@@ -10,12 +10,21 @@ import { DataService } from 'src/app/services/data.service';
 export class VisitRowComponent implements OnInit {
   @Input() visit : Visit ; 
   public visitPeriod : string ; 
+  public visitDate : string ; 
   constructor(private dataService : DataService) { }
 
   ngOnInit(): void {
     if (this.visit.status == "visit done" || this.visit.status == "visit payed") { 
       this.visitPeriod = this.dataService.getPeriod(this.visit.startTime , this.visit.endTime) ;  
     }
+    const createdAtDate = new Date(parseInt ( this.visit.createdAt )) ;
+    const day = createdAtDate.getDate() ; 
+    const month = createdAtDate.getMonth() ; 
+    const year = createdAtDate.getFullYear() ; 
+    
+    this.visitDate = `${day} ${this.dataService.monthes[month]} ${year}`
+     
+
   }
 
 }
