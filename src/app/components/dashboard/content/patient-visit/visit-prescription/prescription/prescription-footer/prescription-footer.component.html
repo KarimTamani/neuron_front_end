@@ -1,0 +1,35 @@
+<div class="main-container">
+    <div class="footer-up">
+        <div class="signature-container">
+            <p>La signature / caché</p>
+            <div class="signature">
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-down">
+        <p *ngIf="cabinet && cabinet.address">
+            <i class="fa fa-map-marker-alt"></i>
+            <span *ngIf="cabient.address.address">
+                {{cabinet.address.address}}
+            </span>
+
+            <span *ngIf="cabinet.address.commune && cabinet.address.commune.wilaya">
+                {{cabinet.address.commune.wilaya.name}}
+            </span>
+
+            <span *ngIf="cabinet.address.commune">
+                {{cabinet.address.address.commune.name}}
+            </span>
+        </p>
+        <p *ngIf="doctor">
+            N Dorder : {{doctor.orderNumber}}
+        </p>
+        <p *ngIf="cabinet && cabinet.email">
+            <i class="fa fa-envelope"></i> {{cabinet.email}}
+        </p>
+        <p *ngIf="cabinet && cabinet.phone">
+            <i class="fa fa-phone"></i> {{cabinet.phone }}
+        </p>
+    </div>
+</div>
