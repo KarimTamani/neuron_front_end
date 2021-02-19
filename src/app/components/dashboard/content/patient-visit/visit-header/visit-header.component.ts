@@ -10,11 +10,12 @@ import { Router } from '@angular/router';
 export class VisitHeaderComponent implements OnInit {
   @Output() selectPageEvent : EventEmitter<number> ; 
   @Input() visit : Visit ; 
+  @Input() onlyGeneral : boolean = false ; 
   public selectedPage : number = 1 ; 
+
   constructor(private router : Router) {
     this.selectPageEvent = new EventEmitter<number>();  
   }
-
   ngOnInit(): void {
   }
   select(page : number) { 

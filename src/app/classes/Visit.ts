@@ -13,10 +13,10 @@ export class Visit {
     public startTime: string;
     public endTime: string;
     public payedMoney: number;
-    public medicalActs: MedicalAct[];
+    public medicalActs: MedicalAct[] = [];
     public medicalFile: MedicalFile;
     public waitingRoom : WaitingRoom ; 
-    public symptoms: Symptom[];
+    public symptoms: Symptom[] = [];
     public status: string;
     public debt: number;
     public order: number;

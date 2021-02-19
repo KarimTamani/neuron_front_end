@@ -4,6 +4,7 @@ import { Visit } from 'src/app/classes/Visit';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Condition } from 'src/app/classes/Condition';
+import { VitalSetting } from 'src/app/classes/VitalSetting';
 
 @Component({
   selector: 'app-patient-visit',
@@ -11,12 +12,12 @@ import { Condition } from 'src/app/classes/Condition';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit {
-  public page: number = 3;
+  public page: number = 1;
   public visit: Visit;
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {
+    this.visit = new Visit() ; 
+  }
   ngOnInit(): void {
-
-
     this.apollo.query({
       query: gql`
       { 
@@ -82,17 +83,34 @@ export class PatientVisitComponent implements OnInit {
         }
       }`
     }).pipe(map(value => (<any>value.data).getCurrentVisit)).subscribe((data) => {
-      this.visit = data;
-      if (this.visit.condition == null)
-        this.visit.condition = new Condition();
-      if (this.visit.visitDrugDosages == null)
-        this.visit.visitDrugDosages = [];
       
+      if (data) 
+        this.visit = data ; 
+      this.initVisit() ;       
 
     })
   }
 
+  private initVisit() { 
+    if (this.visit.condition == null)
+    this.visit.condition = new Condition();
+  if (this.visit.visitDrugDosages == null)
+    this.visit.visitDrugDosages = [];
+  if (this.visit.vitalSetting == null) 
+    this.visit.vitalSetting = new VitalSetting() ;  
+  if (this.visit.medicalActs == null) 
+    this.visit.medicalActs = [] ; 
+  if (this.visit.symptoms == null ) 
+    this.visit.symptoms = [] ; 
+
+  }
   select($event) {
     this.page = $event;
+  }
+
+
+  public visitSelected($event) { 
+    this.visit = $event ;
+    this.initVisit() ;  
   }
 }

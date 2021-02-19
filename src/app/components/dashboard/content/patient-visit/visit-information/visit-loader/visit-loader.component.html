@@ -1,6 +1,6 @@
 <div class="main-container primary-radius">
     <div class="row">
-        <div class="col col-md-12" *ngIf="edit">
+        <div class="col col-md-12" *ngIf="showSearch">
             <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
         </div>
         <div class="col col-md-12">
@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="medical-file" *ngIf="visit.medicalFile">
-                <app-mini-medical-file [medicalFile]="visit.medicalFile"></app-mini-medical-file>
+                <app-mini-medical-file (closeEvent)="closeMedicalFile()" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
             </div>
         </div>
         <div class="col col-md-12" *ngIf="visit.waitingRoom">
@@ -35,10 +35,13 @@
                     Antecedents
                 </h5>
             </div>
-            <div class="antecedents-container">
+            <div class="antecedents-container" *ngIf="visit.medicalFile">
                 <span *ngFor="let antecedent of visit.medicalFile.antecedents">
                     {{antecedent.name}}
                 </span>
+            </div>
+            <div class="antecedents-container" *ngIf="visit.medicalFile == null">
+
             </div>
         </div>
         <div class="col col-md-12">

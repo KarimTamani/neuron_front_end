@@ -2,7 +2,7 @@
 
     <div class="row">
         <div class="col col-md-4">
-            <app-visit-loader [visit]="visit"></app-visit-loader>
+            <app-visit-loader (visitSelectedEvent)="visitSelected($event)" [visit]="visit"></app-visit-loader>
         </div>
         <div class="col col-md-4">
             <app-visit-clincal-exam [exam]="visit.clinicalExam" (onChange)="visit.clinicalExam = $event"></app-visit-clincal-exam>

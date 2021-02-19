@@ -5,7 +5,7 @@
         </div>
         <span> General</span>
     </div>
-    <div class="option drop-down-hover">
+    <div class="option drop-down-hover" *ngIf="!onlyGeneral">
         <div class="center-v">
             <i class="fa fa-stethoscope"></i>
         </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="option" [class.selected]="selectedPage ==3" (click)="select(3)">
+    <div class="option" [class.selected]="selectedPage ==3" (click)="select(3)" *ngIf="!onlyGeneral">
         <div class="center-v">
             <i class="fa fa-prescription-bottle-alt"></i>
         </div>
@@ -32,19 +32,19 @@
     </div>
 
 
-    <div class="option" [class.selected]="selectedPage ==4" (click)="select(4)">
+    <div class="option" [class.selected]="selectedPage ==4" (click)="select(4)" *ngIf="!onlyGeneral">
         <div class="center-v">
             <i class="fa fa-vials"></i>
         </div>
         <span> Bilan</span>
     </div>
-    <div class="option" [class.selected]="selectedPage ==5" (click)="select(5)">
+    <div class="option" [class.selected]="selectedPage ==5" (click)="select(5)" *ngIf="!onlyGeneral">
         <div class="center-v">
             <i class="fa fa-envelope-open-text"></i>
         </div>
         <span>Courrier</span>
     </div>
-    <div class="option" [class.selected]="selectedPage ==6" (click)="select(6)">
+    <div class="option" [class.selected]="selectedPage ==6" (click)="select(6)" *ngIf="!onlyGeneral">
         <div class="center-v">
             <i class="fa fa-file-medical-alt"></i>
         </div>
