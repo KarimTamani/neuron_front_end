@@ -2,5 +2,10 @@
     <app-header></app-header>
     <div class="body">
         <app-expenses-header></app-expenses-header>
+        <div class="row">
+            <div class="col col-md-4" *ngFor="let expense of expenses">
+                <app-expense [expense]="expense"></app-expense>
+            </div>
+        </div>
     </div>
 </div>

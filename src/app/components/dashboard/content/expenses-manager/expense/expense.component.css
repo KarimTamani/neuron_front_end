@@ -1,0 +1,27 @@
+.main-container {
+    padding: 8px 16px;
+    background: white;
+}
+
+.main-container p {
+    margin: 8px;
+}
+
+.main-container p:last-child {
+    color: #888;
+}
+
+.main-container p:last-child span {
+    color: #212121;
+    font-weight: bold;
+}
+
+.price {
+    float: right;
+    background: rgb(38, 94, 215);
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+}
