@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Visit } from 'src/app/classes/Visit';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Condition } from 'src/app/classes/Condition';
 import { VitalSetting } from 'src/app/classes/VitalSetting';
+import { InteractionService } from 'src/app/services/interaction.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-patient-visit',
   templateUrl: './patient-visit.component.html',
   styleUrls: ['./patient-visit.component.css']
 })
-export class PatientVisitComponent implements OnInit {
+export class PatientVisitComponent implements OnInit , OnDestroy{
   public page: number = 1;
   public visit: Visit;
-  constructor(private apollo: Apollo) {
+  public subscriptions : Subscription[] = [] ; 
+  constructor(private apollo: Apollo, private interactionServide : InteractionService) {
     this.visit = new Visit() ; 
   }
   ngOnInit(): void {
@@ -86,12 +89,14 @@ export class PatientVisitComponent implements OnInit {
         }
       }`
     }).pipe(map(value => (<any>value.data).getCurrentVisit)).subscribe((data) => {
-      
       if (data) 
         this.visit = data ; 
       this.initVisit() ;        
+    }); 
 
-    })
+    this.subscriptions.push( this.interactionServide.newAppointmentAdded.subscribe((data) => { 
+      this.visit.appointment = data ; 
+    }) ) ; 
   }
 
   private initVisit() { 
@@ -115,5 +120,12 @@ export class PatientVisitComponent implements OnInit {
   public visitSelected($event) { 
     this.visit = $event ;
     this.initVisit() ;  
+  }
+
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach((subs) => {
+      subs.unsubscribe() ; 
+    })
   }
 }

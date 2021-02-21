@@ -1,1 +1,33 @@
-<p>visit-appointment works!</p>
+<div class="main-container">
+    <div class="content primary-radius">
+        <p>Prochain rendez-vous de : <span>{{visit.medicalFile.lastname}} {{visit.medicalFile.name}}</span></p>
+
+        <form name="form" [formGroup]="form">
+            <div class="row">
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="date" [(ngModel)]="visit.appointment.date" formControlName="date" placeholder="date de RV" class="primary-input" [ngClass]="{'is-invalid' : form.get('date').touched && form.get('date').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('date').touched && form.get('date').invalid">
+                            <div *ngIf="form.get('date').errors.required">La date est requis</div>
+                            <div *ngIf="form.get('date').errors.future">La date invalide</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="time" [(ngModel)]="visit.appointment.time" formControlName="time" placeholder="le temps" class="primary-input" [ngClass]="{'is-invalid' : form.get('time').touched && form.get('time').invalid}">
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="row">
+                <div class="col col-md-6">
+
+                </div>
+                <div class="col col-md-6">
+                    <button class="primary-button" [disabled]="!form.valid" (click)="submit()">Ajouter <i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

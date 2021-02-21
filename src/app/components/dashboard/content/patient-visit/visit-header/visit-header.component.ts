@@ -23,15 +23,25 @@ export class VisitHeaderComponent implements OnInit {
     this.selectPageEvent.emit (page) ; 
   }
 
-  openDiagnosis() { 
-    console.log(this.visit) ; 
+  openDiagnosis() {  
      this.router.navigate([] , {
        queryParams : {
         'pop-up-window' : true , 
         'window-page' : 'diagnosis' , 
         'title' : "Diagnostic symptomatique" , 
-        'visit' : decodeURIComponent(JSON.stringify(this.visit))
+        'visit' : encodeURIComponent(JSON.stringify(this.visit))
        }
      }) ; 
+  }
+
+  openVisitAppointment() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        'pop-up-window' : true , 
+        'window-page' : "visit-appointment" , 
+        "title" : "Rendez-vous" , 
+        "visit" : encodeURIComponent(JSON.stringify(this.visit))
+      }
+    })
   }
 }

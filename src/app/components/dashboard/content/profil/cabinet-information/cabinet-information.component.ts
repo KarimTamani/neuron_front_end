@@ -128,7 +128,6 @@ export class CabinetInformationComponent implements OnInit {
   }
   public submit() {
     // in case creating the office for the first time
-    console.log(this.cabinet.services.map(value => parseInt(value.id) )) ; 
     if (!this.edit) {
       this.apollo.mutate({
         mutation: gql`

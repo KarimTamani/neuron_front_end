@@ -1,0 +1,19 @@
+.main-container {
+    width: 420px;
+    padding: 16px;
+}
+
+.main-container .content {
+    background: white;
+    color: #555;
+    padding: 16px;
+}
+
+p span {
+    color: #212121;
+    font-weight: bold;
+}
+
+button {
+    width: 100%;
+}
