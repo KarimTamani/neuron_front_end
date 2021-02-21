@@ -105,7 +105,8 @@ import { PrescriptionFooterComponent } from './components/dashboard/content/pati
 import { VisitAppointmentComponent } from './components/dashboard/content/patient-visit/visit-appointment/visit-appointment.component';
 import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component';
 import { ExpensesHeaderComponent } from './components/dashboard/content/expenses-manager/expenses-header/expenses-header.component';
-import { AddExpenseComponent } from './components/dashboard/content/expenses-manager/add-expense/add-expense.component' ; 
+import { AddExpenseComponent } from './components/dashboard/content/expenses-manager/add-expense/add-expense.component';
+import { ExpenseComponent } from './components/dashboard/content/expenses-manager/expense/expense.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -200,6 +201,7 @@ import { AddExpenseComponent } from './components/dashboard/content/expenses-man
     ExpensesManagerComponent,
     ExpensesHeaderComponent,
     AddExpenseComponent,
+    ExpenseComponent,
   ],
   imports: [
     BrowserModule,

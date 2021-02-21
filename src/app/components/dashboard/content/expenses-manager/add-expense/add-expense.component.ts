@@ -47,6 +47,7 @@ export class AddExpenseComponent implements OnInit {
   }
 
   public submit() { 
+    
     this.apollo.mutate({
       mutation : gql`
         mutation ADD_EXPENSE($expense : ExpenseInput!) { 
