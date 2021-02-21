@@ -1,4 +1,10 @@
 <div class="main-container primary-radius">
+    <div class="white-background">
+        <div>
+            <span (click)="edit()">modifier <i class="fa fa-edit"></i></span>
+            <span (click)="delete()">Supprimier <i class="fa fa-trash"></i></span>
+        </div>
+    </div>
     <p>
         {{expense.type}} <span class="price">{{expense.price}} DA</span>
     </p>

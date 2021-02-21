@@ -27,6 +27,7 @@ export class InteractionService {
   public advancedSearchValidated : Subject<any> ; 
   public newAppointmentAdded : Subject<Appointment> ; 
   public newExpenseAdded : Subject<Expense> ; 
+  public editExpense : Subject<Expense> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -42,6 +43,7 @@ export class InteractionService {
     this.advancedSearchValidated = new Subject<any>() ; 
     this.newAppointmentAdded = new Subject<Appointment>() ; 
     this.newExpenseAdded = new Subject<Expense>() ; 
+    this.editExpense = new Subject<Expense>( ) ;  
   }
 
 

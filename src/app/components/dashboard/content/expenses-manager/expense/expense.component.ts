@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit , EventEmitter, Output } from '@angular/core';
 import { Expense } from 'src/app/classes/Expense';
 import { DataService } from 'src/app/services/data.service';
 
@@ -10,7 +10,12 @@ import { DataService } from 'src/app/services/data.service';
 export class ExpenseComponent implements OnInit {
   @Input() expense: Expense;
   public creationDate: string;
-  constructor(private dataService: DataService) { }
+  @Output() deleteEvent : EventEmitter<number> ; 
+  @Output() editEvent : EventEmitter<Expense>
+  constructor(private dataService: DataService) {
+    this.deleteEvent = new EventEmitter<number>() ; 
+    this.editEvent = new EventEmitter<Expense>() ; 
+  }
 
   ngOnInit(): void {
 
@@ -21,5 +26,13 @@ export class ExpenseComponent implements OnInit {
     const currentDay = date.getDate();
 
     this.creationDate = `${currentDay} ${this.dataService.monthes[currentMonth]} ${currentYear}`
+  }
+  
+
+  public edit() {
+    this.editEvent.emit(this.expense) ; 
+  }
+  public delete() {
+    this.deleteEvent.emit(this.expense.id) ;
   }
 }

@@ -1,8 +1,11 @@
-import { Component, OnInit , EventEmitter} from '@angular/core';
+import { Route } from '@angular/compiler/src/core';
+import { Component, OnInit , EventEmitter, Output} from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular'; 
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { Expense } from 'src/app/classes/Expense';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -21,9 +24,11 @@ export class AddExpenseComponent implements OnInit {
       this.numericAndPositive 
     ])
   }); 
-  public closeEvent : EventEmitter<null> ; 
-  constructor(private apollo: Apollo, private interactionService : InteractionService) { 
+  @Output() closeEvent : EventEmitter<null> ; 
+  public expense : Expense ; 
+  constructor(private apollo: Apollo, private interactionService : InteractionService , private route : ActivatedRoute ) { 
     this.closeEvent = new EventEmitter<null>() ; 
+    this.expense = new Expense() ; 
   }
   ngOnInit(): void { 
     this.apollo.query({
@@ -32,6 +37,12 @@ export class AddExpenseComponent implements OnInit {
       }`
     }).pipe(map(value => (<any>value.data).getExpensesTypes)).subscribe((data) => { 
       this.types = data ;  
+    })
+
+    this.route.queryParams.subscribe((params) => { 
+      if (params["expense"]) { 
+        this.expense = JSON.parse(decodeURIComponent(params["expense"])) ; 
+      }
     })
   }
 
@@ -62,6 +73,24 @@ export class AddExpenseComponent implements OnInit {
         }
     }).pipe(map(value => (<any>value.data).addExpense)).subscribe((data) => { 
       this.interactionService.newExpenseAdded.next(data) ; 
+      this.closeEvent.emit() ; 
+    })
+  }
+
+  public edit () { 
+    this.apollo.mutate({
+      mutation : gql`
+        mutation EDIT_EXPENSE($expense : ExpenseInput!) { 
+          editExpense(expenseId : ${this.expense.id} ,  expense : $expense)  
+        }`,variables : { 
+          expense : { 
+            price : this.form.value.price , 
+            type : this.form.value.type 
+          }
+        }
+    }).pipe(map(value => (<any>value.data).addExpense)).subscribe((data) => { 
+      this.interactionService.editExpense.next(this.expense) ; 
+      this.closeEvent.emit() ; 
     })
   }
 }
