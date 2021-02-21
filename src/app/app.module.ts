@@ -103,7 +103,8 @@ import { PrescriptionPatientInfoComponent } from './components/dashboard/content
 import { PrescriptionDrugDosageComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-drug-dosages/prescription-drug-dosage/prescription-drug-dosage.component';
 import { PrescriptionFooterComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-footer/prescription-footer.component';
 import { VisitAppointmentComponent } from './components/dashboard/content/patient-visit/visit-appointment/visit-appointment.component';
-import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component' ; 
+import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component';
+import { ExpensesHeaderComponent } from './components/dashboard/content/expenses-manager/expenses-header/expenses-header.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -196,6 +197,7 @@ import { ExpensesManagerComponent } from './components/dashboard/content/expense
     PrescriptionFooterComponent,
     VisitAppointmentComponent,
     ExpensesManagerComponent,
+    ExpensesHeaderComponent,
   ],
   imports: [
     BrowserModule,

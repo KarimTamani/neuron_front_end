@@ -10,6 +10,7 @@ import { WaitingRoomComponent } from './components/dashboard/content/waiting-roo
 import { PatientVisitComponent } from './components/dashboard/content/patient-visit/patient-visit.component';
 import { VisitsManagerComponent } from './components/dashboard/content/visits-manager/visits-manager.component';
 import { MedicalFilesManagerComponent } from './components/dashboard/content/medical-files-manager/medical-files-manager.component';
+import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,8 @@ const routes: Routes = [
         path : "visits" , component : VisitsManagerComponent
       } , { 
         path : "medical-files"  , component : MedicalFilesManagerComponent
+      } , { 
+        path :"expenses" , component : ExpensesManagerComponent
       }
     ]
   },

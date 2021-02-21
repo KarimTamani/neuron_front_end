@@ -1,0 +1,28 @@
+<div class="main-container primary-radius">
+    <div class="stretch-container">
+        <div class="select-container stretch-container">
+            <div class="center-v">
+                Type
+            </div>
+            <select>
+                <option>Tout</option>
+                <option *ngFor="let type of types">{{type}}</option>
+            </select>
+        </div>
+        <div class="input-container  stretch-container">
+            <div class="center-v">
+                Date d'ebut
+            </div>
+            <input type="date" class="primary-input">
+        </div>
+        <div class="input-container  stretch-container">
+            <div class="center-v">
+                Date fin
+            </div>
+            <input type="date" class="primary-input">
+        </div>
+        <div class="button-container">
+            <button>Ajouter frais <i class="fa fa-coins"></i></button>
+        </div>
+    </div>
+</div>

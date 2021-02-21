@@ -1,0 +1,39 @@
+.main-container {
+    background: white;
+    padding: 12px;
+}
+
+.input-container {
+    max-width: 260px;
+    min-width: 260px;
+    margin-right: 16px;
+}
+
+.input-container .center-v,
+.select-container .center-v {
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.select-container {
+    max-width: 260px;
+    min-width: 260px;
+    margin-right: 16px;
+}
+
+.button-container {
+    width: 100%;
+}
+
+.button-container button {
+    padding: 8px 16px;
+    color: white;
+    background-color: rgb(254, 101, 85);
+    border: none;
+    border-radius: 20px;
+    float: right;
+    margin: 4px 0px;
+    width: 160px;
+    text-align: center;
+    cursor: pointer;
+}
