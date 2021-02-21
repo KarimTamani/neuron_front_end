@@ -1,6 +1,6 @@
 <div class="main-container primary-radius">
     <div class="row">
-        <div class="col col-md-12" *ngIf="showSearch">
+        <div class="col col-md-12" *ngIf="!visit.medicalFile">
             <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
         </div>
         <div class="col col-md-12">

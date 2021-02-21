@@ -27,6 +27,9 @@ export class PatientVisitComponent implements OnInit {
             id
             date
           }
+          appointment { 
+            id date time 
+          }
           waitingRoomId 
           arrivalTime
           status
@@ -86,7 +89,7 @@ export class PatientVisitComponent implements OnInit {
       
       if (data) 
         this.visit = data ; 
-      this.initVisit() ;       
+      this.initVisit() ;        
 
     })
   }

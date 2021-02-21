@@ -16,12 +16,12 @@ export class WaitingRoomComponent implements OnInit {
   public currentMonth: number;
   public currentYear: number;
   public currentDay: number;
-  public currentDate : string ; 
+  public currentDate: string;
 
-  public waitingRoom : WaitingRoom ; 
-  
-  constructor(private apollo: Apollo, public dataService: DataService , 
-    private interactionService : InteractionService) {}
+  public waitingRoom: WaitingRoom;
+
+  constructor(private apollo: Apollo, public dataService: DataService,
+    private interactionService: InteractionService) { }
   ngOnInit(): void {
     // get the current date
     this.apollo.query({
@@ -32,7 +32,7 @@ export class WaitingRoomComponent implements OnInit {
       `
     }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
       const date = new Date(data);
-      this.currentDate = data ; 
+      this.currentDate = data;
       this.currentMonth = date.getMonth();
       this.currentYear = date.getFullYear();
       this.currentDay = date.getDate();
@@ -40,14 +40,14 @@ export class WaitingRoomComponent implements OnInit {
     })
 
     this.interactionService.newVisitAdded.subscribe(() => {
-      this.waitingRoom = null ;
-      this.loadWaitingRoom(); 
-      this.interactionService.updateReport.next() ; 
+      this.waitingRoom = null;
+      this.loadWaitingRoom();
+      this.interactionService.updateReport.next();
     })
   }
   private loadWaitingRoom() {
     this.apollo.query({
-      query : gql`
+      query: gql`
         {
           getWaitingRoom(waitingRoom : {
             date : "${this.dataService.castDateYMD(this.currentDate)}"
@@ -95,14 +95,14 @@ export class WaitingRoomComponent implements OnInit {
           }
         }
       `
-    }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => { 
-      this.waitingRoom = data ;     
-      console.log(this.waitingRoom)  ; 
+    }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => {
+      this.waitingRoom = data;
+      console.log(this.waitingRoom);
     })
   }
   public createWaitingRoom() {
     this.apollo.mutate({
-      mutation : gql`
+      mutation: gql`
         mutation {
           addWaitingRoom(waitingRoom : {
             date : "${this.dataService.castDateYMD(this.currentDate)}"
@@ -114,9 +114,9 @@ export class WaitingRoomComponent implements OnInit {
         } 
       `
     }).pipe(map(value => (<any>value.data).addWaitingRoom)).subscribe((data) => {
-      this.waitingRoom = data ; 
-      this.waitingRoom.visits = [] ; 
+      this.waitingRoom = data;
+      this.waitingRoom.visits = [];
     })
   }
-  
+
 }

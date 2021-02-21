@@ -6,7 +6,6 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Condition } from 'src/app/classes/Condition';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -44,9 +43,28 @@ export class VisitLoaderComponent implements OnInit {
             }
           }`
       }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => {
-        this.waitingRoom = data;
+        if (data == null) {
+          this.apollo.mutate({
+            mutation: gql`
+              mutation {
+                addWaitingRoom(waitingRoom : {}) {
+                  id date visits {
+                    id
+                  }
+                }
+              } 
+            `
+          }).pipe(map(value => (<any>value.data).addWaitingRoom)).subscribe((data) => {
+            this.waitingRoom = data;
+            this.waitingRoom.visits = [];
+            console.log("waiting room created") ; 
+          })
+        } else
+          this.waitingRoom = data;
+
       })
     })
+
   }
 
   selectMedicalFile($event) {
@@ -125,10 +143,10 @@ export class VisitLoaderComponent implements OnInit {
       else {
         this.visit.waitingRoom = this.waitingRoom;
         this.visit.waitingRoomId = this.waitingRoom.id;
-        this.visit.order = this.visit.waitingRoom.visits.length + 1 
+        this.visit.order = this.visit.waitingRoom.visits.length + 1
       }
       this.visitSelectedEvent.emit(this.visit);
-    
+
     })
   }
   public closeMedicalFile() {
@@ -201,9 +219,9 @@ export class VisitLoaderComponent implements OnInit {
         this.submitVisitDrugDosages();
       })
     } else {
-      console.log(this.visit) ; 
+      console.log(this.visit);
       this.apollo.mutate({
-        mutation : gql`
+        mutation: gql`
           mutation ADD_VISIT($waitingRoomId : ID! ,  $vitalSetting : VitalSettingInput , $medicalFileId : ID! , $clinicalExam : String , $symptoms : [ID!] , $medicalActs : [ID!]! ,  $condition : ConditionInput , $status : String){ 
             addVisit (visit : { 
               waitingRoomId : $waitingRoomId , 
@@ -217,21 +235,21 @@ export class VisitLoaderComponent implements OnInit {
             }) {
               id 
             }
-          }` , variables : { 
-            waitingRoomId : this.visit.waitingRoomId , 
-            medicalFileId : this.visit.medicalFile.id , 
-            symptoms: this.visit.symptoms.map(value => value.id),
-            medicalActs: this.visit.medicalActs.map(value => value.id),
-            vitalSetting: (this.isVitalSettingEdited()) ? (this.visit.vitalSetting) : (null),
-            clinicalExam: (this.visit.clinicalExam && this.visit.clinicalExam.trim().length > 3) ? (this.visit.clinicalExam) : (null),
-            condition: (this.visit.condition && this.visit.condition.name && this.visit.condition.name.trim().length > 0) ? ({
-              name: this.visit.condition.name
-            }) : (null) , 
-            status : "in visit" 
-          }
-      }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data ) => { 
-        this.visit.id = data.id  ; 
-        this.submitVisitDrugDosages() ; 
+          }` , variables: {
+          waitingRoomId: this.visit.waitingRoomId,
+          medicalFileId: this.visit.medicalFile.id,
+          symptoms: this.visit.symptoms.map(value => value.id),
+          medicalActs: this.visit.medicalActs.map(value => value.id),
+          vitalSetting: (this.isVitalSettingEdited()) ? (this.visit.vitalSetting) : (null),
+          clinicalExam: (this.visit.clinicalExam && this.visit.clinicalExam.trim().length > 3) ? (this.visit.clinicalExam) : (null),
+          condition: (this.visit.condition && this.visit.condition.name && this.visit.condition.name.trim().length > 0) ? ({
+            name: this.visit.condition.name
+          }) : (null),
+          status: "in visit"
+        }
+      }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
+        this.visit.id = data.id;
+        this.submitVisitDrugDosages();
       })
     }
 
