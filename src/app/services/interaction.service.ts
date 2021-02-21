@@ -7,6 +7,7 @@ import { Visit } from '../classes/Visit';
 import { VitalSetting } from '../classes/VitalSetting';
 import { ClinicalExam } from '../classes/ClincalExam';
 import { Appointment } from '../classes/Appointment';
+import { Expense } from '../classes/Expense';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class InteractionService {
   public useClinicalExam : Subject<ClinicalExam> ; 
   public advancedSearchValidated : Subject<any> ; 
   public newAppointmentAdded : Subject<Appointment> ; 
+  public newExpenseAdded : Subject<Expense> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -39,6 +41,7 @@ export class InteractionService {
     this.useClinicalExam = new Subject<ClinicalExam>() ;  
     this.advancedSearchValidated = new Subject<any>() ; 
     this.newAppointmentAdded = new Subject<Appointment>() ; 
+    this.newExpenseAdded = new Subject<Expense>() ; 
   }
 
 

@@ -1,0 +1,17 @@
+.main-container {
+    padding: 16px;
+    width: 420px;
+}
+
+.content {
+    background: white;
+    padding: 16px;
+}
+
+select {
+    height: 38px;
+}
+
+button {
+    width: 100%;
+}

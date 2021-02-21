@@ -1,1 +1,39 @@
-<p>add-expense works!</p>
+<div class="main-container">
+    <div class="content primary-radius">
+        <form name="form" [formGroup]="form">
+            <div class="row">
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="number" [ngClass]="{'is-invalid' : form.get('price').touched && form.get('price').invalid}" formControlName="price" placeholder="Montant (DA)" class="primary-input">
+                        <div class="invalid-feedback" *ngIf="form.get('price').touched && form.get('price').invalid">
+                            <div *ngIf="form.get('price').errors.required">
+                                Montant est requis
+                            </div>
+                            <div *ngIf="form.get('price').errors.invalidNumber">
+                                Montant invalide
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <select formControlName="type" [ngClass]="{'is-invalid' : form.get('type').touched && form.get('type').invalid}">
+                            <option hidden>Selectioner</option>
+                            <option *ngFor="let type of types">{{type}}</option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="form.get('type').touched && form.get('type').invalid">
+                            <div *ngIf="form.get('type').errors.required">le type est requis</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+
+                </div>
+                <div class="col col-md-6">
+                    <button class="primary-button" [disabled]="!form.valid" (click)="submit()">Ajouter <i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

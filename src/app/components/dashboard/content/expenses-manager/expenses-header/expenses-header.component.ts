@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
@@ -10,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class ExpensesHeaderComponent implements OnInit {
   public types : string[] = [] ; 
-  constructor(private apollo : Apollo) { }
+  constructor(private apollo : Apollo , private router : Router) { }
 
   ngOnInit(): void {
     this.apollo.query({
@@ -22,7 +23,16 @@ export class ExpensesHeaderComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).getExpensesTypes)).subscribe((data) => { 
       this.types = data ; 
     })
-  
   }
 
+
+  public openAddExpense() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window" : true , 
+        "window-page" : "add-expense" , 
+        "title" :"ajouter un frais" 
+      }
+    })  
+  }
 }
