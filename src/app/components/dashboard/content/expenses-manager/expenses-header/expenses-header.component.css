@@ -37,3 +37,7 @@
     text-align: center;
     cursor: pointer;
 }
+
+select {
+    height: 40px;
+}
