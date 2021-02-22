@@ -15,19 +15,21 @@ export class ExpensesManagerComponent implements OnInit , OnDestroy {
   public expenses: Expense[] = [];
   public searchQuery : any = {} ; 
   public offset : number = 0 ; 
-  public limit : number = 10 ;  
+  public limit : number = 1  ;  
+  public count : number = 0 ; 
   public subscriptions : Subscription[] = [] ; 
   constructor(private apollo: Apollo , private interactionSerivce : InteractionService , private router : Router) {}
 
   ngOnInit(): void {
-    this.getAllExpenses() ; 
+    this.getAllExpenses(null , null , null , this.offset , this.limit) ; 
   }
   private getAllExpenses(type = null , startDate = null , endDate = null , offset = 0 , limit = 100) {
     this.apollo.query({
       query: gql`
       query GET_EXPENSES($type : String , $startDate : String , $endDate : String , $offset : Int , $limit: Int) {
         getExpenses(type : $type , startDate : $startDate , endDate : $endDate , offset : $offset , limit : $limit) {
-          id price type createdAt
+          rows { id price type createdAt } 
+          count 
         }
       }
       `, variables : { 
@@ -38,12 +40,37 @@ export class ExpensesManagerComponent implements OnInit , OnDestroy {
         limit : limit  
       }
     }).pipe(map(value => (<any>value.data).getExpenses)).subscribe((data) => {
-      this.expenses = data ;  
+      this.expenses = data.rows ;
+      this.count = data.count ;   
     })
 
     this.subscriptions.push(this.interactionSerivce.newExpenseAdded.subscribe((data) => { 
       this.expenses.splice(0, 0, data) ; 
     }))
+  }
+
+  public selectPage($event) { 
+    this.offset = $event ; 
+    this.getAllExpenses(
+      this.searchQuery.type , 
+      this.searchQuery.startDate , 
+      this.searchQuery.endDate , 
+      this.offset , 
+      this.limit
+    ) ; 
+  }
+
+  public search($event) { 
+    this.searchQuery = $event ; 
+    this.offset = 0 ; 
+    console.log(this.searchQuery) ; 
+    this.getAllExpenses(
+      this.searchQuery.type , 
+      this.searchQuery.startDate , 
+      this.searchQuery.endDate , 
+      this.offset , 
+      this.limit
+    ) ;
   }
 
   public ngOnDestroy() { 
@@ -52,6 +79,7 @@ export class ExpensesManagerComponent implements OnInit , OnDestroy {
     })
   }
 
+  
   public edit (expense) { 
     this.router.navigate([] , { 
       queryParams : { 
@@ -67,6 +95,9 @@ export class ExpensesManagerComponent implements OnInit , OnDestroy {
       subscription.unsubscribe() ; 
     })
   }
+
+
+
   public delete(id) { 
     this.apollo.mutate({
       mutation : gql`

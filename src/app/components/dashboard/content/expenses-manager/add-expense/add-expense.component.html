@@ -28,12 +28,10 @@
                     </div>
                 </div>
                 <div class="col col-md-6">
-
                 </div>
                 <div class="col col-md-6">
                     <button *ngIf="!expense.id" class="primary-button" [disabled]="!form.valid" (click)="submit()">Ajouter <i class="fa fa-plus"></i></button>
                     <button *ngIf="expense.id" class="primary-button" [disabled]="!form.valid" (click)="edit()">Modifier <i class="fa fa-edit"></i></button>
-
                 </div>
             </div>
         </form>

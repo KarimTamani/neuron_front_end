@@ -1,11 +1,13 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="body">
-        <app-expenses-header></app-expenses-header>
+        <app-expenses-header (searchEvent)="search($event)"></app-expenses-header>
         <div class="row">
             <div class="col col-md-4" *ngFor="let expense of expenses">
                 <app-expense (deleteEvent)="delete($event)" (editEvent)="edit($event)" [expense]="expense"></app-expense>
             </div>
         </div>
+        <app-pagination (pageSelected)="selectPage($event)" [count]="count" [loaded]="expenses.length" [offset]="offset" [limit]="limit"></app-pagination>
+
     </div>
 </div>

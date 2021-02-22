@@ -45,6 +45,4 @@ export class InteractionService {
     this.newExpenseAdded = new Subject<Expense>() ; 
     this.editExpense = new Subject<Expense>( ) ;  
   }
-
-
 }

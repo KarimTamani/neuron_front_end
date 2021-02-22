@@ -25,6 +25,35 @@
     width: 100%;
 }
 
+.search-input {
+    display: flex;
+    align-items: center;
+}
+
+.search-input i {
+    margin: 0px 8px;
+    padding: 8px;
+    border-radius: 50%;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    color: rgb(38, 94, 215);
+}
+
+.search-input i.fa-times {
+    padding: 8px 10px;
+    color: rgb(254, 101, 85);
+}
+
+.search-input i.fa-times:hover {
+    background: rgb(254, 101, 85);
+    color: white;
+}
+
+.search-input i:hover {
+    background: rgb(38, 94, 215);
+    color: white;
+}
+
 .button-container button {
     padding: 8px 16px;
     color: white;

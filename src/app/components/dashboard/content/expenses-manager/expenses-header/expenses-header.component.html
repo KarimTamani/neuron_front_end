@@ -4,8 +4,8 @@
             <div class="center-v">
                 Type
             </div>
-            <select>
-                <option>Tout</option>
+            <select [(ngModel)]="searchQuery.type">
+                <option >Tout</option>
                 <option *ngFor="let type of types">{{type}}</option>
             </select>
         </div>
@@ -13,13 +13,18 @@
             <div class="center-v">
                 Date d'ebut
             </div>
-            <input type="date" class="primary-input">
+            <input type="date" class="primary-input" [(ngModel)]="searchQuery.startDate">
         </div>
         <div class="input-container  stretch-container">
             <div class="center-v">
                 Date fin
             </div>
-            <input type="date" class="primary-input">
+            <input type="date" class="primary-input" [(ngModel)]="searchQuery.endDate">
+        </div>
+        <div class="search-input">
+            <i class="fa fa-times" (click)="clear()"></i>
+
+            <i class="fa fa-search" (click)="search()"></i>
         </div>
         <div class="button-container">
             <button (click)="openAddExpense()">Ajouter frais <i class="fa fa-coins"></i></button>
