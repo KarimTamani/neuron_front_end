@@ -2,7 +2,6 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Visit } from 'src/app/classes/Visit';
 import { Subject } from 'rxjs';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
-
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
