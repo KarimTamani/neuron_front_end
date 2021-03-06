@@ -106,7 +106,8 @@ import { VisitAppointmentComponent } from './components/dashboard/content/patien
 import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component';
 import { ExpensesHeaderComponent } from './components/dashboard/content/expenses-manager/expenses-header/expenses-header.component';
 import { AddExpenseComponent } from './components/dashboard/content/expenses-manager/add-expense/add-expense.component';
-import { ExpenseComponent } from './components/dashboard/content/expenses-manager/expense/expense.component' ; 
+import { ExpenseComponent } from './components/dashboard/content/expenses-manager/expense/expense.component';
+import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -202,6 +203,7 @@ import { ExpenseComponent } from './components/dashboard/content/expenses-manage
     ExpensesHeaderComponent,
     AddExpenseComponent,
     ExpenseComponent,
+    AnalyticsComponent,
   ],
   imports: [
     BrowserModule,
