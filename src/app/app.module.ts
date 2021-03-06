@@ -108,7 +108,8 @@ import { ExpensesHeaderComponent } from './components/dashboard/content/expenses
 import { AddExpenseComponent } from './components/dashboard/content/expenses-manager/add-expense/add-expense.component';
 import { ExpenseComponent } from './components/dashboard/content/expenses-manager/expense/expense.component';
 import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component';
-import { GeneralAnalyticsComponent } from './components/dahsboard/content/analytics/general-analytics/general-analytics.component' ; 
+import { GeneralAnalyticsComponent } from './components/dashboard/content/analytics/general-analytics/general-analytics.component';
+import { GroupAnalyticsComponent } from './components/dashboard/content/analytics/group-analytics/group-analytics.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -206,6 +207,7 @@ import { GeneralAnalyticsComponent } from './components/dahsboard/content/analyt
     ExpenseComponent,
     AnalyticsComponent,
     GeneralAnalyticsComponent,
+    GroupAnalyticsComponent,
   ],
   imports: [
     BrowserModule,
