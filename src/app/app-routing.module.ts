@@ -11,6 +11,7 @@ import { PatientVisitComponent } from './components/dashboard/content/patient-vi
 import { VisitsManagerComponent } from './components/dashboard/content/visits-manager/visits-manager.component';
 import { MedicalFilesManagerComponent } from './components/dashboard/content/medical-files-manager/medical-files-manager.component';
 import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component';
+import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,8 @@ const routes: Routes = [
         path : "medical-files"  , component : MedicalFilesManagerComponent
       } , { 
         path :"expenses" , component : ExpensesManagerComponent
+      } , { 
+        path : "analytics" , component : AnalyticsComponent 
       }
     ]
   },
