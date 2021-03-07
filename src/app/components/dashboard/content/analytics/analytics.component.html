@@ -2,10 +2,14 @@
     <app-header></app-header>
     <div class="body row">
         <div class="col col-md-8">
-
+            <div class="card primary-radius">
+                <app-general-analytics *ngIf="analytics" [analytics]="analytics"></app-general-analytics>
+            </div>
         </div>
         <div class="col col-md-4">
-
+            <div class="card primary-radius">
+                <app-group-analytics></app-group-analytics>
+            </div>
         </div>
     </div>
 </div>
