@@ -1,0 +1,38 @@
+h5 {
+    margin: 0px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #212121;
+    min-width: 160px;
+}
+
+.controllers {
+    width: 100%;
+}
+
+.periods {
+    min-width: 140px;
+    max-width: 140px;
+}
+
+span {
+    border: 1px solid #eee;
+    padding: 6px 12px;
+    margin: 0px 8px;
+    border-radius: 20px;
+    color: #888;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+span.primary {
+    background: rgb(38, 94, 215);
+    color: white;
+    border: 1px solid rgb(38, 94, 215);
+}
+
+span.secondary {
+    background: rgb(254, 101, 85);
+    color: white;
+    border: 1px solid rgb(254, 101, 85);
+}

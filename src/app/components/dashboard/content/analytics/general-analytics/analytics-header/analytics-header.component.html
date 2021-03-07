@@ -1,1 +1,20 @@
-<p>analytics-header works!</p>
+<div class="main-container">
+    <div class="stretch-container">
+        <div class="center-v">
+            <h5>Vos Statistques</h5>
+        </div>
+        <div class="controllers center-v">
+            <div>
+                <span [class.primary]="primaryOption == 1" [class.secondary]="secondaryOption == 1" (click)="selectOption(1)">Visites</span>
+                <span [class.primary]="primaryOption == 2" [class.secondary]="secondaryOption == 2" (click)="selectOption(2)">Gain</span>
+                <span [class.primary]="primaryOption == 3" [class.secondary]="secondaryOption == 3" (click)="selectOption(3)">Les frais</span>
+                <span [class.primary]="primaryOption == 4" [class.secondary]="secondaryOption == 4" (click)="selectOption(4)">Gain net</span>
+            </div>
+        </div>
+        <div class="periods">
+            <select [(ngModel)]="selectedOption" (change)="selectPeriod()"> 
+                <option (click)="selectPeriod()" *ngFor="let option of options" [value]="option">{{option}}</option>
+            </select>
+        </div>
+    </div>
+</div>
