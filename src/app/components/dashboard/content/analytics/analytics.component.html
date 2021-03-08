@@ -8,7 +8,7 @@
         </div>
         <div class="col col-md-4">
             <div class="card primary-radius">
-                <app-group-analytics></app-group-analytics>
+                <app-group-analytics *ngIf="analytics" [analytics]="analytics"></app-group-analytics>
             </div>
         </div>
     </div>

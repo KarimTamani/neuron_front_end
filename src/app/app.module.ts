@@ -111,7 +111,8 @@ import { AnalyticsComponent } from './components/dashboard/content/analytics/ana
 import { GeneralAnalyticsComponent } from './components/dashboard/content/analytics/general-analytics/general-analytics.component';
 import { GroupAnalyticsComponent } from './components/dashboard/content/analytics/group-analytics/group-analytics.component';
 import { AnalyticsHeaderComponent } from './components/dashboard/content/analytics/general-analytics/analytics-header/analytics-header.component';
-import { GroupAnalyticsHeaderComponent } from './components/dashboard/content/analytics/group-analytics/group-analytics-header/group-analytics-header.component' ; 
+import { GroupAnalyticsHeaderComponent } from './components/dashboard/content/analytics/group-analytics/group-analytics-header/group-analytics-header.component';
+import { EvolutionAnalyticsComponent } from './components/dashboard/content/analytics/evolution-analytics/evolution-analytics.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -212,6 +213,7 @@ import { GroupAnalyticsHeaderComponent } from './components/dashboard/content/an
     GroupAnalyticsComponent,
     AnalyticsHeaderComponent,
     GroupAnalyticsHeaderComponent,
+    EvolutionAnalyticsComponent,
   ],
   imports: [
     BrowserModule,

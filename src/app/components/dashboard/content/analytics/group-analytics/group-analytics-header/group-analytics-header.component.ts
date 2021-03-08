@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-group-analytics-header',
@@ -19,7 +19,7 @@ export class GroupAnalyticsHeaderComponent implements OnInit {
     }
   ];
   public selectedOption: any;
-  public selectOptionEvent: EventEmitter<any>;
+  @Output() selectOptionEvent: EventEmitter<any>;
   constructor() {
     this.selectedOption = this.options[0];
     this.selectOptionEvent = new EventEmitter<any>();

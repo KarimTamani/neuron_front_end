@@ -1,7 +1,7 @@
 <div class="main-container primary-radius">
     <div class="analytics-header">
-        <app-group-analytics-header></app-group-analytics-header>
+        <app-group-analytics-header (selectOptionEvent)="selectOption($event)"></app-group-analytics-header>
     </div>
-    <canvas baseChart [legend]="false" width="500" height="350" [colors]="lineChartColors" [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels" [chartType]="radarChartType">
+    <canvas baseChart [legend]="false" width="500" height="460" [colors]="lineChartColors" [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels" [chartType]="radarChartType">
   </canvas>
 </div>
