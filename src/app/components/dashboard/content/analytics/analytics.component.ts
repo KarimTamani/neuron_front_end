@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { valueFromASTUntyped } from 'graphql';
 import gql from 'graphql-tag';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
 
@@ -17,8 +18,13 @@ export class AnalyticsComponent implements OnInit {
     startDate: null,
     endDate: null
   }
+
   public analytics: any = null;
-  constructor(private apollo: Apollo, private dataService: DataService) { }
+  public updateSubject : Subject<any> ; 
+
+  constructor(private apollo: Apollo, private dataService: DataService) {
+    this.updateSubject = new Subject<null>() ; 
+  }
 
   ngOnInit(): void {
 
@@ -28,56 +34,67 @@ export class AnalyticsComponent implements OnInit {
            getCurrentDate 
         }`
     }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
-      this.interval.startDate = this.dataService.castDateYMD(data);
-      this.interval.endDate = this.interval.startDate;
-      console.log(this.interval);
-      this.apollo.query({
-        query: gql`
-        query GET_ANALYTICS($interval: IntervalInput!) {
-          getAnalyticsGain(interval: $interval) {
-            startTime
-            endTime
-            value
-          }
-        
-          getAnalyticsExpenses(interval: $interval) {
-            startTime
-            endTime
-            value
-          }
-           
-          getAnalyticsPureGain(interval: $interval) {
-            startTime
-            endTime
-            value
-          }
-          
-          getAnalyticsVisits(interval: $interval) {
-            startTime
-            endTime
-            value
-          }
-          
-          getAnalyticsAge(interval : $interval) {
-            group percentage value
-          }
-          getAnalyticsGender(interval : $interval) {
-            group percentage value
-          }
-          getAnalyticsDiseases(interval : $interval) {
-            group percentage value
-          }
-        }
-        ` , variables: {
-          interval: this.interval
-        }
-      }).pipe(map(value => value.data)).subscribe((data) => {
-        this.analytics = data;
-        console.log(this.analytics);
-      })
+
+      this.interval.endDate = this.dataService.castDateYMD(data);
+      this.loadAnalytics(this.dataService.MONTH);
 
     })
+  }
 
+
+  private loadAnalytics(period) {
+    this.interval.startDate = this.dataService.castDateYMD(this.dataService.dateMinusPeriod(this.interval.endDate, period));
+
+    this.apollo.query({
+      query: gql`
+      query GET_ANALYTICS($interval: IntervalInput!) {
+        getAnalyticsGain(interval: $interval) {
+          startTime
+          endTime
+          value
+        }
+      
+        getAnalyticsExpenses(interval: $interval) {
+          startTime
+          endTime
+          value
+        }
+         
+        getAnalyticsPureGain(interval: $interval) {
+          startTime
+          endTime
+          value
+        }
+        
+        getAnalyticsVisits(interval: $interval) {
+          startTime
+          endTime
+          value
+        }
+        
+        getAnalyticsAge(interval : $interval) {
+          group percentage value
+        }
+        getAnalyticsGender(interval : $interval) {
+          group percentage value
+        }
+        getAnalyticsDiseases(interval : $interval) {
+          group percentage value
+        }
+      }
+      ` , variables: {
+        interval: this.interval
+      }
+    }).pipe(map(value => value.data)).subscribe((data) => {
+      this.analytics = data;  
+      this.updateSubject.next(this.analytics) ; 
+    })
+  }
+
+
+  public periodSelected($event) {
+    
+    this.loadAnalytics($event) ; 
   }
 
 }

@@ -1,1 +1,26 @@
-canvas {}
+.info-side {
+    max-width: 160px;
+    min-width: 160px;
+}
+
+.info-side h5 {
+    margin: 4px 0px;
+    margin-top: 16px;
+    color: #555;
+}
+
+.info-side span {
+    font-weight: bold;
+    color: #212121;
+    display: block;
+    font-size: 12px;
+}
+
+.canvas-side {
+    width: 100%;
+    margin-top: 16px;
+}
+
+canvas {
+    width: 100%;
+}

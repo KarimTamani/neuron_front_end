@@ -1,6 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { BaseChartDirective, Color, Label } from 'ng2-charts';
+import { Subject } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-general-analytics',
@@ -9,42 +12,14 @@ import { Color, Label } from 'ng2-charts';
 })
 export class GeneralAnalyticsComponent implements OnInit {
   @Input() analytics: any;
+  @Input() updateSubject: Subject<any>;
+  @Output() periodSelectedEvent: EventEmitter<number>;
+  public lineChartData: ChartDataSets[] = [];
+  public lineChartLabels: Label[] = [];
 
-  public lineChartData: ChartDataSets[] = [
-    { data: [15, 19, 26, 24, 33, 30, 34, 31, 35, 37, 40, 39], label: 'Consultations' },
-    { data: [18, 20, 25, 29, 30, 40, 32, 35, 38, 47, 49, 45], label: 'Gain' }
-  ];
-  public lineChartLabels: Label[] = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', "Août", "Sempte", "Octobre", "Nov", "Dec"];
+  public lineChartOptions: ChartOptions = null;
 
-  public lineChartOptions: ChartOptions = {
-    responsive: true ,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          display: false
-        }
-      }],
-
-      yAxes: [{
-        gridLines: {
-          display: false
-        }
-      }],
-    }
-  };
-
-  public lineChartColors: Color[] = [
-
-    { // dark grey
-      backgroundColor: 'transparent',
-      borderColor: '#FE6555',
-
-    },
-    { // red
-      backgroundColor: 'transparent',
-      borderColor: '#265ED7',
-    }
-  ];
+  public lineChartColors: Color[] = [];
 
   // Set true to show legends
   lineChartLegend = false;
@@ -54,24 +29,214 @@ export class GeneralAnalyticsComponent implements OnInit {
 
   lineChartPlugins = [];
 
-  @ViewChild("chart", { static: true }) chart;
-  constructor() { }
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+
+
+  public totalGain: number = 0;
+  public totalExpenses: number = 0;
+  public totalPureGain: number = 0;
+  public numberOfVisits: number = 0;
+
+
+  public dataSets: any[] = [
+    {
+      label: "Visits",
+      chartLabel: "Visites",
+      data: []
+    },
+    {
+      label: "Gain",
+      chartLabel: "Gain",
+      data: []
+    },
+    {
+      label: "Expenses",
+      chartLabel: "Les Frais",
+      data: []
+    },
+    {
+      label: "Gain-net",
+      chartLabel: "Gain-net",
+      data: []
+    },
+
+  ]
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+    this.periodSelectedEvent = new EventEmitter<number>();
+  }
 
   ngOnInit(): void {
- 
-    var ctx = this.chart.nativeElement.getContext("2d")
-    var originalStroke = ctx.stroke
-    ctx.stroke = function () {
-      ctx.save()
+    this.lineChartOptions = {
+      responsive: true,
 
-      ctx.shadowColor = this.strokeStyle + "aa"
-      ctx.shadowBlur = 28
-      ctx.shadowOffsetX = 0
-      ctx.shadowOffsetY = 0
-      originalStroke.apply(this, arguments)
-      ctx.restore()
-    }
+      scales: {
+
+        xAxes: [{
+
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: true,
+            maxRotation: 0,
+            minRotation: 0,
+            maxTicksLimit: 5,
+
+            callback: function (value, index, values) {
+              return value;
+            }
+          }
+        }],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            },
+            id: "A",
+            gridLines: {
+              display: false
+            }
+          },
+          {
+            id: "B",
+            ticks: {
+              beginAtZero: true,
+              min: 0
+            },
+            position: "right",
+            gridLines: {
+
+              display: false
+            }
+          }
+
+        ],
+      }
+    };
+    this.updateSubject.subscribe((analytics) => {
+      this.analytics = analytics;
+      this.update();
+      this.drawAnalytics(this.route.snapshot.queryParams);
+    })
+
+    this.update();
+    this.route.queryParams.subscribe((params) => {
+      this.drawAnalytics(params);
+    })
+  }
+
+  private update() {
+
+    this.totalGain = 0;
+    this.totalExpenses = 0;
+    this.totalPureGain = 0;
+    this.numberOfVisits = 0;
+
+    this.dataSets[0].data = this.analytics.getAnalyticsVisits.map(slice => slice.value);
+    this.dataSets[1].data = this.analytics.getAnalyticsGain.map(slice => slice.value);
+    this.dataSets[2].data = this.analytics.getAnalyticsExpenses.map(slice => slice.value);
+    this.dataSets[3].data = this.analytics.getAnalyticsPureGain.map(slice => slice.value);
+
+    this.lineChartLabels = this.analytics.getAnalyticsGain.map(value => this.dataService.castDateYMD(value.endTime));
+
+    this.analytics.getAnalyticsVisits.forEach(slice => this.numberOfVisits += slice.value);
+    this.analytics.getAnalyticsGain.forEach(slice => this.totalGain += slice.value);
+    this.analytics.getAnalyticsExpenses.forEach(slice => this.totalExpenses += slice.value);
+    this.analytics.getAnalyticsPureGain.forEach(slice => this.totalPureGain += slice.value);
 
   }
 
+  private drawAnalytics(params) {
+    this.lineChartData = [];
+    this.lineChartColors = [];
+
+    if (params.primaryOption == null && params.secondaryOption == null) {
+
+      this.showAxis("A");
+      this.hideAxis('B') ; 
+      this.lineChartData = [
+        { label: this.dataSets[0].label, data: this.dataSets[0].data, yAxisID: 'A' },
+      ]
+      this.lineChartColors.push({
+        backgroundColor: 'transparent',
+        borderColor: '#265ED7',
+      })
+
+    } else {
+
+      if (params.primaryOption) {
+
+        var option = parseInt(params.primaryOption);
+
+        this.showAxis("A");
+
+        this.lineChartData.splice(0, 0, {
+          label: this.dataSets[option - 1].label,
+          data: this.dataSets[option - 1].data,
+          yAxisID: 'A'
+        });
+
+
+        this.lineChartColors.push({
+          backgroundColor: 'transparent',
+          borderColor: '#265ED7',
+        }
+        )
+      } else
+        this.hideAxis("A");
+
+
+      if (params.secondaryOption) {
+        this.showAxis("B");
+        var option = parseInt(params.secondaryOption);
+
+        this.lineChartData.splice(1, 0, {
+          label: this.dataSets[option - 1].label,
+          data: this.dataSets[option - 1].data,
+          yAxisID: 'B'
+        });
+
+        this.lineChartColors.push({
+          backgroundColor: 'transparent',
+          borderColor: '#FE6555',
+        })
+
+      } else
+        this.hideAxis("B");
+    }
+
+  }
+  private showAxis(axis) {
+
+    if (axis == "A")
+      this.lineChartOptions.scales.yAxes[0].display = true;
+    else
+      this.lineChartOptions.scales.yAxes[1].display = true;
+
+    if (this.chart && this.chart.chart) {
+      if (axis == "A")
+        this.chart.chart.config.options.scales.yAxes[0].display = true
+      else
+        this.chart.chart.config.options.scales.yAxes[1].display = true;
+    }
+  }
+
+  private hideAxis(axis) {
+    if (axis == "A")
+      this.lineChartOptions.scales.yAxes[0].display = false;
+    else
+      this.lineChartOptions.scales.yAxes[1].display = false;
+
+    if (this.chart && this.chart.chart) {
+      if (axis == "A")
+        this.chart.chart.config.options.scales.yAxes[0].display = false
+      else
+        this.chart.chart.config.options.scales.yAxes[1].display = false
+    }
+  }
+
+
+  public periodSelected($event) {
+    this.periodSelectedEvent.emit($event);
+  }
 }

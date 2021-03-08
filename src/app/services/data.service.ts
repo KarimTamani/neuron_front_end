@@ -5,12 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
-  public DAY = 60 * 60 * 24 ; 
-  public WEEK = this.DAY * 7  ;
-  public MONTH = this.DAY * 30 ; 
-  public TRIMESTER = this.MONTH * 4 ; 
-  public SEMESTER = this.MONTH * 6 ; 
-  public YEAR = this.MONTH * 356 ; 
+  public DAY = 60 * 60 * 24;
+  public WEEK = this.DAY * 7;
+  public MONTH = this.DAY * 30;
+  public TRIMESTER = this.MONTH * 4;
+  public SEMESTER = this.MONTH * 6;
+  public YEAR = this.MONTH * 12;
 
   public monthes: string[] = [
     "Janvier",
@@ -40,11 +40,11 @@ export class DataService {
     return imc;
   }
 
-  public calculateAge(birthday: string , currentDate : Date) {
+  public calculateAge(birthday: string, currentDate: Date) {
     // a simple function to calculate the age of the patient 
     // and round it 
     let birthTime = new Date(birthday).getTime();
-    
+
     const currentTime = currentDate.getTime();
 
     var deltaTime = (currentTime - birthTime);
@@ -127,7 +127,7 @@ export class DataService {
 
 
   public convertMinutesIntoTime(minutes) {
-    var hours  :any = Math.trunc(minutes / 60);
+    var hours: any = Math.trunc(minutes / 60);
     minutes = minutes % 60;
     if (hours <= 9) {
       hours = "0" + hours;
@@ -144,11 +144,15 @@ export class DataService {
     return hours * 60 + minutes;
   }
 
-  public dateMinusPeriod(date : string , period : number ) { 
-    var dateObj = new Date (date) ; 
-    var time = dateObj.getTime() ; 
-    time -= (period * 1000) ; 
-    var result = new Date(time) ; 
-    return result ; 
+  public dateMinusPeriod(date: string, period: number) {
+    var dateObj = new Date(date);
+    var time = dateObj.getTime();
+ 
+    time -= (period * 1000);
+    var result = new Date(time); 
+    return result;
   }
+
+
+  
 }

@@ -3,7 +3,7 @@
     <div class="body row">
         <div class="col col-md-8">
             <div class="card primary-radius">
-                <app-general-analytics *ngIf="analytics" [analytics]="analytics"></app-general-analytics>
+                <app-general-analytics [updateSubject]="updateSubject" (periodSelectedEvent)="periodSelected($event)" *ngIf="analytics" [analytics]="analytics"></app-general-analytics>
             </div>
         </div>
         <div class="col col-md-4">
