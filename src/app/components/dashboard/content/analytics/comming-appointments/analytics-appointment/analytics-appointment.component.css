@@ -1,0 +1,47 @@
+.image-side {
+    max-width: 86px;
+    min-width: 86px;
+    position: relative;
+    height: 86px;
+}
+
+.image-side img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+}
+
+.info-side {
+    width: 100%;
+    color: #555;
+    padding-left: 8px;
+}
+
+.info-side h5 {
+    color: #212121;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.info-side p {
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.info-side p span {
+    font-weight: bold;
+    color: rgb(254, 101, 85);
+}
+
+.info-side .contant p {
+    width: 100%;
+}
+
+.info-side .contant p i {
+    margin-right: 4px;
+    color: rgb(38, 94, 215);
+}

@@ -1,1 +1,21 @@
-<p>analytics-appointment works!</p>
+<div class="main-container stretch-container">
+
+    <div class="image-side">
+        <img src="../../../../../../../assets/male.jpg" *ngIf="appointment.visit.medicalFile.gender">
+        <img src="../../../../../../../assets/female.jpg" *ngIf="!appointment.visit.medicalFile.gender">
+    </div>
+    <div class="info-side">
+        <h5>{{appointment.visit.medicalFile.lastname}} {{appointment.visit.medicalFile.name}} </h5>
+        <p>date de RDV : <span>{{appointment.date}}</span> au <span>{{appointment.time}}</span></p>
+        <div class="contant stretch-container">
+            <p>
+
+                <i class="fa fa-phone"></i> {{(appointment.visit.medicalFile.phone) ? (appointment.visit.medicalFile.phone) : ("Inconnue")}}
+            </p>
+            <p>
+
+                <i class="fa fa-envelope"></i> {{(appointment.visit.medicalFile.email) ? (appointment.visit.medicalFile.email) : ("Inconnue")}}
+            </p>
+        </div>
+    </div>
+</div>

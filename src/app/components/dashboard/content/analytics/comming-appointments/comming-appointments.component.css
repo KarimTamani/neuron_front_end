@@ -2,3 +2,10 @@ h5 {
     margin: 0px;
     font-weight: bold;
 }
+
+.appointments {
+    margin-top: 16px;
+    max-height: 360px;
+    height: 360px;
+    overflow: auto;
+}

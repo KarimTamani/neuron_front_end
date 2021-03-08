@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Appointment } from 'src/app/classes/Appointment';
 
 @Component({
   selector: 'app-analytics-appointment',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./analytics-appointment.component.css']
 })
 export class AnalyticsAppointmentComponent implements OnInit {
-
+  @Input() appointment : Appointment ; 
   constructor() { }
 
   ngOnInit(): void {

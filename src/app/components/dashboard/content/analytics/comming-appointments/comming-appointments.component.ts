@@ -47,7 +47,7 @@ export class CommingAppointmentsComponent implements OnInit {
               }
             }
           }`
-      }).pipe(map( value => (<any>value.data).searchAppointments)).subscribe((data) => { 
+      }).pipe(map( value => (<any>value.data).searchAppointments.rows)).subscribe((data) => { 
         this.appointments = data ; 
         console.log(this.appointments) ; 
       })
