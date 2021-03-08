@@ -6,6 +6,18 @@
     height: 160px;
 }
 
+.cart-container.white {
+    color: #555 !important;
+}
+
+.cart-container.white .right p {
+    color: #888 !important;
+}
+
+.cart-container.white .fa-chart-bar {
+    color: #aaa !important;
+}
+
 .top i {
     font-size: 46px;
 }

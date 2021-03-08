@@ -13,7 +13,7 @@ export class EvolutionCartComponent implements OnInit {
   ngOnInit(): void {
     this.classStyle = {
       backgroundColor : this.evolutionParam.backgroundColor , 
-      boxShadow : `0px 0px 26px ${this.evolutionParam.backgroundColor}66` 
+      boxShadow : this.evolutionParam.boxShadow 
     }
 
   }

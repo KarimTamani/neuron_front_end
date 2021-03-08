@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Label, Color } from 'ng2-charts';
-
+import { Component, OnInit  } from '@angular/core';
+ 
 @Component({
   selector: 'app-general',
   templateUrl: './general.component.html',
@@ -25,7 +23,7 @@ export class GeneralComponent implements OnInit {
       evolutionPercentage : 26.8 , 
       evolutionValue : "1025 DA" , 
     } 
-  ] 
+  ] ; 
   constructor() { }
 
   ngOnInit(): void {

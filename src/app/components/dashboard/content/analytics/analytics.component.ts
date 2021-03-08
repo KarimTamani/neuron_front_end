@@ -81,6 +81,16 @@ export class AnalyticsComponent implements OnInit {
         getAnalyticsDiseases(interval : $interval) {
           group percentage value
         }
+        getGainEvolution(interval : $interval) { 
+          value percentage
+        }
+        getPatientsEvolution(interval : $interval) { 
+          value percentage
+        }
+        getVisitsEvolution(interval : $interval) { 
+          value percentage
+        }
+
       }
       ` , variables: {
         interval: this.interval

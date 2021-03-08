@@ -1,1 +1,7 @@
-<p>evolution-analytics works!</p>
+<div class="row">
+    <div class="col col-md-4" *ngFor="let evolution of evolutionParams">
+        <div class="evo-card">
+            <app-evolution-cart [evolutionParam]="evolution"></app-evolution-cart>
+        </div>
+    </div>
+</div>
