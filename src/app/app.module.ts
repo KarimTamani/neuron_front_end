@@ -110,7 +110,8 @@ import { ExpenseComponent } from './components/dashboard/content/expenses-manage
 import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component';
 import { GeneralAnalyticsComponent } from './components/dashboard/content/analytics/general-analytics/general-analytics.component';
 import { GroupAnalyticsComponent } from './components/dashboard/content/analytics/group-analytics/group-analytics.component';
-import { AnalyticsHeaderComponent } from './components/dashboard/content/analytics/general-analytics/analytics-header/analytics-header.component' ; 
+import { AnalyticsHeaderComponent } from './components/dashboard/content/analytics/general-analytics/analytics-header/analytics-header.component';
+import { GroupAnalyticsHeaderComponent } from './components/dashboard/content/analytics/group-analytics/group-analytics-header/group-analytics-header.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -210,6 +211,7 @@ import { AnalyticsHeaderComponent } from './components/dashboard/content/analyti
     GeneralAnalyticsComponent,
     GroupAnalyticsComponent,
     AnalyticsHeaderComponent,
+    GroupAnalyticsHeaderComponent,
   ],
   imports: [
     BrowserModule,

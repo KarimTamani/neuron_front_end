@@ -1,1 +1,7 @@
-<p>group-analytics works!</p>
+<div class="main-container primary-radius">
+    <div class="analytics-header">
+        <app-group-analytics-header></app-group-analytics-header>
+    </div>
+    <canvas baseChart [legend]="false" width="500" height="350" [colors]="lineChartColors" [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels" [chartType]="radarChartType">
+  </canvas>
+</div>

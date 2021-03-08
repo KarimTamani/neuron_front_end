@@ -1,0 +1,14 @@
+.main-container {}
+
+h5 {
+    width: 100%;
+    margin: 0px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+i {
+    color: rgb(38, 94, 215);
+    cursor: pointer;
+}
