@@ -1,0 +1,36 @@
+h5 {
+    margin: 0px;
+    color: #212121;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.patients-header {
+    background: rgb(38, 94, 215);
+    color: white;
+    border-radius: 20px;
+}
+
+.patients-header span {
+    width: 100%;
+    padding: 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.patient span {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+}
+
+.patient {
+    margin-top: 8px;
+}
+
+.patients {
+    height: 336px;
+    max-height: 336px;
+    overflow: hidden;
+}

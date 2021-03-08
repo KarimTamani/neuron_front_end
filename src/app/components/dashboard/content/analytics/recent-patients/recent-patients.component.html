@@ -1,1 +1,21 @@
-<p>recent-patients works!</p>
+<div class="main-container">
+    <h5>Les Patients Récents</h5>
+    <div class="patients-header stretch-container">
+        <span>Nom</span>
+        <span>Prénom</span>
+        <span>Age</span>
+        <span>Email</span>
+        <span>Telephone</span>
+        <span>Date de creation</span>
+    </div>
+    <div class="patients">
+        <div class="patient stretch-container" *ngFor="let medicalFile of medicalFiles">
+            <span>{{medicalFile.name}}</span>
+            <span>{{medicalFile.lastname}}</span>
+            <span>{{this.dataService.calculateAge(medicalFile.birthday , currentDate)}} Ans</span>
+            <span>{{(medicalFile.email) ? (medicalFile.email) : ("Inconnue")}}</span>
+            <span>{{(medicalFile.phone) ? (medicalFile.phone) : ("Inconnue")}}</span>
+            <span>{{medicalFile.createdAt }}</span>
+        </div>
+    </div>
+</div>
