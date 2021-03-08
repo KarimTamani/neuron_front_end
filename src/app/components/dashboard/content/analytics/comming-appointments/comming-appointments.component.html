@@ -1,6 +1,8 @@
 <div class="main-container">
     <h5>Les Rendez-vous en ettente</h5>
-    <div class="visits">
-
+    <div class="appointments">
+        <div class="appointment" *ngFor="let appointment of appointments">
+            <app-analytics-appointment [appointment]="appointment"></app-analytics-appointment>
+        </div>
     </div>
 </div>

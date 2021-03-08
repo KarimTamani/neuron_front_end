@@ -114,7 +114,8 @@ import { AnalyticsHeaderComponent } from './components/dashboard/content/analyti
 import { GroupAnalyticsHeaderComponent } from './components/dashboard/content/analytics/group-analytics/group-analytics-header/group-analytics-header.component';
 import { EvolutionAnalyticsComponent } from './components/dashboard/content/analytics/evolution-analytics/evolution-analytics.component';
 import { CommingAppointmentsComponent } from './components/dashboard/content/analytics/comming-appointments/comming-appointments.component';
-import { RecentPatientsComponent } from './components/dashboard/content/analytics/recent-patients/recent-patients.component' ; 
+import { RecentPatientsComponent } from './components/dashboard/content/analytics/recent-patients/recent-patients.component';
+import { AnalyticsAppointmentComponent } from './components/dashboard/content/analytics/comming-appointments/analytics-appointment/analytics-appointment.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -218,6 +219,7 @@ import { RecentPatientsComponent } from './components/dashboard/content/analytic
     EvolutionAnalyticsComponent,
     CommingAppointmentsComponent,
     RecentPatientsComponent,
+    AnalyticsAppointmentComponent,
   ],
   imports: [
     BrowserModule,
