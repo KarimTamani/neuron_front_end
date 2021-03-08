@@ -1,6 +1,7 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="body row">
+        <!--
         <div class="col col-md-8">
             <div class="card primary-radius">
                 <app-general-analytics [updateSubject]="updateSubject" (periodSelectedEvent)="periodSelected($event)" *ngIf="analytics" [analytics]="analytics"></app-general-analytics>
@@ -16,5 +17,17 @@
                 <app-evolution-analytics *ngIf="analytics" [analytics]="analytics"></app-evolution-analytics>
             </div>
         </div>
+        -->
+        <div class="col col-md-4">
+            <div class="card primary-radius evo-card">
+                <app-comming-appointments></app-comming-appointments>
+            </div>
+        </div>
+        <div class="col col-md-8">
+            <div class="card primary-radius evo-card">
+                <app-recent-patients></app-recent-patients>
+            </div>
+        </div>
+
     </div>
 </div>
