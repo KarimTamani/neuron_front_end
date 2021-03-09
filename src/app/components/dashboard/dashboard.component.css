@@ -4,6 +4,7 @@
     height: 100vh;
     display: flex;
     align-items: stretch;
+    position: relative;
 }
 
 .sidebar-section {
@@ -23,6 +24,8 @@
     border-bottom-left-radius: 28px;
     box-shadow: -2px 2px 12px rgba(0, 0, 0, 0.2);
     overflow: auto;
+    left: 64px;
+    transition-duration: 0.5s;
 }
 
 .pop-up-window {
@@ -32,4 +35,35 @@
     position: fixed;
     z-index: 500;
     overflow: auto;
+}
+
+.dashboard-container.active {
+    overflow: hidden;
+}
+
+.dashboard-container.active .content-section {
+    position: absolute;
+    left: 280px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.active-background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    animation: fadeOut 1s;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

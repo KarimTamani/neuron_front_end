@@ -1,12 +1,13 @@
 <div class="pop-up-window" *ngIf="showPopUpWindow" (click)="closePopUp()">
     <app-pop-up-window></app-pop-up-window>
 </div>
-<div class="dashboard-container" [class.blur-filter]="showPopUpWindow">
+<div class="dashboard-container" [class.blur-filter]="showPopUpWindow" [class.active]="isActive">
 
     <div class="sidebar-section">
-        <app-side-bar></app-side-bar>
+        <app-side-bar (activeEvent)="active()"></app-side-bar>
     </div>
     <div class="content-section">
+        <div class="active-background" *ngIf="isActive"></div>
         <app-content></app-content>
     </div>
 </div>

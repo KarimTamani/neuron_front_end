@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute , Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 import { map } from "rxjs/operators";
-import { ThemeService } from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +11,7 @@ import { ThemeService } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   public showPopUpWindow: boolean = false;
+  public isActive : boolean = false  ; 
   constructor(private route: ActivatedRoute, private router: Router, private apollo: Apollo) { }
 
   ngOnInit(): void {
@@ -60,6 +60,11 @@ export class DashboardComponent implements OnInit {
   closePopUp() {
     this.router.navigate([], { queryParams: null })
   }
+
+  public active () { 
+    console.log (this.isActive) ; 
+    this.isActive = !this.isActive ; 
+  } 
 }
 
  

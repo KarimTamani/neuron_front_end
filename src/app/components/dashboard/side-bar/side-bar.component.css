@@ -12,6 +12,7 @@
     padding: 8px;
     height: 100vh;
     overflow: hidden;
+    width: 300px;
 }
 
 ul {
@@ -22,33 +23,85 @@ ul {
 }
 
 ul li {
-    text-align: center;
+    text-align: left;
     transition-duration: 0.3s;
     cursor: pointer;
     margin: 16px 0px;
-    border-radius: 10px;
 }
 
 ul li a {
-    padding: 8px;
     display: block;
 }
 
 ul li i {
     font-size: 20px;
     color: rgba(255, 255, 255, 0.9);
+    padding: 8px;
+    border-radius: 10px;
+    width: 42px;
+    text-align: center;
 }
 
-ul li:hover {
+ul li:hover i {
     background: rgba(255, 255, 255, 0.2)
 }
 
-.nav {
-    height: 92vh;
+.navigation {
     display: grid;
     align-items: center;
+    height: 80vh;
 }
 
-ul li.active {
-    background: rgba(255, 255, 255, 0.2)
+ul li.active i {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+ul li.active span {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.humb-container {
+    transition-duration: 0.3s;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 4px 2px;
+    display: inline-block;
+    margin: 8px 0px;
+}
+
+.humb-container:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.humb-container.active .humb-line:nth-child(1) {
+    transform: translate(-8px, 4px) rotateZ(-45deg) scaleX(0.6);
+}
+
+.humb-container.active .humb-line:nth-child(3) {
+    transform: translate(-8px, -4px) rotateZ(45deg) scaleX(0.6);
+}
+
+.humb-line {
+    background: white;
+    height: 3px;
+    border-radius: 8px;
+    width: 32px;
+    margin: 8px;
+    display: block;
+    transition-duration: 0.3s;
+}
+
+ul li a span {
+    margin: 0px 16px;
+    color: rgba(255, 255, 255, 0.6);
+    display: inline-block;
+    font-weight: bold;
+}
+
+ul li:hover span {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+a:hover {
+    text-decoration: none;
 }

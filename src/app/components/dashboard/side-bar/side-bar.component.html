@@ -2,56 +2,67 @@
     <div class="header">
         <img src="../../../../assets/logo.png">
     </div>
-    <div class="nav">
+    <div class="humb-container" [class.active]="isActive" (click)="activeSideBar()">
+        <div class="humb-line"></div>
+        <div class="humb-line"></div>
+        <div class="humb-line"></div>
+
+    </div>
+    <div class="navigation">
+
         <ul>
             <li [class.active]="activatedRouter == 1">
                 <a routerLink="/dashboard/general">
                     <i class="fas fa-clinic-medical"></i>
+                    <span>Accueil</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 2">
                 <a routerLink="/dashboard/waiting-room">
                     <i class="fa fa-restroom"></i>
+                    <span>Salle d'attente</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 3">
                 <a routerLink="/dashboard/visits">
                     <i class="fa fa-calendar-check"></i>
+                    <span>Gestion Des Visites</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 4">
                 <a routerLink="/dashboard/medical-files">
-                    <i class="fa fa-file-medical-alt"></i>
+                    <i class="fa fa-user-injured"></i>
+                    <span>Gestion Des Dossie medicaux</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 8">
                 <a routerLink="/dashboard/analytics">
                     <i class="fa fa-chart-pie"></i>
+                    <span>Statistiques</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 5">
                 <a routerLink="/dashboard/visit">
                     <i class="fa fa-heartbeat"></i>
+                    <span>La Visite</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 7">
                 <a routerLink="/dashboard/expenses">
                     <i class="fa fa-coins"></i>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="fa fa-user-injured"></i>
+                    <span>Gestion Financier</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 6">
                 <a routerLink="/dashboard/profil">
                     <i class="fa fa-user-md"></i>
+                    <span>Profil</span>
                 </a>
             </li>
             <li>
                 <a>
                     <i class="fa fa-sign-out-alt"></i>
+                    <span>Déconnecter</span>
                 </a>
             </li>
         </ul>

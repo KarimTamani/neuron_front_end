@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -8,8 +8,12 @@ import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router
 })
 export class SideBarComponent implements OnInit {
   public activatedRouter: number = 0;
+  public isActive : boolean = false ; 
+  @Output() activeEvent : EventEmitter<null> ; 
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router) {
+    this.activeEvent = new EventEmitter<null>( ) ; 
+  }
 
   ngOnInit(): void {
 
@@ -43,5 +47,9 @@ export class SideBarComponent implements OnInit {
     else if (url.includes("analytics")) 
       this.activatedRouter = 8 ; 
   }
-
+  activeSideBar() { 
+    this.isActive = !this.isActive ; 
+    this.activeEvent.emit() ; 
+    
+  }
 }
