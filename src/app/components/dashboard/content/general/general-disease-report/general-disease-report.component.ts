@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RadialChartOptions, ChartDataSets, ChartType } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-general-disease-report',
@@ -8,12 +8,16 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./general-disease-report.component.css']
 })
 export class GeneralDiseaseReportComponent implements OnInit {
+  @Input() analytics: any;
+
   public radarChartOptions: RadialChartOptions = {
-    responsive: true ,
+    responsive: true,
     scale: {
-      
+
       gridLines: {
-        circular: true
+        circular: true,
+        display: false
+
       },
       ticks: {
         beginAtZero: true,
@@ -27,24 +31,33 @@ export class GeneralDiseaseReportComponent implements OnInit {
         tension: 0.3
       }
     },
-    layout : {
-      padding : 0 
+    layout: {
+      padding: 0
     }
 
+  }
+  public lineChartColors: Color[] = [
+    {
+      backgroundColor: "#FE655588",
+      borderColor: '#FE6555',
 
-  };
-  public radarChartLabels: Label[] = ['Anémie', 'Appendicite', 'goitre',
-    'Covid-19'];
+    }
+  ]
+  public radarChartLabels: Label[] = [];
 
-  public radarChartData: ChartDataSets[] = [
-    { data: [7, 2, 5, 10], label: '' }
-  ];
+  public radarChartData: ChartDataSets[] = [];
   public radarChartType: ChartType = 'radar';
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.radarChartOptions)
+  ngOnInit(): void { 
+    console.log(this.analytics) ; 
+
+    this.radarChartData = [ 
+      { data : this.analytics.getAnalyticsDiseases.map(value => value.value) , label : "Maladie"}
+    ]
+    this.radarChartLabels =  this.analytics.getAnalyticsDiseases.map(value => value.group) ; 
+
   }
 
 }

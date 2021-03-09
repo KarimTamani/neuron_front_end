@@ -59,7 +59,6 @@ export class GeneralAnalyticsComponent implements OnInit {
       chartLabel: "Gain-net",
       data: []
     },
-
   ]
   constructor(private dataService: DataService, private route: ActivatedRoute) {
     this.periodSelectedEvent = new EventEmitter<number>();

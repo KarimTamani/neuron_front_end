@@ -83,13 +83,9 @@ export class GroupAnalyticsComponent implements OnInit {
   }
 
   selectOption($event) {
-  
     this.radarChartLabels = this.dataset[$event.id -1].labels ; 
-
     this.radarChartData = [ 
       { data : this.dataset[$event.id -1].data , label : this.dataset[$event.id -1].label}
     ]
-  
-  
   }
 }

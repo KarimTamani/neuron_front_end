@@ -4,7 +4,7 @@
 <div class="body">
     <div class="row">
         <div class="col col-md-8">
-            <app-general-line-chart></app-general-line-chart>
+            <app-general-line-chart *ngIf="analytics" [analytics]="analytics"></app-general-line-chart>
         </div>
         <div class="col col-md-4">
             <div class="evo-card" *ngFor="let evolution of evolutionParams">
@@ -19,7 +19,7 @@
         </div>
 
         <div class="col col-md-4">
-            <app-general-disease-report></app-general-disease-report>
+            <app-general-disease-report *ngIf="analytics" [analytics]="analytics"></app-general-disease-report>
         </div>
         <div class="col col-md-4">
             <app-general-subscription></app-general-subscription>
