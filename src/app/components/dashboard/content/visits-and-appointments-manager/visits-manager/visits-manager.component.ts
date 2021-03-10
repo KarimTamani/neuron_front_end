@@ -119,8 +119,7 @@ export class VisitsManagerComponent implements OnInit {
   }
 
   search($event) {
-    this.offset = 0 ; 
-    console.log($event) ; 
+    this.offset = 0 ;  
     this.lastSearch = $event  ; 
     this.searchVisits(
       $event.searchQuery,

@@ -124,3 +124,44 @@ select {
     margin-left: 8px;
     font-size: 10px;
 }
+
+.inner-navigation {
+    margin-bottom: 16px;
+}
+
+.inner-navigation a {
+    display: inline-flex;
+    align-items: stretch;
+    margin: 0px 8px;
+    width: 146px;
+    background: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666;
+    cursor: pointer;
+    transition-duration: 0.5s;
+    position: relative;
+}
+
+.inner-navigation a:hover {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    color: rgb(38, 94, 215);
+    text-decoration: none;
+}
+
+.inner-navigation a span {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.inner-navigation a.selected {
+    color: white;
+    background: rgb(38, 94, 215);
+}
+
+.inner-navigation i {
+    padding: 3px 0px;
+}

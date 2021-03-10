@@ -86,13 +86,13 @@ import { ClincalExamManagerComponent } from './components/dashboard/content/pati
 import { ClincalExamListComponent } from './components/dashboard/content/patient-visit/clincal-exam-manager/clincal-exam-list/clincal-exam-list.component';
 import { AddClincalExamComponent } from './components/dashboard/content/patient-visit/clincal-exam-manager/add-clincal-exam/add-clincal-exam.component';
 import { MedicalFilesManagerComponent } from './components/dashboard/content/medical-files-manager/medical-files-manager.component';
-import { VisitsManagerComponent } from './components/dashboard/content/visits-manager/visits-manager.component';
+import { VisitsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visits-manager.component';
 import { SearchHeaderComponent } from './components/global/search-header/search-header.component';
-import { VisitsListComponent } from './components/dashboard/content/visits-manager/visits-list/visits-list.component';
-import { VisitRowComponent } from './components/dashboard/content/visits-manager/visits-list/visit-row/visit-row.component';
+import { VisitsListComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visits-list/visits-list.component';
+import { VisitRowComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visits-list/visit-row/visit-row.component';
 import { PaginationComponent } from './components/global/pagination/pagination.component';
 import { MedicalFileAdvancedSearchComponent } from './components/dashboard/content/medical-files-manager/medical-file-advanced-search/medical-file-advanced-search.component';
-import { VisitAdvancedSearchComponent } from './components/dashboard/content/visits-manager/visit-advanced-search/visit-advanced-search.component';
+import { VisitAdvancedSearchComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-advanced-search/visit-advanced-search.component';
 import { DateIntervalComponent } from './components/global/date-interval/date-interval.component';
 import { DrugSubmitterComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-submitter/drug-submitter.component';
 import { PrescriptionComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription.component';

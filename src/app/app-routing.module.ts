@@ -8,10 +8,12 @@ import { NotValidAccountComponent } from './components/login/not-valid-account/n
 import { ProfilComponent } from './components/dashboard/content/profil/profil.component';
 import { WaitingRoomComponent } from './components/dashboard/content/waiting-room/waiting-room.component';
 import { PatientVisitComponent } from './components/dashboard/content/patient-visit/patient-visit.component';
-import { VisitsManagerComponent } from './components/dashboard/content/visits-manager/visits-manager.component';
+import { VisitsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visits-manager.component';
 import { MedicalFilesManagerComponent } from './components/dashboard/content/medical-files-manager/medical-files-manager.component';
 import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component';
 import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component';
+import { VisitsAndAppointmentsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-and-appointments-manager.component';
+import { FinancialManagerComponent } from './components/dashboard/content/financial-manager/financial-manager.component';
 
 const routes: Routes = [
   {
@@ -28,11 +30,15 @@ const routes: Routes = [
       } , { 
         path : "visit" , component : PatientVisitComponent
       } , {
-        path : "visits" , component : VisitsManagerComponent
+        path : "visits-and-appointments-manager" , component : VisitsAndAppointmentsManagerComponent , children : [
+          {
+            path : "visits" , component : VisitsManagerComponent 
+          }
+        ]
       } , { 
         path : "medical-files"  , component : MedicalFilesManagerComponent
       } , { 
-        path :"expenses" , component : ExpensesManagerComponent
+        path :"financial-manager" , component : FinancialManagerComponent
       } , { 
         path : "analytics" , component : AnalyticsComponent 
       }
