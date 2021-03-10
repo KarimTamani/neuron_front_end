@@ -14,6 +14,8 @@ import { ExpensesManagerComponent } from './components/dashboard/content/expense
 import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component';
 import { VisitsAndAppointmentsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-and-appointments-manager.component';
 import { FinancialManagerComponent } from './components/dashboard/content/financial-manager/financial-manager.component';
+import { AppointmentsManagerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-manager.component';
+import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,8 @@ const routes: Routes = [
         path : "visits-and-appointments-manager" , component : VisitsAndAppointmentsManagerComponent , children : [
           {
             path : "visits" , component : VisitsManagerComponent 
+          }, { 
+            path : "appointments" , component : RDVManagerComponent
           }
         ]
       } , { 
