@@ -103,10 +103,10 @@ import { PrescriptionPatientInfoComponent } from './components/dashboard/content
 import { PrescriptionDrugDosageComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-drug-dosages/prescription-drug-dosage/prescription-drug-dosage.component';
 import { PrescriptionFooterComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-footer/prescription-footer.component';
 import { VisitAppointmentComponent } from './components/dashboard/content/patient-visit/visit-appointment/visit-appointment.component';
-import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component';
-import { ExpensesHeaderComponent } from './components/dashboard/content/expenses-manager/expenses-header/expenses-header.component';
-import { AddExpenseComponent } from './components/dashboard/content/expenses-manager/add-expense/add-expense.component';
-import { ExpenseComponent } from './components/dashboard/content/expenses-manager/expense/expense.component';
+import { ExpensesManagerComponent } from './components/dashboard/content/financial-manager/expenses-manager/expenses-manager.component';
+import { ExpensesHeaderComponent } from './components/dashboard/content/financial-manager/expenses-manager/expenses-header/expenses-header.component';
+import { AddExpenseComponent } from './components/dashboard/content/financial-manager/expenses-manager/add-expense/add-expense.component';
+import { ExpenseComponent } from './components/dashboard/content/financial-manager/expenses-manager/expense/expense.component';
 import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component';
 import { GeneralAnalyticsComponent } from './components/dashboard/content/analytics/general-analytics/general-analytics.component';
 import { GroupAnalyticsComponent } from './components/dashboard/content/analytics/group-analytics/group-analytics.component';
@@ -119,7 +119,8 @@ import { AnalyticsAppointmentComponent } from './components/dashboard/content/an
 import { FinancialManagerComponent } from './components/dashboard/content/financial-manager/financial-manager.component';
 import { VisitsAndAppointmentsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-and-appointments-manager.component';
 import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
-import { RDVSearchHeaderComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvsearch-header/rdvsearch-header.component' ; 
+import { RDVSearchHeaderComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvsearch-header/rdvsearch-header.component';
+import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -228,6 +229,7 @@ import { RDVSearchHeaderComponent } from './components/dashboard/content/visits-
     VisitsAndAppointmentsManagerComponent,
     RDVManagerComponent,
     RDVSearchHeaderComponent,
+    DebtManagerComponent,
   ],
   imports: [
     BrowserModule,

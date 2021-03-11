@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { InteractionService } from 'src/app/services/interaction.service';
-import { Expense } from "../../../../classes/Expense";
+import { Expense } from "../../../../../classes/Expense";
 @Component({
   selector: 'app-expenses-manager',
   templateUrl: './expenses-manager.component.html',

@@ -10,12 +10,13 @@ import { WaitingRoomComponent } from './components/dashboard/content/waiting-roo
 import { PatientVisitComponent } from './components/dashboard/content/patient-visit/patient-visit.component';
 import { VisitsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visits-manager.component';
 import { MedicalFilesManagerComponent } from './components/dashboard/content/medical-files-manager/medical-files-manager.component';
-import { ExpensesManagerComponent } from './components/dashboard/content/expenses-manager/expenses-manager.component';
+import { ExpensesManagerComponent } from './components/dashboard/content/financial-manager/expenses-manager/expenses-manager.component';
 import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component';
 import { VisitsAndAppointmentsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-and-appointments-manager.component';
 import { FinancialManagerComponent } from './components/dashboard/content/financial-manager/financial-manager.component';
 import { AppointmentsManagerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-manager.component';
 import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
+import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component';
 
 const routes: Routes = [
   {
@@ -42,7 +43,13 @@ const routes: Routes = [
       } , { 
         path : "medical-files"  , component : MedicalFilesManagerComponent
       } , { 
-        path :"financial-manager" , component : FinancialManagerComponent
+        path :"financial-manager" , component : FinancialManagerComponent , children : [
+          { 
+            path : "expenses" , component : ExpensesManagerComponent
+          } , { 
+            path : "debt" , component : DebtManagerComponent
+          }
+        ]
       } , { 
         path : "analytics" , component : AnalyticsComponent 
       }
