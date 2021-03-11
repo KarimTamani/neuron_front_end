@@ -24,7 +24,6 @@ export class VisitsAndAppointmentsManagerComponent implements OnInit {
       this.selectedOption = "visits";
     else if (this.router.url.endsWith("appointments"))
       this.selectedOption = "appointments";
-
   }
 
 }

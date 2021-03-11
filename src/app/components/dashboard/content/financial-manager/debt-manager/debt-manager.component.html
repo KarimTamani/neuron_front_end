@@ -1,1 +1,53 @@
-<p>debt-manager works!</p>
+<div class="main-container">
+    <div>
+        <app-debt-search-header (searchEvent)="search($event)"></app-debt-search-header>
+    </div>
+    <div class="header stretch-container">
+        <span>
+            Nom
+        </span>
+        <span>
+            Prénom 
+        </span>
+        <span>
+            Date de n'essance
+        </span>
+        <span>
+            teléphone
+        </span>
+        <span>
+            Email 
+        </span>
+        <span>
+            montant payé
+        </span>
+        <span>
+            credit
+        </span>
+        <span>
+            period de la visit
+        </span>
+        <span>
+            Date
+        </span>
+    </div>
+    <div class="body  primary-radius">
+        <div class="visit-container" *ngFor="let visit of visits">
+            <div class="stretch-container">
+                <span>{{visit.medicalFile.name}}</span>
+                <span>{{visit.medicalFile.lastname}}</span>
+                <span>{{visit.medicalFile.birthday}}</span>
+                <span>{{visit.medicalFile.phone}}</span>
+                <span>{{visit.medicalFile.email}}</span>
+                <span>{{visit.payedMoney}} DA</span>
+                <span>{{visit.debt}} DA</span>
+                <span>{{(visitPeriod) ? (visitPeriod) : ("Inconnue")}}</span>
+                <span>{{visit.createdAt}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination-container">
+        <app-pagination (pageSelected)="selectPage($event)" [count]="count" [loaded]="visits.length" [offset]="offset" [limit]="limit"></app-pagination>
+    </div>
+</div>

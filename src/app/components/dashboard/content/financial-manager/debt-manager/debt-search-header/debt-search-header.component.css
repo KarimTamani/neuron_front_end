@@ -1,0 +1,64 @@
+.main-container {
+    background: white;
+    padding: 12px;
+    margin: 0px -8px;
+}
+
+.search-input,
+.hint,
+.date-input,
+.control-icons {
+    margin: 0px 8px;
+}
+
+.search-input {
+    width: 100%;
+}
+
+.date-input {
+    max-width: 164px;
+    min-width: 164px;
+}
+
+.hint {
+    max-width: 86px;
+    min-width: 86px;
+}
+
+.hint p {
+    margin: 0px;
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+}
+
+.control-icons {
+    display: flex;
+    align-items: center;
+}
+
+.control-icons i {
+    margin: 0px 8px;
+    padding: 8px;
+    border-radius: 50%;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    color: rgb(38, 94, 215);
+}
+
+.control-icons i.fa-times {
+    padding: 8px 10px;
+    color: rgb(254, 101, 85);
+}
+
+.control-icons i.fa-times:hover {
+    background: rgb(254, 101, 85);
+    color: white;
+}
+
+.control-icons i:hover {
+    background: rgb(38, 94, 215);
+    color: white;
+}

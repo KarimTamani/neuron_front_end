@@ -120,7 +120,8 @@ import { FinancialManagerComponent } from './components/dashboard/content/financ
 import { VisitsAndAppointmentsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-and-appointments-manager.component';
 import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
 import { RDVSearchHeaderComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvsearch-header/rdvsearch-header.component';
-import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component' ; 
+import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component';
+import { DebtSearchHeaderComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-search-header/debt-search-header.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -230,6 +231,7 @@ import { DebtManagerComponent } from './components/dashboard/content/financial-m
     RDVManagerComponent,
     RDVSearchHeaderComponent,
     DebtManagerComponent,
+    DebtSearchHeaderComponent,
   ],
   imports: [
     BrowserModule,
