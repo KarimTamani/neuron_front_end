@@ -1,0 +1,32 @@
+.header span {
+    width: 50%;
+}
+
+.header {
+    background: rgb(38, 94, 215);
+    color: white;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 16px -8px;
+}
+
+.body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 460px;
+    max-height: 460px;
+    overflow: auto;
+}
+
+.appointment-row {
+    background: white;
+    padding: 8px 12px;
+}
+
+.appointment-row span {
+    width: 50%;
+    color: #555555;
+    font-size: 13px;
+}

@@ -1,11 +1,11 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="inner-navigation row">
-        <a [class.selected]="selectedOption == 'visits'">
+        <a [class.selected]="selectedOption == 'visits'" routerLink="visits">
             <i class="fa fa-fa fa-calendar-check"></i>
             <span>Visites</span>
         </a>
-        <a [class.selected]="selectedOption == 'appointments'">
+        <a [class.selected]="selectedOption == 'appointments'" routerLink="appointments">
             <i class="fa fa-fa fa-calendar"></i> <span>Rendez-Vous</span>
         </a>
     </div>

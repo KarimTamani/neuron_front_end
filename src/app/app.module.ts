@@ -118,7 +118,8 @@ import { RecentPatientsComponent } from './components/dashboard/content/analytic
 import { AnalyticsAppointmentComponent } from './components/dashboard/content/analytics/comming-appointments/analytics-appointment/analytics-appointment.component';
 import { FinancialManagerComponent } from './components/dashboard/content/financial-manager/financial-manager.component';
 import { VisitsAndAppointmentsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-and-appointments-manager.component';
-import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component' ; 
+import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
+import { RDVSearchHeaderComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvsearch-header/rdvsearch-header.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -226,6 +227,7 @@ import { RDVManagerComponent } from './components/dashboard/content/visits-and-a
     FinancialManagerComponent,
     VisitsAndAppointmentsManagerComponent,
     RDVManagerComponent,
+    RDVSearchHeaderComponent,
   ],
   imports: [
     BrowserModule,

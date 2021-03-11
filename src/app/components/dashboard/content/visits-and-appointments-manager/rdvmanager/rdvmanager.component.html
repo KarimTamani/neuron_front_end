@@ -1,1 +1,48 @@
-<p>rdvmanager works!</p>
+<div class="main-container">
+    <div class="search-header">
+        <app-rdvsearch-header (searchEvent)="search($event)" [startDate]="startDate"></app-rdvsearch-header>
+    </div>
+    <div class="header stretch-container">
+        <span>
+            Nom
+        </span>
+        <span>
+            Prénom 
+        </span>
+        <span>
+            Date de n'essance
+        </span>
+        <span>
+            teléphone
+        </span>
+        <span>
+            email
+        </span>
+        <span>
+            date de RDV
+        </span>
+        <span>
+            le temps de RDV
+        </span>
+        <span>
+            Date de creation
+        </span>
+    </div>
+    <div class="body primary-radius">
+        <div class="appointment-row" *ngFor="let appointment of appointments">
+            <div class="stretch-container">
+                <span>{{appointment.visit.medicalFile.name}}</span>
+                <span>{{appointment.visit.medicalFile.lastname}}</span>
+                <span>{{appointment.visit.medicalFile.birthday}}</span>
+                <span>{{appointment.visit.medicalFile.phone}}</span>
+                <span>{{appointment.visit.medicalFile.email}}</span>
+                <span>{{appointment.date}}</span>
+                <span>{{appointment.time}}</span>
+                <span>{{appointment.visit.createdAt}}</span>
+
+            </div>
+        </div>
+    </div>
+    <app-pagination (pageSelected)="selectPage($event)" [count]="count" [loaded]="appointments.length" [offset]="offset" [limit]="limit"></app-pagination>
+
+</div>
