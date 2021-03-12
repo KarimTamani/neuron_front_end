@@ -8,6 +8,7 @@ import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
   styleUrls: ['./visit-prescription.component.css']
 })
 export class VisitPrescriptionComponent implements OnInit {
+  public navigationOption : number = 1 ; 
   @Input() visit : Visit  ; 
   constructor() { }
 

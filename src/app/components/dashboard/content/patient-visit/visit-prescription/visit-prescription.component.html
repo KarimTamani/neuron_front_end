@@ -1,6 +1,16 @@
 <div class="main-container stretch-container">
     <div class="side submitter-side primary-radius">
-        <app-drug-submitter [visitDrugDosages]="visit.visitDrugDosages"></app-drug-submitter>
+        <div class="prescription-navigation">
+            <button class="secondary-button" [class.selected]="navigationOption == 1" (click)="navigationOption = 1">Saisir un traitment</button>
+            <button class="secondary-button" [class.selected]="navigationOption == 2" (click)="navigationOption = 2">Biblioteque de traitments</button>
+        </div>
+        <div *ngIf="navigationOption == 1">
+            <app-drug-submitter [visitDrugDosages]="visit.visitDrugDosages"></app-drug-submitter>
+        </div>
+        <div *ngIf="navigationOption == 2">
+
+        </div>
+
     </div>
     <div class="side prescription-side primary-radius">
         <app-prescription [visit]="visit"></app-prescription>

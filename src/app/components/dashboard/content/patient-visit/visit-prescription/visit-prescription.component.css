@@ -13,3 +13,28 @@
     width: 100%;
     margin-right: 16px;
 }
+
+.prescription-navigation {
+    padding: 16px;
+}
+
+.prescription-navigation button {
+    outline: none;
+    width: 200px;
+    padding: 8px 12px !important;
+    border-radius: 20px;
+}
+
+.prescription-navigation button:last-child {
+    float: right;
+}
+
+.prescription-navigation button.selected {
+    background: rgb(38, 94, 215);
+    color: white;
+}
+
+.prescription-navigation button:not(.selected):hover {
+    background: white;
+    color: rgb(38, 94, 215);
+}
