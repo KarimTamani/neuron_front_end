@@ -121,7 +121,9 @@ import { VisitsAndAppointmentsManagerComponent } from './components/dashboard/co
 import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
 import { RDVSearchHeaderComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvsearch-header/rdvsearch-header.component';
 import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component';
-import { DebtSearchHeaderComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-search-header/debt-search-header.component' ; 
+import { DebtSearchHeaderComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-search-header/debt-search-header.component';
+import { DrugDosagesLibraryComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/drug-dosages-library.component';
+import { PrescriptionModelComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/prescription-model/prescription-model.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -232,6 +234,8 @@ import { DebtSearchHeaderComponent } from './components/dashboard/content/financ
     RDVSearchHeaderComponent,
     DebtManagerComponent,
     DebtSearchHeaderComponent,
+    DrugDosagesLibraryComponent,
+    PrescriptionModelComponent,
   ],
   imports: [
     BrowserModule,
