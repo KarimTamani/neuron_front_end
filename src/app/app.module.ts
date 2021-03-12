@@ -123,7 +123,8 @@ import { RDVSearchHeaderComponent } from './components/dashboard/content/visits-
 import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component';
 import { DebtSearchHeaderComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-search-header/debt-search-header.component';
 import { DrugDosagesLibraryComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/drug-dosages-library.component';
-import { PrescriptionModelComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/prescription-model/prescription-model.component' ; 
+import { PrescriptionModelComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/prescription-model/prescription-model.component';
+import { PrescriptionModelSubmitterComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/prescription-model-submitter/prescription-model-submitter.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -236,6 +237,7 @@ import { PrescriptionModelComponent } from './components/dashboard/content/patie
     DebtSearchHeaderComponent,
     DrugDosagesLibraryComponent,
     PrescriptionModelComponent,
+    PrescriptionModelSubmitterComponent,
   ],
   imports: [
     BrowserModule,

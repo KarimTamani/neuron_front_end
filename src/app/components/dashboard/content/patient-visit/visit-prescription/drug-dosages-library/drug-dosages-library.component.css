@@ -4,4 +4,14 @@
 
 .body {
     margin-top: 16px;
+    height: 520px;
+    max-height: 520px;
+    overflow: auto;
+}
+
+.footer a {
+    float: right;
+    color: rgb(254, 101, 85);
+    font-size: 12px;
+    cursor: pointer;
 }
