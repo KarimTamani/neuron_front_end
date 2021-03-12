@@ -10,10 +10,12 @@ export class PrescriptionModelComponent implements OnInit {
   @Input() prescriptionModel : PrescriptionModel ; 
   @Output() useEvent : EventEmitter<PrescriptionModel>;
   @Output() editEvent : EventEmitter<PrescriptionModel> ;  
+  @Output() deleteEvent : EventEmitter<PrescriptionModel> ; 
   public expand : boolean = false  ; 
   constructor() {
     this.useEvent = new EventEmitter<PrescriptionModel>() ; 
     this.editEvent = new EventEmitter<PrescriptionModel>() ; 
+    this.deleteEvent = new EventEmitter<PrescriptionModel>() ; 
   }
 
   ngOnInit(): void {

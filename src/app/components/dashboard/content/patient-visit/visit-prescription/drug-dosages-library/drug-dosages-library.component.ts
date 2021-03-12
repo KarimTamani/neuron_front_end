@@ -73,5 +73,33 @@ export class DrugDosagesLibraryComponent implements OnInit {
       subscription.unsubscribe();
     })
   }
+  public delete($event) {  
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "yes-no-message",
+        "title": "Ajouter un nouvelle model de traitments",
+        "message": "Voulais vous vraiment suprimer le " + $event.name + " ?"
+      }
+    });
+
+    const subscription = this.interactionService.yesOrNo.subscribe((response) => { 
+      if (response) { 
+        this.apollo.mutate({
+          mutation : gql`
+            mutation { 
+              removePrescriptionModel(prescriptionModelId : ${$event.id})
+            }
+          `
+        }).pipe(map( value => (<any>value.data).removePrescriptionModel)).subscribe((id) => { 
+          if (id == $event.id) { 
+            const index = this.prescriptionModels.findIndex(value => value.id == id)
+            this.prescriptionModels.splice(index , 1) ; 
+          }
+        })
+      }
+      subscription.unsubscribe() ; 
+    })
+  }
 }
 

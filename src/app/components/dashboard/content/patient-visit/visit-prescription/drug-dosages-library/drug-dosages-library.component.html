@@ -5,7 +5,7 @@
     </div>
     <div class="body">
         <div class="prescription-model" *ngFor="let prescriptionModel of prescriptionModels">
-            <app-prescription-model (editEvent)="edit($event)" (useEvent)="use($event)" [prescriptionModel]="prescriptionModel"></app-prescription-model>
+            <app-prescription-model (deleteEvent)="delete($event )" (editEvent)="edit($event)" (useEvent)="use($event)" [prescriptionModel]="prescriptionModel"></app-prescription-model>
         </div>
     </div>
     <div class="footer">
