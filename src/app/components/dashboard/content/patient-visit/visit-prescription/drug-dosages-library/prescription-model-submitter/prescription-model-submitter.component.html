@@ -1,1 +1,14 @@
-<p>prescription-model-submitter works!</p>
+<div class="main-container">
+    <div class="content primary-radius">
+        <app-drug-submitter [visitDrugDosages]="prescriptionModel.drugDosages"></app-drug-submitter>
+        <div class="row">
+            <div class="col col-md-8">
+                <input type="text" [(ngModel)]="prescriptionModel.name" placeholder="Nom de traitment" class="primary-input">
+            </div>
+            <div class="col col-md-4">
+                <button class="primary-button" (click)="add()">Ajouter <i class="fa fa-plus"></i></button>
+            </div>
+
+        </div>
+    </div>
+</div>

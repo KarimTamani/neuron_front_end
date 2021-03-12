@@ -8,6 +8,7 @@ import { VitalSetting } from '../classes/VitalSetting';
 import { ClinicalExam } from '../classes/ClincalExam';
 import { Appointment } from '../classes/Appointment';
 import { Expense } from '../classes/Expense';
+import { PrescriptionModel } from '../classes/PrescriptionModel';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,13 @@ export class InteractionService {
   public newVisitAdded: Subject<null>;
   public visitPayed: Subject<Visit>;
   public updateReport: Subject<null>;
-  public vitalSettingEdited : Subject<VitalSetting> ; 
-  public useClinicalExam : Subject<ClinicalExam> ; 
-  public advancedSearchValidated : Subject<any> ; 
-  public newAppointmentAdded : Subject<Appointment> ; 
-  public newExpenseAdded : Subject<Expense> ; 
-  public editExpense : Subject<Expense> ; 
+  public vitalSettingEdited: Subject<VitalSetting>;
+  public useClinicalExam: Subject<ClinicalExam>;
+  public advancedSearchValidated: Subject<any>;
+  public newAppointmentAdded: Subject<Appointment>;
+  public newExpenseAdded: Subject<Expense>;
+  public editExpense: Subject<Expense>;
+  public addprescriptionModel: Subject<PrescriptionModel>;
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -37,12 +39,13 @@ export class InteractionService {
     this.medicalActEdited = new Subject<MedicalAct>();
     this.newVisitAdded = new Subject<null>();
     this.visitPayed = new Subject<Visit>();
-    this.updateReport = new Subject<null>() ; 
-    this.vitalSettingEdited = new Subject<VitalSetting>() ;  
-    this.useClinicalExam = new Subject<ClinicalExam>() ;  
-    this.advancedSearchValidated = new Subject<any>() ; 
-    this.newAppointmentAdded = new Subject<Appointment>() ; 
-    this.newExpenseAdded = new Subject<Expense>() ; 
-    this.editExpense = new Subject<Expense>( ) ;  
+    this.updateReport = new Subject<null>();
+    this.vitalSettingEdited = new Subject<VitalSetting>();
+    this.useClinicalExam = new Subject<ClinicalExam>();
+    this.advancedSearchValidated = new Subject<any>();
+    this.newAppointmentAdded = new Subject<Appointment>();
+    this.newExpenseAdded = new Subject<Expense>();
+    this.editExpense = new Subject<Expense>();
+    this.addprescriptionModel = new Subject<PrescriptionModel>();
   }
 }

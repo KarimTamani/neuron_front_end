@@ -1,0 +1,16 @@
+.main-container {
+    width: 560px;
+    padding: 16px;
+}
+
+.content {
+    background: white;
+}
+
+.row {
+    padding: 16px;
+}
+
+.row button {
+    width: 100%;
+}
