@@ -8,8 +8,10 @@ import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
 })
 export class DrugDosageComponent implements OnInit {
   @Input() visitDrugDosage : VisitDrugDosage ; 
+  @Input() control : boolean = true ; 
   @Output() deleteEvent : EventEmitter<VisitDrugDosage> ; 
   @Output() editEvent : EventEmitter<VisitDrugDosage> ; 
+
   constructor() {
     this.deleteEvent = new EventEmitter<VisitDrugDosage>() ; 
     this.editEvent = new EventEmitter<VisitDrugDosage>() ; 

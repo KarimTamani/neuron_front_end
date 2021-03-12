@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,10 @@ import { PrescriptionModel } from 'src/app/classes/PrescriptionModel';
 export class DrugDosagesLibraryComponent implements OnInit {
   public name : string ; 
   public prescriptionModels : PrescriptionModel[] = [] ; 
-  constructor(private apollo : Apollo) { }
+  @Output() useEvent : EventEmitter<PrescriptionModel> ; 
+  constructor(private apollo : Apollo) { 
+    this.useEvent = new EventEmitter<PrescriptionModel>() ;
+     }
 
   ngOnInit(): void {  
     this.searchPrescriptionModel() 
@@ -35,4 +38,8 @@ export class DrugDosagesLibraryComponent implements OnInit {
      })
   }
 
+  public use($event) {  
+    this.useEvent.emit($event) ; 
+  }
 }
+

@@ -15,4 +15,9 @@ export class VisitPrescriptionComponent implements OnInit {
   
   }
 
+  public use($event) { 
+    this.navigationOption = 1 ; 
+    this.visit.visitDrugDosages = $event.drugDosages ; 
+  }
+
 }

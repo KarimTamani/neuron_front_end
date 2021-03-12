@@ -2,20 +2,6 @@
     padding: 16px;
 }
 
-.search-header .center-v {
-    max-width: 216px;
-    min-width: 216px;
-    padding-left: 16px;
-}
-
-.search-header button {
-    padding: 8px 16px;
-    color: white;
-    background-color: rgb(254, 101, 85);
-    border: none;
-    border-radius: 20px;
-    margin: 4px 0px;
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
+.body {
+    margin-top: 16px;
 }

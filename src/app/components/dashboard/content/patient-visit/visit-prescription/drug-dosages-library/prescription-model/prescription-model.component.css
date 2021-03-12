@@ -1,0 +1,88 @@
+.main-container {
+    padding: 8px 0px;
+}
+
+.main-container p {
+    margin: 0px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 16px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    border: 1px solid transparent;
+}
+
+.name {
+    position: relative;
+}
+
+.main-container p:hover {
+    border: 1px solid #eee;
+}
+
+.main-container p i {
+    color: rgb(38, 94, 215);
+    margin-right: 8px;
+}
+
+.drug-dosages-list {
+    border: 1px solid #eee;
+    margin-top: 16px;
+    padding: 16px;
+    padding-bottom: 8px;
+    border-radius: 16px;
+    max-height: 260px;
+}
+
+.control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0px;
+    opacity: 0;
+    transition-duration: 0.3s;
+}
+
+.main-container:hover .control {
+    opacity: 1;
+}
+
+.control span {
+    border-radius: 16px;
+    padding-right: 8px;
+    padding-left: 8px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.control i {
+    margin: 0px 4px;
+}
+
+.control i.fa-edit,
+.control i.fa-trash {
+    padding: 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.control i.fa-edit {
+    color: rgb(38, 94, 215);
+}
+
+.control i.fa-trash {
+    color: rgb(254, 101, 85);
+}
+
+.control i.fa-trash:hover {
+    background: rgb(254, 101, 85);
+    color: white;
+}
+
+.control i.fa-edit:hover {
+    background: rgb(38, 94, 215);
+    color: white;
+}

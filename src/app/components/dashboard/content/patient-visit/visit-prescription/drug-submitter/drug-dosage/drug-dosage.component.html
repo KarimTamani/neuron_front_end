@@ -10,7 +10,7 @@
             <span> pendant {{visitDrugDosage.qsp}}</span>
 
         </p>
-        <div class="control-container">
+        <div class="control-container" *ngIf="control">
             <span class="delete" (click)="deleteEvent.emit(visitDrugDosage)">Supprimer<i class="fa fa-times"></i></span>
             <span class="edit" (click)="editEvent.emit(visitDrugDosage)">Modifier <i class="fa fa-edit"></i></span>
         </div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PrescriptionModel } from 'src/app/classes/PrescriptionModel';
 
 @Component({
   selector: 'app-prescription-model',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prescription-model.component.css']
 })
 export class PrescriptionModelComponent implements OnInit {
-
-  constructor() { }
+  @Input() prescriptionModel : PrescriptionModel ; 
+  @Output() useEvent : EventEmitter<PrescriptionModel> ; 
+  public expand : boolean = false  ; 
+  constructor() {
+    this.useEvent = new EventEmitter<PrescriptionModel>() ; 
+    
+  }
 
   ngOnInit(): void {
   }
+
 
 }
