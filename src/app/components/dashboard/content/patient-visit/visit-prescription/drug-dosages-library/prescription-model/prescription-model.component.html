@@ -6,9 +6,7 @@
         </p>
         <div class="control">
             <span class="secondary-button" (click)="useEvent.emit (prescriptionModel)">utiliser <i class="fa fa-check"></i></span>
-            <i class="fa fa-edit">
-
-            </i>
+            <i class="fa fa-edit" (click)="editEvent.emit ( prescriptionModel )"></i>
             <i class="fa fa-trash"></i>
         </div>
     </div>

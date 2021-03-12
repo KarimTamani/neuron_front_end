@@ -6,7 +6,9 @@
                 <input type="text" [(ngModel)]="prescriptionModel.name" placeholder="Nom de traitment" class="primary-input">
             </div>
             <div class="col col-md-4">
-                <button class="primary-button" (click)="add()">Ajouter <i class="fa fa-plus"></i></button>
+                <button class="primary-button" *ngIf="!isEdit" (click)="add()">Ajouter <i class="fa fa-plus"></i></button>
+                <button class="primary-button" *ngIf="isEdit" (click)="edit()">Modifier <i class="fa fa-edit"></i></button>
+
             </div>
 
         </div>

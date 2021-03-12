@@ -53,8 +53,23 @@ export class DrugDosagesLibraryComponent implements OnInit {
       }
     });
     const subscription = this.interactionService.addprescriptionModel.subscribe((prescriptionModel) => {
-      console.log(prescriptionModel) ; 
       this.prescriptionModels.splice(0, 0, prescriptionModel);
+      subscription.unsubscribe();
+    })
+  }
+
+  public edit($event) {
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "prescription-model-submitter",
+        "title": "Ajouter un nouvelle model de traitments",
+        "prescription-model": decodeURIComponent(JSON.stringify($event))
+      }
+    });
+    const subscription = this.interactionService.editPrescriptionModel.subscribe((prescriptionModel) => {
+      const index = this.prescriptionModels.findIndex(value => value.id == prescriptionModel.id) ; 
+      this.prescriptionModels.splice(index , 1 ,  prescriptionModel) ; 
       subscription.unsubscribe();
     })
   }
