@@ -1,6 +1,11 @@
 <div class="main-container">
     <h5>Ajouter une demande de bilan</h5>
     <div class="search-input">
-        <input type="text" class="primary-input" placeholder="Recherché un crieter de bilan">
+        <input type="text" class="primary-input" placeholder="Recherché un Critères de bilan">
+    </div>
+    <div class="check-up-types">
+        <div class="check-up-type" *ngFor="let checkUpType of checkUpTypes">
+            <app-check-up-type [checkUpType]="checkUpType"></app-check-up-type>
+        </div>
     </div>
 </div>

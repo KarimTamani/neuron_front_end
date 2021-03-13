@@ -125,7 +125,9 @@ import { DebtSearchHeaderComponent } from './components/dashboard/content/financ
 import { DrugDosagesLibraryComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/drug-dosages-library.component';
 import { PrescriptionModelComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/prescription-model/prescription-model.component';
 import { PrescriptionModelSubmitterComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/prescription-model-submitter/prescription-model-submitter.component';
-import { CheckUpSubmitterComponent } from './components/dashboard/content/patient-visit/visit-check-up/check-up-submitter/check-up-submitter.component' ; 
+import { CheckUpSubmitterComponent } from './components/dashboard/content/patient-visit/visit-check-up/check-up-submitter/check-up-submitter.component';
+import { CheckUpTypeComponent } from './components/dashboard/content/patient-visit/visit-check-up/check-up-submitter/check-up-type/check-up-type.component';
+import { CheckUpComponent } from './components/dashboard/content/patient-visit/visit-check-up/check-up-submitter/check-up-type/check-up/check-up.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -240,6 +242,8 @@ import { CheckUpSubmitterComponent } from './components/dashboard/content/patien
     PrescriptionModelComponent,
     PrescriptionModelSubmitterComponent,
     CheckUpSubmitterComponent,
+    CheckUpTypeComponent,
+    CheckUpComponent,
   ],
   imports: [
     BrowserModule,

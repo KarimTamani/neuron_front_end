@@ -1,0 +1,11 @@
+<div class="main-container">
+    <p (click)="expand = !expand">
+        <i class="fa fa-chevron-down" *ngIf="!expand"></i>
+        <i class="fa fa-chevron-up" *ngIf="expand"></i> {{checkUpType.name}}
+    </p>
+    <div class="check-ups row" *ngIf="expand">
+        <div class="col col-md-6" *ngFor="let checkUp of checkUpType.checkUps">
+            {{checkUp.name}}
+        </div>
+    </div>
+</div>

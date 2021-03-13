@@ -1,0 +1,19 @@
+.main-container {
+    padding: 16px;
+}
+
+h5 {
+    font-weight: bold;
+    color: #212121;
+    margin: 0px;
+    margin-bottom: 16px;
+}
+
+.search-input {
+    margin-bottom: 16px;
+}
+
+.check-up-types {
+    max-height: 520px;
+    overflow: auto;
+}
