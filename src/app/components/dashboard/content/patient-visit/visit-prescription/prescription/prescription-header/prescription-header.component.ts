@@ -11,7 +11,7 @@ import { Service } from 'src/app/classes/Service';
 export class PrescriptionHeaderComponent implements OnInit {
   @Input() cabinet: Cabinet;
   @Input() doctor: Doctor;
-  @Input() title: string = "Ordonnance";
+  @Input() title: string ;
   public servicesFr: Service[] = [];
   public servicesAr: Service[] = [];
   constructor() { }

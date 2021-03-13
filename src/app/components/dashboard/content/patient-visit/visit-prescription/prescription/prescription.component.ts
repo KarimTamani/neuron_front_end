@@ -13,6 +13,9 @@ import { Visit } from 'src/app/classes/Visit';
 })
 export class PrescriptionComponent implements OnInit {
   @Input() visit : Visit ;  
+  @Input() title : string ="Ordonnance" ; 
+  @Input() type : string = "drug-dosages"; 
+
   public doctor : Doctor ; 
   public cabinet : Cabinet ; 
   constructor(private apollo : Apollo) {
