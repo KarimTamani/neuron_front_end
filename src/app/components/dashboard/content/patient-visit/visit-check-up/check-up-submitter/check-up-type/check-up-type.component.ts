@@ -9,15 +9,11 @@ import { CheckUpType } from 'src/app/classes/CheckUpType';
 })
 export class CheckUpTypeComponent implements OnInit {
   @Input() checkUpType: CheckUpType;
-  public expand: boolean = false;
-  @Output() selectEvent: EventEmitter<CheckUp>;
+  @Input() selectedCheckUps : CheckUp[]   ; 
+  public expand: boolean = false; 
   constructor() {
-    this.selectEvent = new EventEmitter<CheckUp>();
   }
-
   ngOnInit(): void {
-  }
-  public select($event) {
-    this.selectEvent.emit($event);
+    console.log(this.selectedCheckUps) ; 
   }
 }

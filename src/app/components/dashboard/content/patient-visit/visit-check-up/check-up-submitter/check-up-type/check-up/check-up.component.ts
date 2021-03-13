@@ -8,18 +8,31 @@ import { CheckUp } from 'src/app/classes/CheckUp';
 })
 export class CheckUpComponent implements OnInit {
   @Input() checkUp : CheckUp ; 
-  public selected : boolean = false;  
-  @Output() selectEvent : EventEmitter<CheckUp> ; 
+  @Input() selectedCheckUps : CheckUp[] ; 
+  public selected : boolean = false ; 
+  public selectEvent : EventEmitter<CheckUp> ;  
   constructor() {
-    this.selectEvent  = new EventEmitter<CheckUp>() ; 
-  }
+    this.selectEvent = new EventEmitter<CheckUp>() ; 
+  }                                                                                                             
 
   ngOnInit(): void {
+    console.log(this.selectedCheckUps) ;                                      
+    const index = this.selectedCheckUps.findIndex((checkUp) => checkUp.id == this.checkUp.id);
+    if (index >= 0 ) 
+      this.selected = true ; 
+  
   }
 
   public select() { 
+  
+    const index = this.selectedCheckUps.findIndex((checkUp) => checkUp.id == this.checkUp.id);
+    if (index >= 0) {
+      this.selectedCheckUps.splice(index, 1);
+    } else {
+      this.selectedCheckUps.push(this.checkUp)  ;
+    }
+     
     this.selected = !this.selected ; 
-    this.selectEvent.emit(this.checkUp) ; 
   }
 
 }

@@ -11,7 +11,9 @@ export class VisitCheckUpComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.visit);
+
+
   }
 
+   
 }

@@ -12,19 +12,40 @@ import { CheckUpType } from 'src/app/classes/CheckUpType';
 })
 export class CheckUpSubmitterComponent implements OnInit {
   @Input() checkUps: CheckUp[];
-  public checkUpTypes : CheckUpType[] = [] ; 
+  public checkUpTypes: CheckUpType[] = [];
+  public checkUpsList: CheckUp[] = [];
+  public name: string;
+  public handler: any;
   constructor(private apollo: Apollo) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.apollo.query({
       query: gql`
         {  
-          getCheckUpTypes { id name checkUps { id name }}
+          getCheckUpTypes { id name checkUps { id name   }}
         }`
     }
     ).pipe(map(value => (<any>value.data).getCheckUpTypes)).subscribe((data) => {
-      this.checkUpTypes = data ;  
+      this.checkUpTypes = data;
     })
   }
 
-}
+
+  public search($event) {
+    if (this.handler)
+      clearInterval(this.handler);
+    if (this.name && this.name.trim().length > 0)
+      this.handler = setTimeout(() => {
+        this.apollo.query({
+          query: gql`{
+            searchCheckUps(name : "${this.name}") { id name }
+          }`
+        }).pipe(map(value => (<any>value.data).searchCheckUps)).subscribe((data) => { 
+          this.checkUpsList = data ;  
+
+        })
+      }, 200);
+    else 
+      this.checkUpsList = []; 
+  }
+} 
