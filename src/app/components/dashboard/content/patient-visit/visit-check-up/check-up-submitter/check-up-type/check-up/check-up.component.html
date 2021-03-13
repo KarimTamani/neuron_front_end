@@ -1,1 +1,3 @@
-<p>check-up works!</p>
+<div class="main-container" (click)="select()">
+    <p (click)="selectEvent.emit(checkUp)">{{checkUp.name}} <i class="fa fa-check" [class.selected]="selected"></i></p>
+</div>

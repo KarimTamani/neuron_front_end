@@ -1,0 +1,35 @@
+.main-container {
+    font-size: 12px;
+    padding: 6px 8px;
+    transition-duration: 0.3s;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.main-container i {
+    float: right;
+    padding: 4px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: -2px;
+    color: transparent;
+}
+
+.main-container:hover i {
+    border-color: rgb(38, 94, 215);
+    color: rgb(38, 94, 215);
+}
+
+.main-container i.selected {
+    border-color: rgb(38, 94, 215);
+    color: rgb(38, 94, 215);
+}
+
+.main-container p {
+    margin: 0px;
+}
+
+.main-container:hover {
+    background: #eee;
+}

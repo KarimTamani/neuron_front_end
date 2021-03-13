@@ -13,5 +13,7 @@ export class CheckUpTypeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  public select($event) { 
+    
+  }
 }
