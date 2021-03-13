@@ -8,7 +8,7 @@
                 <app-prescription-drug-dosages [visit]="visit"></app-prescription-drug-dosages>
             </div>
             <div *ngIf="type == 'prescription-check-up'">
-                <app-prescription-check-up [visit]="visit"></app-prescription-check-up>
+                <app-prescription-check-up [checkUpTypes]="checkUpTypes" [visit]="visit"></app-prescription-check-up>
             </div>
         </div>
         <div class="footer">

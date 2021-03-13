@@ -1,1 +1,10 @@
-ksjqldkjsqkldj
+<div class="main-container">
+    <div class="row">
+        <div class="col col-md-6" *ngFor="let checkUpType of checkUps">
+            <h5>{{checkUpType.name}}</h5>
+            <div class="check-ups" *ngFor="let checkUp of checkUpType.checkUps">
+                <p>{{checkUp.name}}</p>
+            </div>
+        </div>
+    </div>
+</div>

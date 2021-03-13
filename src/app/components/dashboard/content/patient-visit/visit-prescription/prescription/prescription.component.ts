@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Cabinet } from 'src/app/classes/Cabinet';
+import { CheckUpType } from 'src/app/classes/CheckUpType';
 import { Doctor } from 'src/app/classes/Doctor';
 import { Visit } from 'src/app/classes/Visit';
 
@@ -13,6 +14,7 @@ import { Visit } from 'src/app/classes/Visit';
 })
 export class PrescriptionComponent implements OnInit {
   @Input() visit : Visit ;  
+  @Input() checkUpTypes : CheckUpType[] = [] ; 
   @Input() title : string ="Ordonnance" ; 
   @Input() type : string = "drug-dosages"; 
 

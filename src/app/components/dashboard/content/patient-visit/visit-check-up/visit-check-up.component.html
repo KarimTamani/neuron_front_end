@@ -1,8 +1,8 @@
 <div class="main-container stretch-container">
     <div class="side submitter-side primary-radius">
-        <app-check-up-submitter [checkUps]="visit.checkUps"></app-check-up-submitter>
+        <app-check-up-submitter [checkUpTypes]="checkUpTypes" [checkUps]="visit.checkUps"></app-check-up-submitter>
     </div>
     <div class="side prescription-side primary-radius">
-        <app-prescription [type]="'prescription-check-up'" [title]="'Demande de bilan'" [visit]="visit"></app-prescription>
+        <app-prescription [checkUpTypes]="checkUpTypes" [type]="'prescription-check-up'" [title]="'Demande de bilan'" [visit]="visit"></app-prescription>
     </div>
 </div>

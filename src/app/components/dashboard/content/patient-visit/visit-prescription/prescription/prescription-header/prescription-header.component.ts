@@ -20,9 +20,7 @@ export class PrescriptionHeaderComponent implements OnInit {
     if (this.cabinet.services) {
       this.servicesFr = this.cabinet.services.filter(value => value.language == "FR") ; 
       this.servicesAr = this.cabinet.services.filter(value => value.language == "AR") ; 
-      
-    } 
-    console.log(this.doctor) ;
+    }  
   }
 
 }
