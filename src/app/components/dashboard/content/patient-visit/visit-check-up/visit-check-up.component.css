@@ -1,0 +1,16 @@
+.side {
+    background: white;
+}
+
+.prescription-side {
+    width: 540px;
+    max-width: 540px;
+    min-width: 540px;
+    margin-left: 16px;
+}
+
+.submitter-side {
+    width: 100%;
+    margin-right: 16px;
+    height: 360px;
+}
