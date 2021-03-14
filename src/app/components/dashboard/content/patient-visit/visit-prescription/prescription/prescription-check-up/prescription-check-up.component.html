@@ -1,6 +1,7 @@
 <div class="main-container">
     <div class="row">
-        <div class="col col-md-6" *ngFor="let checkUpType of checkUps">
+        <div class="col col-md-6" *ngFor="let checkUpType of checkUps; let index = index" [class.odd]=" index % 2 == 0" [class.even]=" index % 2 == 1">
+
             <h5>{{checkUpType.name}}</h5>
             <div class="check-ups" *ngFor="let checkUp of checkUpType.checkUps">
                 <p>{{checkUp.name}}</p>

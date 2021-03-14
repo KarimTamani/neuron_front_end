@@ -9,3 +9,11 @@ p {
     color: #555;
     margin-bottom: 4px;
 }
+
+.odd {
+    float: left;
+}
+
+.even {
+    float: right;
+}
