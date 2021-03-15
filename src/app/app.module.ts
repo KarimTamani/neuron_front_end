@@ -129,7 +129,8 @@ import { CheckUpSubmitterComponent } from './components/dashboard/content/patien
 import { CheckUpTypeComponent } from './components/dashboard/content/patient-visit/visit-check-up/check-up-submitter/check-up-type/check-up-type.component';
 import { CheckUpComponent } from './components/dashboard/content/patient-visit/visit-check-up/check-up-submitter/check-up-type/check-up/check-up.component';
 import { PrescriptionCheckUpComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-check-up/prescription-check-up.component';
-import { DocumentComponent } from './components/dashboard/content/patient-visit/visit-documents/document/document.component' ; 
+import { DocumentComponent } from './components/dashboard/content/patient-visit/visit-documents/document/document.component';
+import { DocumentSubmitterComponent } from './components/dashboard/content/patient-visit/visit-document/document-submitter/document-submitter.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -248,6 +249,7 @@ import { DocumentComponent } from './components/dashboard/content/patient-visit/
     CheckUpComponent,
     PrescriptionCheckUpComponent,
     DocumentComponent,
+    DocumentSubmitterComponent,
   ],
   imports: [
     BrowserModule,

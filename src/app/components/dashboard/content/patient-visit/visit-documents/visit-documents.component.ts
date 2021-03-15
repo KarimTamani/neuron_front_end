@@ -15,7 +15,8 @@ export class VisitDocumentsComponent implements OnInit {
   public documents: Document[] = [];
   public visitsDocuments: Visit[] = []
   @Input() visit: Visit;
-  constructor(private apollo: Apollo , private dataService : DataService) { }
+  public expandVisit: number;
+  constructor(private apollo: Apollo, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.apollo.query({
@@ -29,15 +30,15 @@ export class VisitDocumentsComponent implements OnInit {
         }`
     }).pipe(map(value => (<any>value.data).getDocuments)).subscribe((data) => {
 
-      data.forEach(document => { 
-        document.visit.createdAt = this.dataService.castFRDate(new Date(parseInt(document.visit.createdAt))) ; 
+      data.forEach(document => {
+        document.visit.createdAt = this.dataService.castFRDate(new Date(parseInt(document.visit.createdAt)));
       })
-      this.documents = data; 
-       
-      this.visitsDocuments.push(<Visit>{ 
-        id : this.visit.id , 
-        documents : [] , 
-        createdAt : this.visit.createdAt = this.dataService.castFRDate(new Date(parseInt(this.visit.createdAt)))  
+      this.documents = data;
+
+      this.visitsDocuments.push(<Visit>{
+        id: this.visit.id,
+        documents: [],
+        createdAt: this.visit.createdAt = this.dataService.castFRDate(new Date(parseInt(this.visit.createdAt)))
       });
 
       // pipe documents into visitDocuments 
@@ -46,17 +47,27 @@ export class VisitDocumentsComponent implements OnInit {
         let visit = this.visitsDocuments.find(value => value.id == document.visit.id);
         if (visit) {
           visit.documents.push(document);
-          continue ;
+          continue;
         } else {
           visit = new Visit();
           visit.id = document.visit.id;
-          visit.createdAt = document.visit.createdAt; 
-          visit.documents.push(document) ; 
+          visit.createdAt = document.visit.createdAt;
+          visit.documents.push(document);
           this.visitsDocuments.push(visit);
         }
       }
- 
+
     })
+  }
+
+  public selectVisit(visitDocument, i) {
+    if (i == 0)
+      return;
+
+    if (visitDocument.id == this.expandVisit)
+      this.expandVisit = null;
+    else 
+      this.expandVisit = visitDocument.id ; 
   }
 
 }

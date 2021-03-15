@@ -55,3 +55,30 @@
 .documents {
     padding: 16px;
 }
+
+.document-submitter {
+    height: 308px;
+    background: #eee;
+    border: 5px dashed #aaa;
+    position: relative;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.document-submitter:hover {
+    background: rgba(38, 94, 215, 0.3);
+    border-color: rgba(38, 94, 215, 0.5);
+}
+
+.document-submitter:hover i {
+    color: rgba(38, 94, 215, 0.5);
+}
+
+.document-submitter i {
+    position: absolute;
+    color: #aaa;
+    font-size: 48px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
