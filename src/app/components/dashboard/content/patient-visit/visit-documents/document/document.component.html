@@ -1,1 +1,14 @@
-<p>document works!</p>
+<div class="main-container primary-radius">
+    <div class="image-container">
+        <img src="{{document.path}}">
+        <p>
+            {{document.name}}
+        </p>
+    </div>
+    <div class="description-container">
+        <p *ngIf="document.description">{{document.description}}</p>
+        <p *ngIf="!document.description" class="no-desc">
+            Aucun Description pour ce document
+        </p>
+    </div>
+</div>

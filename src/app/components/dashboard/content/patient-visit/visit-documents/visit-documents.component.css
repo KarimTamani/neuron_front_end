@@ -51,3 +51,7 @@
     width: 32px;
     transition-duration: 0.3s;
 }
+
+.documents {
+    padding: 16px;
+}

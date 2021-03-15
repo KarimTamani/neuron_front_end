@@ -6,8 +6,8 @@
             <i class="fa fa-chevron-down"></i>
         </div>
         <div class="documents row">
-            <div class="col col-md-4" *ngFor="let document of visitDocument.documents">
-
+            <div class="col col-md-3" *ngFor="let document of visitDocument.documents">
+                <app-document [document]="document"></app-document>
             </div>
         </div>
     </div>
