@@ -13,7 +13,6 @@ export class CheckUpTypeComponent implements OnInit {
   public expand: boolean = false; 
   constructor() {
   }
-  ngOnInit(): void {
-    console.log(this.selectedCheckUps) ; 
+  ngOnInit(): void { 
   }
 }

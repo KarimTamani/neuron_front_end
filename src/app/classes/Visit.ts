@@ -7,6 +7,7 @@ import { Condition } from "./Condition" ;
 import {VisitDrugDosage} from "./VisitDrugDosage" ; 
 import {Appointment } from "./Appointment" ; 
 import { CheckUp } from "./CheckUp";
+import { Document } from "./Document";
 export class Visit {
 
 
@@ -29,6 +30,8 @@ export class Visit {
     public clinicalExam : string ; 
     public condition : Condition = new Condition() ;
     public appointment : Appointment ; 
+    public documents : Document[] = [] ; 
     public createdAt : string ; 
     public updatedAt : string ; 
+    
 }

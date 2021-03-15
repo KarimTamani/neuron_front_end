@@ -15,8 +15,8 @@ export class CheckUpComponent implements OnInit {
     this.selectEvent = new EventEmitter<CheckUp>() ; 
   }                                                                                                             
 
-  ngOnInit(): void {
-    console.log(this.selectedCheckUps) ;                                      
+  ngOnInit(): void { 
+
     const index = this.selectedCheckUps.findIndex((checkUp) => checkUp.id == this.checkUp.id);
     if (index >= 0 ) 
       this.selected = true ; 
@@ -24,15 +24,17 @@ export class CheckUpComponent implements OnInit {
   }
 
   public select() { 
-  
+    
     const index = this.selectedCheckUps.findIndex((checkUp) => checkUp.id == this.checkUp.id);
     if (index >= 0) {
       this.selectedCheckUps.splice(index, 1);
     } else {
+      console.log(this.checkUp) ; 
+      
       this.selectedCheckUps.push(this.checkUp)  ;
     }
-     
     this.selected = !this.selected ; 
+    console.log(this.selectedCheckUps) ; 
   }
 
 }

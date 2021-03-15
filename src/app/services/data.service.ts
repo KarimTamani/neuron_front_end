@@ -33,6 +33,13 @@ export class DataService {
 
   constructor() { }
 
+  public castFRDate(date : Date) { 
+    const currentMonth = date.getMonth();
+    const currentYear = date.getFullYear();
+    const currentDay = date.getDate();
+
+    return `${currentDay} ${this.monthes[currentMonth]} ${currentYear}`
+  }
   public calculateImc(weight: number, height: number) {
     // a function to calculate the imc bassed from the weight and the height   
     let imc = weight / (height * height / 100) * 100;

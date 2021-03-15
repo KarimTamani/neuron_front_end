@@ -1,0 +1,53 @@
+.main-container {
+    padding: 16px;
+    background: white;
+}
+
+.visit-document-header {
+    position: relative;
+    padding: 4px 16px;
+    cursor: pointer;
+    overflow-x: hidden;
+    border-radius: 20px;
+    transition-duration: 0.3s;
+}
+
+.visit-document-header:hover {
+    background: #eee;
+}
+
+.visit-document-header:hover i,
+.visit-document-header:hover span {
+    background: transparent;
+}
+
+.visit-document {
+    margin-bottom: 16px;
+}
+
+.visit-document-header hr {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    top: 50%;
+    margin: 0px;
+    transform: translateY(-50%);
+}
+
+.visit-document-header span {
+    background: white;
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
+    transition-duration: 0.3s;
+}
+
+.visit-document-header i {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    width: 32px;
+    transition-duration: 0.3s;
+}

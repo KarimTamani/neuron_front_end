@@ -30,11 +30,10 @@ export class CheckUpSubmitterComponent implements OnInit {
       this.handler = setTimeout(() => {
         this.apollo.query({
           query: gql`{
-            searchCheckUps(name : "${this.name}") { id name }
+            searchCheckUps(name : "${this.name}") { id name checkUpTypeId }
           }`
         }).pipe(map(value => (<any>value.data).searchCheckUps)).subscribe((data) => { 
           this.checkUpsList = data ;  
-
         })
       }, 200);
     else 

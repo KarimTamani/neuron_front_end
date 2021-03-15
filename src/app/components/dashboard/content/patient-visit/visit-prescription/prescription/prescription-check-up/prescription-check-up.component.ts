@@ -17,23 +17,23 @@ export class PrescriptionCheckUpComponent implements OnInit {
   }
 
   get checkUps(): CheckUpType[] {
-
     let types: CheckUpType[] = [];
     for (let index = 0; index < this.visit.checkUps.length; index++) {
       let source = this.checkUpTypes.findIndex((value) => value.id == this.visit.checkUps[index].checkUpTypeId);
+      
       let sourceType = this.checkUpTypes[source];
-      let target = types.findIndex(value => value.id == sourceType.id) ; 
-      if (target >= 0) { 
-        types[target].checkUps.push(this.visit.checkUps[index]) ; 
-      } else { 
-        let type = new CheckUpType( ) ; 
-        type.name = sourceType.name ; 
-        type.id = sourceType.id ; 
-        type.checkUps.push(this.visit.checkUps[index]) ; 
-        types.push(type) ; 
+
+      let target = types.findIndex(value => value.id == sourceType.id);
+      if (target >= 0) {
+        types[target].checkUps.push(this.visit.checkUps[index]);
+      } else {
+        let type = new CheckUpType();
+        type.name = sourceType.name;
+        type.id = sourceType.id;
+        type.checkUps.push(this.visit.checkUps[index]);
+        types.push(type);
       }
     }
-    console.log(types) ; 
-    return types ; 
+    return types;
   }
 }
