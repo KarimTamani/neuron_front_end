@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Document } from 'src/app/classes/Document';
 import { Visit } from 'src/app/classes/Visit';
 import { DataService } from 'src/app/services/data.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-visit-documents',
@@ -16,7 +18,7 @@ export class VisitDocumentsComponent implements OnInit {
   public visitsDocuments: Visit[] = []
   @Input() visit: Visit;
   public expandVisit: number;
-  constructor(private apollo: Apollo, private dataService: DataService) { }
+  constructor(private apollo: Apollo, private dataService: DataService , private router : Router, private interactionService : InteractionService) { }
 
   ngOnInit(): void {
     this.apollo.query({
@@ -69,5 +71,21 @@ export class VisitDocumentsComponent implements OnInit {
     else 
       this.expandVisit = visitDocument.id ; 
   }
+  public openSubmitter() { 
+    
+    
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window" : true , 
+        "window-page" : "document-submitter" , 
+        "title" : "Ajouter un document" , 
+        "visit-id" : this.visit.id 
+      }
+    }); 
 
+    const subscription = this.interactionService.documentAdded.subscribe((data) => { 
+      this.visitsDocuments[0].documents.splice(0 , 0 , data) ; 
+      subscription.unsubscribe() ; 
+    })
+  }
 }

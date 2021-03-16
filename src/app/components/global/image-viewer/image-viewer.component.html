@@ -1,5 +1,5 @@
 <div class="image-viewer-container">
-    <div class="viewer" (click)="file.click()">
+    <div class="viewer" [ngStyle]="{'height' : height}" (click)="file.click()">
         <i class="fa fa-camera"></i>
         <input type="file" (change)="render(image)" #file>
         <img #image>

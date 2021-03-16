@@ -55,6 +55,7 @@ body {
 }
 
 input.is-invalid,
+textarea.is-invalid,
 .input-container.is-invalid {
     border-color: rgb(254, 101, 85) !important;
 }

@@ -21,6 +21,7 @@ export class PopUpWindowComponent implements OnInit {
       let title = params.get("title") 
       if (title !== null) 
         this.title = title ; 
+       
     })
   }
   preventPropagation($event) {

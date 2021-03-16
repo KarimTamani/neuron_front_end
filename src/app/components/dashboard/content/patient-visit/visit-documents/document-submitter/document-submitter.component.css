@@ -1,0 +1,37 @@
+.main-container {
+    width: 420px;
+    padding: 16px;
+}
+
+.image-container {
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.content {
+    background: white;
+    padding: 16px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+textarea {
+    height: 120px;
+    max-height: 120px;
+    min-height: 120px;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.control button {
+    width: 120px;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.control button:last-child {
+    float: right;
+}

@@ -12,8 +12,10 @@ export class ImageViewerComponent implements OnInit {
   @ViewChild("file") file;
   @ViewChild("image", { static: true }) image;
   //@Input("clearImage") clearImage: Subject<null>
-  @Output("imageSelectedEvent") imageSelectedEvent: EventEmitter<any>
+  @Output("imageSelectedEvent") imageSelectedEvent: EventEmitter<any>; 
+
   @Input() initImage: any = null;
+  @Input() height : string = "520px"
   constructor() {
     this.imageSelectedEvent = new EventEmitter<any>()
   }

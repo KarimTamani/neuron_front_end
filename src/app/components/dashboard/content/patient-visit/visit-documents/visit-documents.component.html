@@ -7,7 +7,7 @@
         </div>
         <div class="documents row" *ngIf="i == 0 || expandVisit == visitDocument.id">
             <div class="col col-md-3" *ngIf=" i == 0 ">
-                <div class="document-submitter primary-radius">
+                <div class="document-submitter primary-radius" (click)="openSubmitter()">
                     <i class="fa fa-plus"></i>
                 </div>
             </div>
