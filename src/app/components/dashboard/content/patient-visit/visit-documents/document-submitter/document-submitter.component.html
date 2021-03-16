@@ -1,11 +1,10 @@
 <div class="main-container">
     <div class="content primary-radius">
         <div class="image-container">
-            <app-image-viewer [height]="'320px'" (imageSelectedEvent)="onImageSelected($event)"></app-image-viewer>
+            <app-image-viewer [height]="'320px'" [initUrl]="initUrl" (imageSelectedEvent)="onImageSelected($event)"></app-image-viewer>
         </div>
         <div class="info-container">
             <form name="form" [formGroup]="form">
-
                 <div class="form-group">
                     <input type="text" [(ngModel)]="document.name" placeholder="Titre" formControlName="name" class="primary-input" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
                     <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
@@ -21,7 +20,9 @@
                 </div>
                 <div class="control">
                     <button class="secondary-button" (click)="clear()">Effacer </button>
-                    <button class="primary-button" (click)="save()" [disabled]="form.invalid">Ajouter <i class="fa fa-plus"></i> </button>
+                    <button *ngIf="!isEdit" class="primary-button" (click)="save()" [disabled]="form.invalid">Ajouter <i class="fa fa-plus"></i> </button>
+                    <button *ngIf="isEdit" class="primary-button" (click)="edit()" [disabled]="form.invalid">Modifer <i class="fa fa-edit"></i> </button>
+
                 </div>
             </form>
         </div>

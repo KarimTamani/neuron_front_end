@@ -15,6 +15,7 @@ export class ImageViewerComponent implements OnInit {
   @Output("imageSelectedEvent") imageSelectedEvent: EventEmitter<any>; 
 
   @Input() initImage: any = null;
+  @Input() initUrl : string = null ; 
   @Input() height : string = "520px"
   constructor() {
     this.imageSelectedEvent = new EventEmitter<any>()

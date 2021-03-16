@@ -1,4 +1,8 @@
 <div class="main-container primary-radius">
+    <div class="control">
+        <span (click)="edit()">Modifier <i class="fa fa-edit"></i></span>
+        <span (click)="delete()">Suprimer<i class="fa fa-trash"></i></span>
+    </div>
     <div class="image-container">
         <img src="{{document.path}}">
         <p>

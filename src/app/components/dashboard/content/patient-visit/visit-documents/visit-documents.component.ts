@@ -18,7 +18,7 @@ export class VisitDocumentsComponent implements OnInit {
   public visitsDocuments: Visit[] = []
   @Input() visit: Visit;
   public expandVisit: number;
-  constructor(private apollo: Apollo, private dataService: DataService , private router : Router, private interactionService : InteractionService) { }
+  constructor(private apollo: Apollo, private dataService: DataService, private router: Router, private interactionService: InteractionService) { }
 
   ngOnInit(): void {
     this.apollo.query({
@@ -68,24 +68,48 @@ export class VisitDocumentsComponent implements OnInit {
 
     if (visitDocument.id == this.expandVisit)
       this.expandVisit = null;
-    else 
-      this.expandVisit = visitDocument.id ; 
+    else
+      this.expandVisit = visitDocument.id;
   }
-  public openSubmitter() { 
-    
-    
-    this.router.navigate([] , { 
-      queryParams : { 
-        "pop-up-window" : true , 
-        "window-page" : "document-submitter" , 
-        "title" : "Ajouter un document" , 
-        "visit-id" : this.visit.id 
-      }
-    }); 
 
-    const subscription = this.interactionService.documentAdded.subscribe((data) => { 
-      this.visitsDocuments[0].documents.splice(0 , 0 , data) ; 
-      subscription.unsubscribe() ; 
+
+  public openSubmitter() {
+
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "document-submitter",
+        "title": "Ajouter un document",
+        "visit-id": this.visit.id
+      }
+    });
+
+    const subscription = this.interactionService.documentAdded.subscribe((data) => {
+      this.visitsDocuments[0].documents.splice(0, 0, data);
+      subscription.unsubscribe();
     })
+  }
+  public editDocument($event) {
+
+    const index = this.documents.findIndex(value => value.id == $event.id);
+    this.documents[index].path = $event.path;
+    this.documents[index].description = $event.description;
+    this.documents[index].name = $event.name;
+
+  }
+
+  public delete($event) {
+    console.log("i am deleting right now" ) ; 
+    let index = this.documents.findIndex(document => document.id == $event)
+    this.documents.splice(index, 1);
+
+    for (index = 0; index < this.visitsDocuments.length; index++) {
+      let visit = this.visitsDocuments[index];
+      let i = visit.documents.findIndex(value => value.id == $event);
+      if (i >= 0) {
+        visit.documents.splice(i, 1);
+        break;
+      }
+    }
   }
 }

@@ -10,6 +10,7 @@ import { Appointment } from '../classes/Appointment';
 import { Expense } from '../classes/Expense';
 import { PrescriptionModel } from '../classes/PrescriptionModel';
 import { Document } from '../classes/Document';
+import { SubjectSubscriber } from 'rxjs/internal/Subject';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,7 @@ export class InteractionService {
   public addprescriptionModel: Subject<PrescriptionModel>;
   public editPrescriptionModel: Subject<PrescriptionModel>;
   public documentAdded : Subject<Document> ; 
+  public documentEdit : Subject<Document> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -52,5 +54,6 @@ export class InteractionService {
     this.addprescriptionModel = new Subject<PrescriptionModel>();
     this.editPrescriptionModel = new Subject<PrescriptionModel>();
     this.documentAdded = new Subject<Document>()  ;
+    this.documentEdit = new Subject<Document>() ; 
   }
 }
