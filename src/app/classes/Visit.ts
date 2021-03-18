@@ -8,9 +8,8 @@ import {VisitDrugDosage} from "./VisitDrugDosage" ;
 import {Appointment } from "./Appointment" ; 
 import { CheckUp } from "./CheckUp";
 import { Document } from "./Document";
+import { NeuronResponse } from "./NeuronResponse";
 export class Visit {
-
-
     public id: number;
     public arrivalTime: string;
     public startTime: string;
@@ -33,5 +32,5 @@ export class Visit {
     public documents : Document[] = [] ; 
     public createdAt : string ; 
     public updatedAt : string ; 
-    
+    public neuronResponses : NeuronResponse[] = [] ;     
 }

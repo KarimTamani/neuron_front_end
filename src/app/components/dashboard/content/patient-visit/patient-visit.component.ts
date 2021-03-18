@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
-  public page: number = 6;
+  public page: number = 2;
   public visit: Visit;
   public subscriptions: Subscription[] = [];
   constructor(private apollo: Apollo, private interactionServide: InteractionService) {

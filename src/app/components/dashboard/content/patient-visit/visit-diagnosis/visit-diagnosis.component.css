@@ -1,0 +1,57 @@
+.main-container {
+    padding: 16px;
+    background: white;
+}
+
+.visit-response-header {
+    position: relative;
+    padding: 4px 16px;
+    cursor: pointer;
+    overflow-x: hidden;
+    border-radius: 20px;
+    transition-duration: 0.3s;
+}
+
+.visit-response-header:hover {
+    background: #eee;
+}
+
+.visit-response-header:hover i,
+.visit-response-header:hover span {
+    background: transparent;
+}
+
+.visit-response {
+    margin-bottom: 16px;
+}
+
+.visit-response-header hr {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    top: 50%;
+    margin: 0px;
+    transform: translateY(-50%);
+}
+
+.visit-response-header span {
+    background: white;
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
+    transition-duration: 0.3s;
+}
+
+.visit-response-header i {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    width: 32px;
+    transition-duration: 0.3s;
+}
+
+.responses {
+    padding: 16px;
+}
