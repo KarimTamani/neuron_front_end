@@ -122,7 +122,6 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     this.page = $event;
   }
 
-
   public visitSelected($event) {
     this.visit = $event;
     this.initVisit();

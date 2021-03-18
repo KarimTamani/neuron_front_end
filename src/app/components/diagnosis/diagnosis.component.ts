@@ -82,6 +82,7 @@ export class DiagnosisComponent implements OnInit {
       mutation: gql`
         mutation{
           performNeuronRequest(request : {
+            visitId : ${this.visit.id}
             input : "${symptoms}" , 
             models : ["SYMPTOMS_CLASSIFIER"]
           })

@@ -17,9 +17,12 @@
                 </a>
             </div>
             <div class="drop-down-option">
-                <a [queryParams]="{'pop-up-window' : true , 'window-page' : 'speciality-diagnosis' , 'title' : 'Diagnostic symptomatique'}" [routerLink]="">
+                <a (click)="openAdvancedDiagnosis()">
                     <span>Diagnostique Avances</span>
                 </a>
+            </div>
+            <div class="drop-down-option" (click)="select(2)">
+                <span>Historique</span>
             </div>
         </div>
     </div>

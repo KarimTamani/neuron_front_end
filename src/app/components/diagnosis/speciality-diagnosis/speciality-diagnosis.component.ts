@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 import { map } from "rxjs/operators";
+import { Visit } from 'src/app/classes/Visit';
 @Component({
   selector: 'app-speciality-diagnosis',
   templateUrl: './speciality-diagnosis.component.html',
@@ -21,6 +22,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
   public showResult: boolean = false;
 
   public diagnosisResult: any = null;
+  public visit : Visit ; 
   constructor(private apollo: Apollo, private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
 
@@ -61,6 +63,11 @@ export class SpecialityDiagnosisComponent implements OnInit {
         }
       })
     })
+  
+    var params = JSON.parse(JSON.stringify(this.route.snapshot.queryParams))
+
+    this.visit = JSON.parse(decodeURIComponent(params["visit"])) ; 
+    console.log(this.visit) ; 
   }
 
   public back() {
@@ -103,6 +110,8 @@ export class SpecialityDiagnosisComponent implements OnInit {
       queryParams: params
     })
     this.selectedCollection = collection;
+    
+
 
   }
 
@@ -125,7 +134,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
     this.apollo.mutate({
       mutation: gql`
         mutation NeuronImageRequest($image: Upload!, $models: [String!]! ,$collectionId : ID!) {
-          performNeuronImageRequest(request: {image: $image, models: $models , collectionId : $collectionId}) {
+          performNeuronImageRequest(request: {visitId : ${this.visit.id} , image: $image, models: $models , collectionId : $collectionId}) {
             original_image
             result
           }

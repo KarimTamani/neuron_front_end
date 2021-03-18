@@ -33,6 +33,17 @@ export class VisitHeaderComponent implements OnInit {
        }
      }) ; 
   }
+  openAdvancedDiagnosis() { 
+    this.router.navigate([] , {
+      queryParams : {
+       'pop-up-window' : true , 
+       'window-page' : 'speciality-diagnosis' , 
+       'title' : "Diagnostic Avancées" , 
+       'visit' : encodeURIComponent(JSON.stringify(this.visit))
+      }
+    }) ; 
+    
+  }
 
   openVisitAppointment() { 
     this.router.navigate([] , { 

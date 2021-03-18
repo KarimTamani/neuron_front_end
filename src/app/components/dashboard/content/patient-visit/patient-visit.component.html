@@ -6,6 +6,9 @@
             <div class="page" *ngIf="page == 1">
                 <app-visit-information (visitSelectedEvent)="visitSelected($event)" [visit]="visit"></app-visit-information>
             </div>
+            <div class="page">
+                <app-visit-diagnosis [visit]="visit" *ngIf="visit.medicalFile"></app-visit-diagnosis>
+            </div>
             <div class="page" *ngIf="page == 3">
                 <app-visit-prescription [visit]="visit"></app-visit-prescription>
             </div>
