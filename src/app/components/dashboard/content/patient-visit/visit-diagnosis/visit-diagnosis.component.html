@@ -7,7 +7,9 @@
         </div>
         <div class="responses row" *ngIf="i == 0 || expandVisit == visitResponse.id">
             <div class="col col-md-3" *ngFor="let response of visitResponse.neuronResponses">
-                {{response.neuronPrediction}}
+
+                <app-neuron-response [neuronResponse]="response"></app-neuron-response>
+
             </div>
         </div>
     </div>
