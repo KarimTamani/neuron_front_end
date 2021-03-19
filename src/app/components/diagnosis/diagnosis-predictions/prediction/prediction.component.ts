@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PredictionComponent implements OnInit {
   @Input() prediction : any ; 
+  @Input() small : boolean = false ; 
   public color : string = null ; 
   constructor() { }
 

@@ -16,55 +16,73 @@ export class VisitDiagnosisComponent implements OnInit {
   public neuronResponses: NeuronResponse[] = [];
   public visitsNeuronResponses: Visit[] = [];
   public expandVisit: Visit = null;
+  public modelOutputs :any[] = []  ;
+
   constructor(private apollo: Apollo, private dataService: DataService) { }
 
   ngOnInit(): void {
-
     this.apollo.query({
-      query: gql`
-      {
-        getNeuronResponses(medicalFileId: ${this.visit.medicalFile.id}) {
-          id
-          neuronPrediction
-          doctorPrediction
-          type
-          visit { 
-            id 
-            createdAt 
-          }
-          createdAt
-          updatedAt
-          neuronCollection {
+      query: gql`{
+        getModelsOutput {type  , output}
+      }`
+    }).pipe(map(result => (<any>result.data).getModelsOutput)).subscribe((data) => {
+      this.modelOutputs = data ; 
+      this.apollo.query({
+        query: gql`
+        {
+          getNeuronResponses(medicalFileId: ${this.visit.medicalFile.id}) {
             id
-            speciality { id name }
-            name
-            models {
+            neuronPrediction
+            doctorPrediction
+            type
+            input 
+            visit { 
+              id 
+              createdAt 
+                medicalFile {
+                  id name lastname birthday gender
+                }
+                vitalSetting {
+                  weight  
+                  size   
+                }
+              
+            }
+            createdAt
+            updatedAt
+            neuronCollection {
               id
+              speciality { id name }
               name
+              models {
+                id
+                name
+              }
             }
           }
+        }`
+      }).pipe(map(value => (<any>value.data).getNeuronResponses)).subscribe((data) => {
+        this.neuronResponses = data;
+        // loop over the neuron responses and extract each visit 
+        for (let index = 0; index < this.neuronResponses.length; index++) {
+          let visit = this.neuronResponses[index].visit;
+          const visitIndex = this.visitsNeuronResponses.findIndex(value => value.id == visit.id);
+          if (visitIndex >= 0) {
+            this.visitsNeuronResponses[visitIndex].neuronResponses.push(this.neuronResponses[index]);
+          } else {
+            // add new visit to the visitNeuronresponse
+            // create a copy from the visit to avoid the rucursivity 
+            let newVisit = new Visit();
+            newVisit.id = visit.id;
+            newVisit.createdAt = this.dataService.castFRDate(new Date(parseInt(visit.createdAt)));
+            newVisit.neuronResponses.push(this.neuronResponses[index]);
+  
+            this.visitsNeuronResponses.splice(0, 0, newVisit);
+          }
         }
-      }`
-    }).pipe(map(value => (<any>value.data).getNeuronResponses)).subscribe((data) => {
-      this.neuronResponses = data;
-      // loop over the neuron responses and extract each visit 
-      for (let index = 0; index < this.neuronResponses.length; index++) {
-        let visit = this.neuronResponses[index].visit;
-        const visitIndex = this.visitsNeuronResponses.findIndex(value => value.id == visit.id);
-        if (visitIndex >= 0) {
-          this.visitsNeuronResponses[visitIndex].neuronResponses.push(this.neuronResponses[index]);
-        } else {
-          // add new visit to the visitNeuronresponse
-          // create a copy from the visit to avoid the rucursivity 
-          let newVisit = new Visit();
-          newVisit.id = visit.id;
-          newVisit.createdAt = this.dataService.castFRDate(new Date(parseInt(visit.createdAt)));
-          newVisit.neuronResponses.push(this.neuronResponses[index]);
-
-          this.visitsNeuronResponses.splice(0, 0, newVisit);
-        }
-      }
-    })
+      })
+    }); 
+   
   }
 
   selectVisit(visitResponse, i) {

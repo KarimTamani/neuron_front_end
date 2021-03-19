@@ -22,7 +22,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
   public showResult: boolean = false;
 
   public diagnosisResult: any = null;
-  public visit : Visit ; 
+  public visit: Visit;
   constructor(private apollo: Apollo, private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
 
@@ -43,7 +43,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
       }`
     }).pipe(map(result => (<any>result.data).getAllSpecialities)).subscribe((data) => {
       this.specialities = data;
-      
+
       this.selectedSpeciality = data[0];
       this.selectedCollection = this.selectedSpeciality.neuronCollections[0];
 
@@ -63,10 +63,12 @@ export class SpecialityDiagnosisComponent implements OnInit {
         }
       })
     })
-  
-    var params = JSON.parse(JSON.stringify(this.route.snapshot.queryParams))
 
-    this.visit = JSON.parse(decodeURIComponent(params["visit"])) ; 
+    var params = JSON.parse(JSON.stringify(this.route.snapshot.queryParams))
+    if (params["result"]) {
+      this.showResult = true;
+    }
+    this.visit = JSON.parse(decodeURIComponent(params["visit"]));
     console.log(this.visit) ; 
   }
 
@@ -110,7 +112,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
       queryParams: params
     })
     this.selectedCollection = collection;
-    
+
 
 
   }
@@ -142,7 +144,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
       `,
       variables: {
         image: this.image,
-        models: this.selectedCollection.models.map( model => model.name),
+        models: this.selectedCollection.models.map(model => model.name),
         collectionId: this.selectedCollection.id
       },
       context: {

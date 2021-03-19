@@ -8,6 +8,7 @@ export class NeuronResponse {
     public doctorPrediction : string ; 
     public type : string ; 
     public createdAt : string ; 
+    public input : string ; 
     public updatedAt : string ; 
     public neuronCollection :  NeuronCollection ; 
 }

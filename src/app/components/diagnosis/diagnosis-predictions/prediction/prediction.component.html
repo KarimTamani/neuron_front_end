@@ -1,4 +1,4 @@
-<div class="prediction-container stretch-container">
+<div class="prediction-container stretch-container" *ngIf="!small">
     <div class="propa-side">
         <span [ngStyle]="{color : color}">{{roundPropability(prediction.propa)}} % </span>
         <app-progress-bar [progress]="prediction.propa" [color]="color"></app-progress-bar>
@@ -6,5 +6,13 @@
     <div class="info-side">
         <h5>{{prediction.name}}</h5>
         <span>possibilité : {{getPossibility()}}</span>
+    </div>
+</div>
+
+<div class="small-container" *ngIf="small">
+    <div class="small-propa">
+        <span [ngStyle]="{color : color}">{{roundPropability(prediction.propa)}} % </span>
+        <app-progress-bar [progress]="prediction.propa" [color]="color"></app-progress-bar>
+        <p>{{prediction.name}}</p>
     </div>
 </div>

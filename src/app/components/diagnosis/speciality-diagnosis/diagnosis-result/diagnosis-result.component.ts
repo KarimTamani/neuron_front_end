@@ -91,9 +91,11 @@ export class DiagnosisResultComponent implements OnInit, OnDestroy {
       }
     })
   }
+  
   public back() {
     this.backEventListener.emit()
   }
+  
   private isOutputImage(model_prediction) {
 
     var model_type = model_prediction.type;
@@ -104,12 +106,9 @@ export class DiagnosisResultComponent implements OnInit, OnDestroy {
       let image_output = model_output.output.find((output) => output == "IMAGE")
       return image_output != null
     }
-
   }
 
-
   private isOutputsRegions(model_prediction) {
-
     var model_type = model_prediction.type;
     let model_output = this.models_map.find((model_map) => model_map.type == model_type)
     if (model_output == null)

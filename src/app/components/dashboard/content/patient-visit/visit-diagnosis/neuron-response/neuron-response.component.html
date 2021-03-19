@@ -1,1 +1,22 @@
-<p>neuron-response works!</p>
+<div class="main-container primary-radius" (click)="openResult()">
+    <div class="input-container" *ngIf="neuronResponse.type == 'image'">
+        <div class="image-container">
+            <img src="{{neuronResponse.input}}">
+            <p>
+                {{neuronResponse.neuronCollection.name}}
+            </p>
+        </div>
+    </div>
+    <div class="input-container" *ngIf="neuronResponse.type == 'text'">
+        <div class="symptoms">
+            <span class="symptom" *ngFor="let symptom of symptoms">{{symptom}}</span>
+        </div>
+    </div>
+    <div class="prediction">
+        <div class="row">
+            <div class="col col-md-6" *ngFor="let prediction of topPredictions">
+                <app-prediction [small]="true" [prediction]="prediction"></app-prediction>
+            </div>
+        </div>
+    </div>
+</div>

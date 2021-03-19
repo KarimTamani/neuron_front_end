@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { map } from "rxjs/operators"
 import { ActivatedRoute } from '@angular/router';
 import { Visit } from 'src/app/classes/Visit';
+import { Symptom } from 'src/app/classes/Symptom';
 
 @Component({
   selector: 'app-diagnosis',
@@ -13,10 +14,11 @@ import { Visit } from 'src/app/classes/Visit';
 export class DiagnosisComponent implements OnInit {
   // init search query , search result , and the symptoms array  
   // init the selected Symptoms
-  public visit : Visit ; 
+  public visit: Visit;
   public showResult: boolean = false;
   public selectedSymptoms: any[] = []
   public predictions: any = null;
+  public allSymptoms: Symptom[] = [];
   // global body part symptoms to allocate each symptom in his properiate body area   
   public bodyAreaSymptoms = {
     head: [],
@@ -34,12 +36,39 @@ export class DiagnosisComponent implements OnInit {
   }
   // select either all symptoms list or search for a semptoms 
   public symptomsControllerMode: boolean = true;
-  constructor(private apollo: Apollo , private route : ActivatedRoute) { }
+  constructor(private apollo: Apollo, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => { 
-      this.visit = JSON.parse(decodeURIComponent(params.visit)) ; 
-      this.selectedSymptoms = this.visit.symptoms ; 
-      this.updateBodyAreaSymptoms() ; 
+    /*
+    this.route.queryParams.subscribe((params) => {
+      this.visit = JSON.parse(decodeURIComponent(params.visit));
+      this.selectedSymptoms = this.visit.symptoms;
+      this.updateBodyAreaSymptoms();
+    });
+    */
+
+    var params = this.route.snapshot.queryParams
+    
+    this.visit = JSON.parse(decodeURIComponent(params.visit));
+    console.log(this.visit) ; 
+    if (this.visit.symptoms) {
+      this.selectedSymptoms = this.visit.symptoms;
+      this.updateBodyAreaSymptoms();
+    } ; 
+ 
+    this.apollo.query({
+      query: gql`
+      {
+        searchSymptom(symptom : "") { id name bodyPartId } 
+      }`
+    }).pipe(map(value => (<any>value.data).searchSymptom)).subscribe((data) => {
+      this.allSymptoms = data;
+      if (params.symptoms && params.result)  {
+        this.selectedSymptoms = this.loadSymptomsFromString(decodeURIComponent(params.symptoms)) ; 
+        this.updateBodyAreaSymptoms() ; 
+
+        this.predictions = JSON.parse(decodeURIComponent(params.result))[0].output.predictions 
+        this.showResult = true ; 
+      }
     })
   }
 
@@ -71,13 +100,43 @@ export class DiagnosisComponent implements OnInit {
 
   }
 
+  private loadSymptomsFromString(str) {
+    var symptoms = [];
+    for (let index = 0; index < this.allSymptoms.length; index++) {
+
+      // check if the symptom exists in the command 
+      if (str.includes(this.allSymptoms[index].name)) {
+        let i = 0;
+        // if so check if the small symptom exists replace it 
+        // if it's the small symptom break 
+        // and dont add it 
+        for (; i < symptoms.length; i++) {
+
+          if (this.allSymptoms[index].name.includes(symptoms[i].name)) {
+
+            symptoms[i] = this.allSymptoms[index];
+            break;
+          }
+
+          if (symptoms[i].name.includes(this.allSymptoms[index].name)) {
+            break;
+          }
+        }
+        // if we reach the and without a mach then the symp do not exists ; 
+        if (i == symptoms.length)
+          symptoms.splice(0, 0, this.allSymptoms[index]);
+      }
+    }
+    return symptoms;
+  }
+
   diagnosis() {
     if (this.selectedSymptoms.length == 0)
       return;
 
     var symptoms: any = this.selectedSymptoms.map((value) => value.name)
     symptoms = symptoms.join(',')
-    
+
     this.apollo.mutate({
       mutation: gql`
         mutation{
@@ -88,9 +147,9 @@ export class DiagnosisComponent implements OnInit {
           })
         }
       `
-    }).pipe(map(result => (<any>result.data).performNeuronRequest)).subscribe((data : string) => {
-      this.predictions = JSON.parse(data)[0].output.predictions ;
-      this.showResult = true ; 
+    }).pipe(map(result => (<any>result.data).performNeuronRequest)).subscribe((data: string) => {
+      this.predictions = JSON.parse(data)[0].output.predictions;
+      this.showResult = true;
     })
   }
 }

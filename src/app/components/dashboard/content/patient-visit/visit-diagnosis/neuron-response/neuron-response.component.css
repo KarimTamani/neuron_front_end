@@ -1,0 +1,65 @@
+.main-container {
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.main-container:hover {
+    box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+.input-container {
+    height: 230px;
+}
+
+.image-container {
+    height: 100%;
+    position: relative;
+    overflow: hidden
+}
+
+.image-container img {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.image-container p {
+    position: absolute;
+    z-index: 1;
+    bottom: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    display: block;
+    width: 100%;
+    color: white;
+    margin: 0px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 13px;
+    overflow: hidden;
+}
+
+.prediction {
+    padding: 16px;
+}
+
+.symptom {
+    background: #eeeeee;
+    padding: 8px 16px;
+    display: inline-block;
+    border-radius: 20px;
+    color: #555555;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.symptoms {
+    padding: 16px;
+}
