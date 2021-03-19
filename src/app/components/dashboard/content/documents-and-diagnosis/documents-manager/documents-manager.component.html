@@ -1,3 +1,19 @@
 <div class="main-container">
-    <app-documents-search-header></app-documents-search-header>
+    <div class="body">
+        <div class="search-header">
+            <app-documents-search-header (searchEvent)="search($event)"></app-documents-search-header>
+        </div>
+        <div class="document-list row">
+
+            <div class="col col-md-3" *ngFor="let document of documents">
+                <div class="document-container">
+                    <app-document [document]="document"></app-document>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="pagination-container">
+        <app-pagination (pageSelected)="selectPage($event)" [count]="count" [loaded]="documents.length" [offset]="offset" [limit]="limit"></app-pagination>
+    </div>
 </div>

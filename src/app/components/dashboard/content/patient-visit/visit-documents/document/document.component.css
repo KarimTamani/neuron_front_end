@@ -4,6 +4,7 @@
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    background: white;
 }
 
 .main-container:hover {
