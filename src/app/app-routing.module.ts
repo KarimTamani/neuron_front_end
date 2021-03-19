@@ -54,7 +54,7 @@ const routes: Routes = [
       } , { 
         path : "analytics" , component : AnalyticsComponent 
       } , { 
-        path : "doucments-and-diagnosis" , component : DocumentsAndDiagnosisComponent 
+        path : "documents-and-diagnosis" , component : DocumentsAndDiagnosisComponent 
       }
     ]
   },

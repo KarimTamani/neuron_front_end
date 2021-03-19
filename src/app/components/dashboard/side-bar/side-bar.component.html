@@ -23,6 +23,12 @@
                     <span>Salle d'attente</span>
                 </a>
             </li>
+            <li [class.active]="activatedRouter == 5">
+                <a routerLink="/dashboard/visit">
+                    <i class="fa fa-heartbeat"></i>
+                    <span>La Visite</span>
+                </a>
+            </li>
             <li [class.active]="activatedRouter == 3">
                 <a routerLink="/dashboard/visits-and-appointments-manager/visits">
                     <i class="fa fa-calendar-check"></i>
@@ -35,18 +41,19 @@
                     <span>Gestion Des Dossie medicaux</span>
                 </a>
             </li>
+            <li [class.active]="activatedRouter == 9">
+                <a routerLink="/dashboard/documents-and-diagnosis">
+                    <i class="fa fa-stethoscope"></i>
+                    <span>Documents et diagnostiques</span>
+                </a>
+            </li>
             <li [class.active]="activatedRouter == 8">
                 <a routerLink="/dashboard/analytics">
                     <i class="fa fa-chart-pie"></i>
                     <span>Statistiques</span>
                 </a>
             </li>
-            <li [class.active]="activatedRouter == 5">
-                <a routerLink="/dashboard/visit">
-                    <i class="fa fa-heartbeat"></i>
-                    <span>La Visite</span>
-                </a>
-            </li>
+
             <li [class.active]="activatedRouter == 7">
                 <a routerLink="/dashboard/financial-manager/expenses">
                     <i class="fa fa-coins"></i>
