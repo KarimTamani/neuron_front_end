@@ -17,6 +17,7 @@ import { FinancialManagerComponent } from './components/dashboard/content/financ
 import { AppointmentsManagerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-manager.component';
 import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
 import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component';
+import { DocumentsAndDiagnosisComponent } from './components/dashboard/content/documents-and-diagnosis/documents-and-diagnosis.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,8 @@ const routes: Routes = [
         ]
       } , { 
         path : "analytics" , component : AnalyticsComponent 
+      } , { 
+        path : "doucments-and-diagnosis" , component : DocumentsAndDiagnosisComponent 
       }
     ]
   },

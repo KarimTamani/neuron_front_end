@@ -38,14 +38,7 @@ export class DiagnosisComponent implements OnInit {
   public symptomsControllerMode: boolean = true;
   constructor(private apollo: Apollo, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    /*
-    this.route.queryParams.subscribe((params) => {
-      this.visit = JSON.parse(decodeURIComponent(params.visit));
-      this.selectedSymptoms = this.visit.symptoms;
-      this.updateBodyAreaSymptoms();
-    });
-    */
-
+    
     var params = this.route.snapshot.queryParams
     
     this.visit = JSON.parse(decodeURIComponent(params.visit));

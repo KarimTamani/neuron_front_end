@@ -132,7 +132,8 @@ import { PrescriptionCheckUpComponent } from './components/dashboard/content/pat
 import { DocumentComponent } from './components/dashboard/content/patient-visit/visit-documents/document/document.component';
 import { DocumentSubmitterComponent } from './components/dashboard/content/patient-visit/visit-documents/document-submitter/document-submitter.component';
 import { VisitDiagnosisComponent } from './components/dashboard/content/patient-visit/visit-diagnosis/visit-diagnosis.component';
-import { NeuronResponseComponent } from './components/dashboard/content/patient-visit/visit-diagnosis/neuron-response/neuron-response.component' ; 
+import { NeuronResponseComponent } from './components/dashboard/content/patient-visit/visit-diagnosis/neuron-response/neuron-response.component';
+import { DocumentsAndDiagnosisComponent } from './components/dashboard/content/documents-and-diagnosis/documents-and-diagnosis.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -254,6 +255,7 @@ import { NeuronResponseComponent } from './components/dashboard/content/patient-
     DocumentSubmitterComponent,
     VisitDiagnosisComponent,
     NeuronResponseComponent,
+    DocumentsAndDiagnosisComponent,
   ],
   imports: [
     BrowserModule,

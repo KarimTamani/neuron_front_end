@@ -77,7 +77,7 @@ export class VisitDiagnosisComponent implements OnInit {
             newVisit.createdAt = this.dataService.castFRDate(new Date(parseInt(visit.createdAt)));
             newVisit.neuronResponses.push(this.neuronResponses[index]);
   
-            this.visitsNeuronResponses.splice(0, 0, newVisit);
+            this.visitsNeuronResponses.push( newVisit);
           }
         }
       })
