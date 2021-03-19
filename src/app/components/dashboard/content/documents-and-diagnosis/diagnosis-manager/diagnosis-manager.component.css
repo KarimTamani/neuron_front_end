@@ -1,0 +1,9 @@
+.response-container {
+    margin-top: 16px;
+}
+
+.responses-list {
+    height: 560px;
+    max-height: 560px;
+    overflow: auto;
+}
