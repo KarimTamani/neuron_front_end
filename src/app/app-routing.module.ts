@@ -18,6 +18,8 @@ import { AppointmentsManagerComponent } from './components/dashboard/content/wai
 import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
 import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component';
 import { DocumentsAndDiagnosisComponent } from './components/dashboard/content/documents-and-diagnosis/documents-and-diagnosis.component';
+import { DocumentsManagerComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/documents-manager.component';
+import { DiagnosisManagerComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-manager.component';
 
 const routes: Routes = [
   {
@@ -54,7 +56,14 @@ const routes: Routes = [
       } , { 
         path : "analytics" , component : AnalyticsComponent 
       } , { 
-        path : "documents-and-diagnosis" , component : DocumentsAndDiagnosisComponent 
+        path : "documents-and-diagnosis" , component : DocumentsAndDiagnosisComponent , children : [
+          { 
+            path : "documents" , component : DocumentsManagerComponent , 
+
+          }, { 
+            path : "diagnosis" , component : DiagnosisManagerComponent
+          }
+        ]
       }
     ]
   },

@@ -135,7 +135,8 @@ import { VisitDiagnosisComponent } from './components/dashboard/content/patient-
 import { NeuronResponseComponent } from './components/dashboard/content/patient-visit/visit-diagnosis/neuron-response/neuron-response.component';
 import { DocumentsAndDiagnosisComponent } from './components/dashboard/content/documents-and-diagnosis/documents-and-diagnosis.component';
 import { DocumentsManagerComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/documents-manager.component';
-import { DiagnosisManagerComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-manager.component' ; 
+import { DiagnosisManagerComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-manager.component';
+import { DocumentsSearchHeaderComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/documents-search-header/documents-search-header.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -260,6 +261,7 @@ import { DiagnosisManagerComponent } from './components/dashboard/content/docume
     DocumentsAndDiagnosisComponent,
     DocumentsManagerComponent,
     DiagnosisManagerComponent,
+    DocumentsSearchHeaderComponent,
   ],
   imports: [
     BrowserModule,
