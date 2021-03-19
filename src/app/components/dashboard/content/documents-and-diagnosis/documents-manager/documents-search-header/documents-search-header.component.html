@@ -1,1 +1,26 @@
-<p>documents-search-header works!</p>
+<div class="main-container primary-radius">
+
+    <div class="stretch-container">
+        <div class="search-input">
+            <input type="text" [(ngModel)]="searchQuery.searchQuery" placeholder="Recherché par nom prénom naissance telephone email" class="primary-input">
+        </div>
+        <div class="hint center-v">
+            <p>Date debute</p>
+        </div>
+        <div class="date-input">
+            <input type="date" placeholder="Date de debut" class="primary-input" [(ngModel)]="searchQuery.startDate">
+        </div>
+
+        <div class="hint center-v">
+            <p>Date de Fin </p>
+        </div>
+        <div class="date-input">
+            <input type="date" placeholder="Date de debut" class="primary-input" [(ngModel)]="searchQuery.endDate">
+        </div>
+        <div class="control-icons">
+
+            <i class="fa fa-times" (click)="clear()"></i>
+            <i class="fa fa-search" (click)="search()"></i>
+        </div>
+    </div>
+</div>

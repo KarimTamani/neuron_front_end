@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-documents-search-header',
@@ -6,10 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./documents-search-header.component.css']
 })
 export class DocumentsSearchHeaderComponent implements OnInit {
-
-  constructor() { }
+  public searchQuery: any = {}
+  @Output() searchEvent: EventEmitter<any>;
+  constructor() {
+    this.searchEvent = new EventEmitter<any>();
+  
+  }
 
   ngOnInit(): void {
   }
 
+  public clear() {
+    this.searchQuery = {};
+  }
+
+  public search() {
+    this.searchEvent.emit(this.searchQuery) ;  
+  }
 }
