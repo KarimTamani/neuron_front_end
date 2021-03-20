@@ -12,11 +12,14 @@
             <span class="symptom" *ngFor="let symptom of symptoms">{{symptom}}</span>
         </div>
     </div>
-    <div class="prediction">
+    <div class="prediction" *ngIf="!patientInfo">
         <div class="row">
             <div class="col col-md-6" *ngFor="let prediction of topPredictions">
                 <app-prediction [small]="true" [prediction]="prediction"></app-prediction>
             </div>
         </div>
+    </div>
+    <div class="patient-info" *ngIf="patientInfo">
+        <app-document-info [document]="neuronResponse"></app-document-info>
     </div>
 </div>

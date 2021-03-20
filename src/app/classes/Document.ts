@@ -7,4 +7,6 @@ export class Document {
     public description: string ;
     public visitId : number ;  
     public visit : Visit ; 
+    public createdAt : string ; 
+    public updatedAt : string ; 
 }

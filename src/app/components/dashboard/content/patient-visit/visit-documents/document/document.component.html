@@ -15,4 +15,7 @@
             Aucun Description pour ce document
         </p>
     </div>
+    <div class="document-info" *ngIf="patientInfo">
+        <app-document-info [document]="document"></app-document-info>
+    </div>
 </div>

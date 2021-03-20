@@ -49,7 +49,7 @@ export class DiagnosisManagerComponent implements OnInit {
               id
               input
               type
-              
+              createdAt 
               neuronPrediction 
               neuronCollection {
                 id

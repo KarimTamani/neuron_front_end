@@ -10,9 +10,11 @@ import { NeuronResponse } from 'src/app/classes/NeuronResponse';
 export class NeuronResponseComponent implements OnInit {
   @Input() neuronResponse: NeuronResponse;
   @Input() modelOutputs: any;
+  @Input() patientInfo : boolean = false ; 
   public topPredictions: any[] = [];
   public detection: boolean = false;
   public symptoms : string[] = [] ; 
+
   constructor(private router : Router) { }
 
   ngOnInit(): void {

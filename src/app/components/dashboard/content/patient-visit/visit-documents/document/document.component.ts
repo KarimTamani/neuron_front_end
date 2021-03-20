@@ -16,15 +16,14 @@ export class DocumentComponent implements OnInit {
 
   @Output() editEvent: EventEmitter<Document>;
   @Output() deleteEvent: EventEmitter<number>;
-  @Input() patientInfo : boolean = true ; 
+  @Input() patientInfo : boolean = false ; 
 
   constructor(private router: Router, private interactionService: InteractionService , private apollo : Apollo ) {
     this.editEvent = new EventEmitter<Document>();
     this.deleteEvent = new EventEmitter<number>();
   }
 
-  ngOnInit(): void {
-    console.log(this.document) ; 
+  ngOnInit(): void { 
 
   }
 

@@ -1,1 +1,20 @@
-<p>document-info works!</p>
+<div class="main-container">
+
+    <div class="stretch-container">
+        <div class="first-letter">
+            <div class="icon-container">
+                <span>{{document.visit.medicalFile.name[0]}}</span>
+            </div>
+        </div>
+        <div class="patient-info">
+            <h5>{{document.visit.medicalFile.name}} {{document.visit.medicalFile.lastname}}</h5>
+            <p>Age <span>{{age}}  Ans</span></p>
+            <p><i class="fa fa-phone"></i> {{(document.visit.medicalFile.phone)? (document.visit.medicalFile.phone) : ("Inconnue")}}
+            </p>
+        </div>
+    </div>
+
+    <div class="created-date">
+        date de publication : <span>{{ createdAt }}</span>
+    </div>
+</div>

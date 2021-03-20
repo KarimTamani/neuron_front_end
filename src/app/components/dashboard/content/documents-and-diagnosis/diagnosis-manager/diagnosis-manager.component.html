@@ -7,7 +7,7 @@
 
             <div class="col col-md-3" *ngFor="let response of neuronResponses">
                 <div class="response-container">
-                    <app-neuron-response [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>
+                    <app-neuron-response [patientInfo]="true" [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>
                 </div>
             </div>
 
