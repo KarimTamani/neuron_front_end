@@ -16,6 +16,7 @@ export class DocumentComponent implements OnInit {
 
   @Output() editEvent: EventEmitter<Document>;
   @Output() deleteEvent: EventEmitter<number>;
+  @Input() patientInfo : boolean = true ; 
 
   constructor(private router: Router, private interactionService: InteractionService , private apollo : Apollo ) {
     this.editEvent = new EventEmitter<Document>();
@@ -23,7 +24,7 @@ export class DocumentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    console.log(this.document) ; 
 
   }
 
