@@ -138,7 +138,8 @@ import { DocumentsManagerComponent } from './components/dashboard/content/docume
 import { DiagnosisManagerComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-manager.component';
 import { DocumentsSearchHeaderComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/documents-search-header/documents-search-header.component';
 import { DiagnosisSearchHeaderComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-search-header/diagnosis-search-header.component';
-import { DocumentInfoComponent } from './components/dashboard/content/patient-visit/visit-documents/document/document-info/document-info.component' ; 
+import { DocumentInfoComponent } from './components/dashboard/content/patient-visit/visit-documents/document/document-info/document-info.component';
+import { VisitCertificatesComponent } from './components/dashboard/content/patient-visit/visit-certificates/visit-certificates.component' ; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -266,6 +267,7 @@ import { DocumentInfoComponent } from './components/dashboard/content/patient-vi
     DocumentsSearchHeaderComponent,
     DiagnosisSearchHeaderComponent,
     DocumentInfoComponent,
+    VisitCertificatesComponent,
   ],
   imports: [
     BrowserModule,

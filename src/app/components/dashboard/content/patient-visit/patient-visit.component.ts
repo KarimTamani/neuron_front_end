@@ -14,12 +14,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
-  public page: number = 2;
+  public page: number = 5;
   public visit: Visit;
   public subscriptions: Subscription[] = [];
   constructor(private apollo: Apollo, private interactionServide: InteractionService) {
     this.visit = new Visit();
   }
+
   ngOnInit(): void {
     this.apollo.query({
       query: gql`
