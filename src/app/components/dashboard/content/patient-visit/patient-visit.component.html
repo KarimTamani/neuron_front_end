@@ -16,7 +16,7 @@
                 <app-visit-check-up [visit]="visit"></app-visit-check-up>
             </div>
             <div class="page" *ngIf="page == 5">
-                <app-visit-certificates></app-visit-certificates>
+                <app-visit-certificates [visit]="visit"></app-visit-certificates>
             </div>
             <div class="page" *ngIf="page == 6">
                 <app-visit-documents [visit]="visit" *ngIf="visit.medicalFile"></app-visit-documents>

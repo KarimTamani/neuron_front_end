@@ -140,6 +140,9 @@ import { DocumentsSearchHeaderComponent } from './components/dashboard/content/d
 import { DiagnosisSearchHeaderComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-search-header/diagnosis-search-header.component';
 import { DocumentInfoComponent } from './components/dashboard/content/patient-visit/visit-documents/document/document-info/document-info.component';
 import { VisitCertificatesComponent } from './components/dashboard/content/patient-visit/visit-certificates/visit-certificates.component' ; 
+import { NgxEditorModule } from 'ngx-editor';
+import { CertificatSubmitterComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-submitter/certificat-submitter.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -268,6 +271,7 @@ import { VisitCertificatesComponent } from './components/dashboard/content/patie
     DiagnosisSearchHeaderComponent,
     DocumentInfoComponent,
     VisitCertificatesComponent,
+    CertificatSubmitterComponent,
   ],
   imports: [
     BrowserModule,
@@ -281,7 +285,9 @@ import { VisitCertificatesComponent } from './components/dashboard/content/patie
     HttpLinkModule , 
     ReactiveFormsModule, BrowserAnimationsModule  , 
     AutocompleteLibModule , 
-    DragDropModule
+    DragDropModule , 
+    NgxEditorModule
+
   ],
   providers: [
     {

@@ -1,1 +1,8 @@
-<p>visit-certificates works!</p>
+<div class="main-container stretch-container">
+    <div class="side submitter-side primary-radius">
+        <app-certificat-submitter></app-certificat-submitter>
+    </div>
+    <div class="side prescription-side primary-radius">
+        <app-prescription [type]="'prescription-check-up'" [title]="'Certificat Medical'" [visit]="visit"></app-prescription>
+    </div>
+</div>

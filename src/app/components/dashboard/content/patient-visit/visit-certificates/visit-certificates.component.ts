@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Visit } from 'src/app/classes/Visit';
 
 @Component({
   selector: 'app-visit-certificates',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visit-certificates.component.css']
 })
 export class VisitCertificatesComponent implements OnInit {
-
+  @Input() visit : Visit ; 
   constructor() { }
 
   ngOnInit(): void {
