@@ -1,8 +1,8 @@
 <div class="main-container stretch-container">
     <div class="side submitter-side primary-radius">
-        <app-certificat-submitter></app-certificat-submitter>
+        <app-certificat-submitter [certificat]="certificat"></app-certificat-submitter>
     </div>
     <div class="side prescription-side primary-radius">
-        <app-prescription [type]="'prescription-check-up'" [title]="'Certificat Medical'" [visit]="visit"></app-prescription>
+        <app-prescription [type]="'prescription-certificat'" [title]="'Certificat Medical'" [visit]="visit"></app-prescription>
     </div>
 </div>

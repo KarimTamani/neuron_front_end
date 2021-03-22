@@ -142,6 +142,8 @@ import { DocumentInfoComponent } from './components/dashboard/content/patient-vi
 import { VisitCertificatesComponent } from './components/dashboard/content/patient-visit/visit-certificates/visit-certificates.component' ; 
 import { NgxEditorModule } from 'ngx-editor';
 import { CertificatSubmitterComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-submitter/certificat-submitter.component';
+import { PrescriptionCertificatComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-certificat/prescription-certificat.component';
+
 
 @NgModule({
   declarations: [
@@ -272,6 +274,7 @@ import { CertificatSubmitterComponent } from './components/dashboard/content/pat
     DocumentInfoComponent,
     VisitCertificatesComponent,
     CertificatSubmitterComponent,
+    PrescriptionCertificatComponent,
   ],
   imports: [
     BrowserModule,

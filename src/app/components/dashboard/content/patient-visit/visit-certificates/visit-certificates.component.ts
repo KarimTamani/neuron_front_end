@@ -8,6 +8,9 @@ import { Visit } from 'src/app/classes/Visit';
 })
 export class VisitCertificatesComponent implements OnInit {
   @Input() visit : Visit ; 
+  public certificat : any = {
+    content : "<p>Je soussigné Dr <strong>Tamani Karim</strong></p>" 
+  }
   constructor() { }
 
   ngOnInit(): void {

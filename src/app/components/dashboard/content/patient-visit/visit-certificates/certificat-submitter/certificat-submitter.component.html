@@ -1,1 +1,4 @@
-<p>certificat-submitter works!</p>
+<div class="NgxEditor__Wrapper">
+    <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+    <ngx-editor [editor]="editor" [(ngModel)]="this.certificat.content" [placeholder]="'Rédiger'"></ngx-editor>
+</div>

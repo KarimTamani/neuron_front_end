@@ -10,6 +10,9 @@
             <div *ngIf="type == 'prescription-check-up'">
                 <app-prescription-check-up [checkUpTypes]="checkUpTypes" [visit]="visit"></app-prescription-check-up>
             </div>
+            <div *ngIf="type == 'prescription-certificat'">
+                <app-prescription-certificat></app-prescription-certificat>
+            </div>
         </div>
         <div class="footer">
             <app-prescription-footer [doctor]="doctor" [cabinet]="cabinet"></app-prescription-footer>
