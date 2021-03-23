@@ -143,6 +143,7 @@ import { VisitCertificatesComponent } from './components/dashboard/content/patie
 import { NgxEditorModule } from 'ngx-editor';
 import { CertificatSubmitterComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-submitter/certificat-submitter.component';
 import { PrescriptionCertificatComponent } from './components/dashboard/content/patient-visit/visit-prescription/prescription/prescription-certificat/prescription-certificat.component';
+import { CertificatEditorComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-submitter/certificat-editor/certificat-editor.component';
 
 
 @NgModule({
@@ -275,6 +276,7 @@ import { PrescriptionCertificatComponent } from './components/dashboard/content/
     VisitCertificatesComponent,
     CertificatSubmitterComponent,
     PrescriptionCertificatComponent,
+    CertificatEditorComponent,
   ],
   imports: [
     BrowserModule,

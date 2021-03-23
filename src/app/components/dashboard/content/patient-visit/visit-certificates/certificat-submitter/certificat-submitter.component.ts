@@ -1,33 +1,56 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Editor } from 'ngx-editor';
+import { Component, Input , OnInit } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag'; 
+import { map } from 'rxjs/operators';
+import { CertificatModel } from 'src/app/classes/CertificatModel';
 @Component({
   selector: 'app-certificat-submitter',
   templateUrl: './certificat-submitter.component.html',
   styleUrls: ['./certificat-submitter.component.css']
 })
-export class CertificatSubmitterComponent implements OnInit, OnDestroy {
-  public editor: Editor;
-  public html: string = "";
-  @Input() certificat : any ; 
+export class CertificatSubmitterComponent implements OnInit {
 
-  
-  public toolbar = [
-    ["bold", "italic", "underline" ] 
-  ] 
-  constructor() { }
+  public certificatTypes: string[] = [
+    "Certificat",
+    "Compte-Rendu"
+  ];
+  public selectedType: string;
+  public certificatModels: CertificatModel[] = [];
+
+  @Input() certificat: any;
+
+  constructor(private apollo: Apollo) {
+    this.selectedType = this.certificatTypes[0];
+  }
 
   ngOnInit(): void {
-    console.log(this.certificat) ; 
-    this.editor = new Editor();
+
+      this.apollo.query({
+        query : gql`
+          query {
+            getCertificatModels {
+              id title type html createdAt updatedAt type isPublic 
+            }
+          }`
+      }).pipe(map(value => (<any>value.data).getCertificatModels)).subscribe((data) => { 
+        this.certificatModels = data ; 
+        console.log(data) ; 
+      })
   }
 
 
-  ngOnDestroy() {
-    this.editor.destroy();
+
+  get selectedTypeCertificats() { 
+    return this.certificatModels.filter (model => model.type == this.selectedType) ; 
+
   }
 
-  public save() { 
-    console.log(this.certificat.content) ; 
-  }
+
+
+  /*
+    public toolbar = [
+      ["bold", "italic", "underline" ] 
+    ] 
+    */
 
 }

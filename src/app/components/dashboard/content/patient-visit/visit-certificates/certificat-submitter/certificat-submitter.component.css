@@ -1,0 +1,37 @@
+.main-container {
+    padding: 16px;
+}
+
+.certificat-header h5 {
+    margin: 0px;
+    font-weight: bold;
+    color: #212121;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+
+.certificat-header select {
+    width: 180px;
+}
+
+.certificats-list h5 {
+    font-weight: bold;
+    color: #212121;
+    border-bottom: 1px solid #eeee;
+    padding-bottom: 16px;
+}
+
+.certificat {
+    margin: 8px 0px;
+    color: #555;
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.certificat:hover {
+    background: #eeee;
+}

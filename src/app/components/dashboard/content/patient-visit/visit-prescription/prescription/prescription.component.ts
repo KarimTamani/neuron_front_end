@@ -17,7 +17,7 @@ export class PrescriptionComponent implements OnInit {
   @Input() checkUpTypes : CheckUpType[] = [] ; 
   @Input() title : string ="Ordonnance" ; 
   @Input() type : string = "drug-dosages"; 
-
+  @Input() certificat : any ; 
   public doctor : Doctor ; 
   public cabinet : Cabinet ; 
   constructor(private apollo : Apollo) {
