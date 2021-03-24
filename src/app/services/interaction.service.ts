@@ -11,6 +11,7 @@ import { Expense } from '../classes/Expense';
 import { PrescriptionModel } from '../classes/PrescriptionModel';
 import { Document } from '../classes/Document';
 import { SubjectSubscriber } from 'rxjs/internal/Subject';
+import { CertificatModel } from '../classes/CertificatModel';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,7 @@ export class InteractionService {
   public editPrescriptionModel: Subject<PrescriptionModel>;
   public documentAdded : Subject<Document> ; 
   public documentEdit : Subject<Document> ; 
+  public certificatModelSelected : Subject<CertificatModel> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -55,5 +57,6 @@ export class InteractionService {
     this.editPrescriptionModel = new Subject<PrescriptionModel>();
     this.documentAdded = new Subject<Document>()  ;
     this.documentEdit = new Subject<Document>() ; 
+    this.certificatModelSelected = new Subject<CertificatModel>() ; 
   }
 }

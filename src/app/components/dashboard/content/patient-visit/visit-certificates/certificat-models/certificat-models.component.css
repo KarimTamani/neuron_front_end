@@ -1,0 +1,36 @@
+.main-container {
+    padding: 16px;
+    width: 360px;
+}
+
+.content {
+    background: white;
+    padding: 16px;
+}
+
+h5 {
+    font-weight: bold;
+    color: #212121;
+    margin: 0px;
+    margin-bottom: 16px
+}
+
+.list {
+    height: 360px;
+    max-height: 360px;
+    overflow: auto;
+}
+
+.model:hover {
+    background: #eeee;
+}
+
+.model {
+    margin: 8px 0px;
+    color: #555;
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}

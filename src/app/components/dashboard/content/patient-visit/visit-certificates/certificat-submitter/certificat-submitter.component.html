@@ -5,7 +5,7 @@
             <option *ngFor="let type of certificatTypes" [value]="type">{{type}}</option>
         </select>
     </div>
-    <span class="primary-button add-new">
+    <span class="primary-button add-new" (click)="openModels()">
         Ajouter <i class="fa fa-plus"></i>
     </span>
     <div style="clear: both;"></div>
