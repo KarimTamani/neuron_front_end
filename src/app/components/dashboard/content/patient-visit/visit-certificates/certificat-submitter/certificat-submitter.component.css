@@ -11,15 +11,21 @@
     align-items: center;
 }
 
-.certificat-header select {
-    width: 180px;
+.certificat-header {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eeee;
 }
 
-.certificats-list h5 {
-    font-weight: bold;
-    color: #212121;
-    border-bottom: 1px solid #eeee;
-    padding-bottom: 16px;
+.certificat-header select {
+    width: 180px;
+    max-width: 180px;
+    min-width: 180px;
+}
+
+.certificats-list {
+    height: 420px;
+    max-height: 420px;
+    overflow: auto;
 }
 
 .certificat {
@@ -34,4 +40,12 @@
 
 .certificat:hover {
     background: #eeee;
+}
+
+.add-new {
+    float: right;
+    margin: 16px 0px;
+    width: 180px;
+    text-align: center;
+    cursor: pointer;
 }

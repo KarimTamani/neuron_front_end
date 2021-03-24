@@ -118,6 +118,8 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       this.visit.checkUps = [];
     if (this.visit.documents == null) 
       this.visit.documents = [] ; 
+    if (this.visit.certificats == null) 
+      this.visit.certificats = [] ; 
   }
   select($event) {
     this.page = $event;

@@ -11,9 +11,8 @@ export class VisitCertificatesComponent implements OnInit {
   public certificat : any = {
     content : "<p>Je soussigné Dr <strong>Tamani Karim</strong></p>" 
   }
-  constructor() { }
-
+  constructor() {}
   ngOnInit(): void {
+    console.log (this.visit.certificats) ; 
   }
-
 }

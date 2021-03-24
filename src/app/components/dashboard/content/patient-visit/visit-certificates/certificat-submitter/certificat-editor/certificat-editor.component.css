@@ -1,0 +1,37 @@
+h5.title {
+    color: #212121;
+    font-weight: bold;
+    margin: 0px;
+}
+
+::ng-deep .NgxEditor {
+    height: 560px;
+}
+
+.NgxEditor__Wrapper {
+    margin-top: 16px;
+}
+
+.header {}
+
+.header h5 {
+    float: right;
+    margin-top: 6px;
+}
+
+.header i {
+    font-size: 16px;
+    color: rgb(38, 94, 215);
+    background: white;
+    width: 28px;
+    padding: 6px 0px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.header i:hover {
+    background: rgb(38, 94, 215);
+    color: white;
+}
