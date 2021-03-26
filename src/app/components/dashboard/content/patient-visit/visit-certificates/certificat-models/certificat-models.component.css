@@ -3,6 +3,11 @@
     width: 360px;
 }
 
+.model-container {
+    padding: 16px;
+    width: 560px;
+}
+
 .content {
     background: white;
     padding: 16px;
@@ -32,5 +37,10 @@ h5 {
     padding: 4px 12px;
     border-radius: 20px;
     transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+#create-model {
+    color: rgb(254, 101, 85);
     cursor: pointer;
 }

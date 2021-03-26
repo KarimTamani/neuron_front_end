@@ -46,6 +46,14 @@
     background: #eeee;
 }
 
+.fa-times {
+    float: right;
+    background: rgb(254, 101, 85);
+    color: white;
+    padding: 4px 6px;
+    border-radius: 50%;
+}
+
 .certificat span {
     float: right;
     background: white;
@@ -53,6 +61,7 @@
     border-radius: 20px;
     color: rgb(38, 94, 215);
     font-size: 11px;
+    margin-right: 16px;
 }
 
 .add-new {

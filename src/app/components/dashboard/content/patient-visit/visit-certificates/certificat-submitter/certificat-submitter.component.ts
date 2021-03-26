@@ -95,4 +95,15 @@ export class CertificatSubmitterComponent implements OnInit {
   
   }
  
+  public remove(certificat) { 
+    
+    const index = this.visit.certificats.findIndex(value => value.id == certificat.id) ;
+    if (this.selectedCertificat && this.selectedCertificat.id == this.visit.certificats[index].id) { 
+      this.selectedCertificat = null ; 
+      this.selectCertificat.emit(this.selectedCertificat) ; 
+    }
+    if (index >= 0 ) { 
+      this.visit.certificats.splice(index , 1) ; 
+    }
+  }
 }

@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" *ngIf="!openModelSubmitter">
     <div class="content primary-radius">
         <h5>Les Models de Certificats</h5>
         <div class="list">
@@ -6,5 +6,15 @@
                 {{model.title}}
             </p>
         </div>
+        <a id="create-model" (click)="openModelSubmitter = true">
+            Si le model de certificat n'existe pas Créé le <i class="fa fa-plus"></i>
+        </a>
+    </div>
+</div>
+
+
+<div class="model-container" *ngIf="openModelSubmitter">
+    <div class="content primary-radius">
+        <app-certificat-model-submitter></app-certificat-model-submitter>
     </div>
 </div>

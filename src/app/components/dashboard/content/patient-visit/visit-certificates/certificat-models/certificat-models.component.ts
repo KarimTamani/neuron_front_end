@@ -10,7 +10,9 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class CertificatModelsComponent implements OnInit {
   public models: CertificatModel[] = [];
+  public openModelSubmitter : boolean = true  ; 
   @Output() closeEvent : EventEmitter<null> ; 
+
 
   constructor(private route: ActivatedRoute , private InteractionService : InteractionService) {
     this.closeEvent = new EventEmitter<null>() ; 
