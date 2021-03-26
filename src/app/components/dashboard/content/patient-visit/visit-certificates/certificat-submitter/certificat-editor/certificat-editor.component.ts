@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { LocalState } from 'apollo-client/core/LocalState';
+
+
 import { Editor } from 'ngx-editor';
 import { Certificat } from 'src/app/classes/Certificat';
-import { CertificatModel } from 'src/app/classes/CertificatModel';
 import { Visit } from 'src/app/classes/Visit';
 import { DataService } from 'src/app/services/data.service';
 
@@ -12,10 +12,14 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./certificat-editor.component.css']
 })
 export class CertificatEditorComponent implements OnInit, OnDestroy {
-  @Input() certificatModel: CertificatModel;
+  @Input() certificat: Certificat;
   @Input() visit: Visit;
+  @Input() isEdit: boolean = false;
+
   @Output() backEvent: EventEmitter<null>;
-  public certificat: Certificat;
+  @Output() saveEvent: EventEmitter<Certificat>;
+
+  private htmlModel: string;
   public editor: Editor;
   public toolbar = [
     ["bold", "italic", "underline"]
@@ -23,21 +27,20 @@ export class CertificatEditorComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService) {
     this.certificat = new Certificat();
     this.backEvent = new EventEmitter<null>();
+    this.saveEvent = new EventEmitter<Certificat>();
+  
   }
   ngOnInit(): void {
-    this.certificat.html = this.preprocessCertificat(this.certificatModel.html);
+    this.certificat.html = this.preprocessCertificat(this.certificat.html);
+    this.htmlModel = this.certificat.html;
     this.editor = new Editor();
   }
-
-
 
   ngOnDestroy() {
     this.editor.destroy();
   }
 
-  public back() {
-    this.backEvent.emit();
-  }
+  
 
 
   private preprocessCertificat(html: string): string {
@@ -60,5 +63,19 @@ export class CertificatEditorComponent implements OnInit, OnDestroy {
     html = html.replace(/_\s*(\w+)/, `<strong>${patientAge} Ans </strong>`);
 
     return html;
+  }
+  public back() {
+    this.certificat.html = this.htmlModel;
+    this.backEvent.emit();
+  }
+
+  public restart() {
+    this.certificat.html = this.htmlModel;
+  }
+  public save() {
+    this.saveEvent.emit(this.certificat);
+  }
+  public edit() { 
+    this.backEvent.emit();
   }
 }

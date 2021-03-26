@@ -1,4 +1,4 @@
-<div class="main-container" *ngIf="!selectedModel">
+<div class="main-container" *ngIf="!newCertificat">
     <div class="certificat-header stretch-container">
         <h5>{{this.selectedType}}</h5>
         <select [(ngModel)]="selectedType">
@@ -10,11 +10,11 @@
     </span>
     <div style="clear: both;"></div>
     <div class="certificats-list">
-        <div class="certificat" *ngFor="let certificat of visit.certificats">
-            {{certificat.title}}
+        <div class="certificat" [class.selected]="selectedCertificat.id == certificat.id" *ngFor="let certificat of visit.certificats" (click)="select(certificat)">
+            {{certificat.certificatModel.title}}<span (click)="openCertificat(certificat)">Modifer <i class="fa fa-edit"></i></span>
         </div>
     </div>
 </div>
-<div class="main-container" *ngIf="selectedModel">
-    <app-certificat-editor (backEvent)="back()" [visit]="visit" [certificatModel]="selectedModel"></app-certificat-editor>
+<div class="main-container" *ngIf="newCertificat">
+    <app-certificat-editor [isEdit]="isEdit" (saveEvent)="add($event)" (backEvent)="back()" [visit]="visit" [certificat]="newCertificat"></app-certificat-editor>
 </div>

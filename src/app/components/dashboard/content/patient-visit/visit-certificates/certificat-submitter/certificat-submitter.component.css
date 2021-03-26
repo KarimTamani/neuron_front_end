@@ -42,6 +42,19 @@
     background: #eeee;
 }
 
+.certificat.selected {
+    background: #eeee;
+}
+
+.certificat span {
+    float: right;
+    background: white;
+    padding: 3px 8px;
+    border-radius: 20px;
+    color: rgb(38, 94, 215);
+    font-size: 11px;
+}
+
 .add-new {
     float: right;
     margin: 16px 0px;

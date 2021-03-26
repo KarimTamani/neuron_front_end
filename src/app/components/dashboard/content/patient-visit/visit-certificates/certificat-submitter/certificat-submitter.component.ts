@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'; 
 import { map } from 'rxjs/operators';
 import { Certificat } from 'src/app/classes/Certificat';
 import { CertificatModel } from 'src/app/classes/CertificatModel';
@@ -18,19 +18,22 @@ export class CertificatSubmitterComponent implements OnInit {
     "Certificat",
     "Compte-Rendu"
   ];
-  
+
   public selectedType: string;
   public certificatModels: CertificatModel[] = [];
-  public selectedModel: CertificatModel;
-  
-  @Input() certificat: any;
-  @Input() visit: Visit;
+  public newCertificat: Certificat; 
+  public isEdit : boolean = false ; 
+  public selectedCertificat : Certificat = null ; 
 
-  constructor(private apollo: Apollo , private router : Router , private interactionService : InteractionService) {
+  @Input() visit: Visit;
+  @Output() selectCertificat: EventEmitter<Certificat>;
+
+  constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
     this.selectedType = this.certificatTypes[0];
+    this.selectCertificat = new EventEmitter<Certificat>();
   }
   ngOnInit(): void {
-    
+
     this.apollo.query({
       query: gql`
           query {
@@ -43,27 +46,53 @@ export class CertificatSubmitterComponent implements OnInit {
     })
   }
 
-  public openModels() { 
-    this.router.navigate([] , { 
-      queryParams : { 
-        "pop-up-window" : true , 
-        "window-page" : "certificat-models" , 
-        "models" : decodeURIComponent(JSON.stringify(this.certificatModels.filter(value => value.type == this.selectedType))) , 
-        "title" : "Choisie un Model de Certificat"
+  public openModels() {
+    
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "certificat-models",
+        "models": decodeURIComponent(JSON.stringify(this.certificatModels.filter(value => value.type == this.selectedType))),
+        "title": "Choisie un Model de Certificat"
       }
-    }) ; 
+    });
 
-    const subscription = this.interactionService.certificatModelSelected.subscribe((data) => { 
-      this.selectedModel = data ; 
-      console.log(this.selectedModel) ; 
-      subscription.unsubscribe() ; 
+    const subscription = this.interactionService.certificatModelSelected.subscribe((data) => {
+      this.isEdit = false ; 
+      this.newCertificat = new Certificat();
+      this.newCertificat.certificatModel = data;
+      this.newCertificat.html = data.html;
+      this.newCertificat.id = new Date().getTime();
+
+      subscription.unsubscribe();
+
+      this.selectCertificat.emit(this.newCertificat);
     })
   }
 
   public back() {
-    this.selectedModel = null;
+    this.newCertificat = null;
+    this.selectCertificat.emit(this.selectedCertificat);
+  }
+
+  public add($event) {
+    this.visit.certificats.splice(0, 0, $event);
+    this.selectedCertificat = $event ; 
+    this.selectCertificat.emit(this.selectedCertificat) ; 
+    this.newCertificat = null ; 
+  }
+
+  public openCertificat(certificat) { 
+    this.isEdit = true ; 
+    this.newCertificat = certificat ; 
+    this.select(certificat) ; 
   }
 
 
-
+  public select(certificat) { 
+    this.selectedCertificat = certificat ; 
+    this.selectCertificat.emit(this.selectedCertificat) ;   
+  
+  }
+ 
 }

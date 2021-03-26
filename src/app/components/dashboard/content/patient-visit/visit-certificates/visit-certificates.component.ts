@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Certificat } from 'src/app/classes/Certificat';
 import { Visit } from 'src/app/classes/Visit';
 
 @Component({
@@ -7,12 +8,23 @@ import { Visit } from 'src/app/classes/Visit';
   styleUrls: ['./visit-certificates.component.css']
 })
 export class VisitCertificatesComponent implements OnInit {
+  
   @Input() visit : Visit ; 
-  public certificat : any = {
-    content : "<p>Je soussigné Dr <strong>Tamani Karim</strong></p>" 
-  }
+  
+  
+  public selectedCertificat : Certificat ;
+  
+  
   constructor() {}
-  ngOnInit(): void {
-    console.log (this.visit.certificats) ; 
+  
+  
+  ngOnInit(): void { 
+  
+  
+  }
+
+
+  selectCertificat($event) { 
+    this.selectedCertificat = $event ; 
   }
 }
