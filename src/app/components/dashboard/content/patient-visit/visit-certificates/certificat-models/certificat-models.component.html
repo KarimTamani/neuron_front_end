@@ -11,10 +11,8 @@
         </a>
     </div>
 </div>
-
-
 <div class="model-container" *ngIf="openModelSubmitter">
     <div class="content primary-radius">
-        <app-certificat-model-submitter></app-certificat-model-submitter>
+        <app-certificat-model-submitter (saveEvent)="save($event)" (backEvent)="back()" [initModel]="submittedModel"></app-certificat-model-submitter>
     </div>
 </div>

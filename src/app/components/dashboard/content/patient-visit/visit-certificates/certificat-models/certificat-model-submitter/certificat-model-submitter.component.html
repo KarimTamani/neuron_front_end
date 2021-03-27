@@ -1,1 +1,23 @@
-<p>certificat-model-submitter works!</p>
+<div class="main-container">
+    <h5><i class="fa fa-chevron-left" (click)="back()"></i> Rediger un model de certificat medical</h5>
+    <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+        <ngx-editor [editor]="editor" [(ngModel)]="certificatModel.html" [placeholder]="'Rédiger'"></ngx-editor>
+    </div>
+    <div class="empty-submitter">
+        <span class="primary-button" (click)="addEmpty()">Ajouter un Vide <i class="fa fa-plus"></i></span>
+
+    </div>
+    <form name="form" [formGroup]="form">
+        <div class="stretch-container">
+            <div class="form-group">
+                <input type="text" [(ngModel)]="certificatModel.title" placeholder="Le Titre de Certificat" class="primary-input" formControlName="title" [ngClass]="{'is-invalid' : form.get('title').touched && form.get('title').invalid}">
+                <div class="invalid-feedback" *ngIf="form.get('title').touched && form.get('title').invalid">
+                    <div *ngIf="form.get('title').errors.required">Le titre est requis</div>
+                    <div *ngIf="form.get('title').errors.minlength">au mois 3 characters</div>
+                </div>
+            </div>
+            <button class="primary-button" (click)="save()" [disabled]="form.invalid">Ajouter <i class="fa fa-plus"></i></button>
+        </div>
+    </form>
+</div>

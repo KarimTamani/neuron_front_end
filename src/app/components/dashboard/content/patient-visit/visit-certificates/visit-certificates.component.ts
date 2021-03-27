@@ -10,19 +10,10 @@ import { Visit } from 'src/app/classes/Visit';
 export class VisitCertificatesComponent implements OnInit {
   
   @Input() visit : Visit ; 
-  
-  
   public selectedCertificat : Certificat ;
-  
-  
   constructor() {}
-  
-  
-  ngOnInit(): void { 
-  
-  
-  }
-
+    
+  ngOnInit(): void { }
 
   selectCertificat($event) { 
     this.selectedCertificat = $event ; 
