@@ -146,6 +146,7 @@ import { PrescriptionCertificatComponent } from './components/dashboard/content/
 import { CertificatEditorComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-submitter/certificat-editor/certificat-editor.component';
 import { CertificatModelsComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-models/certificat-models.component';
 import { CertificatModelSubmitterComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-models/certificat-model-submitter/certificat-model-submitter.component';
+import { NoVisitBackgroundComponent } from './components/global/no-visit-background/no-visit-background.component';
 
 
 @NgModule({
@@ -281,6 +282,7 @@ import { CertificatModelSubmitterComponent } from './components/dashboard/conten
     CertificatEditorComponent,
     CertificatModelsComponent,
     CertificatModelSubmitterComponent,
+    NoVisitBackgroundComponent,
   ],
   imports: [
     BrowserModule,

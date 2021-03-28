@@ -61,7 +61,6 @@ export class VisitLoaderComponent implements OnInit {
           })
         } else
           this.waitingRoom = data;
-
       })
     })
 
