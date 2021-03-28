@@ -1,10 +1,11 @@
 <div class="main-container primary-radius">
+
+    <app-no-visit-background></app-no-visit-background>
     <h5>Les Actes medicaux</h5>
     <div class="medical-acts-container">
         <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
             <span>
                 {{medicalAct.name}} 
-
             </span>
             <span>
                 {{medicalAct.price}} DA
