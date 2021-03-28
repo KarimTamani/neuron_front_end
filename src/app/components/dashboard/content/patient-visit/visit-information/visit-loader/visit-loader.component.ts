@@ -57,7 +57,7 @@ export class VisitLoaderComponent implements OnInit {
           }).pipe(map(value => (<any>value.data).addWaitingRoom)).subscribe((data) => {
             this.waitingRoom = data;
             this.waitingRoom.visits = [];
-            console.log("waiting room created") ; 
+            console.log("waiting room created");
           })
         } else
           this.waitingRoom = data;
@@ -113,6 +113,9 @@ export class VisitLoaderComponent implements OnInit {
           }
           visitDrugDosages {
             dosage { name } drug { name } qsp unitNumber 
+          }
+          checkUps {
+            id name
           }
           medicalFile {
             id
@@ -193,6 +196,7 @@ export class VisitLoaderComponent implements OnInit {
   }
 
   public saveVsit() {
+    /*
     if (this.visit.id) {
       this.apollo.mutate({
         mutation: gql`
@@ -218,8 +222,7 @@ export class VisitLoaderComponent implements OnInit {
       }).subscribe((data) => {
         this.submitVisitDrugDosages();
       })
-    } else {
-      console.log(this.visit);
+    } else { 
       this.apollo.mutate({
         mutation: gql`
           mutation ADD_VISIT($waitingRoomId : ID! ,  $vitalSetting : VitalSettingInput , $medicalFileId : ID! , $clinicalExam : String , $symptoms : [ID!] , $medicalActs : [ID!]! ,  $condition : ConditionInput , $status : String){ 
@@ -252,14 +255,16 @@ export class VisitLoaderComponent implements OnInit {
         this.submitVisitDrugDosages();
       })
     }
+    */
 
+    this.submitVisitCheckUps() ; 
   }
 
 
   private submitVisitDrugDosages() {
-
-    this.apollo.mutate({
-      mutation: gql`
+    if (this.visit.visitDrugDosages.length > 0) {
+      this.apollo.mutate({
+        mutation: gql`
     mutation ADD_VISIT_DRUG_DOSAGES($visitId : ID! , $visitDrugDosages : [VisitDrugDosageInput!]! ){ 
       addVisitDrugDosages(visitId : $visitId , visitDrugDosages : $visitDrugDosages) { 
         drug {
@@ -274,25 +279,43 @@ export class VisitLoaderComponent implements OnInit {
       }
     }
   ` , variables: {
-        visitId: this.visit.id,
-        visitDrugDosages: this.visit.visitDrugDosages.map(function (value) {
-          return {
-            drug: {
-              name: value.drug.name
-            },
-            dosage: {
-              name: value.dosage.name
-            },
-            qsp: (value.qsp && value.qsp.trim().length > 0) ? (value.qsp) : (null),
-            unitNumber: (value.unitNumber && value.unitNumber != 0) ? (value.unitNumber) : (1),
-          }
-        })
-      }
-    }).pipe(map(value => (<any>value.data).addVisitDrugDosages)).subscribe((data) => {
-      this.visit.visitDrugDosages = data;
-    })
+          visitId: this.visit.id,
+          visitDrugDosages: this.visit.visitDrugDosages.map(function (value) {
+            return {
+              drug: {
+                name: value.drug.name
+              },
+              dosage: {
+                name: value.dosage.name
+              },
+              qsp: (value.qsp && value.qsp.trim().length > 0) ? (value.qsp) : (null),
+              unitNumber: (value.unitNumber && value.unitNumber != 0) ? (value.unitNumber) : (1),
+            }
+          })
+        }
+      }).pipe(map(value => (<any>value.data).addVisitDrugDosages)).subscribe((data) => {
+        this.visit.visitDrugDosages = data;
+      })
+    }
   }
+  private submitVisitCheckUps() {
+    if (this.visit.checkUps.length > 0 && this.visit.id) { 
+      this.apollo.mutate({
+        mutation : gql`
+          mutation ADD_VISIT_CHECKUPS($visitId : ID! , $checkUps : [ID!]!) { 
+            addVisitCheckUps(visitId : $visitId, checkUps : $checkUps ) { 
+              id
+            }
+          }` , 
+          variables : { 
+            visitId : this.visit.id , 
+            checkUps : this.visit.checkUps.map(value => value.id)
+          }
+      }).pipe(map(value =>(<any>value.data).addVisitCheckUps)).subscribe(() => { 
 
+      })
+    }
+  } 
 
   private isVitalSettingEdited() {
     var keys = Object.keys(this.visit.vitalSetting);

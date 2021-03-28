@@ -15,7 +15,7 @@ export class VisitCheckUpComponent implements OnInit {
   public checkUpTypes : CheckUpType[] = [] ; 
   constructor(private apollo : Apollo) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.apollo.query({
       query: gql`
         {  

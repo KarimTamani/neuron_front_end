@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag'; 
 import { map } from 'rxjs/operators';
-import { Certificat } from 'src/app/classes/Certificat';
-import { CertificatModel } from 'src/app/classes/CertificatModel';
+import { Certificat } from 'src/app/classes/Certificat'; 
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
 @Component({
@@ -20,7 +19,6 @@ export class CertificatSubmitterComponent implements OnInit {
   ];
 
   public selectedType: string;
-  public certificatModels: CertificatModel[] = [];
   public newCertificat: Certificat; 
   public isEdit : boolean = false ; 
   public selectedCertificat : Certificat = null ; 
@@ -34,16 +32,6 @@ export class CertificatSubmitterComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.apollo.query({
-      query: gql`
-          query {
-            getCertificatModels {
-              id title type html createdAt updatedAt type isPublic 
-            }
-          }`
-    }).pipe(map(value => (<any>value.data).getCertificatModels)).subscribe((data) => {
-      this.certificatModels = data;
-    })
   }
 
   public openModels() {
@@ -52,7 +40,6 @@ export class CertificatSubmitterComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "certificat-models",
-        "models": decodeURIComponent(JSON.stringify(this.certificatModels.filter(value => value.type == this.selectedType))),
         "title": "Choisie un Model de Certificat"
       }
     });

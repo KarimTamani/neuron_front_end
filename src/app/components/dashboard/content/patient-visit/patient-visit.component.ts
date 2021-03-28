@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
-  public page: number = 5;
+  public page: number = 1;
   public visit: Visit;
   public subscriptions: Subscription[] = [];
   constructor(private apollo: Apollo, private interactionServide: InteractionService) {
@@ -54,9 +54,8 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
           symptoms {
             id name bodyPartId
           }
-          checkUps {
-            id name checkUpType { id name }
-          }
+          checkUps { id name checkUpTypeId }
+
           vitalSetting { 
             temperature 
             respiratoryRate  
@@ -94,10 +93,9 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       }`
     }).pipe(map(value => (<any>value.data).getCurrentVisit)).subscribe((data) => {
       if (data)
-        this.visit = data;
+        this.visit = data; 
       this.initVisit();
     });
-
     this.subscriptions.push(this.interactionServide.newAppointmentAdded.subscribe((data) => {
       this.visit.appointment = data;
     }));
