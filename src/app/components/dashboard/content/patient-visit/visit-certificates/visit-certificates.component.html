@@ -1,6 +1,6 @@
 <div class="main-container stretch-container">
     <div class="side submitter-side primary-radius">
-        <app-certificat-submitter (selectCertificat)="selectCertificat($event)" [visit]="visit"></app-certificat-submitter>
+        <app-certificat-submitter [selectedCertificat]="selectedCertificat" (selectCertificat)="selectCertificat($event)" [visit]="visit"></app-certificat-submitter>
     </div>
     <div class="side prescription-side primary-radius">
         <app-prescription [certificat]="selectedCertificat" [type]="'prescription-certificat'" [title]="'Certificat Medical'" [visit]="visit"></app-prescription>

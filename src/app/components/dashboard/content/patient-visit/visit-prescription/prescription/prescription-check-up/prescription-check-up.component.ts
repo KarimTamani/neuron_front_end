@@ -14,16 +14,16 @@ export class PrescriptionCheckUpComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.visit.checkUps) ; 
-    console.log(this.checkUpTypes) ; 
   }
 
   get checkUps(): CheckUpType[] {
     let types: CheckUpType[] = [];
+    if (this.checkUpTypes.length == 0)
+      return types;
     for (let index = 0; index < this.visit.checkUps.length; index++) {
       let source = this.checkUpTypes.findIndex((value) => value.id == this.visit.checkUps[index].checkUpTypeId);
-      if (source < 0 ) 
-        return  ; 
+      if (source < 0)
+        return;
       let sourceType = this.checkUpTypes[source];
 
       let target = types.findIndex(value => value.id == sourceType.id);

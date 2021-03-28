@@ -37,9 +37,9 @@ export class VisitAppointmentComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params["visit"]) {
         this.visit = JSON.parse(decodeURIComponent(params["visit"]))
-        if (this.visit.appointment == null) 
-          this.visit.appointment = new Appointment() ; 
-        
+        if (this.visit.appointment == null)
+          this.visit.appointment = new Appointment();
+
       }
     });
     this.apollo.query({
@@ -54,24 +54,10 @@ export class VisitAppointmentComponent implements OnInit {
 
 
   public submit() {
-    this.apollo.mutate({
-      mutation: gql`
-        mutation ADD_APPOINTMENT($appointment : AppointmentInput){ 
-          addAppointment(appointment : $appointment) { 
-            id date time 
-          }
-        }
-      ` , variables: {
-        appointment: {
-          visitId : this.visit.id , 
-          date: this.form.value.date,
-          time: (this.form.value.time) ? (this.form.value.time) : (null)
-        }
-      }
-    }).pipe(map(value => (<any>value.data).addAppointment)).subscribe((data) => {
-      this.interactionService.newAppointmentAdded.next(data) ; 
-      this.closeEvent.emit();
-    })
+    this.interactionService.newAppointmentAdded.next(<any>{
+      date: this.form.value.date,
+      time: (this.form.value.time) ? (this.form.value.time) : (null)
+    });
   }
 
   private futureValidator(visitAppointment): any {

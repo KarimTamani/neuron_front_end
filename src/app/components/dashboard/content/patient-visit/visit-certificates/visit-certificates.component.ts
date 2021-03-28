@@ -13,7 +13,11 @@ export class VisitCertificatesComponent implements OnInit {
   public selectedCertificat : Certificat ;
   constructor() {}
     
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.visit.certificats.length > 0) { 
+      this.selectedCertificat = this.visit.certificats[0] ; 
+    }  
+  }
 
   selectCertificat($event) { 
     this.selectedCertificat = $event ; 

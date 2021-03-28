@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag'; 
-import { map } from 'rxjs/operators';
 import { Certificat } from 'src/app/classes/Certificat'; 
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
@@ -21,7 +19,7 @@ export class CertificatSubmitterComponent implements OnInit {
   public selectedType: string;
   public newCertificat: Certificat; 
   public isEdit : boolean = false ; 
-  public selectedCertificat : Certificat = null ; 
+  @Input() selectedCertificat : Certificat = null ; 
 
   @Input() visit: Visit;
   @Output() selectCertificat: EventEmitter<Certificat>;

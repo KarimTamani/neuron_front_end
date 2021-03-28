@@ -10,7 +10,7 @@
     </span>
     <div style="clear: both;"></div>
     <div class="certificats-list">
-        <div class="certificat" [class.selected]="selectedCertificat.id == certificat.id" *ngFor="let certificat of visit.certificats" (click)="select(certificat)">
+        <div class="certificat" [class.selected]="selectedCertificat && selectedCertificat.id == certificat.id" *ngFor="let certificat of visit.certificats" (click)="select(certificat)">
             {{certificat.certificatModel.title}}
             <i class="fa fa-times" (click)="remove(certificat)"></i>
             <span (click)="openCertificat(certificat)">Modifer <i class="fa fa-edit" ></i></span>

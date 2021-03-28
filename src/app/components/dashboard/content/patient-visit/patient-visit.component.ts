@@ -20,7 +20,6 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
   constructor(private apollo: Apollo, private interactionServide: InteractionService) {
     this.visit = new Visit();
   }
-
   ngOnInit(): void {
     this.apollo.query({
       query: gql`
@@ -55,7 +54,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
             id name bodyPartId
           }
           checkUps { id name checkUpTypeId }
-
+          certificats { id html certificatModel { id type title}}
           vitalSetting { 
             temperature 
             respiratoryRate  
@@ -93,11 +92,12 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       }`
     }).pipe(map(value => (<any>value.data).getCurrentVisit)).subscribe((data) => {
       if (data)
-        this.visit = data; 
+        this.visit = data;  
       this.initVisit();
     });
     this.subscriptions.push(this.interactionServide.newAppointmentAdded.subscribe((data) => {
       this.visit.appointment = data;
+      console.log(this.visit.appointment) ; 
     }));
   }
 
@@ -127,8 +127,6 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     this.visit = $event;
     this.initVisit();
   }
-
-
   public ngOnDestroy() {
     this.subscriptions.forEach((subs) => {
       subs.unsubscribe();

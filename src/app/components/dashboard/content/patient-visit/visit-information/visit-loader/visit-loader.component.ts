@@ -257,7 +257,10 @@ export class VisitLoaderComponent implements OnInit {
     }
     */
 
-    this.submitVisitCheckUps() ; 
+    //this.submitVisitCheckUps() ; 
+    //this.submitCertificats() ; 
+    this.submitAppointment() ; 
+
   }
 
 
@@ -298,6 +301,9 @@ export class VisitLoaderComponent implements OnInit {
       })
     }
   }
+
+
+
   private submitVisitCheckUps() {
     if (this.visit.checkUps.length > 0 && this.visit.id) { 
       this.apollo.mutate({
@@ -317,6 +323,54 @@ export class VisitLoaderComponent implements OnInit {
     }
   } 
 
+
+
+  private submitCertificats() { 
+    if (this.visit.certificats.length > 0 && this.visit.id) { 
+      this.apollo.mutate({
+        mutation : gql`
+          mutation ADD_VISIT_CERTIFICATS ($visitId:ID! , $certificats : [CertificatInput!]!) { 
+            addVisitCertificats(visitId : $visitId , certificats : $certificats) { 
+              id html 
+            }
+          }
+        `,variables : { 
+          visitId : this.visit.id , 
+          certificats : this.visit.certificats.map(function(certificat) { 
+            return { 
+              html : certificat.html , 
+              certificatModelId : certificat.certificatModel.id 
+            }
+          })
+        }
+      }).pipe(map(value => (<any>value.data).addVisitCertificats)).subscribe((data) => { 
+
+      })
+    }
+  }
+
+
+  private submitAppointment() { 
+    if (this.visit.appointment && this.visit.id) { 
+      this.apollo.mutate({
+        mutation: gql`
+          mutation ADD_APPOINTMENT($appointment : AppointmentInput){ 
+            addAppointment(appointment : $appointment) { 
+              id date time 
+            }
+          }
+        ` , variables: {
+          appointment: {
+            visitId : this.visit.id , 
+            date: this.visit.appointment.date,
+            time: this.visit.appointment.time 
+          }
+        }
+      }).pipe(map(value => (<any>value.data).addAppointment)).subscribe((data) => {
+
+      })
+    }
+  }
   private isVitalSettingEdited() {
     var keys = Object.keys(this.visit.vitalSetting);
     return keys.length > 0;
