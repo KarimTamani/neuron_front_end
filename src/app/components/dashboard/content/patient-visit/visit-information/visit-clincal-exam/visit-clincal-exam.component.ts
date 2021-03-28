@@ -11,6 +11,7 @@ import { ClinicalExam } from 'src/app/classes/ClincalExam';
 export class VisitClincalExamComponent implements OnInit {
   @Input() exam : string ; 
   @Output() onChange : EventEmitter<string> ; 
+  @Input() active : boolean = false ;
   constructor(private router : Router , private interactionService : InteractionService) {
     this.onChange = new EventEmitter<string>() ; 
   }

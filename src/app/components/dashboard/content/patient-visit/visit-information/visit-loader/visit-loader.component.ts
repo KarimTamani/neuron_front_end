@@ -249,7 +249,7 @@ export class VisitLoaderComponent implements OnInit {
               condition  : $condition 
               status : $status 
             }) {
-              id 
+              id createdAt status
             }
           }` , variables: {
           waitingRoomId: this.visit.waitingRoomId,
@@ -265,6 +265,8 @@ export class VisitLoaderComponent implements OnInit {
         }
       }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
         this.visit.id = data.id;
+        this.visit.status = data.status ; 
+        this.visit.createdAt = data.createdAt
         this.submitVisitDrugDosages();
         this.submitVisitCheckUps();
         this.submitCertificats();

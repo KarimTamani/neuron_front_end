@@ -1,6 +1,7 @@
 .main-container {
     padding: 16px;
     background: white;
+    position: relative;
 }
 
 h5 {

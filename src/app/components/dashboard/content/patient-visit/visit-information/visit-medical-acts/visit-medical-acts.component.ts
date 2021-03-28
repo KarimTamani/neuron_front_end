@@ -12,6 +12,7 @@ import { MedicalAct } from 'src/app/classes/MedicalAct';
 export class VisitMedicalActsComponent implements OnInit {
   public medicalActs: MedicalAct[] = [];
   @Input() selectedMedicalActs: MedicalAct[] = [];
+  @Input() active : boolean = false ;
   public totalPrice: number = 0;
   constructor(private apollo: Apollo) { }
 

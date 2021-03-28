@@ -8,6 +8,7 @@
     background: rgba(254, 101, 85, 0.2);
     padding: 8px 12px;
     border-radius: 8px;
+    margin-bottom: 78px;
 }
 
 .new-medicalfile-message p {
@@ -89,4 +90,9 @@ p i {
 
 .controller button {
     float: right;
+}
+
+.no-data-message {
+    margin-top: 8px;
+    color: #888;
 }

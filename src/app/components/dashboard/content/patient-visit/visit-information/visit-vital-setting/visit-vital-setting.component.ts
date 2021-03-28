@@ -11,6 +11,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class VisitVitalSettingComponent implements OnInit {
   @Input() vitalSetting: VitalSetting;
+  @Input() active : boolean = false ; 
   public imc: number;
   public interpretation: string;
   constructor(private dataService: DataService, private router: Router, private interactionService: InteractionService) { }

@@ -4,16 +4,17 @@
         <div class="col col-md-4">
             <app-visit-loader (visitSelectedEvent)="visitSelected($event)" [visit]="visit"></app-visit-loader>
         </div>
-        <div class="col col-md-4">
-            <app-visit-clincal-exam [exam]="visit.clinicalExam" (onChange)="visit.clinicalExam = $event"></app-visit-clincal-exam>
-        </div>
+
         <div class="col col-md-4">
             <div>
-                <app-visit-vital-setting [vitalSetting]="visit.vitalSetting"></app-visit-vital-setting>
+                <app-visit-vital-setting [active]="visit.medicalFile != null" [vitalSetting]="visit.vitalSetting"></app-visit-vital-setting>
             </div>
             <div class="side-card">
-                <app-visit-medical-acts [selectedMedicalActs]="visit.medicalActs"></app-visit-medical-acts>
+                <app-visit-medical-acts [active]="visit.medicalFile != null" [selectedMedicalActs]="visit.medicalActs"></app-visit-medical-acts>
             </div>
+        </div>
+        <div class="col col-md-4">
+            <app-visit-clincal-exam [active]="visit.medicalFile != null" [exam]="visit.clinicalExam" (onChange)="visit.clinicalExam = $event"></app-visit-clincal-exam>
         </div>
     </div>
 

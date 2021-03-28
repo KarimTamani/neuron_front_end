@@ -1,6 +1,6 @@
 <div class="main-container primary-radius">
 
-    <app-no-visit-background></app-no-visit-background>
+    <app-no-visit-background *ngIf="!active"></app-no-visit-background>
     <h5>Examen Clinique</h5>
     <p (click)="openManager()">
         Charger un examen predefiné <i class="fa fa-file-medical-alt"></i>
