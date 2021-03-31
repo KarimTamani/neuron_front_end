@@ -4,7 +4,7 @@
     </h5>
     <div class="patients-list">
 
-        <p class="no-data-message">Aucun patient est prsente dans la salle d'attent</p>
+        <p class="no-data-message" *ngIf="visits.lenght == 0">Aucun patient est prsente dans la salle d'attent</p>
 
         <app-general-waiting-room-patient *ngFor="let visit of visits" [visit]="visit"></app-general-waiting-room-patient>
 

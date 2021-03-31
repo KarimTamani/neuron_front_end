@@ -16,10 +16,13 @@ export class SearchHeaderComponent implements OnInit {
   public selectedWilaya : Wilaya ; 
   public searchQuery : any = {} ; 
   @Input() advancedSearchOption : string ; 
-  @Output() searchEvent : EventEmitter<any> ; 
+  @Output() searchEvent : EventEmitter<any> ;
+  @Output() addEvent : EventEmitter<null> ; 
+  @Input() addOption : boolean = false ; 
+
   constructor(private apollo : Apollo , private router : Router, private interactionService : InteractionService)  {
     this.searchEvent = new EventEmitter<any>() ; 
-
+    this.addEvent = new EventEmitter<null>() ; 
   }
 
   ngOnInit(): void {

@@ -25,5 +25,8 @@
         <div class="advanced-search">
             <a (click)="openAdvancedSearch()">recherche avancé</a>
         </div>
+        <div class="add-button center-v" *ngIf="addOption">
+            <i class="fa fa-plus" (click)="addEvent.emit()"></i>
+        </div>
     </div>
 </div>

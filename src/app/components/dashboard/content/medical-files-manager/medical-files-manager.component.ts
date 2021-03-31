@@ -3,6 +3,8 @@ import { Apollo } from 'apollo-angular';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-medical-files-manager',
@@ -13,10 +15,10 @@ export class MedicalFilesManagerComponent implements OnInit {
   public medicalFiles: MedicalFile[] = [];
   public count : number ; 
   public offset : number = 0 ; 
-  public limit : number =  2 ; 
+  public limit : number =  10 ; 
   public lastSearch : any = {}  ;
 
-  constructor(private apollo: Apollo) {}    
+  constructor(private apollo: Apollo , private router : Router , private  interactionService : InteractionService) {}    
   ngOnInit(): void {
     this.searchMedicalFiles(
       null , 
@@ -130,5 +132,21 @@ export class MedicalFilesManagerComponent implements OnInit {
       this.limit 
     ) ; 
 
+  }
+
+  public add() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "title" : "Ajouter un nouveau Dossie Medical" , 
+        "window-page" : "medical-file-submitter" , 
+        "pop-up-window" : true , 
+      }
+    }); 
+    const subscription = this.interactionService.newMedicalFile.subscribe((data) => { 
+      this.search({
+
+      })
+      subscription.unsubscribe() ; 
+    })
   }
 }

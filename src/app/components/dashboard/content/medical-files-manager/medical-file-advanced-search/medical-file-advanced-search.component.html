@@ -1,6 +1,5 @@
 <div id="container">
     <div class="main-container primary-radius">
-
         <div class="antecedents-submitter primary-radius" *ngIf="showAntecedentsManager">
             <app-antecedents-submitter (closeEvent)="showAntecedentsManager = false" [antecedents]="searchQuery.antecedents"></app-antecedents-submitter>
         </div>

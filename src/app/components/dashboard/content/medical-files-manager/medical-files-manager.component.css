@@ -1,6 +1,11 @@
 .files-list {
-    height: 400px;
-    max-height: 400px;
-    min-height: 400px;
+    max-height: 480px;
+    min-height: 480px;
     margin-top: 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.files-list .col {
+    margin-bottom: 16px;
 }
