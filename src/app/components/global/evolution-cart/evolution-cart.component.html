@@ -2,8 +2,12 @@
     <div class="top">
         <i class="{{evolutionParam.icon}}"></i>
         <div class="right">
-            <span>{{evolutionParam.evolutionPercentage}} % <i class="fa fa-arrow-up"></i> </span>
-            <p>rapport au dernier {{evolutionParam.period}}</p>
+            <span> 
+                <i *ngIf="evolutionParam.evolutionPercentage >  0"class="fa fa-chevron-up"></i> 
+                <i *ngIf="evolutionParam.evolutionPercentage <  0"class="fa fa-chevron-down"></i> 
+                {{getPercentage}} %
+            </span>
+            <p>rapport au dernier {{periodText}}</p>
         </div>
     </div>
     <div class="bottom">

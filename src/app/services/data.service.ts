@@ -33,6 +33,23 @@ export class DataService {
 
   constructor() { }
 
+  public periodToText(period) { 
+    if (period == this.DAY) { 
+      return "Jour" ; 
+    }
+    if (period == this.WEEK) { 
+      return "semain" ; 
+    }
+    if (period == this.MONTH) { 
+      return "mois" ; 
+    }
+    if (period == this.TRIMESTER) 
+      return "trimester" ; 
+    if (period == this.SEMESTER) 
+      return "semester" ; 
+    if (period == this.YEAR) 
+      return "année"; 
+  }
   public castFRDate(date: Date) {
 
     const currentMonth = date.getMonth();

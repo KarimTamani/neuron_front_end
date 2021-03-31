@@ -10,32 +10,7 @@ import { Color, Label } from 'ng2-charts';
 export class GeneralDiseaseReportComponent implements OnInit {
   @Input() analytics: any;
 
-  public radarChartOptions: RadialChartOptions = {
-    responsive: true,
-    scale: {
-
-      gridLines: {
-        circular: true,
-        display: false
-
-      },
-      ticks: {
-        beginAtZero: true,
-        display: false
-      },
-
-    },
-
-    elements: {
-      line: {
-        tension: 0.3
-      }
-    },
-    layout: {
-      padding: 0
-    }
-
-  }
+  public radarChartOptions: RadialChartOptions = null ; 
   public lineChartColors: Color[] = [
     {
       backgroundColor: "#FE655588",
@@ -43,6 +18,7 @@ export class GeneralDiseaseReportComponent implements OnInit {
 
     }
   ]
+
   public radarChartLabels: Label[] = [];
 
   public radarChartData: ChartDataSets[] = [];
@@ -50,14 +26,74 @@ export class GeneralDiseaseReportComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { 
-    console.log(this.analytics) ; 
+  ngOnInit(): void {
 
-    this.radarChartData = [ 
-      { data : this.analytics.getAnalyticsDiseases.map(value => value.value) , label : "Maladie"}
+    this.radarChartData = [
+      {
+        data: this.analytics.getAnalyticsDiseases.map(value => value.value),
+        label: "Patient",
+        
+      }
     ]
-    this.radarChartLabels =  this.analytics.getAnalyticsDiseases.map(value => value.group) ; 
 
+    var labels = this.analytics.getAnalyticsDiseases.map(value => value.group);
+    this.radarChartLabels = labels.map(this.processLabels) ; 
+    
+    
+    this.radarChartOptions = {
+      responsive: true, 
+  
+      scale: {
+       
+        gridLines: {
+          circular: true,
+          display: false ,     
+        },
+        ticks: {
+          beginAtZero: true,
+          display: false,  
+        }, 
+        
+  
+      },
+      
+      legend : {
+        display : true , 
+      } , 
+      elements: {
+        line: {
+          tension: 0.3
+        }
+      },
+      layout: {
+        padding: 0
+      }, 
+  
+      tooltips : { 
+  
+        mode: 'nearest',   
+        callbacks: {
+          label: function (tooltipItems, data) {
+  
+            return " " + tooltipItems.yLabel + " " + data.datasets[tooltipItems.datasetIndex].label+ " : " + labels[tooltipItems.index];
+          },
+          title : () => { 
+            return "" ;  
+          } 
+        }
+      }
+    } ;
+  }
+  private processLabels(label : string) {
+    label = label.replace("-" , " ") ; 
+
+    var labelSplited = label.split(" ") ; 
+    if (labelSplited.length == 1) 
+      return label.slice(0 , 4) ; 
+    labelSplited = labelSplited.slice(0 , 4) ; 
+    labelSplited = labelSplited.map(word => word.charAt(0)) ; 
+
+    return labelSplited.join("")  ; 
   }
 
 }

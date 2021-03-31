@@ -15,16 +15,16 @@ export class GeneralComponent implements OnInit {
     {
       icon: "fa fa-calendar-check",
       name: "Visites",
-      period: null,
+      period: this.dataService.MONTH,
       backgroundColor: "#FE6555",
       evolutionPercentage: null,
       evolutionValue: null,
       boxShadow: "0px 0px 26px #FE655588"
     },
     {
-      icon: "fa fa-money-bill-wave",
+      icon: "fa fa-coins",
       name: "Gain",
-      period: null,
+      period: this.dataService.MONTH,
       backgroundColor: "#265ED7",
       evolutionPercentage: null,
       evolutionValue: null,
@@ -110,6 +110,8 @@ export class GeneralComponent implements OnInit {
       this.evolutionParams[0].evolutionPercentage = this.evolutionParams[0].evolutionPercentage * 100
       this.evolutionParams[1].evolutionPercentage = this.evolutionParams[1].evolutionPercentage * 100
       
+      this.evolutionParams[0].period = period ; 
+      this.evolutionParams[1].period = period ; 
       this.updateAnalytics.next({ analytics: this.analytics, period: period });
     })
   }

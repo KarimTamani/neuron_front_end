@@ -50,9 +50,7 @@ export class GeneralLineChartComponent implements OnInit {
     this.lineChartOptions = {
       responsive: true,
       responsiveAnimationDuration: 0, // animation duration after a resize
-
       scales: {
-
         xAxes: [{
 
           gridLines: {
