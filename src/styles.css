@@ -166,3 +166,8 @@ select {
 .inner-navigation i {
     padding: 3px 0px;
 }
+
+.no-data-message {
+    margin-top: 8px;
+    color: #888;
+}
