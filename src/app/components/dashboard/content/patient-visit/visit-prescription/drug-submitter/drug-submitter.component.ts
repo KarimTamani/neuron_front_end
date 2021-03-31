@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-drug-submitter',
@@ -31,7 +32,7 @@ export class DrugSubmitterComponent implements OnInit {
       Validators.minLength(3)
     ])
   })
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo , private interactionService : InteractionService) {
     this.submittedVisitDrugDosage = new VisitDrugDosage();
     this.submittedVisitDrugDosage.drug.name = "";
     this.submittedVisitDrugDosage.dosage.name = "";
@@ -90,6 +91,7 @@ export class DrugSubmitterComponent implements OnInit {
     this.submittedVisitDrugDosage  = $event ; 
     this.submitedQSP = { name : $event.qsp } ; 
     this.deleteVisitDrugDosage($event) ;  
+    this.interactionService.visitEdited.next() ; 
   }
 
   public deleteVisitDrugDosage($event) {
@@ -102,6 +104,8 @@ export class DrugSubmitterComponent implements OnInit {
       $event.qsp == value.qsp
     );
     this.visitDrugDosages.splice(index , 1) ; 
+    this.interactionService.visitEdited.next() ; 
+  
   }
   public add() {
     // whene we add a visit drug dosage to the visit 
@@ -126,6 +130,8 @@ export class DrugSubmitterComponent implements OnInit {
     this.submitedQSP = { 
       name : "" 
     }
+
+    this.interactionService.visitEdited.next() ; 
 
   }
   public clear() {

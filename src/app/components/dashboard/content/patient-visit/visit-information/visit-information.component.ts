@@ -12,8 +12,14 @@ export class VisitInformationComponent implements OnInit {
   @Input() visit: Visit;
   @Output() visitSelectedEvent : EventEmitter<Visit>  ; 
   
+  @Output() saveVisitEvent : EventEmitter<Visit> ; 
+  @Output() editVisitEvent : EventEmitter<Visit> ; 
+  
   constructor(private apollo: Apollo, private interactionService: InteractionService) {
     this.visitSelectedEvent = new EventEmitter<Visit>() ; 
+    
+    this.saveVisitEvent = new EventEmitter<Visit>() ; 
+    this.editVisitEvent = new EventEmitter<Visit>() ; 
   }
   ngOnInit(): void { 
     this.interactionService.vitalSettingEdited.subscribe((data) => {
@@ -23,6 +29,15 @@ export class VisitInformationComponent implements OnInit {
   public visitSelected($event) { 
     this.visit = $event ; 
     this.visitSelectedEvent.emit(this.visit) ; 
+  }
+
+  public save($event) { 
+    this.saveVisitEvent.emit($event) ; 
+  }
+
+  public edit($event ) { 
+    this.editVisitEvent.emit($event) ; 
+  
   }
 
 }

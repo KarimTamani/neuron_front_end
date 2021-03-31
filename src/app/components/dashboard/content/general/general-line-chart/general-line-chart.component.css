@@ -1,9 +1,17 @@
 canvas {
-    max-height: 260px;
+    max-height: 280px;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.canvas-container {
+    background: white;
+    position: relative;
 }
 
 .line-chart-container {
     background: white;
-    padding: 16px 26px;
+    padding: 16px;
     border-radius: 16px;
+    width: 100%;
 }

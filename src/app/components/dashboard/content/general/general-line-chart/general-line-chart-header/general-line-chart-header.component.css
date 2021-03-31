@@ -37,13 +37,13 @@
     background: rgb(38, 94, 215);
 }
 
-.controller button {
-    width: 40%;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: 1px solid #eeeeee;
-    background: none;
-    color: #555555;
-    font-size: 14px;
+.controller p {
+    font-weight: bold;
+}
+
+h5 {
+    margin-top: 16px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }

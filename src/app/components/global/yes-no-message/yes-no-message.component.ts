@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
 
@@ -7,7 +7,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
   templateUrl: './yes-no-message.component.html',
   styleUrls: ['./yes-no-message.component.css']
 })
-export class YesNoMessageComponent implements OnInit {
+export class YesNoMessageComponent implements OnInit, OnDestroy {
   public message : string ; 
   @Output() closeEvent : EventEmitter<null> ; 
   constructor(private route : ActivatedRoute , private interactionService : InteractionService) {
@@ -24,6 +24,7 @@ export class YesNoMessageComponent implements OnInit {
     this.closeEvent.emit() ; 
   }
 
-
-
+  ngOnDestroy() { 
+    this.interactionService.yesOrNo.next(null) ; 
+  }
 }

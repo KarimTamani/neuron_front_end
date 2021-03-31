@@ -72,9 +72,7 @@ export class AnalyticsComponent implements OnInit {
           value
         }
         
-        getAnalyticsAge(interval : $interval) {
-          group percentage value
-        }
+        
         getAnalyticsGender(interval : $interval) {
           group percentage value
         }
@@ -97,8 +95,19 @@ export class AnalyticsComponent implements OnInit {
       }
     }).pipe(map(value => value.data)).subscribe((data) => {
       this.analytics = data;  
-      this.updateSubject.next(this.analytics) ; 
+      this.updateSubject.next({ 
+        analytics : this.analytics , 
+        period : period 
+      }) ; 
     })
+
+    /*
+    
+      getAnalyticsAge(interval : $interval) {
+          group percentage value
+        }
+    
+    */
   }
 
 

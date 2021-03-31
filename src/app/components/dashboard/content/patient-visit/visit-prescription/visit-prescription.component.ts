@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Visit } from 'src/app/classes/Visit';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-visit-prescription',
@@ -9,7 +10,7 @@ import { Visit } from 'src/app/classes/Visit';
 export class VisitPrescriptionComponent implements OnInit {
   public navigationOption : number = 1 ; 
   @Input() visit : Visit  ; 
-  constructor() { }
+  constructor(private interactionService : InteractionService) { }
 
   ngOnInit(): void {
   
@@ -18,6 +19,7 @@ export class VisitPrescriptionComponent implements OnInit {
   public use($event) { 
     this.navigationOption = 1 ; 
     this.visit.visitDrugDosages = $event.drugDosages ; 
+    this.interactionService.visitEdited.next() ; 
   }
 
 }

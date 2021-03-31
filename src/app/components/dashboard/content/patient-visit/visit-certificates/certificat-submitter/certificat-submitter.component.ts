@@ -55,33 +55,37 @@ export class CertificatSubmitterComponent implements OnInit {
     })
   }
 
-  public back() {
+  public back() { 
+    // whene we back from the editor assign newCertificat to null 
+    // and always make sure that the selectedCertificat is on
     this.newCertificat = null;
     this.selectCertificat.emit(this.selectedCertificat);
   }
+
 
   public add($event) {
     this.visit.certificats.splice(0, 0, $event);
     this.selectedCertificat = $event ; 
     this.selectCertificat.emit(this.selectedCertificat) ; 
     this.newCertificat = null ; 
+    this.interactionService.visitEdited.next() ; 
   }
 
   public openCertificat(certificat) { 
     this.isEdit = true ; 
     this.newCertificat = certificat ; 
     this.select(certificat) ; 
+
+    this.interactionService.visitEdited.next() ; 
   }
 
 
   public select(certificat) { 
     this.selectedCertificat = certificat ; 
     this.selectCertificat.emit(this.selectedCertificat) ;   
-  
   }
  
-  public remove(certificat) { 
-    
+  public remove(certificat) {     
     const index = this.visit.certificats.findIndex(value => value.id == certificat.id) ;
     if (this.selectedCertificat && this.selectedCertificat.id == this.visit.certificats[index].id) { 
       this.selectedCertificat = null ; 
@@ -90,5 +94,7 @@ export class CertificatSubmitterComponent implements OnInit {
     if (index >= 0 ) { 
       this.visit.certificats.splice(index , 1) ; 
     }
+
+    this.interactionService.visitEdited.next() ; 
   }
 }

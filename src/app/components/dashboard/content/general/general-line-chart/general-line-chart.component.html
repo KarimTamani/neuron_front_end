@@ -1,5 +1,6 @@
 <div class="line-chart-container">
-    <app-general-line-chart-header></app-general-line-chart-header>
-
-    <canvas #chart baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
+    <app-general-line-chart-header (periodSelectedEvent)="periodSelected($event)"></app-general-line-chart-header>
+    <div class="canvas-container">
+        <canvas #chart baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
+    </div>
 </div>

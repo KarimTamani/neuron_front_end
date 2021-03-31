@@ -98,9 +98,8 @@
                     <div *ngIf="selectedWilaya">
                         <label>Commune</label>
                         <select formControlName="communeId" [(ngModel)]="medicalFile.address.commune.id" [ngClass]="{'is-invalid' : form.get('communeId').touched && form.get('communeId').invalid}">
-                        <option  hidden [value]="undefined">Selectioner</option>
-                        <option *ngFor="let commune of selectedWilaya.communes" [value]="commune.id">{{commune.name}}</option>
-                    </select>
+                            <option *ngFor="let commune of selectedWilaya.communes" [value]="commune.id">{{commune.name}}</option>
+                        </select>
                         <div class="invalid-feedback" *ngIf="form.get('communeId').touched && form.get('communeId').invalid">
                             <div *ngIf="form.get('communeId').errors.required">wilaya est requis</div>
                         </div>
@@ -133,8 +132,8 @@
             <div class="col col-md-12">
                 <div class="controller">
                     <button class="clear">Effacer</button>
-                    <button *ngIf="!edit" class="primary-button" (click)="save()"> Sauvgarder <i class="fa fa-save"></i></button>
-                    <button *ngIf="edit" class="primary-button" (click)="editMedicalFile()"> Modifier<i class="fa fa-edit"></i></button>
+                    <button *ngIf="!edit" class="primary-button" [disbaled]="form.invalid" (click)="save()"> Sauvgarder <i class="fa fa-save"></i></button>
+                    <button *ngIf="edit" class="primary-button" [disbaled]="form.invalid" (click)="editMedicalFile()"> Modifier<i class="fa fa-edit"></i></button>
                 </div>
             </div>
         </div>

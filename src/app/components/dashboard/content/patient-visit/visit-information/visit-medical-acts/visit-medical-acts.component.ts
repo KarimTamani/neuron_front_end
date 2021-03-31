@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { MedicalAct } from 'src/app/classes/MedicalAct';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-visit-medical-acts',
@@ -14,7 +15,7 @@ export class VisitMedicalActsComponent implements OnInit {
   @Input() selectedMedicalActs: MedicalAct[] = [];
   @Input() active : boolean = false ;
   public totalPrice: number = 0;
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo , private interactionService : InteractionService) { }
 
   ngOnInit(): void {
     this.apollo.query({
@@ -48,7 +49,9 @@ export class VisitMedicalActsComponent implements OnInit {
     this.totalPrice = 0;
     this.selectedMedicalActs.forEach((act) => {
       this.totalPrice += act.price;
-    })
+    }); 
+
+    this.interactionService.visitEdited.next() ;  
   }
 
   public isMedicalActSelected(medicalAct) {

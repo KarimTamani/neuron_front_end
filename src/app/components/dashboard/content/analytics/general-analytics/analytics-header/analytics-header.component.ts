@@ -71,8 +71,6 @@ export class AnalyticsHeaderComponent implements OnInit {
       default:
         break;
     }
- 
-
   }
 
   public selectOption(option) {

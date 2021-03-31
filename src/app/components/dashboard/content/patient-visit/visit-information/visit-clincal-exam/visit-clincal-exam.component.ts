@@ -1,4 +1,4 @@
-import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { ClinicalExam } from 'src/app/classes/ClincalExam';
@@ -9,32 +9,34 @@ import { ClinicalExam } from 'src/app/classes/ClincalExam';
   styleUrls: ['./visit-clincal-exam.component.css']
 })
 export class VisitClincalExamComponent implements OnInit {
-  @Input() exam : string ; 
-  @Output() onChange : EventEmitter<string> ; 
-  @Input() active : boolean = false ;
-  constructor(private router : Router , private interactionService : InteractionService) {
-    this.onChange = new EventEmitter<string>() ; 
+  @Input() exam: string;
+  @Output() onChange: EventEmitter<string>;
+  @Input() active: boolean = false;
+  constructor(private router: Router, private interactionService: InteractionService) {
+    this.onChange = new EventEmitter<string>();
   }
 
   ngOnInit(): void {
-  
+
   }
   change() {
-    this.onChange.emit(this.exam) ; 
+    this.onChange.emit(this.exam);
+    if (this.exam.trim().length > 0)
+      this.interactionService.visitEdited.next();
   }
 
-  public openManager() { 
-    this.router.navigate([] , {
-      queryParams : {
-        "pop-up-window" : true , 
-        "window-page" : "clincal-exam-manager" , 
-        "title" : "Les examens cliniques" 
+  public openManager() {
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "clincal-exam-manager",
+        "title": "Les examens cliniques"
       }
-    }); 
+    });
     const subscription = this.interactionService.useClinicalExam.subscribe((data) => {
-      this.exam = data.exam ; 
-      subscription.unsubscribe() ; 
-      this.onChange.emit(this.exam) ; 
+      this.exam = data.exam;
+      subscription.unsubscribe();
+      this.onChange.emit(this.exam);
     })
   }
 }

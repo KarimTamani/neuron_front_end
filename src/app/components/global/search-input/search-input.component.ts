@@ -13,6 +13,8 @@ export class SearchInputComponent implements OnInit {
   @Input() searchFunction: any;
   @Output() itemSelected: EventEmitter<any>;
   @Output() searchSubmitted : EventEmitter<any> ; 
+  @Output() onChange : EventEmitter<any> ; 
+
   @Input() submittedItem: any;
   @Input() formControlName : string ; 
   @ViewChild("input", {}) input;
@@ -24,6 +26,7 @@ export class SearchInputComponent implements OnInit {
   constructor() {
     this.itemSelected = new EventEmitter<any>();
     this.searchSubmitted = new EventEmitter<any>() ; 
+    this.onChange = new EventEmitter<any>() ; 
   }
   ngOnInit(): void {
   }
@@ -32,6 +35,11 @@ export class SearchInputComponent implements OnInit {
     setTimeout(() => {
       this.results = [];
     }, 200);
+  }
+
+  change($event ) {  
+    this.onChange.emit( this.submittedItem ) ; 
+    
   }
   select(item) {
     this.submittedItem.name = item.name;

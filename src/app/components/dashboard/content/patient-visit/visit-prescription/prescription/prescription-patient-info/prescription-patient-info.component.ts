@@ -14,7 +14,7 @@ export class PrescriptionPatientInfoComponent implements OnInit {
   constructor(private dataService : DataService) { }
 
   ngOnInit(): void {
-  
+    console.log(this.visit) ; 
     const createdAtDate = new Date(parseInt ( this.visit.createdAt ) ) ; 
     const day = createdAtDate.getDate() ; 
     const month = createdAtDate.getMonth() ; 

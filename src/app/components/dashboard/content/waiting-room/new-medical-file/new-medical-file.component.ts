@@ -6,9 +6,9 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Profession } from 'src/app/classes/Profession';
 import { Observable } from 'rxjs';
-import { Antecedent } from 'src/app/classes/Antecedent';
 import { Address } from 'src/app/classes/Address';
 import { DataService } from 'src/app/services/data.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-new-medical-file',
@@ -50,15 +50,19 @@ export class NewMedicalFileComponent implements OnInit {
   public selectedWilaya: any = null;
   public professions: Profession[] = [];
   public showSubmitter: boolean = false;
-  @Output() blackWindowEvent: EventEmitter<null>;
-  @Input() medicalFile: MedicalFile;
-  @Output() newMedicalFileEvent : EventEmitter<MedicalFile> ; 
   public edit: boolean = false;
 
+  @Output() blackWindowEvent: EventEmitter<null>;
+  @Input() medicalFile: MedicalFile;
+  @Output() newMedicalFileEvent: EventEmitter<MedicalFile>;
+  @Input() throwInteraction: boolean = false;
+  @Output() closeEvent : EventEmitter<null> ; 
 
-  constructor(private apollo: Apollo, private dataService: DataService) {
+
+  constructor(private apollo: Apollo, private dataService: DataService, private interactionService: InteractionService) {
     this.blackWindowEvent = new EventEmitter<null>();
-    this.newMedicalFileEvent = new EventEmitter<MedicalFile>() ; 
+    this.newMedicalFileEvent = new EventEmitter<MedicalFile>();
+    this.closeEvent = new EventEmitter<null>() ; 
   }
 
   ngOnInit(): void {
@@ -69,7 +73,6 @@ export class NewMedicalFileComponent implements OnInit {
         query: gql`
         {
           getMedicalFile(medicalFileId : ${this.medicalFile.id}) {
-            
               id
               name
               lastname
@@ -147,7 +150,7 @@ export class NewMedicalFileComponent implements OnInit {
   wilayaSelected() {
     // filter by if to find the selected wilaya 
     this.selectedWilaya = this.wilayas.find(wilaya => wilaya.id == this.form.value.wilayaId);
-    this.medicalFile.address.commune.id = null;
+    this.medicalFile.address.commune.id = this.selectedWilaya.communes[0].id;
   }
 
 
@@ -169,6 +172,8 @@ export class NewMedicalFileComponent implements OnInit {
     else
       this.addMedicalFile();
   }
+
+
   private addMedicalFile() {
 
 
@@ -221,6 +226,7 @@ export class NewMedicalFileComponent implements OnInit {
               gender
               phone
               email
+              birthday
               address {
                   id
                   address
@@ -244,11 +250,14 @@ export class NewMedicalFileComponent implements OnInit {
           } ` ,
       variables: variables
     }).pipe(map(value => (<any>value.data).addMedicalFile)).subscribe((data) => {
-      this.medicalFile = data ; 
-      this.newMedicalFileEvent.emit(this.medicalFile)
+      this.medicalFile = data;
+      if (!this.throwInteraction)
+        this.newMedicalFileEvent.emit(this.medicalFile)
+      else 
+        this.interactionService.newMedicalFile.next(data) ;
+      this.closeEvent.emit() 
     })
   }
-
 
   public editMedicalFile() {
     var variables = <any>{
@@ -269,7 +278,7 @@ export class NewMedicalFileComponent implements OnInit {
       };
 
     this.apollo.mutate({
-      mutation : gql`
+      mutation: gql`
       mutation EDIT_MEDICAL_FILE(
         $name : String!, 
         $lastname : String!
@@ -295,10 +304,10 @@ export class NewMedicalFileComponent implements OnInit {
               antecedents : $antecedents
           }
         ) 
-      }` , 
-      variables : variables
-    }).pipe(map(value => (<any>value.data).editMedicalFile)).subscribe((data) => { 
-      console.log("hello world") ; 
+      }` ,
+      variables: variables
+    }).pipe(map(value => (<any>value.data).editMedicalFile)).subscribe((data) => {
+       
     })
   }
 }

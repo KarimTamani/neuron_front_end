@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { Condition } from 'src/app/classes/Condition';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-visit-loader',
@@ -16,13 +18,32 @@ import { DataService } from 'src/app/services/data.service';
 export class VisitLoaderComponent implements OnInit {
   @Input() visit: Visit;
   @Output() visitSelectedEvent: EventEmitter<Visit>;
+
+
+
+  @Output() editVisitEvent : EventEmitter<Visit> ; 
+  @Output() saveVisitEvent : EventEmitter<Visit> ; 
+
   public showSearch: boolean = false;
   public submittedMedicalFile: MedicalFile;
   public waitingRoom: WaitingRoom;
-  constructor(private apollo: Apollo, private dataService: DataService) {
+  constructor(
+    private apollo: Apollo, 
+    private dataService: DataService , 
+    private router : Router , 
+    private interactionService : InteractionService) {
+
     this.submittedMedicalFile = new MedicalFile();
     this.visitSelectedEvent = new EventEmitter<Visit>();
+
+    this.editVisitEvent = new EventEmitter<Visit>() ; 
+    this.saveVisitEvent = new EventEmitter<Visit>() ; 
+
   }
+
+
+
+
   ngOnInit(): void {
     if (this.visit.medicalFile == null)
       this.showSearch = true;
@@ -33,6 +54,7 @@ export class VisitLoaderComponent implements OnInit {
             getCurrentDate
           }`
     }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
+      
       this.apollo.query({
         query: gql`
           { 
@@ -43,7 +65,7 @@ export class VisitLoaderComponent implements OnInit {
             }
           }`
       }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => {
-        if (data == null) {
+        if (data == null) { 
           this.apollo.mutate({
             mutation: gql`
               mutation {
@@ -57,7 +79,6 @@ export class VisitLoaderComponent implements OnInit {
           }).pipe(map(value => (<any>value.data).addWaitingRoom)).subscribe((data) => {
             this.waitingRoom = data;
             this.waitingRoom.visits = [];
-            console.log("waiting room created");
           })
         } else
           this.waitingRoom = data;
@@ -160,6 +181,14 @@ export class VisitLoaderComponent implements OnInit {
 
     })
   }
+
+
+
+  public change($event) { 
+    if ($event.name && $event.name.trim().length > 0) { 
+      this.interactionService.visitEdited.next() ; 
+    }
+  }
   public closeMedicalFile() {
     this.visit = new Visit();
     this.showSearch = true;
@@ -204,191 +233,32 @@ export class VisitLoaderComponent implements OnInit {
   }
 
   public saveVsit() {
-
-    if (this.visit.id) {
-      this.apollo.mutate({
-        mutation: gql`
-        mutation ($symptoms : [ID!] , $clinicalExam :String , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput , $condition : ConditionInput)
-        {
-          editVisit(visitId : ${this.visit.id} , visit : {
-            symptoms : $symptoms
-            medicalActs : $medicalActs 
-            status : "in visit" 
-            vitalSetting : $vitalSetting 
-            clinicalExam : $clinicalExam
-            condition : $condition
-          })
-        }
-      `, variables: {
-          symptoms: this.visit.symptoms.map(value => value.id),
-          medicalActs: this.visit.medicalActs.map(value => value.id),
-          vitalSetting: (this.isVitalSettingEdited()) ? (this.visit.vitalSetting) : (null),
-          clinicalExam: (this.visit.clinicalExam && this.visit.clinicalExam.trim().length > 3) ? (this.visit.clinicalExam) : (null),
-          condition: (this.visit.condition && this.visit.condition.name && this.visit.condition.name.trim().length > 0) ? ({
-            name: this.visit.condition.name
-          }) : (null)
-        }
-      }).subscribe((data) => {
-        this.submitVisitDrugDosages();
-        this.submitVisitCheckUps();
-        this.submitCertificats();
-        this.submitAppointment();
-
-      })
-    } else {
-      this.apollo.mutate({
-        mutation: gql`
-          mutation ADD_VISIT($waitingRoomId : ID! ,  $vitalSetting : VitalSettingInput , $medicalFileId : ID! , $clinicalExam : String , $symptoms : [ID!] , $medicalActs : [ID!]! ,  $condition : ConditionInput , $status : String){ 
-            addVisit (visit : { 
-              waitingRoomId : $waitingRoomId , 
-              medicalFileId : $medicalFileId , 
-              clinicalExam : $clinicalExam , 
-              symptoms : $symptoms ,
-              medicalActs : $medicalActs 
-              vitalSetting : $vitalSetting , 
-              condition  : $condition 
-              status : $status 
-            }) {
-              id createdAt status
-            }
-          }` , variables: {
-          waitingRoomId: this.visit.waitingRoomId,
-          medicalFileId: this.visit.medicalFile.id,
-          symptoms: this.visit.symptoms.map(value => value.id),
-          medicalActs: this.visit.medicalActs.map(value => value.id),
-          vitalSetting: (this.isVitalSettingEdited()) ? (this.visit.vitalSetting) : (null),
-          clinicalExam: (this.visit.clinicalExam && this.visit.clinicalExam.trim().length > 3) ? (this.visit.clinicalExam) : (null),
-          condition: (this.visit.condition && this.visit.condition.name && this.visit.condition.name.trim().length > 0) ? ({
-            name: this.visit.condition.name
-          }) : (null),
-          status: "in visit"
-        }
-      }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
-        this.visit.id = data.id;
-        this.visit.status = data.status ; 
-        this.visit.createdAt = data.createdAt
-        this.submitVisitDrugDosages();
-        this.submitVisitCheckUps();
-        this.submitCertificats();
-        this.submitAppointment();
-
-      })
-    }
-
-
+    if (this.visit.id) { 
+      this.editVisitEvent.emit(this.visit) ; 
+    }else { 
+      this.saveVisitEvent.emit(this.visit) ;  
+    } 
   }
+ 
 
-
-  private submitVisitDrugDosages() {
-    if (this.visit.visitDrugDosages.length > 0) {
-      this.apollo.mutate({
-        mutation: gql`
-    mutation ADD_VISIT_DRUG_DOSAGES($visitId : ID! , $visitDrugDosages : [VisitDrugDosageInput!]! ){ 
-      addVisitDrugDosages(visitId : $visitId , visitDrugDosages : $visitDrugDosages) { 
-        drug {
-          id 
-          name
-        } 
-        dosage { 
-          id name 
-        }
-        qsp  
-        unitNumber 
+  public openMedicalFileSubmitter() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "title" : "Ajouter un nouveau Dossie Medical" , 
+        "window-page" : "medical-file-submitter" , 
+        "pop-up-window" : true , 
       }
-    }
-  ` , variables: {
-          visitId: this.visit.id,
-          visitDrugDosages: this.visit.visitDrugDosages.map(function (value) {
-            return {
-              drug: {
-                name: value.drug.name
-              },
-              dosage: {
-                name: value.dosage.name
-              },
-              qsp: (value.qsp && value.qsp.trim().length > 0) ? (value.qsp) : (null),
-              unitNumber: (value.unitNumber && value.unitNumber != 0) ? (value.unitNumber) : (1),
-            }
-          })
-        }
-      }).pipe(map(value => (<any>value.data).addVisitDrugDosages)).subscribe((data) => {
-        this.visit.visitDrugDosages = data;
-      })
-    }
-  }
+    }); 
+    const subscription = this.interactionService.newMedicalFile.subscribe((data) => { 
+      this.visit.medicalFile = data ; 
+      this.submittedMedicalFile = this.visit.medicalFile ; 
+      
+      this.visit.waitingRoom = this.waitingRoom;
+      this.visit.waitingRoomId = this.waitingRoom.id;
+      this.visit.order = this.visit.waitingRoom.visits.length + 1 ;       
 
-
-
-  private submitVisitCheckUps() {
-    if (this.visit.checkUps.length > 0 && this.visit.id) {
-      this.apollo.mutate({
-        mutation: gql`
-          mutation ADD_VISIT_CHECKUPS($visitId : ID! , $checkUps : [ID!]!) { 
-            addVisitCheckUps(visitId : $visitId, checkUps : $checkUps ) { 
-              id
-            }
-          }` ,
-        variables: {
-          visitId: this.visit.id,
-          checkUps: this.visit.checkUps.map(value => value.id)
-        }
-      }).pipe(map(value => (<any>value.data).addVisitCheckUps)).subscribe(() => {
-
-      })
-    }
-  }
-
-
-
-  private submitCertificats() {
-    if (this.visit.certificats.length > 0 && this.visit.id) {
-      this.apollo.mutate({
-        mutation: gql`
-          mutation ADD_VISIT_CERTIFICATS ($visitId:ID! , $certificats : [CertificatInput!]!) { 
-            addVisitCertificats(visitId : $visitId , certificats : $certificats) { 
-              id html 
-            }
-          }
-        `, variables: {
-          visitId: this.visit.id,
-          certificats: this.visit.certificats.map(function (certificat) {
-            return {
-              html: certificat.html,
-              certificatModelId: certificat.certificatModel.id
-            }
-          })
-        }
-      }).pipe(map(value => (<any>value.data).addVisitCertificats)).subscribe((data) => {
-
-      })
-    }
-  }
-
-
-  private submitAppointment() {
-    if (this.visit.appointment && this.visit.id) {
-      this.apollo.mutate({
-        mutation: gql`
-          mutation ADD_APPOINTMENT($appointment : AppointmentInput){ 
-            addAppointment(appointment : $appointment) { 
-              id date time 
-            }
-          }
-        ` , variables: {
-          appointment: {
-            visitId: this.visit.id,
-            date: this.visit.appointment.date,
-            time: this.visit.appointment.time
-          }
-        }
-      }).pipe(map(value => (<any>value.data).addAppointment)).subscribe((data) => {
-
-      })
-    }
-  }
-  private isVitalSettingEdited() {
-    var keys = Object.keys(this.visit.vitalSetting);
-    return keys.length > 0;
+      subscription.unsubscribe() ; 
+    })
   }
 
 }

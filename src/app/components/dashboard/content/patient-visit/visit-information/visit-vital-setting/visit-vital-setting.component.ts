@@ -11,7 +11,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class VisitVitalSettingComponent implements OnInit {
   @Input() vitalSetting: VitalSetting;
-  @Input() active : boolean = false ; 
+  @Input() active: boolean = false;
   public imc: number;
   public interpretation: string;
   constructor(private dataService: DataService, private router: Router, private interactionService: InteractionService) { }
@@ -36,10 +36,25 @@ export class VisitVitalSettingComponent implements OnInit {
       }
     });
     const subscription = this.interactionService.vitalSettingEdited.subscribe((data) => {
+      if (this.vitalSettingChanged(this.vitalSetting , data)) { 
+        this.interactionService.visitEdited.next() ; 
+      }
       this.vitalSetting = data;
       subscription.unsubscribe();
       this.interpretateIMC();
     })
+  }
+
+  private vitalSettingChanged(a: VitalSetting, b: VitalSetting) {
+    return a.bloodPressure !== b.bloodPressure ||
+      a.cardiacFrequency !== b.cardiacFrequency ||
+      a.diuresis !== b.diuresis ||
+      a.obesity !== b.obesity ||
+      a.respiratoryRate !== b.respiratoryRate ||
+      a.size !== b.size ||
+      a.smoker !== b.smoker ||
+      a.temperature !== b.temperature ||
+      a.weight !== b.weight
   }
 
 }

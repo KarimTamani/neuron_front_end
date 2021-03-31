@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DataService {
-
+  public HOUR = 60 * 60;
   public DAY = 60 * 60 * 24;
   public WEEK = this.DAY * 7;
   public MONTH = this.DAY * 30;
@@ -33,7 +33,8 @@ export class DataService {
 
   constructor() { }
 
-  public castFRDate(date : Date) { 
+  public castFRDate(date: Date) {
+
     const currentMonth = date.getMonth();
     const currentYear = date.getFullYear();
     const currentDay = date.getDate();
@@ -79,13 +80,16 @@ export class DataService {
 
 
   public castDateYMD(date) {
+    
     if (date == null)
       return null;
-    var dateObject = new Date(date)
-    var day: any = dateObject.getDate();
-    var month: any = dateObject.getMonth() + 1;
-    var year: any = dateObject.getFullYear();
 
+    var dateObject = new Date(date)
+    
+    var day: any = dateObject.getUTCDate();
+    var month: any = dateObject.getUTCMonth() + 1;
+    var year: any = dateObject.getFullYear();
+     
     if (day < 10)
       day = "0" + day;
 
@@ -115,6 +119,7 @@ export class DataService {
     return month + "/" + day + "/" + year;
   }
   public getTime(date) {
+
     var hours = date.getHours();
     var minutes = date.getMinutes();
     if (hours < 10)
@@ -154,12 +159,26 @@ export class DataService {
   public dateMinusPeriod(date: string, period: number) {
     var dateObj = new Date(date);
     var time = dateObj.getTime();
- 
+
     time -= (period * 1000);
-    var result = new Date(time); 
+    var result = new Date(time);
     return result;
   }
 
+  public getStepSize(data) {
 
-  
+    var max = Math.max(...data);
+    var range = 1;
+
+    while (Math.trunc(max / range) >= 10)
+      range *= 10;
+
+    var nextStep = max + range - (max % range);
+    if (range == 1 && nextStep % 2 == 1)
+      nextStep += 1;
+
+    return nextStep / 2;
+  }
+
+
 }
