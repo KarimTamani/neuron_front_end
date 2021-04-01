@@ -1,9 +1,9 @@
 <div class="main-container">
     <div class="stretch-container">
-        <div class="center-v">
-            <h5>Vos Statistques</h5>
+        <div class="center-v" [class.full-title]="!showOptions">
+            <h5>{{title}}</h5>
         </div>
-        <div class="controllers center-v">
+        <div class="controllers center-v" *ngIf="showOptions">
             <div>
                 <span [class.primary]="primaryOption == 1" [class.secondary]="secondaryOption == 1" (click)="selectOption(1)">Visites</span>
                 <span [class.primary]="primaryOption == 2" [class.secondary]="secondaryOption == 2" (click)="selectOption(2)">Gain</span>

@@ -12,6 +12,8 @@ export class AnalyticsHeaderComponent implements OnInit {
   public selectedOption: string;
   public primaryOption: number = null;
   public secondaryOption: number = null;
+  @Input() showOptions : boolean = true ; 
+  @Input() title : string = "Vos Statistques"
 
   @Output() periodSelectedEvent: EventEmitter<number>;
   public options: string[] = [

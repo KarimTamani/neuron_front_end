@@ -10,6 +10,10 @@ h5 {
     width: 100%;
 }
 
+.full-title {
+    width: 100%;
+}
+
 .periods {
     min-width: 140px;
     max-width: 140px;

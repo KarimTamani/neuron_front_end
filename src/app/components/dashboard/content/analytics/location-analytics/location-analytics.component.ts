@@ -62,8 +62,7 @@ export class LocationAnalyticsComponent implements OnInit {
         interval: this.interval
       }
     }).pipe(map(value => value.data)).subscribe((data) => {
-      this.analytics = data;
-      console.log(this.analytics) ; 
+      this.analytics = data; 
       this.updateSubject.next({
         analytics: this.analytics,
         period: period

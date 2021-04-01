@@ -101,7 +101,6 @@ export class GeneralAnalyticsComponent implements OnInit {
             ticks: {
               beginAtZero: true,
               min: 0,
-
               maxTicksLimit: 2,
             },
             id: "A",
@@ -121,7 +120,6 @@ export class GeneralAnalyticsComponent implements OnInit {
               display: false
             }
           }
-
         ],
       }
     };

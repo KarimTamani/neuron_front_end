@@ -2,7 +2,7 @@
 
     <div class="col col-md-8">
         <div class="card primary-radius">
-            <app-commune-analytics></app-commune-analytics>
+            <app-commune-analytics *ngIf="analytics" [analytics]="analytics" (periodSelectedEvent)="periodSelected($event)" [updateSubject]="updateSubject"></app-commune-analytics>
         </div>
     </div>
     <div class="col col-md-4">

@@ -1,1 +1,7 @@
-<p>commune-analytics works!</p>
+<div class="main-container">
+    <app-analytics-header (periodSelectedEvent)="periodSelectedEvent.emit($event)" [title]="'Statistique des communes'" [showOptions]="false"></app-analytics-header>
+    <div class="canvas-container">
+        <canvas baseChart [colors]="barChartColors" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+      </canvas>
+    </div>
+</div>
