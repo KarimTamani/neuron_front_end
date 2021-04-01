@@ -191,9 +191,9 @@ export class DataService {
       range *= 10;
 
     var nextStep = max + range - (max % range);
-    if (range == 1 && nextStep % 2 == 1)
+    if ( nextStep % 2 == 1)
       nextStep += 1;
-
+ 
     return nextStep / 2;
   }
 

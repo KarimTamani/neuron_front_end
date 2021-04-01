@@ -16,7 +16,7 @@ export class PrescriptionHeaderComponent implements OnInit {
   public servicesAr: Service[] = [];
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     if (this.cabinet.services) {
       this.servicesFr = this.cabinet.services.filter(value => value.language == "FR") ; 
       this.servicesAr = this.cabinet.services.filter(value => value.language == "AR") ; 

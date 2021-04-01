@@ -41,8 +41,7 @@ export class GeneralDiseaseReportComponent implements OnInit {
     
     
     this.radarChartOptions = {
-      responsive: true, 
-  
+      responsive: true,  
       scale: {
        
         gridLines: {

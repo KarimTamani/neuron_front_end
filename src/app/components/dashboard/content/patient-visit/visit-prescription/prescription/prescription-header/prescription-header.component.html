@@ -8,7 +8,9 @@
         </div>
         <img id="logo" src="../../../../../../../../assets/med_logo.png">
         <div class="col col-md-6 ar amiri">
-            <p *ngIf="doctor.lastnameAr || doctor.nameAr"> الدكتور <span>{{doctor.lastnameAr}} {{doctor.nameAr}}</span></p>
+            <p *ngIf="doctor.lastnameAr || doctor.nameAr">
+                الدكتور <span>{{doctor.lastnameAr}} {{doctor.nameAr}}</span>
+            </p>
         </div>
     </div>
     <div class="row">
@@ -30,7 +32,7 @@
     </div>
     <div class="row">
         <div class="col col-md-6 services">
-            <label>Les Services</label>
+            <label *ngIf="servicesFr.length > 0">Les Services</label>
             <div>
                 <span class="service" *ngFor="let service of servicesFr">{{service.name}}</span>
             </div>

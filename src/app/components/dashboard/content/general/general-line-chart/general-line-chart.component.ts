@@ -84,8 +84,7 @@ export class GeneralLineChartComponent implements OnInit {
             id: "B",
             ticks: {
               beginAtZero: true,
-              min: 0,
-              stepSize: 5000,
+              min: 0, 
             },
             position: "right",
             gridLines: {
@@ -110,8 +109,7 @@ export class GeneralLineChartComponent implements OnInit {
       }
     ];
     this.lineChartLabels = this.analytics.getAnalyticsGain.map(value => this.dataService.castDateYMD(value.endTime));
-    
-    console.log(this.lineChartLabels) ; 
+     
     var visitStepSize = this.dataService.getStepSize(this.analytics.getAnalyticsVisits.map(slice => slice.value));
     var gainStepSize = this.dataService.getStepSize(this.analytics.getAnalyticsGain.map(slice => slice.value));
 
@@ -138,8 +136,7 @@ export class GeneralLineChartComponent implements OnInit {
     if (this.updateAnalytics)
       this.updateAnalytics.subscribe((data) => {
         this.analytics = data.analytics;
-
-        console.log(this.analytics) ; 
+  
         this.lineChartData = [
           {
             data: this.analytics.getAnalyticsVisits.map(slice => slice.value),

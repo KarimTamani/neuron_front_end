@@ -21,10 +21,10 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
   public isEdited: boolean = false;
 
   constructor(
-    private apollo: Apollo, 
-    private interactionService: InteractionService, 
-    private router: Router , 
-    private zone : NgZone) {
+    private apollo: Apollo,
+    private interactionService: InteractionService,
+    private router: Router,
+    private zone: NgZone) {
     this.visit = new Visit();
   }
 
@@ -347,11 +347,14 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
           "message": `La Viiste de : ${this.visit.medicalFile.name} ${this.visit.medicalFile.name} a des modification voulais vous que le sauvgarde`
         }
       });
-        this.interactionService.yesOrNo.subscribe((response) => {
-          if (response) {   
-            this.save(this.visit) ;  
-          }
-        }) 
+      this.interactionService.yesOrNo.subscribe((response) => {
+        if (response) {
+          if (this.visit.id)
+            this.edit(this.visit);
+          else
+            this.save(this.visit);
+        }
+      })
     }
     this.subscriptions.forEach((subs) => {
       subs.unsubscribe();

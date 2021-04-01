@@ -20,10 +20,10 @@ export class AnalyticsComponent implements OnInit {
   }
 
   public analytics: any = null;
-  public updateSubject : Subject<any> ; 
+  public updateSubject: Subject<any>;
 
   constructor(private apollo: Apollo, private dataService: DataService) {
-    this.updateSubject = new Subject<null>() ; 
+    this.updateSubject = new Subject<null>();
   }
 
   ngOnInit(): void {
@@ -73,6 +73,10 @@ export class AnalyticsComponent implements OnInit {
         }
         
         
+        getAnalyticsAge(interval : $interval) {
+          group percentage value
+        }
+            
         getAnalyticsGender(interval : $interval) {
           group percentage value
         }
@@ -94,26 +98,20 @@ export class AnalyticsComponent implements OnInit {
         interval: this.interval
       }
     }).pipe(map(value => value.data)).subscribe((data) => {
-      this.analytics = data;  
-      this.updateSubject.next({ 
-        analytics : this.analytics , 
-        period : period 
-      }) ; 
+      this.analytics = data;
+      this.updateSubject.next({
+        analytics: this.analytics,
+        period: period
+      });
     })
 
-    /*
-    
-      getAnalyticsAge(interval : $interval) {
-          group percentage value
-        }
-    
-    */
+   
   }
 
 
   public periodSelected($event) {
-    
-    this.loadAnalytics($event) ; 
+
+    this.loadAnalytics($event);
   }
 
 }

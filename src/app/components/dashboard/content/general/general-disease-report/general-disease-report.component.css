@@ -2,6 +2,7 @@
     background: white;
     position: relative;
     padding: 16px;
+    height: 380px;
 }
 
 h5 {
@@ -12,14 +13,7 @@ h5 {
 }
 
 .canvas-container {
-    height: 320px;
-    position: relative;
+    margin-top: 64px;
 }
 
-canvas {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 80%;
-}
+canvas {}

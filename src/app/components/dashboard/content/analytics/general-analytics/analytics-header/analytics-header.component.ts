@@ -32,7 +32,7 @@ export class AnalyticsHeaderComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params["primaryOption"] == null && params["secondaryOption"] == null) {
         this.primaryOption = 1;
-        this.secondaryOption = null;
+        this.secondaryOption = 2;
       } else {
         if (params["primaryOption"])
           this.primaryOption = parseInt(params["primaryOption"]);

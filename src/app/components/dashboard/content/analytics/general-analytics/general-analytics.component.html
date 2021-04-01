@@ -4,20 +4,21 @@
     </div>
     <div class="stretch-container">
         <div class="info-side">
+
+            <span>{{numberOfVisits}} Visite</span>
             <h5>Nombres des visites</h5>
-            <span>{{numberOfVisits}} visite</span>
 
-            <h5>Gain Total</h5>
             <span>{{totalGain}} DA</span>
+            <h5>Gain Total</h5>
 
-            <h5>Total des frais</h5>
             <span>{{totalExpenses}} DA</span>
+            <h5>Total des frais</h5>
 
-            <h5>Gain Net Total</h5>
             <span>{{totalPureGain}} DA</span>
+            <h5>Gain Net Total</h5>
         </div>
         <div class="canvas-side">
-            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
+            <canvas #chart baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
         </div>
     </div>
 </div>

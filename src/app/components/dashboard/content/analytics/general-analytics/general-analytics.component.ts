@@ -18,7 +18,6 @@ export class GeneralAnalyticsComponent implements OnInit {
   public lineChartLabels: Label[] = [];
 
   public lineChartOptions: ChartOptions = null;
-
   public lineChartColors: Color[] = [];
 
   // Set true to show legends
@@ -31,6 +30,7 @@ export class GeneralAnalyticsComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
+  @ViewChild("chart", { static: true }) chartCanvas;
 
   public totalGain: number = 0;
   public totalExpenses: number = 0;
@@ -65,8 +65,13 @@ export class GeneralAnalyticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const dataService = this.dataService;
+    var devider = null;
+
     this.lineChartOptions = {
       responsive: true,
+
+      responsiveAnimationDuration: 0,
 
       scales: {
 
@@ -82,6 +87,8 @@ export class GeneralAnalyticsComponent implements OnInit {
             maxTicksLimit: 5,
 
             callback: function (value, index, values) {
+              if (devider == null)
+                return dataService.castFRDate(new Date(value));
               return value;
             }
           }
@@ -89,7 +96,10 @@ export class GeneralAnalyticsComponent implements OnInit {
         yAxes: [
           {
             ticks: {
-              beginAtZero: true
+              beginAtZero: true,
+              min: 0,
+
+              maxTicksLimit: 2,
             },
             id: "A",
             gridLines: {
@@ -119,6 +129,21 @@ export class GeneralAnalyticsComponent implements OnInit {
     })
 
     this.update();
+
+    var ctx = this.chartCanvas.nativeElement.getContext("2d");
+    var originalStroke = ctx.stroke
+
+    ctx.stroke = function () {
+      ctx.save()
+
+      ctx.shadowColor = this.strokeStyle + "88"
+      ctx.shadowBlur = 20
+      ctx.shadowOffsetX = 0
+      ctx.shadowOffsetY = 8
+      originalStroke.apply(this, arguments)
+      ctx.restore()
+    }
+    
     this.route.queryParams.subscribe((params) => {
       this.drawAnalytics(params);
     })
@@ -152,14 +177,33 @@ export class GeneralAnalyticsComponent implements OnInit {
     if (params.primaryOption == null && params.secondaryOption == null) {
 
       this.showAxis("A");
-      this.hideAxis('B') ; 
+      this.showAxis('B');
+
       this.lineChartData = [
         { label: this.dataSets[0].label, data: this.dataSets[0].data, yAxisID: 'A' },
+        {
+          label: this.dataSets[1].label,
+          data: this.dataSets[1].data,
+          yAxisID: 'B'
+        }
       ]
+
       this.lineChartColors.push({
         backgroundColor: 'transparent',
         borderColor: '#265ED7',
+      });
+
+      this.lineChartColors.push({
+        backgroundColor: 'transparent',
+        borderColor: '#FE6555',
       })
+
+      var primaryOptionStepSize = this.dataService.getStepSize(this.dataSets[0].data);
+      var secondaryOptionStepSize = this.dataService.getStepSize(this.dataSets[1].data);
+
+      this.lineChartOptions.scales.yAxes[0].ticks.stepSize = primaryOptionStepSize;
+      this.lineChartOptions.scales.yAxes[1].ticks.stepSize = secondaryOptionStepSize;
+
 
     } else {
 
@@ -175,12 +219,14 @@ export class GeneralAnalyticsComponent implements OnInit {
           yAxisID: 'A'
         });
 
+        var primaryOptionStepSize = this.dataService.getStepSize(this.dataSets[option - 1].data);
+        this.lineChartOptions.scales.yAxes[0].ticks.stepSize = primaryOptionStepSize;
+        console.log("primary step size ", primaryOptionStepSize);
 
         this.lineChartColors.push({
           backgroundColor: 'transparent',
           borderColor: '#265ED7',
-        }
-        )
+        })
       } else
         this.hideAxis("A");
 
@@ -195,6 +241,9 @@ export class GeneralAnalyticsComponent implements OnInit {
           yAxisID: 'B'
         });
 
+        var secondaryOptionStepSize = this.dataService.getStepSize(this.dataSets[option - 1].data);
+        this.lineChartOptions.scales.yAxes[1].ticks.stepSize = secondaryOptionStepSize;
+        console.log("secondary step size ", secondaryOptionStepSize)
         this.lineChartColors.push({
           backgroundColor: 'transparent',
           borderColor: '#FE6555',

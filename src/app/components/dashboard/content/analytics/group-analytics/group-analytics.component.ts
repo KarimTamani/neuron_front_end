@@ -36,27 +36,24 @@ export class GroupAnalyticsComponent implements OnInit {
 
   };
   public lineChartColors: Color[] = [
-    {
-      backgroundColor: "#FE655588",
-      borderColor: '#FE6555',
-
-    }
+    
   ]
 
   public dataset: any[] = [
     {
       data: [],
-      label: "Maladie",
-      labels: []
-    }, {
-      data: [],
       label: "Age",
+      labels: []
+    },{
+      data: [],
+      label: "Maladie",
       labels: []
     }, {
       data: [],
       label: "Sexe",
       labels: []
-    }
+    },
+    
   ];
   public radarChartLabels: Label[] = [];
   public radarChartData: ChartDataSets[] = [];
@@ -66,12 +63,12 @@ export class GroupAnalyticsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.dataset[0].data = this.analytics.getAnalyticsDiseases.map(value => value.value);
-    this.dataset[1].data = this.analytics.getAnalyticsAge.map(value => value.value);
+    this.dataset[1].data = this.analytics.getAnalyticsDiseases.map(value => value.value);
+    this.dataset[0].data = this.analytics.getAnalyticsAge.map(value => value.value);
     this.dataset[2].data = this.analytics.getAnalyticsGender.map(value => value.value);
 
-    this.dataset[0].labels = this.analytics.getAnalyticsDiseases.map(value => value.group);
-    this.dataset[1].labels = this.analytics.getAnalyticsAge.map(value => value.group);
+    this.dataset[1].labels = this.analytics.getAnalyticsDiseases.map(value => value.group);
+    this.dataset[0].labels = this.analytics.getAnalyticsAge.map(value => value.group);
     this.dataset[2].labels = this.analytics.getAnalyticsGender.map(value => value.group);
     
 
