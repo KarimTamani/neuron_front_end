@@ -7,7 +7,7 @@
     </div>
     <div class="col col-md-4">
         <div class="card primary-radius">
-            <app-wilaya-analytics></app-wilaya-analytics>
+            <app-wilaya-analytics *ngIf="analytics" [analytics]="analytics" [updateSubject]="updateSubject"></app-wilaya-analytics>
         </div>
     </div>
 </div>

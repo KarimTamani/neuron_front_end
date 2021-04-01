@@ -22,6 +22,7 @@ export class CommuneAnalyticsComponent implements OnInit {
     },
     scales: {
       xAxes: [{
+        
         gridLines: {
           display: false
         },
@@ -33,6 +34,7 @@ export class CommuneAnalyticsComponent implements OnInit {
         }
       }],
       yAxes: [{
+        
         gridLines: {
           display: false
         },
@@ -44,13 +46,15 @@ export class CommuneAnalyticsComponent implements OnInit {
       }]
     }
   };
+
+  
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
   public barChartColors : Color[] =[
     { 
-      backgroundColor : "#265ED7ee" , 
+      backgroundColor : "#265ED7dd" , 
       
     }
   ]
@@ -74,7 +78,12 @@ export class CommuneAnalyticsComponent implements OnInit {
 
   private loadAnalytics() { 
     this.barChartLabels = this.analytics.getCommuneAnalytics.map(value => value.group);
-    this.barChartData = [{ data: this.analytics.getCommuneAnalytics.map(value => value.value), label: "Patient" }];
+    this.barChartData = [{ 
+        data: this.analytics.getCommuneAnalytics.map(value => value.value), 
+        label: "Patient" ,    
+        barPercentage : 0.5 , 
+        maxBarThickness : 56
+      }];
 
   }
 
