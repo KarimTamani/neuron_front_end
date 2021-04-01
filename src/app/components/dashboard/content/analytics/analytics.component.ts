@@ -21,13 +21,14 @@ export class AnalyticsComponent implements OnInit {
 
   public analytics: any = null;
   public updateSubject: Subject<any>;
-
+  public period : number ; 
   constructor(private apollo: Apollo, private dataService: DataService) {
     this.updateSubject = new Subject<null>();
   }
 
   ngOnInit(): void {
-
+    this.period = this.dataService.MONTH ;
+     
     this.apollo.query({
       query: gql`
         {
@@ -43,7 +44,11 @@ export class AnalyticsComponent implements OnInit {
 
 
   private loadAnalytics(period) {
-    this.interval.startDate = this.dataService.castDateYMD(this.dataService.dateMinusPeriod(this.interval.endDate, period));
+    if (period != this.dataService.DAY)
+      this.interval.startDate = this.dataService.castDateYMD(this.dataService.dateMinusPeriod(this.interval.endDate, period));
+    else
+      this.interval.startDate = this.interval.endDate;
+
 
     this.apollo.query({
       query: gql`
@@ -105,7 +110,7 @@ export class AnalyticsComponent implements OnInit {
       });
     })
 
-   
+
   }
 
 

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-evolution-analytics',
@@ -7,6 +9,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EvolutionAnalyticsComponent implements OnInit {
   @Input() analytics : any ;  
+  @Input() period : number ;
+  @Input() updateSubject : Subject<any> ;  
   public evolutionParams : any[] = [
     {
       icon : "fa fa-calendar-check" ,
@@ -18,7 +22,7 @@ export class EvolutionAnalyticsComponent implements OnInit {
       boxShadow : "0px 0px 26px #FE655566" 
     } , 
     {
-      icon : "fa fa-money-bill-wave" ,
+      icon : "fa fa-coins" ,
       name : "Gain" , 
       period : null  ,
       backgroundColor : "#265ED7" , 
@@ -27,8 +31,8 @@ export class EvolutionAnalyticsComponent implements OnInit {
       boxShadow : "0px 0px 26px #265ED766" 
     } , 
     {
-      icon : "fa fa-user" ,
-      name : "Patinets" , 
+      icon : "fa fa-user-injured" ,
+      name : "Patients" , 
       period : null   ,
       backgroundColor : "white" , 
       evolutionPercentage : null , 
@@ -40,7 +44,19 @@ export class EvolutionAnalyticsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void { 
+    this.loadAnalytics() ; 
 
+    if (this.updateSubject) { 
+      this.updateSubject.subscribe((data) => { 
+        this.analytics = data.analytics ; 
+        this.period = data.period ; 
+        this.loadAnalytics() ;     
+      })
+    }
+  }
+
+
+  private loadAnalytics() { 
     this.evolutionParams[0].evolutionValue  = this.analytics.getVisitsEvolution.value 
     this.evolutionParams[0].evolutionPercentage  = this.analytics.getVisitsEvolution.percentage 
 
@@ -50,8 +66,6 @@ export class EvolutionAnalyticsComponent implements OnInit {
     this.evolutionParams[2].evolutionValue  = this.analytics.getPatientsEvolution.value 
     this.evolutionParams[2].evolutionPercentage  = this.analytics.getPatientsEvolution.percentage
   
-  
-  
     this.evolutionParams[0].evolutionValue = this.evolutionParams[0].evolutionValue + " Visite"
     this.evolutionParams[1].evolutionValue = this.evolutionParams[1].evolutionValue + " DA"
     this.evolutionParams[2].evolutionValue = this.evolutionParams[2].evolutionValue + " Patient"
@@ -59,7 +73,10 @@ export class EvolutionAnalyticsComponent implements OnInit {
     this.evolutionParams[0].evolutionPercentage = this.evolutionParams[0].evolutionPercentage * 100 
     this.evolutionParams[1].evolutionPercentage = this.evolutionParams[1].evolutionPercentage * 100 
     this.evolutionParams[2].evolutionPercentage = this.evolutionParams[2].evolutionPercentage * 100 
- 
-  }
+    
+    this.evolutionParams[0].period = this.period ; 
+    this.evolutionParams[1].period = this.period ; 
+    this.evolutionParams[2].period = this.period ; 
 
+  }
 }

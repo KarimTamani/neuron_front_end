@@ -9,10 +9,10 @@ export class GroupAnalyticsHeaderComponent implements OnInit {
   public options: any[] = [
     {
       id: 1,
-      name: "Rapport des maladies"
-    }, {
-      id: 2,
       name: "Rapport d'age"
+    },{
+      id: 2,
+      name: "Rapport des maladies"
     }, {
       id: 3,
       name: "Rapport De Sexe"

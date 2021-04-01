@@ -43,8 +43,8 @@ export class RecentPatientsComponent implements OnInit {
           }`
       }).pipe(map(value => (<any>value.data).searchMedicalFiles.rows)).subscribe((data) => {
         for (let index = 0; index < data.length; index++) {
-          data[index].createdAt = this.dataService.castDateYMD(new Date(parseInt(data[index].createdAt)).toISOString()) ;
-          console.log(data[index].createdAt);
+          data[index].createdAt = this.dataService.castFRDate(new Date(parseInt(data[index].createdAt))) ;
+        
         }
         this.medicalFiles = data;
 

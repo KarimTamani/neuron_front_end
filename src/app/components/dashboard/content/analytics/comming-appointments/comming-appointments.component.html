@@ -1,7 +1,11 @@
 <div class="main-container">
     <h5>Les Rendez-vous en ettente</h5>
     <div class="appointments">
+        <p class="no-data-message" *ngIf="appointments.length ==0 ">
+            Aucun Rendez-vous pour le prochain mois
+        </p>
         <div class="appointment" *ngFor="let appointment of appointments">
+
             <app-analytics-appointment [appointment]="appointment"></app-analytics-appointment>
         </div>
     </div>

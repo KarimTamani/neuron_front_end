@@ -8,12 +8,12 @@
         </div>
         <div class="col col-md-4">
             <div class="card primary-radius">
-                <app-group-analytics *ngIf="analytics" [analytics]="analytics"></app-group-analytics>
+                <app-group-analytics [updateSubject]="updateSubject" *ngIf="analytics" [analytics]="analytics"></app-group-analytics>
             </div>
         </div>
         <div class="col col-md-12">
             <div class="evo-card">
-                <app-evolution-analytics *ngIf="analytics" [analytics]="analytics"></app-evolution-analytics>
+                <app-evolution-analytics [period]="period" [updateSubject]="updateSubject" *ngIf="analytics" [analytics]="analytics"></app-evolution-analytics>
             </div>
         </div>
 

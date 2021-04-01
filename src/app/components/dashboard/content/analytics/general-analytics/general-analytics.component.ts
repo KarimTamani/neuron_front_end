@@ -37,7 +37,6 @@ export class GeneralAnalyticsComponent implements OnInit {
   public totalPureGain: number = 0;
   public numberOfVisits: number = 0;
 
-
   public dataSets: any[] = [
     {
       label: "Visits",
@@ -65,8 +64,11 @@ export class GeneralAnalyticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     const dataService = this.dataService;
-    var devider = null;
+    var devider = {
+      hour : false 
+    } ; 
 
     this.lineChartOptions = {
       responsive: true,
@@ -87,6 +89,7 @@ export class GeneralAnalyticsComponent implements OnInit {
             maxTicksLimit: 5,
 
             callback: function (value, index, values) {
+              
               if (devider == null)
                 return dataService.castFRDate(new Date(value));
               return value;
@@ -122,13 +125,13 @@ export class GeneralAnalyticsComponent implements OnInit {
         ],
       }
     };
-    this.updateSubject.subscribe((analytics) => {
-      this.analytics = analytics;
-      this.update();
+    this.updateSubject.subscribe((data) => {
+      this.analytics = data.analytics;
+      this.update(data.period , devider);
       this.drawAnalytics(this.route.snapshot.queryParams);
     })
 
-    this.update();
+    this.update(null, devider);
 
     var ctx = this.chartCanvas.nativeElement.getContext("2d");
     var originalStroke = ctx.stroke
@@ -143,13 +146,13 @@ export class GeneralAnalyticsComponent implements OnInit {
       originalStroke.apply(this, arguments)
       ctx.restore()
     }
-    
+
     this.route.queryParams.subscribe((params) => {
       this.drawAnalytics(params);
     })
   }
 
-  private update() {
+  private update(period , devider) {
 
     this.totalGain = 0;
     this.totalExpenses = 0;
@@ -161,8 +164,13 @@ export class GeneralAnalyticsComponent implements OnInit {
     this.dataSets[2].data = this.analytics.getAnalyticsExpenses.map(slice => slice.value);
     this.dataSets[3].data = this.analytics.getAnalyticsPureGain.map(slice => slice.value);
 
-    this.lineChartLabels = this.analytics.getAnalyticsGain.map(value => this.dataService.castDateYMD(value.endTime));
-
+    if (period !== this.dataService.DAY) {
+      this.lineChartLabels = this.analytics.getAnalyticsGain.map(value => this.dataService.castDateYMD(value.endTime));
+      devider.hour = false ; 
+    } else {
+      this.lineChartLabels = this.analytics.getAnalyticsGain.map(value => this.dataService.getTime(new Date(value.endTime)));
+      devider.hour = true ;   
+    }
     this.analytics.getAnalyticsVisits.forEach(slice => this.numberOfVisits += slice.value);
     this.analytics.getAnalyticsGain.forEach(slice => this.totalGain += slice.value);
     this.analytics.getAnalyticsExpenses.forEach(slice => this.totalExpenses += slice.value);
@@ -221,7 +229,6 @@ export class GeneralAnalyticsComponent implements OnInit {
 
         var primaryOptionStepSize = this.dataService.getStepSize(this.dataSets[option - 1].data);
         this.lineChartOptions.scales.yAxes[0].ticks.stepSize = primaryOptionStepSize;
-        console.log("primary step size ", primaryOptionStepSize);
 
         this.lineChartColors.push({
           backgroundColor: 'transparent',

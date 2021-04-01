@@ -7,15 +7,23 @@
 }
 
 .cart-container.white {
-    color: #555 !important;
+    color: #666 !important;
 }
 
 .cart-container.white .right p {
-    color: #888 !important;
+    color: #555 !important;
 }
 
 .cart-container.white .fa-chart-bar {
     color: #aaa !important;
+}
+
+.cart-container.white .bottom h6 {
+    color: #555 !important;
+}
+
+.cart-container.white .top i {
+    color: #888;
 }
 
 .top i {

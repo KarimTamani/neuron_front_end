@@ -73,7 +73,6 @@ export class GeneralDiseaseReportComponent implements OnInit {
         mode: 'nearest',   
         callbacks: {
           label: function (tooltipItems, data) {
-  
             return " " + tooltipItems.yLabel + " " + data.datasets[tooltipItems.datasetIndex].label+ " : " + labels[tooltipItems.index];
           },
           title : () => { 
@@ -84,15 +83,9 @@ export class GeneralDiseaseReportComponent implements OnInit {
     } ;
   }
   private processLabels(label : string) {
-    label = label.replace("-" , " ") ; 
-
-    var labelSplited = label.split(" ") ; 
-    if (labelSplited.length == 1) 
-      return label.slice(0 , 4) ; 
-    labelSplited = labelSplited.slice(0 , 4) ; 
-    labelSplited = labelSplited.map(word => word.charAt(0)) ; 
-
-    return labelSplited.join("")  ; 
+    if ( label.length > 10) 
+      return label.slice(0 , 10) + "..." ; 
+    return label ; 
   }
 
 }
