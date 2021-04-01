@@ -148,6 +148,8 @@ import { CertificatModelsComponent } from './components/dashboard/content/patien
 import { CertificatModelSubmitterComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-models/certificat-model-submitter/certificat-model-submitter.component';
 import { NoVisitBackgroundComponent } from './components/global/no-visit-background/no-visit-background.component';
 import { LocationAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/location-analytics.component';
+import { WilayaAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/wilaya-analytics/wilaya-analytics.component';
+import { CommuneAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/commune-analytics/commune-analytics.component';
 
 
 @NgModule({
@@ -285,6 +287,8 @@ import { LocationAnalyticsComponent } from './components/dashboard/content/analy
     CertificatModelSubmitterComponent,
     NoVisitBackgroundComponent,
     LocationAnalyticsComponent,
+    WilayaAnalyticsComponent,
+    CommuneAnalyticsComponent,
   ],
   imports: [
     BrowserModule,
