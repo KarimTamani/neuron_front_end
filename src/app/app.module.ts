@@ -147,6 +147,7 @@ import { CertificatEditorComponent } from './components/dashboard/content/patien
 import { CertificatModelsComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-models/certificat-models.component';
 import { CertificatModelSubmitterComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-models/certificat-model-submitter/certificat-model-submitter.component';
 import { NoVisitBackgroundComponent } from './components/global/no-visit-background/no-visit-background.component';
+import { LocationAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/location-analytics.component';
 
 
 @NgModule({
@@ -283,6 +284,7 @@ import { NoVisitBackgroundComponent } from './components/global/no-visit-backgro
     CertificatModelsComponent,
     CertificatModelSubmitterComponent,
     NoVisitBackgroundComponent,
+    LocationAnalyticsComponent,
   ],
   imports: [
     BrowserModule,
