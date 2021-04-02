@@ -1,1 +1,8 @@
-<p>diagnosis-analytics works!</p>
+<div class="main-container">
+    <app-analytics-header [showOptions]="false" (periodSelectedEvent)="periodSelected($event)" [title]="'Diagnostique intelgent'"></app-analytics-header>
+    <div class="row">
+        <div class="col col-md-6">
+            <app-diagnosis-percentage></app-diagnosis-percentage>
+        </div>
+    </div>
+</div>

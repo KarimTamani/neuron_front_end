@@ -151,6 +151,7 @@ import { LocationAnalyticsComponent } from './components/dashboard/content/analy
 import { WilayaAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/wilaya-analytics/wilaya-analytics.component';
 import { CommuneAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/commune-analytics/commune-analytics.component';
 import { DiagnosisAnalyticsComponent } from './components/dashboard/content/general/diagnosis-analytics/diagnosis-analytics.component';
+import { DiagnosisPercentageComponent } from './components/global/diagnosis-percentage/diagnosis-percentage.component';
 
 
 @NgModule({
@@ -290,7 +291,8 @@ import { DiagnosisAnalyticsComponent } from './components/dashboard/content/gene
     LocationAnalyticsComponent,
     WilayaAnalyticsComponent,
     CommuneAnalyticsComponent,
-    DiagnosisAnalyticsComponent
+    DiagnosisAnalyticsComponent,
+    DiagnosisPercentageComponent
   ],
   imports: [
     BrowserModule,
