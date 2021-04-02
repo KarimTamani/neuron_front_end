@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.percent {
+    position: relative;
+    max-width: 150px;
+    min-width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    /*box-shadow: inset 0 0 50px rgba( 0, 0, 0, 0.2);
+    
+    */
+    z-index: 1;
+}
+
+.percent .number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.percent .number h2 {
+    color: #777;
+    font-weight: 700;
+    transition: 0.5s;
+    font-size: 24px;
+}
+
+.percent .number h2 span {
+    font-size: 24px;
+    color: #777;
+}
+
+svg {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    z-index: 1;
+    transform: rotateZ(-180deg) scale(0.6);
+}
+
+svg circle {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #eee;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+}
+
+svg circle:nth-child(2) {
+    stroke-dasharray: 440;
+    stroke: rgb(38, 94, 215);
+}
+
+@media (max-width: 991px) {
+    .container {
+        width: 100%;
+        flex-direction: column;
+    }
+    .container .card {
+        margin: 20px auto;
+    }
+}
+
+.info-container {
+    width: 100%;
+}
+
+.info-container h5 {
+    font-weight: bold;
+    color: #212121;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.info-container p {
+    color: #888;
+}
+
+.info-container span {
+    color: rgb(254, 101, 85);
+    font-weight: bold;
+}

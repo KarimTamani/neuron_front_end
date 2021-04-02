@@ -1,1 +1,18 @@
-<p>diagnosis-percentage works!</p>
+<div class="main-container stretch-container">
+
+    <div class="percent">
+        <svg>
+        <circle cx="70" cy="70" r="70"></circle>
+        <circle cx="70" cy="70" r="70" style.stroke-dashoffset="{{percentage}}"></circle>
+    </svg>
+        <div class="number">
+            <h2>{{slice.percentage}}<span>%</span></h2>
+        </div>
+    </div>
+    <div class="info-container center-v">
+        <div>
+            <h5>{{slice.group}}</h5>
+            <p>Nombre de diagnostique : <span>{{slice.value}}</span></p>
+        </div>
+    </div>
+</div>

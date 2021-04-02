@@ -19,21 +19,35 @@ export class DiagnosisAnalyticsComponent implements OnInit {
   constructor(private dataService: DataService , private apollo : Apollo) { }
 
   ngOnInit(): void {
-    this.loadAnalytcis(this.dataService.MONTH); 
+    this.apollo.query({
+      query: gql`
+        {
+           getCurrentDate 
+        }`
+    }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
+
+      this.interval.endDate = this.dataService.castDateYMD(data);
+      this.loadAnalytics(this.dataService.MONTH);
+
+    })
   }
 
 
-  private loadAnalytcis(period) {
+  private loadAnalytics(period) {
     if (period != this.dataService.DAY)
       this.interval.startDate = this.dataService.castDateYMD(this.dataService.dateMinusPeriod(this.interval.endDate, period));
     else
       this.interval.startDate = this.interval.endDate;
   
     this.apollo.query({
-      query : gql`
-      getAnalyticsDiagnosis(interval : $interval) {
-        group percentage value
-      }`
+      query : gql`   
+      query GET_ANALYTICS($interval: IntervalInput!) {
+        getAnalyticsDiagnosis(interval : $interval) {
+          group percentage value
+        }
+      }`, variables : { 
+        interval : this.interval 
+      }
     }).pipe(map(value => (<any>value.data).getAnalyticsDiagnosis)).subscribe((data) => { 
       // replace the text group with symptmatique diagnosis
       for (let index = 0 ; index <data.length ; index++) { 
@@ -47,6 +61,6 @@ export class DiagnosisAnalyticsComponent implements OnInit {
   }
 
   public periodSelected($event) {
-    this.loadAnalytcis($event);
+    this.loadAnalytics($event);
   }
 }
