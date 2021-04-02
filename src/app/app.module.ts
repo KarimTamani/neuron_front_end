@@ -150,6 +150,7 @@ import { NoVisitBackgroundComponent } from './components/global/no-visit-backgro
 import { LocationAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/location-analytics.component';
 import { WilayaAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/wilaya-analytics/wilaya-analytics.component';
 import { CommuneAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/commune-analytics/commune-analytics.component';
+import { DiagnosisAnalyticsComponent } from './components/dashboard/content/general/diagnosis-analytics/diagnosis-analytics.component';
 
 
 @NgModule({
@@ -289,6 +290,7 @@ import { CommuneAnalyticsComponent } from './components/dashboard/content/analyt
     LocationAnalyticsComponent,
     WilayaAnalyticsComponent,
     CommuneAnalyticsComponent,
+    DiagnosisAnalyticsComponent
   ],
   imports: [
     BrowserModule,
