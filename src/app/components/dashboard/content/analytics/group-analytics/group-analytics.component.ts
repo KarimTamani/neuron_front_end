@@ -33,6 +33,12 @@ export class GroupAnalyticsComponent implements OnInit {
       labels: [] , 
 
     },
+    { 
+      data : [] , 
+      label : "Profession" , 
+      labels : [] , 
+      originalLabels : [] 
+    }
 
   ];
   public radarChartLabels: Label[] = [];
@@ -85,7 +91,12 @@ export class GroupAnalyticsComponent implements OnInit {
               var selectedDataSet = dataset[2] ;
               return " " + tooltipItems.yLabel + " Patient : " + selectedDataSet.labels[tooltipItems.index] ;  
             }
-            
+            if ( data.datasets[tooltipItems.datasetIndex].label == "Profession") { 
+              
+              var selectedDataSet = dataset[3] ;
+              console.log(selectedDataSet) ; 
+              return " " + tooltipItems.yLabel + " Patient : " + selectedDataSet.labels[tooltipItems.index] ;  
+            }    
            return "" ; 
           },
           title : () => { 
@@ -109,12 +120,15 @@ export class GroupAnalyticsComponent implements OnInit {
     this.dataset[1].data = this.analytics.getAnalyticsDiseases.map(value => value.value);
     this.dataset[0].data = this.analytics.getAnalyticsAge.map(value => value.value);
     this.dataset[2].data = this.analytics.getAnalyticsGender.map(value => value.value);
-
+    this.dataset[3].data = this.analytics.getAnalyticsProfession.map(value => value.value) ; 
+   
     this.dataset[1].originalLabels = this.analytics.getAnalyticsDiseases.map(value => (value.group)); 
-    this.dataset[1].labels = this.dataset[1].originalLabels.map(value =>this.processLabels(value));
-    
+    this.dataset[3].originalLabels = this.analytics.getAnalyticsProfession.map(value => (value.group)); 
+   
     this.dataset[0].labels = this.analytics.getAnalyticsAge.map(value => value.group);
+    this.dataset[1].labels = this.dataset[1].originalLabels.map(value =>this.processLabels(value)); 
     this.dataset[2].labels = this.analytics.getAnalyticsGender.map(value =>this.processSexeLabels(value.group));
+    this.dataset[3].labels = this.dataset[3].originalLabels.map(value =>this.processLabels(value));
 
     this.radarChartLabels = this.dataset[0].labels;
     

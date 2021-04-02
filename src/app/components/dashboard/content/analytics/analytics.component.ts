@@ -81,6 +81,9 @@ export class AnalyticsComponent implements OnInit {
         getAnalyticsAge(interval : $interval) {
           group percentage value
         }
+        getAnalyticsProfession(interval : $interval) {
+          group percentage value
+        }
             
         getAnalyticsGender(interval : $interval) {
           group percentage value

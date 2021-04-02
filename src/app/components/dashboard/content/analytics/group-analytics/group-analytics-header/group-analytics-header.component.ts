@@ -16,6 +16,9 @@ export class GroupAnalyticsHeaderComponent implements OnInit {
     }, {
       id: 3,
       name: "Rapport De Sexe"
+    } , { 
+      id: 4,
+      name: "Rapport De Profession"
     }
   ];
   public selectedOption: any;
