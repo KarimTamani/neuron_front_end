@@ -179,6 +179,7 @@ export class VisitLoaderComponent implements OnInit {
         this.visit.waitingRoomId = this.waitingRoom.id;
         this.visit.order = this.visit.waitingRoom.visits.length + 1
       }
+      
       this.visitSelectedEvent.emit(this.visit);
 
     })

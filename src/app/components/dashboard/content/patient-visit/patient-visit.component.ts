@@ -214,6 +214,9 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         }) : (null)
       }
     }).subscribe((data) => {
+
+      this.visit.status = "in visit"  ; 
+      
       this.submitVisitDrugDosages();
       this.submitVisitCheckUps();
       this.submitCertificats();

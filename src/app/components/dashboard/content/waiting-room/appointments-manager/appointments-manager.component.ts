@@ -7,7 +7,6 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-appointments-manager',
@@ -21,13 +20,28 @@ export class AppointmentsManagerComponent implements OnInit {
   public currentVisit: Visit;
 
 
+
   @Input() waitingRoom: WaitingRoom;
+  @Input() updateSubject : Subject<WaitingRoom> ; 
+
   constructor(private apollo: Apollo, private dataService: DataService, private interactionService: InteractionService) {
 
+    this.nextSubject = new Subject<number>();
   }
 
   ngOnInit(): void {
-    this.nextSubject = new Subject<number>();
+    this.getVisits() ; 
+    if ( this.updateSubject ) { 
+      this.updateSubject.subscribe((data) => { 
+        this.waitingRoom = data ; 
+        this.getVisits() ; 
+    
+      })
+    }
+    
+  }
+
+  private getVisits() { 
     // get the waiting visits including the one in the doctor office
     this.waitingVisits = <any[]>this.waitingRoom.visits.filter(visit => visit.status == "waiting" || visit.status == "in visit");
 
@@ -37,6 +51,7 @@ export class AppointmentsManagerComponent implements OnInit {
     this.currentVisit = this.waitingRoom.visits.find(visit => visit.status == "in visit");
     // get the visits dones
     this.visitsDone = this.waitingRoom.visits.filter(visit => visit.status == "visit payed" || visit.status == "visit done");
+  
   }
 
   next() {

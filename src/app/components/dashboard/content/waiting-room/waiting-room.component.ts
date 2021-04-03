@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { Subject  } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-waiting-room',
@@ -19,9 +20,13 @@ export class WaitingRoomComponent implements OnInit {
   public currentDate: string;
 
   public waitingRoom: WaitingRoom;
+  public updateSubject : Subject<any>  ; 
 
   constructor(private apollo: Apollo, public dataService: DataService,
-    private interactionService: InteractionService) { }
+    private interactionService: InteractionService) {
+      this.updateSubject = new Subject<any>() ; 
+    }
+
   ngOnInit(): void {
     // get the current date
     this.apollo.query({
@@ -45,7 +50,7 @@ export class WaitingRoomComponent implements OnInit {
       this.interactionService.updateReport.next();
     })
   }
-  private loadWaitingRoom() {
+  private loadWaitingRoom(update : boolean = false ) {
     this.apollo.query({
       query: gql`
         {
@@ -97,7 +102,8 @@ export class WaitingRoomComponent implements OnInit {
       `
     }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => {
       this.waitingRoom = data;
-    
+      if (update) 
+        this.updateSubject.next(this.waitingRoom) ; 
     })
   }
   public createWaitingRoom() {
@@ -119,8 +125,15 @@ export class WaitingRoomComponent implements OnInit {
     })
   }
 
-  public dateChanged($event) { 
+  public dateChanged($event: Date) {
+    this.currentDate = $event.toISOString();
+
+    this.currentMonth = $event.getMonth();
+    this.currentYear = $event.getFullYear();
+    this.currentDay = $event.getDate();
     
+    this.loadWaitingRoom(true);
+
   }
 
 }

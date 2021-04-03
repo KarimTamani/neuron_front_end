@@ -2,7 +2,7 @@
     <app-header></app-header>
     <div class="body row">
         <div class="col col-md-8 app-manager">
-            <app-appointments-manager *ngIf="waitingRoom" [waitingRoom]="waitingRoom"></app-appointments-manager>
+            <app-appointments-manager [updateSubject]="updateSubject" *ngIf="waitingRoom" [waitingRoom]="waitingRoom"></app-appointments-manager>
             <div class="no-waiting-room" *ngIf="waitingRoom == null">
                 <i class="fa fa-calendar-plus"></i>
                 <p>
