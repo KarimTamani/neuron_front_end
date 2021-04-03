@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Appointment } from 'src/app/classes/Appointment';
 
 @Component({
   selector: 'app-appointments-loader',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./appointments-loader.component.css']
 })
 export class AppointmentsLoaderComponent implements OnInit {
-
-  constructor() { }
+  public appointments : Appointment[] = []  ; 
+  constructor(private route : ActivatedRoute) { }
 
   ngOnInit(): void {
+    var params = this.route.snapshot.queryParams ; 
+    if (params["appointments"]) 
+      this.appointments = JSON.parse(decodeURIComponent(params["appointments"])) ; 
+    console.log(this.appointments) ; 
   }
 
 }

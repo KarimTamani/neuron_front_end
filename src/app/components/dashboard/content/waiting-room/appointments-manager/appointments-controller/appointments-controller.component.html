@@ -3,7 +3,7 @@
         <i class="fa fa-plus"></i>
         Nouvelle visit 
     </button>
-    <a *ngIf="appointments.length > 0">
+    <a *ngIf="appointments.length > 0" (click)="openAppointmentsLoader()">
         <i class="fa fa-calendar-alt"></i> {{appointments.length}} RDV pour aujourd'hui
     </a>
     <button class="secondary-button right" (click)="next()" [disabled]="waitingRoom == null"> 

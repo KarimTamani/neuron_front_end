@@ -60,4 +60,16 @@ export class AppointmentsControllerComponent implements OnInit {
       }
     })
   }
+
+  public openAppointmentsLoader() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window" : true , 
+        "title" : "Les Rendez-Vous de aujourd-hui" , 
+        'window-page' : "appointments-loader"  ,
+        "appointments" : encodeURIComponent(JSON.stringify( this.appointments) )   
+      }
+    })
+    
+  }
 }

@@ -153,6 +153,7 @@ import { CommuneAnalyticsComponent } from './components/dashboard/content/analyt
 import { DiagnosisAnalyticsComponent } from './components/dashboard/content/general/diagnosis-analytics/diagnosis-analytics.component';
 import { DiagnosisPercentageComponent } from './components/global/diagnosis-percentage/diagnosis-percentage.component';
 import { AppointmentsLoaderComponent } from './components/dashboard/content/waiting-room/appointments-loader/appointments-loader.component';
+import { AppointmentComponent } from './components/dashboard/content/waiting-room/appointments-loader/appointment/appointment.component';
 
 
 @NgModule({
@@ -294,7 +295,8 @@ import { AppointmentsLoaderComponent } from './components/dashboard/content/wait
     CommuneAnalyticsComponent,
     DiagnosisAnalyticsComponent,
     DiagnosisPercentageComponent,
-    AppointmentsLoaderComponent
+    AppointmentsLoaderComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
