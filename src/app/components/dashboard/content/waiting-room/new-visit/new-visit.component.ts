@@ -25,11 +25,11 @@ export class NewVisitComponent implements OnInit {
   public submittedSymptom: Symptom;
   public submittedMedicalFile: MedicalFile;
   public symptoms: Symptom[] = [];
-  public showNewMedicalFile: boolean = false ;
+  public showNewMedicalFile: boolean = false;
   public showVitalSetting: boolean = false;
   public edit: boolean = false;
-  public blackWindow : boolean = false ; 
-  
+  public blackWindow: boolean = false;
+
   constructor(private apollo: Apollo, private route: ActivatedRoute, private interactionservice: InteractionService) {
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();
@@ -49,31 +49,36 @@ export class NewVisitComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).getAllMedicalActs)).subscribe((data) => {
       this.medicalActs = data;
     })
-    this.route.queryParams.subscribe((params) => {
-      if (params["visit"]) {
-        // if the visit is defined for the edit mode
-        // load medical act into selected medical acts 
-        // load symptoms into symptoms
-        // calculate the total price for the visit  
-        this.visit = JSON.parse(decodeURIComponent(params["visit"]));
-        
-        this.selectedMedicalActs = this.visit.medicalActs;
-        this.symptoms = this.visit.symptoms;
-        this.totalPrice = 0;
-        this.selectedMedicalActs.forEach((act) => {
-          this.totalPrice += act.price;
-        })
-        this.edit = true;
-      }
-      if (params["waiting-room"]) {
-        // get the waiting room from the params 
-        // if not in edit mode calculate the order of the visit
-        this.visit.waitingRoom = JSON.parse(decodeURIComponent(params["waiting-room"]));
+    var params = this.route.snapshot.queryParams;
 
-        if (this.edit == false)
-          this.visit.order = this.visit.waitingRoom.visits.length + 1;
-      }
-    })
+    if (params["visit"]) {
+      // if the visit is defined for the edit mode
+      // load medical act into selected medical acts 
+      // load symptoms into symptoms
+      // calculate the total price for the visit  
+      this.visit = JSON.parse(decodeURIComponent(params["visit"]));
+
+      this.selectedMedicalActs = this.visit.medicalActs;
+      this.symptoms = this.visit.symptoms;
+      this.totalPrice = 0;
+      this.selectedMedicalActs.forEach((act) => {
+        this.totalPrice += act.price;
+      })
+      if (params["edit"] !== null)
+        this.edit = JSON.parse(params["edit"]);
+      else
+        this.edit = true;
+    }
+    if (params["waiting-room"]) {
+      // get the waiting room from the params 
+      // if not in edit mode calculate the order of the visit
+      this.visit.waitingRoom = JSON.parse(decodeURIComponent(params["waiting-room"]));
+
+      if (this.edit == false)
+        this.visit.order = this.visit.waitingRoom.visits.length + 1;
+    }
+
+    console.log(this.edit);
   }
 
   public searchFunction: any = (query) => {
@@ -150,7 +155,7 @@ export class NewVisitComponent implements OnInit {
   selectMedicalFile($event) {
 
     this.visit.medicalFile = $event;
-    this.submittedMedicalFile = new MedicalFile() ; 
+    this.submittedMedicalFile = new MedicalFile();
   }
   public saveVisit() {
     this.apollo.mutate({
@@ -167,8 +172,8 @@ export class NewVisitComponent implements OnInit {
       ` ,
       variables: {
         symptoms: this.symptoms.map(value => value.id),
-        medicalActs: this.selectedMedicalActs.map(value => value.id) , 
-        vitalSetting : (this.isVitalSettingEdited())? (<VitalSetting>this.visit.vitalSetting) : (null)
+        medicalActs: this.selectedMedicalActs.map(value => value.id),
+        vitalSetting: (this.isVitalSettingEdited()) ? (<VitalSetting>this.visit.vitalSetting) : (null)
       }
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
       this.closeEvent.emit();
@@ -178,7 +183,7 @@ export class NewVisitComponent implements OnInit {
 
   public editVisit() {
 
-    delete (<any>this.visit.vitalSetting).__typename  ; 
+    delete (<any>this.visit.vitalSetting).__typename;
     this.apollo.mutate({
       mutation: gql`
         mutation ($symptoms : [ID!] , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput){
@@ -191,8 +196,8 @@ export class NewVisitComponent implements OnInit {
       ` ,
       variables: {
         symptoms: this.symptoms.map(value => value.id),
-        medicalActs: this.selectedMedicalActs.map(value => value.id) , 
-        vitalSetting : (this.isVitalSettingEdited())? (<VitalSetting>this.visit.vitalSetting) : (null)
+        medicalActs: this.selectedMedicalActs.map(value => value.id),
+        vitalSetting: (this.isVitalSettingEdited()) ? (<VitalSetting>this.visit.vitalSetting) : (null)
       }
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
       this.closeEvent.emit();
@@ -200,22 +205,22 @@ export class NewVisitComponent implements OnInit {
     })
   }
 
-  public newMedicalFile($event) { 
-    this.visit.medicalFile = $event ; 
-    this.showNewMedicalFile = false ; 
+  public newMedicalFile($event) {
+    this.visit.medicalFile = $event;
+    this.showNewMedicalFile = false;
   }
 
 
   private isVitalSettingEdited() {
-    var keys = Object.keys(this.visit.vitalSetting) ; 
-    return keys.length > 0 ; 
+    var keys = Object.keys(this.visit.vitalSetting);
+    return keys.length > 0;
   }
 
-  public closeMedicalFile() { 
-    this.visit.medicalFile = null ; 
+  public closeMedicalFile() {
+    this.visit.medicalFile = null;
   }
-  public editMedicalFile() { 
-    this.showNewMedicalFile = true ; 
+  public editMedicalFile() {
+    this.showNewMedicalFile = true;
   }
 
 }

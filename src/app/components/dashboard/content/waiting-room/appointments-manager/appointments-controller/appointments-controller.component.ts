@@ -69,9 +69,7 @@ export class AppointmentsControllerComponent implements OnInit {
         'window-page' : "appointments-loader"  ,
         "appointments" : encodeURIComponent(JSON.stringify( this.appointments) )   , 
         "waiting-room" : encodeURIComponent(JSON.stringify( this.waitingRoom) )   
-      
       }
     })
-    
   }
 }
