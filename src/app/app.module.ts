@@ -152,6 +152,7 @@ import { WilayaAnalyticsComponent } from './components/dashboard/content/analyti
 import { CommuneAnalyticsComponent } from './components/dashboard/content/analytics/location-analytics/commune-analytics/commune-analytics.component';
 import { DiagnosisAnalyticsComponent } from './components/dashboard/content/general/diagnosis-analytics/diagnosis-analytics.component';
 import { DiagnosisPercentageComponent } from './components/global/diagnosis-percentage/diagnosis-percentage.component';
+import { AppointmentsLoaderComponent } from './components/dashboard/content/waiting-room/appointments-loader/appointments-loader.component';
 
 
 @NgModule({
@@ -292,7 +293,8 @@ import { DiagnosisPercentageComponent } from './components/global/diagnosis-perc
     WilayaAnalyticsComponent,
     CommuneAnalyticsComponent,
     DiagnosisAnalyticsComponent,
-    DiagnosisPercentageComponent
+    DiagnosisPercentageComponent,
+    AppointmentsLoaderComponent
   ],
   imports: [
     BrowserModule,

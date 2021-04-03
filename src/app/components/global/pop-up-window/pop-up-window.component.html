@@ -29,5 +29,6 @@
                 <app-new-medical-file [throwInteraction]="true" (closeEvent)="close()" (blackWindowEvent)="contentBlackWindow = !contentBlackWindow"></app-new-medical-file>
             </div>
         </div>
+        <app-appointments-loader *ngIf="windowPage == 'appointments-loader'" (closeEvent)="close()"></app-appointments-loader>
     </div>
 </div>
