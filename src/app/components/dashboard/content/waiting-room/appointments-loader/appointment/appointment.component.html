@@ -1,1 +1,23 @@
-<p>appointment works!</p>
+<div class="main-container">
+    <div class="stretch-container">
+        <div class="image-side">
+            <img src="{{(medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
+        </div>
+        <div class="info-side">
+            <h5>{{medicalFile.name}} {{medicalFile.lastname}}</h5>
+            <p>
+                <i class="fa fa-calendar"></i> {{medicalFile.birthday}}
+            </p>
+            <p>
+                <i class="fa fa-phone"></i> {{(medicalFile.phone) ? (medicalFile.phone) : ("Inconnue")}}
+            </p>
+            <p id="rdv">
+                RDV : <span>{{date}}</span> <span>{{appointment.time}}</span>
+            </p>
+        </div>
+    </div>
+    <div class="white-background primary-radius center-v">
+        <button (click)="openVisitSubmitter()" class="secondary-button">Charger dans la salle d'attent</button>
+    </div>
+
+</div>

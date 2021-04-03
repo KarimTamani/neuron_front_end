@@ -7,3 +7,18 @@
     padding: 16px;
     background: white;
 }
+
+h5 {
+    font-weight: bold;
+    margin: 0px;
+    color: #212121;
+}
+
+.appointments-list {
+    margin-top: 16px;
+    height: 460px;
+    max-height: 460px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
+}
