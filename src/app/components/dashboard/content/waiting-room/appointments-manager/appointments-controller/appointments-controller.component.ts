@@ -1,5 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { map } from 'rxjs/operators';
+import { Appointment } from 'src/app/classes/Appointment';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 
 @Component({
@@ -11,11 +15,35 @@ export class AppointmentsControllerComponent implements OnInit {
   @Output() nextEvent : EventEmitter<null> ; 
   @Input() activate : boolean = false;  
   @Input() waitingRoom : WaitingRoom ; 
-  constructor(private router : Router) {
+  public appointments : Appointment[] = [] ; 
+  constructor(private router : Router , private apollo : Apollo) {
     this.nextEvent = new EventEmitter<null>() ; 
   }
   ngOnInit(): void {
     
+    // load the appointments for today
+    this.apollo.query({
+      query : gql`
+        {
+          searchAppointments(startDate : "${this.waitingRoom.date}" , endDate : "${this.waitingRoom.date}") { 
+            rows { 
+              id 
+              date 
+              time
+              visit {
+                id createdAt 
+                medicalFile {
+                  id name lastname birthday phone email gender
+                }
+              }
+            }
+            count  
+          }
+        }`
+    }).pipe(map(value => (<any>value.data).searchAppointments)).subscribe((data) => { 
+      this.appointments = data.rows ; 
+      
+    })  
     
   }
   next() { 

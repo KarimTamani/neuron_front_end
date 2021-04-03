@@ -1,5 +1,6 @@
 .main-container {
     padding: 12px;
+    position: relative;
 }
 
 button {
@@ -29,4 +30,13 @@ button[disabled]:hover {
     background: #eeeeee;
     color: #212121;
     cursor: not-allowed;
+}
+
+a {
+    color: rgb(38, 94, 215);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
 }

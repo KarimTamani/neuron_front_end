@@ -63,8 +63,8 @@ export class VisitAppointmentComponent implements OnInit {
     return (formControl: FormControl) => {
       let date = formControl.value;
       date = visitAppointment.dataService.castDateYMD(date);
-      if (visitAppointment.currentDate >= date) {
-        console.log("truesdksk jds")
+      if (visitAppointment.currentDate > date) {
+
         return {
           future: {
             date: date
