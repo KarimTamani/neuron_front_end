@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getTypenameFromStoreObject } from '@apollo/client/cache/inmemory/helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -33,22 +34,22 @@ export class DataService {
 
   constructor() { }
 
-  public periodToText(period) { 
-    if (period == this.DAY) { 
-      return "Jour" ; 
+  public periodToText(period) {
+    if (period == this.DAY) {
+      return "Jour";
     }
-    if (period == this.WEEK) { 
-      return "semain" ; 
+    if (period == this.WEEK) {
+      return "semain";
     }
-    if (period == this.MONTH) { 
-      return "mois" ; 
+    if (period == this.MONTH) {
+      return "mois";
     }
-    if (period == this.TRIMESTER) 
-      return "trimester" ; 
-    if (period == this.SEMESTER) 
-      return "semester" ; 
-    if (period == this.YEAR) 
-      return "année"; 
+    if (period == this.TRIMESTER)
+      return "trimester";
+    if (period == this.SEMESTER)
+      return "semester";
+    if (period == this.YEAR)
+      return "année";
   }
   public castFRDate(date: Date) {
 
@@ -97,16 +98,18 @@ export class DataService {
 
 
   public castDateYMD(date) {
-    
+
     if (date == null)
       return null;
 
     var dateObject = new Date(date)
+    if (dateObject.getHours() == 0)
+      dateObject = new Date(dateObject.getTime() + this.HOUR * 1000) ; 
     
     var day: any = dateObject.getUTCDate();
     var month: any = dateObject.getUTCMonth() + 1;
     var year: any = dateObject.getFullYear();
-     
+
     if (day < 10)
       day = "0" + day;
 
@@ -191,9 +194,9 @@ export class DataService {
       range *= 10;
 
     var nextStep = max + range - (max % range);
-    if ( nextStep % 2 == 1)
+    if (nextStep % 2 == 1)
       nextStep += 1;
- 
+
     return nextStep / 2;
   }
 

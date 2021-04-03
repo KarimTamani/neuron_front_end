@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subject, SubjectSubscriber } from 'rxjs/internal/Subject';
 import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-calendar',
@@ -23,11 +25,17 @@ export class CalendarComponent implements OnInit {
   public year: number;
 
   public loaded: boolean = false;
+  public updateSubject : Subject<any> ; 
+
+  @Output() dateChangedEvent : EventEmitter<any>  ;
+
   //public schedule: Schedule;
   ngOnInit(): void { }
-  constructor(private apollo: Apollo , private dataService : DataService) {
-    /*this.dateService.getCurrentDate().subscribe((date) => {
-    })*/
+  constructor(private apollo: Apollo , private dataService : DataService, private interactionService : InteractionService) {
+    this.updateSubject = new Subject<any>() ; 
+
+    this.dateChangedEvent = new EventEmitter<any>()  ;
+
     this.apollo.query({
       query: gql`
         { 
@@ -62,8 +70,12 @@ export class CalendarComponent implements OnInit {
       this.day = this.currentDay;
     }
     this.currentDate = new Date(this.currentMonth + 1 + " " + this.day + " " + this.currentYear);
+    this.dateChangedEvent.emit(this.currentDate) ;   
+    this.updateSubject.next(this.currentDate) ;  
   }
+
   previousMonth() {
+  
     this.day = 1;
     if (this.currentMonth != 0)
       this.currentMonth--;
@@ -75,12 +87,17 @@ export class CalendarComponent implements OnInit {
       this.day = this.currentDay;
     }
     this.currentDate = new Date(this.currentMonth + 1 + " " + this.day + " " + this.currentYear);
+    this.dateChangedEvent.emit(this.currentDate) ;   
+    this.updateSubject.next(this.currentDate) ;  
   }
+  
   private getStartOfMonth(date: Date) {
+  
     let time = date.getTime();
     time = time - (date.getDate() - 1) * 24 * 3600 * 1000;
     let startDate = new Date(time);
     return startDate;
+  
   }
 
   public getMonthDays(date: Date) {
@@ -117,7 +134,11 @@ export class CalendarComponent implements OnInit {
   }
 
   selectDay(d) {
+
     this.day = d;
+    this.currentDate = new Date(this.currentMonth + 1 + " " + this.day + " " + this.currentYear);
+    this.dateChangedEvent.emit(this.currentDate) ;  
+    this.updateSubject.next(this.currentDate) ;  
   }
 
 }

@@ -97,7 +97,7 @@ export class WaitingRoomComponent implements OnInit {
       `
     }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => {
       this.waitingRoom = data;
-      console.log(this.waitingRoom);
+    
     })
   }
   public createWaitingRoom() {
@@ -117,6 +117,10 @@ export class WaitingRoomComponent implements OnInit {
       this.waitingRoom = data;
       this.waitingRoom.visits = [];
     })
+  }
+
+  public dateChanged($event) { 
+    
   }
 
 }
