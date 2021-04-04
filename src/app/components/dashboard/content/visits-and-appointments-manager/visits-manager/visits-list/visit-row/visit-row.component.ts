@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Visit } from 'src/app/classes/Visit';
 import { DataService } from 'src/app/services/data.service';
 
@@ -11,7 +12,8 @@ export class VisitRowComponent implements OnInit {
   @Input() visit: Visit;
   public visitPeriod: string;
   public visitDate: string;
-  constructor(private dataService: DataService) { }
+
+  constructor(private dataService: DataService , private router : Router) { }
 
   ngOnInit(): void {
     if (this.visit.status == "visit done" || this.visit.status == "visit payed") {
@@ -24,8 +26,16 @@ export class VisitRowComponent implements OnInit {
     const year = createdAtDate.getFullYear();
 
     this.visitDate = `${day} ${this.dataService.monthes[month]} ${year}`
-
-
   }
 
+  public openDetails() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window": true , 
+        "window-page" : "visit-details" , 
+        "title" : "Visiste en details" , 
+        "visit-id" : this.visit.id
+      }
+    })
+  }
 }

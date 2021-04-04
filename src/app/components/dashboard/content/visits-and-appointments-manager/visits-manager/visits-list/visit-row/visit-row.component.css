@@ -1,6 +1,8 @@
 .visit-container {
     background: white;
     padding: 8px 12px;
+    transition-duration: 0.3s;
+    cursor: pointer;
 }
 
 span {
@@ -11,4 +13,8 @@ span {
 
 span.red {
     color: rgb(254, 101, 85);
+}
+
+.visit-container:hover {
+    background: #eee;
 }

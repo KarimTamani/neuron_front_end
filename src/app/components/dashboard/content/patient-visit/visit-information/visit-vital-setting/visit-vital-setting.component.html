@@ -125,7 +125,7 @@
                 IMC <span class="bold"> {{imc}} Kg / m </span> interpretation <span class="bold">{{ interpretation }}</span>
             </div>
         </div>
-        <div class="col col-md-12">
+        <div class="col col-md-12" *ngIf="editable">
             <div class="stretch-container edit">
                 <div>
                     <p>Modifier les paramétres vitaux ici </p>
