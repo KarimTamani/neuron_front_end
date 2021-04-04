@@ -1,0 +1,83 @@
+.prescriptions-side,
+.diagnosis-side {
+    max-width: 540px;
+    min-width: 540px;
+}
+
+.diagnosis-list {
+    padding: 0px 16px;
+}
+
+.document {
+    margin-bottom: 8px;
+}
+
+.option {
+    display: inline-flex;
+    align-items: stretch;
+    margin: 0px 8px;
+    width: 146px;
+    background: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666;
+    cursor: pointer;
+    transition-duration: 0.5s;
+    position: relative;
+}
+
+.option:hover {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    color: rgb(38, 94, 215);
+}
+
+.option span {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.option.selected {
+    color: white;
+    background: rgb(38, 94, 215);
+}
+
+.drop-down {
+    position: absolute;
+    background: white;
+    top: 29px;
+    box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    width: 260px;
+    padding: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 8px;
+    display: none;
+    opacity: 0;
+}
+
+.drop-down-option span {
+    padding: 8px 16px;
+    color: #666666;
+    border-radius: 8px;
+}
+
+.drop-down-option span:hover {
+    background: rgb(38, 94, 215);
+    color: white;
+}
+
+.drop-down-hover:hover .drop-down,
+.drop-down-hover:hover .custom-caret {
+    display: block;
+    opacity: 1;
+}
+
+.diagnosis-side .row {
+    height: 680px;
+    overflow: auto;
+    margin-top: 16px;
+}

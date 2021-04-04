@@ -14,7 +14,8 @@ export class VisitDetailsComponent implements OnInit {
   @Input() visitId: number;
   public visit : Visit ; 
   public totalPrice : number = 0 ; 
-
+  public moreDetails : boolean = true  ; 
+   
   constructor(private route: ActivatedRoute, private apollo: Apollo) {
 
   }

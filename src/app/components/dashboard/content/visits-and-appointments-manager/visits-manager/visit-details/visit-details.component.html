@@ -1,7 +1,7 @@
 <div class="main-container">
-    <div class="content primary-radius">
-        <app-visit-more-details></app-visit-more-details>
-        <div class="stretch-container">
+    <div class="content primary-radius" *ngIf="visit">
+        <app-visit-more-details *ngIf="moreDetails" [visit]="visit"></app-visit-more-details>
+        <div class="stretch-container" *ngIf="!moreDetails">
             <div class="info-side">
                 <div class="mini-profil stretch-container">
                     <div class="name-icon-container">
@@ -123,7 +123,7 @@
                     </p>
                 </div>
                 <div class="more-details">
-                    <a>plus de details documents , prescriptions , diagnostique ...</a>
+                    <a (click)="moreDetails = true">plus de details documents , prescriptions , diagnostique ...</a>
                 </div>
             </div>
         </div>

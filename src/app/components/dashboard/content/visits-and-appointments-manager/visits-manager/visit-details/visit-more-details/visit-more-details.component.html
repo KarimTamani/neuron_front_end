@@ -1,1 +1,81 @@
-<p>visit-more-details works!</p>
+<div class="main-container">
+    <div class="stretch-container">
+        <div class="diagnosis-side" *ngIf="neuronResponses.length > 0 || documents.length > 0">
+            <div class="menu-options">
+
+                <div class="option" [class.selected]="documentPage ==1" *ngIf="neuronResponses.length > 0" (click)="documentPage = 1">
+                    <div class="center-v">
+                        <i class="fa fa-stethoscope"></i>
+                    </div>
+                    <span> Diagnosis </span>
+                </div>
+
+                <div class="option" [class.selected]="documentPage ==2" *ngIf="documents.length > 0" (click)="documentPage = 2">
+                    <div class="center-v">
+                        <i class="fa fa-file-medical-alt"></i>
+                    </div>
+                    <span> Documents</span>
+                </div>
+            </div>
+            <div class="diagnosis-list">
+                <div class="row" *ngIf="documentPage ==1">
+
+                    <div class="col col-md-6" *ngFor="let response of neuronResponses">
+                        <div class="document">
+                            <app-neuron-response [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" *ngIf="documentPage ==2">
+
+                    <div class="col col-md-6" *ngFor="let document of documents">
+                        <div class="document">
+                            <app-document [document]="document"></app-document>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="prescriptions-side">
+
+            <div class="menu-options">
+
+                <div class="option" [class.selected]="prescriptionPage == 1" (click)="prescriptionPage = 1">
+                    <div class="center-v">
+                        <i class="fa fa-prescription-bottle-alt"></i>
+                    </div>
+                    <span> Ordonnance</span>
+                </div>
+
+                <div class="option drop-down-hover" [class.selected]="prescriptionPage == 2" *ngIf="visit.certificats.length > 0">
+                    <div class="center-v">
+                        <i class="fa fa-envelope-open-text"></i>
+                    </div>
+                    <span> Certificat </span>
+                    <div class="drop-down">
+                        <div class="drop-down-option" *ngFor="let certificat of visit.certificats" (click)="selectCertificat(certificat)">
+                            <a>
+                                <span>{{certificat.certificatModel.title}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="option drop-down-hover" [class.selected]="prescriptionPage ==3" *ngIf="visit.checkUps.length > 0" (click)="prescriptionPage = 3">
+                    <div class="center-v">
+                        <i class="fa fa-vials"></i>
+                    </div>
+                    <span> Bilan </span>
+                </div>
+            </div>
+            <app-prescription *ngIf="prescriptionPage == 1" [visit]="visit"></app-prescription>
+            <app-prescription *ngIf="prescriptionPage == 2" [certificat]="selectedCertificat" [type]="'prescription-certificat'" [title]="'Certificat Medical'" [visit]="visit"></app-prescription>
+            <app-prescription *ngIf="prescriptionPage == 3" [checkUpTypes]="checkUpTypes" [type]="'prescription-check-up'" [title]="'Demande de bilan'" [visit]="visit"></app-prescription>
+
+        </div>
+    </div>
+</div>
