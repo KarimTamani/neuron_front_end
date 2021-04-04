@@ -155,6 +155,7 @@ import { DiagnosisPercentageComponent } from './components/global/diagnosis-perc
 import { AppointmentsLoaderComponent } from './components/dashboard/content/waiting-room/appointments-loader/appointments-loader.component';
 import { AppointmentComponent } from './components/dashboard/content/waiting-room/appointments-loader/appointment/appointment.component';
 import { VisitDetailsComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/visit-details.component';
+import { VisitMoreDetailsComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/visit-more-details/visit-more-details.component';
 
 
 @NgModule({
@@ -298,7 +299,8 @@ import { VisitDetailsComponent } from './components/dashboard/content/visits-and
     DiagnosisPercentageComponent,
     AppointmentsLoaderComponent,
     AppointmentComponent,
-    VisitDetailsComponent
+    VisitDetailsComponent,
+    VisitMoreDetailsComponent
   ],
   imports: [
     BrowserModule,
