@@ -106,9 +106,9 @@ export class PayeVisitComponent implements OnInit , OnDestroy{
           }
         `
       }).pipe(map(value => (<any>value.data).editVisitPayment)).subscribe((data) => {
+        this.visit.status = "visit payed" ; 
         this.interactionService.visitPayed.next(this.visit) ; 
         this.closeEvent.emit() ;       
-          
       })
   }
 }

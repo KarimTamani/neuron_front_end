@@ -12,6 +12,10 @@
     margin-bottom: 8px;
 }
 
+.menu-options {
+    padding: 0px 8px;
+}
+
 .option {
     display: inline-flex;
     align-items: stretch;

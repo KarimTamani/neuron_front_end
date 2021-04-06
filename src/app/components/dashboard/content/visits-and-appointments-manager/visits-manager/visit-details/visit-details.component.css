@@ -159,3 +159,50 @@ p i {
     color: rgb(38, 94, 215);
     cursor: pointer;
 }
+
+.red {
+    color: rgb(254, 101, 85);
+    font-weight: bold;
+}
+
+.status {
+    margin-top: 8px;
+}
+
+.status button {
+    font-size: 12px;
+    width: 100%;
+    padding: 12px 4px;
+}
+
+.controller {
+    margin-top: 8px;
+}
+
+.controller button {
+    float: right;
+    background: rgb(254, 101, 85);
+}
+
+.more-details-container h5 {
+    font-weight: bold;
+    margin: 0px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    padding: 0px 8px;
+}
+
+.more-details-container h5 i {
+    color: rgb(38, 94, 215);
+    background: white;
+    padding: 8px 11px;
+    margin-right: 8px;
+    border-radius: 50%;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.more-details-container h5 i:hover {
+    background: rgb(38, 94, 215);
+    color: white;
+}

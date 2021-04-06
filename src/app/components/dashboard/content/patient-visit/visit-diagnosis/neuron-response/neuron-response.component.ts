@@ -10,7 +10,9 @@ import { NeuronResponse } from 'src/app/classes/NeuronResponse';
 export class NeuronResponseComponent implements OnInit {
   @Input() neuronResponse: NeuronResponse;
   @Input() modelOutputs: any;
-  @Input() patientInfo : boolean = false ; 
+  @Input() patientInfo : boolean = false ;
+  @Input() referer : boolean = false ; 
+
   public topPredictions: any[] = [];
   public detection: boolean = false;
   public symptoms : string[] = [] ; 
@@ -59,6 +61,10 @@ export class NeuronResponseComponent implements OnInit {
   }
 
   public openResult() { 
+    var referer = "" ; 
+
+    if (this.referer) 
+      referer = this.router.url ; 
     if (this.neuronResponse.type == "image") { 
       this.router.navigate([], {
         queryParams: {
@@ -69,7 +75,8 @@ export class NeuronResponseComponent implements OnInit {
             result : this.neuronResponse.neuronPrediction 
           })),
           "title": this.neuronResponse.neuronCollection.name, 
-          "visit" : decodeURIComponent(JSON.stringify(this.neuronResponse.visit)) 
+          "visit" : decodeURIComponent(JSON.stringify(this.neuronResponse.visit)) ,  
+          "referer" : referer
         }
       });
     }else { 
@@ -80,7 +87,8 @@ export class NeuronResponseComponent implements OnInit {
           "result": decodeURIComponent(this.neuronResponse.neuronPrediction) , 
           "symptoms" : decodeURIComponent(this.neuronResponse.input) , 
           "title": "Diagnositiuqe symptomsique", 
-          "visit" : decodeURIComponent(JSON.stringify(this.neuronResponse.visit)) 
+          "visit" : decodeURIComponent(JSON.stringify(this.neuronResponse.visit)) , 
+          "referer" : referer 
         }
       });
     }

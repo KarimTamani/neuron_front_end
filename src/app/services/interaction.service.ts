@@ -40,6 +40,7 @@ export class InteractionService {
   public certificatModelSelected : Subject<CertificatModel> ; 
   public newMedicalFile : Subject<MedicalFile> ; 
   public visitEdited : Subject<null> ;   
+  public visitDeleted : Subject<Visit> ; 
 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
@@ -64,5 +65,6 @@ export class InteractionService {
     this.certificatModelSelected = new Subject<CertificatModel>() ; 
     this.newMedicalFile = new Subject<MedicalFile>() ; 
     this.visitEdited = new Subject<null>() ; 
+    this.visitDeleted = new Subject<Visit>() ; 
   }
 }

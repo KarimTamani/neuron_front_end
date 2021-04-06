@@ -30,6 +30,6 @@
             </div>
         </div>
         <app-appointments-loader *ngIf="windowPage == 'appointments-loader'" (closeEvent)="close()"></app-appointments-loader>
-        <app-visit-details *ngIf="windowPage == 'visit-details'"></app-visit-details>
+        <app-visit-details *ngIf="windowPage == 'visit-details'" (closeEvent)="close()"></app-visit-details>
     </div>
 </div>

@@ -62,6 +62,9 @@ export class VisitMoreDetailsComponent implements OnInit {
           }`
       }).pipe(map(value => (<any>value.data).getVisitNeuronRequest)).subscribe((data) => { 
         this.neuronResponses = data ; 
+        for (let index = 0 ; index < this.neuronResponses.length ; index++) { 
+          this.neuronResponses[index].visit = this.visit ; 
+        }
         
       }) ;
     }); 

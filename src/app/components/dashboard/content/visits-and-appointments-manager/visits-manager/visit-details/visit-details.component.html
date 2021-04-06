@@ -1,6 +1,10 @@
 <div class="main-container">
     <div class="content primary-radius" *ngIf="visit">
-        <app-visit-more-details *ngIf="moreDetails" [visit]="visit"></app-visit-more-details>
+        <div class="more-details-container" *ngIf="moreDetails">
+            <h5><i class="fa fa-chevron-left" (click)="back()"></i> Plus de Details</h5>
+            <app-visit-more-details [visit]="visit"></app-visit-more-details>
+        </div>
+
         <div class="stretch-container" *ngIf="!moreDetails">
             <div class="info-side">
                 <div class="mini-profil stretch-container">
@@ -65,66 +69,124 @@
                     <p>{{visit.condition.name}}</p>
                 </div>
             </div>
+
             <div class="info-side">
+
                 <div class="waiting-room">
+
                     <label>Salle d'attent</label>
+
                     <p class="waiting-room-info">
                         <span><i class="fa fa-calendar"></i>{{visit.waitingRoom.date}}</span>
                         <span><i class="fa fa-sort-amount-up"></i>{{visit.order}} {{(visit.order == 1) ? ("er") : ("éme")}}</span>
                     </p>
+
                     <p>
                         <i class="fa fa-clock"></i> Temps d'arrivé <span>{{visit.arrivalTime}}</span>
                     </p>
+
                     <p *ngIf="visit.status == 'in visit'">
                         visite a commencé à <span>{{visit.startTime}}</span>
                     </p>
+
                     <p *ngIf="visit.status == 'visit done' || visit.status == 'visit payed'">
                         visite a commencé à <span>{{visit.startTime}}</span> visite a terminé à <span>{{visit.endTime}}</span>
                     </p>
+
                 </div>
+
                 <div class="medical-acts">
+
                     <label>L'Actes Medicaaux</label>
+
                     <div class="medical-acts-list">
+
                         <p *ngFor="let medicalAct of visit.medicalActs">
                             {{medicalAct.name}}
                             <span>{{medicalAct.price}} DA</span>
                         </p>
                     </div>
+
                     <div class="row">
+
                         <div class="col col-md-4">
                             <label>Montant Total</label>
                             <p>{{totalPrice}} DA</p>
                         </div>
+
                         <div class="col col-md-4" *ngIf="visit.status == 'visit payed'">
                             <label>Montant Payé</label>
                             <p>{{visit.payedMoney}} DA</p>
                         </div>
+
                         <div class="col col-md-4" *ngIf="visit.status == 'visit payed' && visit.debt">
                             <label>Credit</label>
                             <p>{{visit.debt}} DA</p>
                         </div>
+
                     </div>
                 </div>
+
                 <div class="clinical-exam">
+
                     <label>Examen Clinique</label>
+
                     <p *ngIf="visit.clinicalExam">
                         {{visit.clinicalExam}}
                     </p>
+
                     <p *ngIf="!visit.clinicalExam">
                         Aucun examen clinique
                     </p>
+
                 </div>
                 <div class="appointment" *ngIf="visit.appointment">
+
                     <label>Prochain Rendez-vous</label>
+
                     <p>le {{visit.appointment.date}}
                         <span *ngIf="visit.appointment.time">
                             {{visit.appointment.time}}
                         </span>
+
                     </p>
+
                 </div>
+
                 <div class="more-details">
-                    <a (click)="moreDetails = true">plus de details documents , prescriptions , diagnostique ...</a>
+
+                    <a (click)="openMoreDetails()">plus de details documents , prescriptions , diagnostique ...</a>
+
                 </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!moreDetails">
+            <div class="col col-md-6">
+
+                <div class="row status">
+                    <div class="col col-md-6">
+                        <label>L'Etat de la visite</label>
+                        <p class="red">{{visit.status}}</p>
+                    </div>
+                    <div class="col col-md-6">
+
+                        <button class="primary-button" *ngIf="visit.status == 'in visit'" (click)="visitDone()">
+                            Terminé la visite <i class="fa fa-check"></i>
+                        </button>
+
+                        <button class="primary-button" *ngIf="visit.status == 'visit done'" (click)="visitPaye()">
+                            Payé la visite <i class="fa fa-check"></i>
+                        </button>
+
+                        <button class="primary-button" *ngIf="visit.status == 'visit payed'" (click)="editPayment()">
+                            Modifier le payment <i class="fa fa-edit"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6 controller">
+                <button class="primary-button" (click)="delete()">Suprimer La visite <i class="fa fa-trash"></i></button>
             </div>
         </div>
     </div>

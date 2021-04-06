@@ -13,7 +13,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class DocumentComponent implements OnInit {
   @Input() document: Document;
-
+  @Input() controllable : boolean = true ; 
   @Output() editEvent: EventEmitter<Document>;
   @Output() deleteEvent: EventEmitter<number>;
   @Input() patientInfo : boolean = false ; 

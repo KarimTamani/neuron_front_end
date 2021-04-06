@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Visit } from 'src/app/classes/Visit';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-visits-manager',
@@ -14,8 +15,8 @@ export class VisitsManagerComponent implements OnInit {
   public count: number = 0;
   public offset: number = 0;
   public limit: number = 20;
-  public lastSearch : any = {} ; 
-  constructor(private apollo: Apollo) { }
+  public lastSearch: any = {};
+  constructor(private apollo: Apollo, private interactionService: InteractionService) { }
 
   ngOnInit(): void {
     this.searchVisits(
@@ -30,7 +31,14 @@ export class VisitsManagerComponent implements OnInit {
       null,
       null,
       this.offset,
-      this.limit);
+      this.limit
+    );
+
+    this.interactionService.visitDeleted.subscribe((visit) => { 
+      const index = this.visits.findIndex(value => value.id == visit.id) ; 
+      if (index >= 0) 
+        this.visits.splice(index , 1) ; 
+    })
   }
 
   private searchVisits(searchQuery = null, address = null, wilayaId = null, communeId = null, medicalActs = null, symptoms = null, debt = null, status = null, startDate = null, endDate = null, offset = null, limit = null) {
@@ -119,8 +127,8 @@ export class VisitsManagerComponent implements OnInit {
   }
 
   search($event) {
-    this.offset = 0 ;  
-    this.lastSearch = $event  ; 
+    this.offset = 0;
+    this.lastSearch = $event;
     this.searchVisits(
       $event.searchQuery,
       $event.address,
@@ -134,10 +142,10 @@ export class VisitsManagerComponent implements OnInit {
       $event.endDate,
       this.offset,
       this.limit
-    ); 
+    );
   }
   selectPage($event) {
-    this.offset = $event ; 
+    this.offset = $event;
     this.searchVisits(
       this.lastSearch.searchQuery,
       this.lastSearch.address,

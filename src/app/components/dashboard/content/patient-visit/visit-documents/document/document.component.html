@@ -1,5 +1,5 @@
 <div class="main-container primary-radius">
-    <div class="control">
+    <div class="control" *ngIf="controllable">
         <span (click)="edit()">Modifier <i class="fa fa-edit"></i></span>
         <span (click)="delete()">Suprimer<i class="fa fa-trash"></i></span>
     </div>

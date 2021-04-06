@@ -22,7 +22,7 @@
 
                     <div class="col col-md-6" *ngFor="let response of neuronResponses">
                         <div class="document">
-                            <app-neuron-response [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>
+                            <app-neuron-response [referer]="true" [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>
                         </div>
                     </div>
 
@@ -31,7 +31,7 @@
 
                     <div class="col col-md-6" *ngFor="let document of documents">
                         <div class="document">
-                            <app-document [document]="document"></app-document>
+                            <app-document [controllable]="false" [document]="document"></app-document>
                         </div>
                     </div>
 
