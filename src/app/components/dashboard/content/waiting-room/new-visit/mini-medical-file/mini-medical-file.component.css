@@ -2,6 +2,7 @@
     border-radius: 16px;
     position: relative;
     background: white;
+    transition-duration: 0.3s;
 }
 
 .main-container.shadow {
@@ -119,4 +120,9 @@ p i {
 
 .controller span.igonre:after {
     content: "Fermé";
+}
+
+.main-container.clickable:hover {
+    cursor: pointer;
+    background: #eee;
 }

@@ -58,7 +58,6 @@ export class NewMedicalFileComponent implements OnInit {
   @Input() throwInteraction: boolean = false;
   @Output() closeEvent : EventEmitter<null> ; 
 
-
   constructor(private apollo: Apollo, private dataService: DataService, private interactionService: InteractionService) {
     this.blackWindowEvent = new EventEmitter<null>();
     this.newMedicalFileEvent = new EventEmitter<MedicalFile>();

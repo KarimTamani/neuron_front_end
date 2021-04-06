@@ -66,5 +66,6 @@ export class InteractionService {
     this.newMedicalFile = new Subject<MedicalFile>() ; 
     this.visitEdited = new Subject<null>() ; 
     this.visitDeleted = new Subject<Visit>() ; 
+    
   }
 }

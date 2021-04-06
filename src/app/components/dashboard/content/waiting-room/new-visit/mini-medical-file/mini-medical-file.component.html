@@ -1,4 +1,4 @@
-<div class="main-container stretch-container" [class.shadow]="!disabelShadow">
+<div class="main-container stretch-container" (click)="click()" [class.shadow]="!disabelShadow" [class.clickable]="clickable">
 
     <div class="image-side">
         <img src="{{(medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
@@ -18,7 +18,7 @@
     </div>
 
 
-    <div class="controller">
+    <div class="controller" *ngIf="controllable">
         <span class="edit" (click)="editMedicalFile()">
             <i class="fa fa-edit"></i>
         </span>
