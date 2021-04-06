@@ -149,4 +149,15 @@ export class MedicalFilesManagerComponent implements OnInit {
       subscription.unsubscribe() ; 
     })
   }
+
+  public clickEvent($event) { 
+    this.router.navigate([]  , { 
+      queryParams : { 
+        "window-page" : "medical-file-details" , 
+        "pop-up-window" : true , 
+        "title" : "Dossie Medical en details" , 
+        "medical-file-id" : $event.id
+      }
+    })
+  }
 }

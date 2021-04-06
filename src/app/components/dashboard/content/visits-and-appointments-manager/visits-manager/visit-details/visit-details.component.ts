@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { parseAndCheckHttpResponse } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
@@ -192,15 +193,10 @@ export class VisitDetailsComponent implements OnInit {
   }
 
   public back() { 
-    this.router.navigate([] , { 
-      queryParams : {
-        "pop-up-window" : true , 
-        "window-page" : "visit-details" , 
-        "title" : "Visite en details" , 
-        "visit-id" : this.visit.id , 
-        "more-details" : false 
-      } 
-    })
+    var params = this.route.snapshot.queryParams ; 
+    var referer =  params["referer"] ; 
+    this.router.navigateByUrl(referer) ;  
+    
   }
 
   public delete() { 

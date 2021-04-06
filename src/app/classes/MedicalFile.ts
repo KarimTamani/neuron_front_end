@@ -2,6 +2,7 @@
 import { Antecedent } from "./Antecedent";
 import { Profession } from "./Profession";
 import { Address } from './Address';
+import { Visit } from "./Visit";
 export class MedicalFile {
 
     public id: number;
@@ -16,7 +17,7 @@ export class MedicalFile {
     public updatedAt: string;
     public antecedents: Antecedent[] = [];
     public profession: Profession;
-
+    public visits : Visit[] = [] ; 
 
     public constructor () {
         this.address = new Address() ; 

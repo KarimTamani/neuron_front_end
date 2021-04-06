@@ -10,7 +10,7 @@ export class MiniMedicalFileComponent implements OnInit {
   @Input() medicalFile: MedicalFile;
   @Output() closeEvent: EventEmitter<null>;
   @Output() editEvent: EventEmitter<null>;
-  @Output() clickEvent : EventEmitter<MedicalFile> ; 
+  @Output() clickMedicalFile : EventEmitter<MedicalFile> ; 
 
   @Input() disabelShadow : boolean = false; 
   @Input() controllable : boolean = true ; 
@@ -20,7 +20,7 @@ export class MiniMedicalFileComponent implements OnInit {
   constructor() {
     this.closeEvent = new EventEmitter<null>();
     this.editEvent = new EventEmitter<null>();
-    this.clickEvent = new EventEmitter<MedicalFile>() ; 
+    this.clickMedicalFile = new EventEmitter<MedicalFile>() ; 
 
   }
 
@@ -37,7 +37,7 @@ export class MiniMedicalFileComponent implements OnInit {
   }
 
   public click() { 
-    this.clickEvent.emit(this.medicalFile) ; 
+    this.clickMedicalFile.emit(this.medicalFile) ; 
   }
 
 }

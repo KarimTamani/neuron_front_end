@@ -1,1 +1,89 @@
-<p>medical-file-details works!</p>
+<div class="main-container">
+    <div class="content primary-radius" *ngIf="medicalFile">
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="mini-profil stretch-container">
+                    <div class="name-icon-container">
+                        <div class="icon-container">
+                            <span>{{medicalFile.name[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="patient-info">
+                        <div class="center-v">
+                            <div>
+                                <h5>{{medicalFile.name}} {{medicalFile.lastname}}</h5>
+                                <p>
+                                    <i class="fa fa-calendar"></i> {{medicalFile.birthday}}
+                                    <span></span>
+                                </p>
+                                <p>
+                                    <i class="fa fa-envelope"></i> {{(medicalFile.email) ? (medicalFile.email) : ("Inconnue")}}
+                                </p>
+                                <p>
+                                    <i class="fa fa-phone"></i> {{(medicalFile.phone) ? (medicalFile.phone) : ("Inconnue")}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-md-6" *ngIf="medicalFile.address">
+                        <div class="address">
+                            <label>Address</label>
+                            <p>
+                                <i class="fa fa-map-marked-alt"></i>
+                                <span *ngIf="medicalFile.address && medicalFile.address.address">
+                                    {{ medicalFile.address.address }}
+                                </span>
+                                <span *ngIf="medicalFile.address.commune">
+                                    {{medicalFile.address.commune.name}} {{medicalFile.address.commune.wilaya.name}} 
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col col-md-6" *ngIf="medicalFile.profession">
+                        <div class="profession">
+                            <label>La Prefession</label>
+                            <p>{{medicalFile.profession.name}}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="antecedents">
+                    <label>Les Antecedents</label>
+                    <div class="antecedents-container">
+                        <span class="antecedent" *ngFor="let antecedent of medicalFile.antecedents">
+                            {{antecedent.name}}
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-md-6">
+                        <label>Date de creation</label>
+                        <p>{{medicalFile.createdAt}}</p>
+                    </div>
+                    <div class="col col-md-6">
+                        <label>Date de medification</label>
+                        <p>{{medicalFile.updatedAt}}</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <label>Les visits</label>
+                <div class="visits-header">
+                    <span>motif</span>
+                    <span>date</span>
+                </div>
+                <div class="visits">
+                    <a class="visit" (click)="openVisit(visit)" *ngFor="let visit of medicalFile.visits">
+                        <span>{{(visit.symptoms.length > 0) ? (visit.symptoms[0].name) : ("Inconue ")}}</span>
+                        <span>{{visit.createdAt}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
