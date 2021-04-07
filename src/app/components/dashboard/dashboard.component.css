@@ -67,3 +67,11 @@
         opacity: 1;
     }
 }
+
+.virtual-assistant-container {
+    background: red;
+    position: absolute;
+    z-index: 1;
+    bottom: 16px;
+    right: 56px;
+}

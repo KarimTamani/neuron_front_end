@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute , Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 import { map } from "rxjs/operators";
@@ -11,7 +11,7 @@ import { map } from "rxjs/operators";
 })
 export class DashboardComponent implements OnInit {
   public showPopUpWindow: boolean = false;
-  public isActive : boolean = false  ; 
+  public isActive: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private apollo: Apollo) { }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
       let deltaTime = currentDate.getTime() - new Date(doctorAuth.doctor.lastFeedback).getTime();
       deltaTime = deltaTime / 1000 / 3600 / 24;
       // if the period is more or equals to 3 days then show a new window of feedback 
-     
+
       if (deltaTime >= 4) {
         this.router.navigate([], {
           queryParams: {
@@ -56,15 +56,72 @@ export class DashboardComponent implements OnInit {
       }
     })
 
+    /*
+
+    var speechRecognition = window.SpeechRecognition || (<any>window).webkitSpeechRecognition;
+    var recognition = new speechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'fr-FR';
+    recognition.onspeechend = function () {
+
+    }
+    recognition.onresult = function (event) {
+      /*
+      console.log(event);
+      var current = event.resultIndex;
+      console.log(event.results[current][0].transcript);
+     var interim_transcript = "" ; 
+
+     for (var i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        console.log("final : " , event.results[i][0].transcript) ;
+      } else {
+        interim_transcript += event.results[i][0].transcript;
+      }
+    }
+    
+ 
+
+    }
+
+    recognition.onstart = function () {
+      console.log("start recording ...");
+    }
+
+    recognition.start();
+  */
+
+    /*
+    var tts = window.speechSynthesis;
+
+    window.speechSynthesis.onvoiceschanged = function () {
+      const updatedVoices = window.speechSynthesis.getVoices();
+      console.log(updatedVoices) ; 
+      var frVoice = updatedVoices.filter(voice => voice.lang == "fr-FR").pop();
+
+
+      var toSpeech = new SpeechSynthesisUtterance("la prochaine visite avec monsieur tamani karim à 8 heures du matin.");
+      toSpeech.lang = 'fr-FR'; 
+      toSpeech.pitch = 0  ; 
+      toSpeech.volume = 0.2 ; 
+      toSpeech.rate = 1  ; 
+      
+      toSpeech.voice = frVoice ;
+      tts.speak(toSpeech);
+
+    };
+    */
+   
+
   }
+
   closePopUp() {
     this.router.navigate([], { queryParams: null })
   }
 
-  public active () { 
-    console.log (this.isActive) ; 
-    this.isActive = !this.isActive ; 
-  } 
+  public active() {
+    this.isActive = !this.isActive;
+  }
 }
 
- 

@@ -157,6 +157,7 @@ import { AppointmentComponent } from './components/dashboard/content/waiting-roo
 import { VisitDetailsComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/visit-details.component';
 import { VisitMoreDetailsComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/visit-more-details/visit-more-details.component';
 import { MedicalFileDetailsComponent } from './components/dashboard/content/medical-files-manager/medical-file-details/medical-file-details.component';
+import { VirtualAssistantControllerComponent } from './components/dashboard/virtual-assistant-controller/virtual-assistant-controller.component';
 
 
 @NgModule({
@@ -302,7 +303,8 @@ import { MedicalFileDetailsComponent } from './components/dashboard/content/medi
     AppointmentComponent,
     VisitDetailsComponent,
     VisitMoreDetailsComponent,
-    MedicalFileDetailsComponent
+    MedicalFileDetailsComponent,
+    VirtualAssistantControllerComponent
   ],
   imports: [
     BrowserModule,
