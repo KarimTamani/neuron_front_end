@@ -8,6 +8,7 @@ import { VitalSetting } from 'src/app/classes/VitalSetting';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-patient-visit',
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
-  public page: number = 1;
+  public page: number = 5;
   public visit: Visit;
   public subscriptions: Subscription[] = [];
   public isEdited: boolean = false;
@@ -24,11 +25,47 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     private apollo: Apollo,
     private interactionService: InteractionService,
     private router: Router,
-    private zone: NgZone) {
+    private zone: NgZone,
+    private virtualAssistantService: VirtualAssistantService) {
+
     this.visit = new Visit();
   }
 
   ngOnInit(): void {
+    this.virtualAssistantService.onVACommand.subscribe((data) => {
+      if (data.component == "PATIENT-VISIT") {
+        if (data.page && data.page != 2) {
+          this.page = data.page;
+        } else if (data.page == 2) {
+          switch (data.diagnosis) {
+            case 1: 
+              this.router.navigate([], {
+                queryParams: {
+                  'pop-up-window': true,
+                  'window-page': 'diagnosis',
+                  'title': "Diagnostic symptomatique",
+                  'visit': encodeURIComponent(JSON.stringify(this.visit))
+                }
+              });
+              break;
+            case 2:
+              this.router.navigate([], {
+                queryParams: {
+                  'pop-up-window': true,
+                  'window-page': 'speciality-diagnosis',
+                  'title': "Diagnostic Avancées",
+                  'visit': encodeURIComponent(JSON.stringify(this.visit))
+                }
+              });
+              break;
+            case 3:
+              this.page = 2 ; 
+              break ; 
+          }
+
+        }
+      }
+    })
     this.apollo.query({
       query: gql`
       { 
@@ -215,8 +252,8 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       }
     }).subscribe((data) => {
 
-      this.visit.status = "in visit"  ; 
-      
+      this.visit.status = "in visit";
+
       this.submitVisitDrugDosages();
       this.submitVisitCheckUps();
       this.submitCertificats();

@@ -1,0 +1,34 @@
+! version = 2.0
+
++ [*] [les|la|le|ma|rédiger|un|une|creé] [un|une] [informations] (générale|générales|général)
+- "component" : "PATIENT-VISIT",  "page" : 1
+
++ [*] [démarrer|lancer|les|la|le|ma|rédiger|un|une|creé] [un|une] (historique|l'historique) [diagnostique|diagnostic|diagnostiqué]
+- "component" : "PATIENT-VISIT",  "page" : 2 , "diagnosis" : 3
+
+
++ [*] [démarrer|lancer|les|la|le|ma|rédiger|un|une|creé] [un|une] (diagnostique|diagnostic|diagnostiqué) [symptomatique]
+- "component" : "PATIENT-VISIT",  "page" : 2 , "diagnosis" : 1
+
+
+
++ [*] [démarrer|lancer|les|la|le|ma|rédiger|un|une|creé] [un|une] (diagnostique|diagnostic|diagnostiqué) (avancé|avancée|avancées|avancer|avance)
+- "component" : "PATIENT-VISIT",  "page" : 2 , "diagnosis" : 2
+
+
+
+
++ [*] [les|la|le|ma|rédiger|un|une|creé] [un|une] ordonnance
+- "component" : "PATIENT-VISIT",  "page" : 3
+
+
++ [*] [les|la|le|ma|rédiger|un|une|creé] [un|une] [demande] [de] bilan
+- "component" : "PATIENT-VISIT",  "page" : 4
+
+
+
++ [*] [les|la|le|ma|rédiger|un|une|creé] [un|une] (certificat|compte-rendu|compte rendu) [médical]
+- "component" : "PATIENT-VISIT",  "page" : 5
+
++ [*] [les|la|le|ma|rédiger|un|une|creé] [un|une] documents
+- "component" : "PATIENT-VISIT",  "page" : 6

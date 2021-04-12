@@ -1,0 +1,8 @@
+! version = 2.0
+
+
++ montre*moi [ma][la] *
+- "component" : "SIDE-BAR" , "page" : "<star2>" 
+
++ je veux [voir] [ma][la] * 
+- "component" : "SIDE-BAR" , "page" : "<star>" 

@@ -1,7 +1,7 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="content">
-        <app-visit-header [onlyGeneral]="visit.status != 'in visit'" (selectPageEvent)="select($event)" [visit]="visit"></app-visit-header>
+        <app-visit-header [onlyGeneral]="visit.status != 'in visit'" (selectPageEvent)="select($event)" [visit]="visit" [selectedPage]="page"></app-visit-header>
         <div class="pages" *ngIf="visit">
             <div class="page" *ngIf="page == 1">
                 <app-visit-information (saveVisitEvent)="save($event)" (editVisitEvent)="edit($event)" (visitSelectedEvent)="visitSelected($event)" [visit]="visit"></app-visit-information>

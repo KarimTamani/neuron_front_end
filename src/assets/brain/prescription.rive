@@ -1,0 +1,25 @@
+! version = 2.0
+
+
+
+
++ [* medicament] * [la] posologie *
+- "component" : "DRUG-SUBMITTER",  "drugName" : "<star1>" , "dosage" : "<star2>" , "operation" : "WRITE" 
+
++ [* medicament] * [la] posologie * pendant *  
+- "component" : "DRUG-SUBMITTER","drugName" : "<star1>" , "dosage" : "<star2>" , "qsp" : "<star3>" , "operation" : "WRITE" 
+
++ [* medicament] * [la] posologie * qsp [de] *  
+- "component" : "DRUG-SUBMITTER","drugName" : "<star1>" , "dosage" : "<star2>" , "qsp" : "<star3>" , "operation" : "WRITE" 
+
+
++ ajouter [* medicament] * [la] posologie *
+- "component" : "DRUG-SUBMITTER","drugName" : "<star1>" , "dosage" : "<star2>" , "operation" : "ADD" 
+
++ ajouter [* medicament] * [la] posologie * pendant *  
+- "component" : "DRUG-SUBMITTER", "drugName" : "<star1>" , "dosage" : "<star2>" , "qsp" : "<star3>" , "operation" : "ADD" 
+
++ ajouter [* medicament] * [la] posologie * qsp [de] *  
+- "component" : "DRUG-SUBMITTER", "drugName" : "<star1>" , "dosage" : "<star2>" , "qsp" : "<star3>" , "operation" : "ADD" 
+
+

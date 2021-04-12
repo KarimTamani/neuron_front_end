@@ -1,0 +1,56 @@
+! version = 2.0
+
+
++ [la|le|ma] température # [degrés] 
+- "component" : "VITAL-SETTING",  "temperature" : <star1>
++ [la|le|ma] température # [degrés] * 
+- "temperature" : <star1> , {@<star2>} 
+
+
++ [la|le|ma] taille # [centime|cm]
+- "component" : "VITAL-SETTING",  "size" : <star1> 
++ [la|le|ma] taille # [centime|cm] *
+- "size" : <star1> , {@<star2>} 
+
+
++ [la|le|ma] fréquence respiratoire # [cpm|cpam]
+- "component" : "VITAL-SETTING",  "respiratoryRate" : <star1> 
++ [la|le|ma] fréquence respiratoire # [cpm|cpam] *
+- "respiratoryRate" : <star1> , {@<star2>} 
+
+
++ [la|le|ma] fréquence cardiaque # [cpm|cpam]
+- "component" : "VITAL-SETTING",  "cardiacFrequency" : <star1> 
++ [la|le|ma] fréquence cardiaque # [cpm|cpam] *
+- "respiratoryRate" : <star1> , {@<star2>} 
+
+
+
++ [la|le|ma] (pression artérielle|tension|tension artérielle) # [mmhg]
+- "component" : "VITAL-SETTING",  "bloodPressure" : <star2> 
++ [la|le|ma] (pression artérielle|tension|tension artérielle) # [mmhg] *
+- "bloodPressure" : <star2> , {@<star3>} 
+
+
++ [la|le|ma] (diurèse|dureze|durée) # [ml|millilitres]
+- "component" : "VITAL-SETTING",  "diuresis" : <star2> 
++ [la|le|ma] (diurèse|dureze|durée) # [ml|millilitres] *
+- "diuresis" : <star2> , {@<star3>} 
+
++ [la|le|ma] (poids|point) # [kg|kilo gramme]
+- "component" : "VITAL-SETTING",  "weight" : <star2> 
++ [la|le|ma] (poids|point) # [kg|kilo gramme] *
+- "weight" : <star2> , {@<star3>} 
+
+
++ [la|le|ma] obésité
+- "component" : "VITAL-SETTING",  "obesity" : true 
++ [la|le|ma] obésité *
+- "obesity" : true , {@<star1>} 
+
+
++ [la|le|ma] (fumeur|fumeurs|film)
+- "component" : "VITAL-SETTING",  "smoker" : true 
++ [la|le|ma] (fumeur|fumeurs|film) *
+- "smoker" : true , {@<star2>} 
+

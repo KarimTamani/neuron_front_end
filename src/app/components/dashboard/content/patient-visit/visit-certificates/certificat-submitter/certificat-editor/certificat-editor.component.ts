@@ -2,9 +2,11 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 
 
 import { Editor } from 'ngx-editor';
+import { Subscription } from 'rxjs';
 import { Certificat } from 'src/app/classes/Certificat';
 import { Visit } from 'src/app/classes/Visit';
 import { DataService } from 'src/app/services/data.service';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-certificat-editor',
@@ -21,26 +23,44 @@ export class CertificatEditorComponent implements OnInit, OnDestroy {
 
   private htmlModel: string;
   public editor: Editor;
+  private subscriptions : Subscription[] = [] ;  
   public toolbar = [
     ["bold", "italic", "underline"]
   ]
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private virtualAssistantService: VirtualAssistantService) {
     this.certificat = new Certificat();
     this.backEvent = new EventEmitter<null>();
     this.saveEvent = new EventEmitter<Certificat>();
-  
   }
   ngOnInit(): void {
     this.certificat.html = this.preprocessCertificat(this.certificat.html);
     this.htmlModel = this.certificat.html;
     this.editor = new Editor();
+    // subscribe to the VA assistant 
+    var subs   = this.virtualAssistantService.onVACommand.subscribe((data) => {
+      // if it's default command 
+      if (data.default) {
+        if (this.certificat.html.endsWith("<p></p>")) {
+          var start = this.certificat.html.slice(0, this.certificat.html.length - "</p>".length);
+          this.certificat.html = start + data.default + "</p>";
+        }else { 
+          this.certificat.html += "<p>" + data.default + "</p>" ; 
+        }
+      }
+    }) ; 
+
+    this.subscriptions.push(subs) ; 
+
   }
 
   ngOnDestroy() {
     this.editor.destroy();
+    this.subscriptions.forEach(subs => {
+      subs.unsubscribe() ; 
+    })
   }
 
-  
+
 
 
   private preprocessCertificat(html: string): string {
@@ -75,7 +95,7 @@ export class CertificatEditorComponent implements OnInit, OnDestroy {
   public save() {
     this.saveEvent.emit(this.certificat);
   }
-  public edit() { 
+  public edit() {
     this.backEvent.emit();
   }
 }

@@ -90,29 +90,13 @@ export class DashboardComponent implements OnInit {
     }
 
     recognition.start();
-  */
+
+    */
 
     /*
-    var tts = window.speechSynthesis;
-
-    window.speechSynthesis.onvoiceschanged = function () {
-      const updatedVoices = window.speechSynthesis.getVoices();
-      console.log(updatedVoices) ; 
-      var frVoice = updatedVoices.filter(voice => voice.lang == "fr-FR").pop();
-
-
-      var toSpeech = new SpeechSynthesisUtterance("la prochaine visite avec monsieur tamani karim à 8 heures du matin.");
-      toSpeech.lang = 'fr-FR'; 
-      toSpeech.pitch = 0  ; 
-      toSpeech.volume = 0.2 ; 
-      toSpeech.rate = 1  ; 
-      
-      toSpeech.voice = frVoice ;
-      tts.speak(toSpeech);
-
-    };
+    
     */
-   
+
 
   }
 

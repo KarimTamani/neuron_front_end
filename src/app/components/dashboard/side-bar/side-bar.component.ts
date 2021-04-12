@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
+import { ALWAYS, YesNoVAResponse } from 'src/app/classes/VAResponse';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-side-bar',
@@ -11,7 +13,7 @@ export class SideBarComponent implements OnInit {
   public isActive : boolean = false ; 
   @Output() activeEvent : EventEmitter<null> ; 
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router , private virtualAssistantService : VirtualAssistantService) {
     this.activeEvent = new EventEmitter<null>( ) ; 
   }
 
@@ -25,6 +27,9 @@ export class SideBarComponent implements OnInit {
       if (event instanceof NavigationEnd)
         this.updateSideBarRouters(this.router.url)
 
+    }) 
+    this.virtualAssistantService.onVACommand.subscribe((command) => {
+      this.handleCommand(command);
     })
   }
 
@@ -51,5 +56,40 @@ export class SideBarComponent implements OnInit {
     this.isActive = !this.isActive ; 
     this.activeEvent.emit() ; 
     
+  }
+
+
+  private handleCommand(command) {
+
+    if (command.component == "SIDE-BAR" || command.default) {
+      const page = command.page || command.default;
+      
+      if (page.includes("accueil"))
+        this.router.navigate(['/dashboard/general'])
+
+      else if (page.includes("salle d'attente")) { 
+        this.router.navigate(["/dashboard/waiting-room"])
+
+        this.virtualAssistantService.onVaResponse.next(<YesNoVAResponse>{
+          message : "Voulez vous que je te donne un résumé sur la salle d'attente" , 
+          speakable : ALWAYS ,  
+        })
+      
+      }
+      else if (page.includes("profil"))
+        this.router.navigate(["/dashboard/profil"])
+
+      else if (page.includes("visites"))
+        this.router.navigate(["dashboard/visits-and-appointments-manager/visits"])
+
+      else if (page.includes("visite"))
+        this.router.navigate(["/dashboard/visit"])
+
+      else if (page.includes("statistiques")) 
+        this.router.navigate(["/dashboard/analytics"]) 
+
+      else if (page.includes("dossiers") || page.includes("médicaux"))
+        this.router.navigate(["/dashboard/medical-files"])
+    }
   }
 }

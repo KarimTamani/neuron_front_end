@@ -35,6 +35,7 @@
         "ng2-charts": "^2.4.2",
         "ngx-editor": "^8.1.0",
         "ngx-image-zoom": "^0.6.0",
+        "rivescript": "^2.1.0",
         "rxjs": "~6.6.0",
         "three": "^0.122.0",
         "three-obj-loader": "^1.1.3",

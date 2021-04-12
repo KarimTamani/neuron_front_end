@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-drug-submitter',
@@ -32,7 +33,7 @@ export class DrugSubmitterComponent implements OnInit {
       Validators.minLength(3)
     ])
   })
-  constructor(private apollo: Apollo , private interactionService : InteractionService) {
+  constructor(private apollo: Apollo , private interactionService : InteractionService , private virtualAssistantService : VirtualAssistantService) {
     this.submittedVisitDrugDosage = new VisitDrugDosage();
     this.submittedVisitDrugDosage.drug.name = "";
     this.submittedVisitDrugDosage.dosage.name = "";
@@ -84,7 +85,23 @@ export class DrugSubmitterComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).searchQSP));
   }
   ngOnInit(): void {
-   
+    this.virtualAssistantService.onVACommand.subscribe((command: any) => {
+      
+      if (command.default && command.component == null) {
+        this.submittedVisitDrugDosage.drug.name = command.default
+      } else if (command.component == "DRUG-SUBMITTER"){
+        this.submittedVisitDrugDosage.drug.name = command.drugName;
+        if (command.dosage)
+          this.submittedVisitDrugDosage.dosage.name = command.dosage;
+        if (command.qsp) 
+          this.submitedQSP.name = command.qsp ; 
+      }
+      
+      this.submittedVisitDrugDosage.drug.name = this.submittedVisitDrugDosage.drug.name.toUpperCase()
+     
+      if (command.operation == "ADD") 
+        this.add() ;
+    })
   }
 
   public editVisitDrugDosage($event) { 
@@ -118,7 +135,8 @@ export class DrugSubmitterComponent implements OnInit {
     this.form.setValue({
       drug: this.submittedVisitDrugDosage.drug.name,
       dosage: this.submittedVisitDrugDosage.dosage.name,
-      unitNumber: this.submittedVisitDrugDosage.unitNumber
+      unitNumber: (this.submittedVisitDrugDosage.unitNumber) ? (this.submittedVisitDrugDosage.unitNumber) : (1)
+
     });
 
     this.submittedVisitDrugDosage.qsp = this.submitedQSP.name;
