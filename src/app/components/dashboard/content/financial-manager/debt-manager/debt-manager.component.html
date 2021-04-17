@@ -1,6 +1,6 @@
 <div class="main-container">
     <div>
-        <app-debt-search-header (searchEvent)="search($event)"></app-debt-search-header>
+        <app-debt-search-header [searchQuery]="lastSearch" (searchEvent)="search($event)"></app-debt-search-header>
     </div>
     <div class="header stretch-container">
         <span>

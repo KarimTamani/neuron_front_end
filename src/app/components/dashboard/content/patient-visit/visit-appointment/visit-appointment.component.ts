@@ -57,6 +57,7 @@ export class VisitAppointmentComponent implements OnInit {
       date: this.form.value.date,
       time: (this.form.value.time) ? (this.form.value.time) : (null)
     });
+    this.closeEvent.emit() ; 
   }
 
   private futureValidator(visitAppointment): any {

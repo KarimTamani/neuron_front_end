@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-debt-search-header',
@@ -6,7 +6,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./debt-search-header.component.css']
 })
 export class DebtSearchHeaderComponent implements OnInit {
-  public searchQuery: any = {}
+  @Input() searchQuery: any = {}
   @Output() searchEvent: EventEmitter<any>;
   constructor() {
     this.searchEvent = new EventEmitter<any>();

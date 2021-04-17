@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { Address } from 'src/app/classes/Address';
 import { DataService } from 'src/app/services/data.service';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-new-medical-file',
@@ -58,13 +59,57 @@ export class NewMedicalFileComponent implements OnInit {
   @Input() throwInteraction: boolean = false;
   @Output() closeEvent : EventEmitter<null> ; 
 
-  constructor(private apollo: Apollo, private dataService: DataService, private interactionService: InteractionService) {
+  constructor(
+    private apollo: Apollo, 
+    private dataService: DataService, 
+    private interactionService: InteractionService, 
+    private virtualAssistantService : VirtualAssistantService) {
+
     this.blackWindowEvent = new EventEmitter<null>();
     this.newMedicalFileEvent = new EventEmitter<MedicalFile>();
     this.closeEvent = new EventEmitter<null>() ; 
   }
 
   ngOnInit(): void {
+    
+    this.virtualAssistantService.onVACommand.subscribe((data) => { 
+      console.log(data) ; 
+      if (data.component == "MEDICAL-FILE-SUBMITTER") { 
+        if ( data.name )  
+          this.medicalFile.name = data.name ; 
+        
+        if (data.lastname) 
+          this.medicalFile.lastname = data.lastname ; 
+        if (data.birthday) { 
+          var date = this.dataService.frToYMDDate(data.birthday) ; 
+          if (date) { 
+            this.medicalFile.birthday = date ; 
+          }
+        } 
+
+        if ( data.phone ) { 
+          this.medicalFile.phone = data.phone.split(" ").join("") ; 
+        }
+
+        if (data.email) { 
+          this.medicalFile.email = data.email ; 
+        }
+        if (data.address) { 
+          this.medicalFile.address.address = data.address ; 
+        }
+        if (data.wilaya) { 
+          var wilaya = this.wilayas.find(value => value.name.toLowerCase() == data.wilaya) ; 
+          if (wilaya) { 
+          
+            this.selectedWilaya = wilaya ; 
+            this.medicalFile.address.commune.wilaya.id = this.selectedWilaya.id
+          }
+        }
+        if (data.profession) { 
+          this.medicalFile.profession.name = data.profession ; 
+        }
+      }
+    })
     if (this.medicalFile == null)
       this.medicalFile = new MedicalFile();
     else {

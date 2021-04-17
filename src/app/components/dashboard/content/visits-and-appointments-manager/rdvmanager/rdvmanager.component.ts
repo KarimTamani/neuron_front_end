@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Appointment } from 'src/app/classes/Appointment';
 import { DataService } from 'src/app/services/data.service';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-rdvmanager',
@@ -12,16 +13,34 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class RDVManagerComponent implements OnInit {
   public offset: number = 0;
-  public limit: number = 1;
+  public limit: number = 20;
 
   public count: number = 0;
   public appointments: Appointment[] = [];
 
   public startDate: string;
   public lastSearch: any = {};
-  constructor(private apollo: Apollo, private dataService: DataService) { }
+  constructor(
+    private apollo: Apollo,
+    private dataService: DataService,
+    private virtualAssistantService: VirtualAssistantService,
+    private zone: NgZone) { }
 
   ngOnInit(): void {
+    this.virtualAssistantService.onVACommand.subscribe((data) => {
+      if (data.component == "VISITS-AND-APPOINTMENTS-MANAGER") {
+        console.log(data) ; 
+        if (data.query && data.query.trim().length > 0) {
+          this.zone.run(() => {
+
+            this.search({
+              searchQuery: data.query
+            });
+       
+          })
+        }
+      }
+    })
     // get the current date and time
     this.apollo.query({
       query: gql`

@@ -2,7 +2,7 @@
     <app-header></app-header>
     <div class="body">
         <div class="search-header">
-            <app-search-header [addOption]="true" (addEvent)="add()" [advancedSearchOption]="'medical-file-advanced-search'" (searchEvent)="search($event)"></app-search-header>
+            <app-search-header [searchQuery]="lastSearch" [addOption]="true" (addEvent)="add()" [advancedSearchOption]="'medical-file-advanced-search'" (searchEvent)="search($event)"></app-search-header>
         </div>
     </div>
     <div class="row files-list">

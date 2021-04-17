@@ -1,6 +1,6 @@
 <div class="main-container stretch-container">
     <div class="side submitter-side primary-radius">
-        <app-check-up-submitter [checkUpTypes]="checkUpTypes" [checkUps]="visit.checkUps"></app-check-up-submitter>
+        <app-check-up-submitter *ngIf="checkUpTypes.length > 0" [checkUpTypes]="checkUpTypes" [checkUps]="visit.checkUps"></app-check-up-submitter>
     </div>
     <div class="side prescription-side primary-radius">
         <app-prescription [checkUpTypes]="checkUpTypes" [type]="'prescription-check-up'" [title]="'Demande de bilan'" [visit]="visit"></app-prescription>

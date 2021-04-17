@@ -1,0 +1,7 @@
+! version = 2.0
+
+
+
++ (rechercher|recherche|recherché|cherche-moi|chercher) [moi] [le|un|une|la|ma] [patient|patiente|passion|pension|tension] * 
+- "component" : "SEARCH",  "query" : "<star2>"
+

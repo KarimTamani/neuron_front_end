@@ -1,6 +1,6 @@
 <div class="main-container">
     <div class="search-header">
-        <app-rdvsearch-header (searchEvent)="search($event)" [startDate]="startDate"></app-rdvsearch-header>
+        <app-rdvsearch-header [searchQuery]="lastSearch" (searchEvent)="search($event)" [startDate]="startDate"></app-rdvsearch-header>
     </div>
     <div class="header stretch-container">
         <span>

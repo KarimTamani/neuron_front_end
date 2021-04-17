@@ -10,11 +10,11 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
 })
 export class SideBarComponent implements OnInit {
   public activatedRouter: number = 0;
-  public isActive : boolean = false ; 
-  @Output() activeEvent : EventEmitter<null> ; 
+  public isActive: boolean = false;
+  @Output() activeEvent: EventEmitter<null>;
 
-  constructor(private route: ActivatedRoute, private router: Router , private virtualAssistantService : VirtualAssistantService) {
-    this.activeEvent = new EventEmitter<null>( ) ; 
+  constructor(private route: ActivatedRoute, private router: Router, private virtualAssistantService: VirtualAssistantService) {
+    this.activeEvent = new EventEmitter<null>();
   }
 
   ngOnInit(): void {
@@ -27,8 +27,9 @@ export class SideBarComponent implements OnInit {
       if (event instanceof NavigationEnd)
         this.updateSideBarRouters(this.router.url)
 
-    }) 
+    })
     this.virtualAssistantService.onVACommand.subscribe((command) => {
+
       this.handleCommand(command);
     })
   }
@@ -47,15 +48,15 @@ export class SideBarComponent implements OnInit {
       this.activatedRouter = 6;
     else if (url.includes("visit"))
       this.activatedRouter = 5;
-    else if (url.includes("expenses")) 
-      this.activatedRouter = 7 ; 
-    else if (url.includes("analytics")) 
-      this.activatedRouter = 8 ; 
+    else if (url.includes("expenses"))
+      this.activatedRouter = 7;
+    else if (url.includes("analytics"))
+      this.activatedRouter = 8;
   }
-  activeSideBar() { 
-    this.isActive = !this.isActive ; 
-    this.activeEvent.emit() ; 
-    
+  activeSideBar() {
+    this.isActive = !this.isActive;
+    this.activeEvent.emit();
+
   }
 
 
@@ -63,18 +64,18 @@ export class SideBarComponent implements OnInit {
 
     if (command.component == "SIDE-BAR" || command.default) {
       const page = command.page || command.default;
-      
+
       if (page.includes("accueil"))
         this.router.navigate(['/dashboard/general'])
 
-      else if (page.includes("salle d'attente")) { 
+      else if (page.includes("salle d'attente")) {
         this.router.navigate(["/dashboard/waiting-room"])
 
         this.virtualAssistantService.onVaResponse.next(<YesNoVAResponse>{
-          message : "Voulez vous que je te donne un résumé sur la salle d'attente" , 
-          speakable : ALWAYS ,  
+          message: "Voulez vous que je te donne un résumé sur la salle d'attente",
+          speakable: ALWAYS,
         })
-      
+
       }
       else if (page.includes("profil"))
         this.router.navigate(["/dashboard/profil"])
@@ -82,11 +83,23 @@ export class SideBarComponent implements OnInit {
       else if (page.includes("visites"))
         this.router.navigate(["dashboard/visits-and-appointments-manager/visits"])
 
+      else if (page.includes("rendez-vous"))
+        this.router.navigate(["dashboard/visits-and-appointments-manager/appointments"])
+
       else if (page.includes("visite"))
         this.router.navigate(["/dashboard/visit"])
 
-      else if (page.includes("statistiques")) 
-        this.router.navigate(["/dashboard/analytics"]) 
+      else if (page.includes("diagnostic"))
+        this.router.navigate(["dashboard/documents-and-diagnosis/diagnosis"])
+
+      else if (page.includes("frais"))
+        this.router.navigate(["dashboard/financial-manager/expenses"])
+
+      else if (page.includes("crédit"))
+        this.router.navigate(["dashboard/financial-manager/debt"])
+
+      else if (page.includes("statistiques"))
+        this.router.navigate(["/dashboard/analytics"])
 
       else if (page.includes("dossiers") || page.includes("médicaux"))
         this.router.navigate(["/dashboard/medical-files"])

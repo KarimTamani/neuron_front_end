@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { timeStamp } from 'console';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Visit } from 'src/app/classes/Visit';
 import { DataService } from 'src/app/services/data.service';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-debt-manager',
@@ -20,10 +21,29 @@ export class DebtManagerComponent implements OnInit {
 
   public lastSearch : any = {} ; 
   
-  constructor(private apollo: Apollo , private dataService : DataService) {
-
+  constructor(
+    private apollo: Apollo , 
+    private dataService : DataService , 
+    private virtualAssistantService : VirtualAssistantService , 
+    private zone : NgZone) {
   }
   ngOnInit(): void {
+
+    this.virtualAssistantService.onVACommand.subscribe((data) => { 
+      if (data.component == "FINANCIAL-MANAGER") { 
+        if (data.query && data.query.trim().length > 0) { 
+          this.zone.run(() => {
+
+              this.search({
+                searchQuery: data.query
+              });
+
+            })
+        }
+
+      }
+    })
+
     this.loadDebt(
       null,
       null,

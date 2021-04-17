@@ -5,6 +5,7 @@ import { map } from "rxjs/operators"
 import { ActivatedRoute } from '@angular/router';
 import { Visit } from 'src/app/classes/Visit';
 import { Symptom } from 'src/app/classes/Symptom';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-diagnosis',
@@ -36,13 +37,13 @@ export class DiagnosisComponent implements OnInit {
   }
   // select either all symptoms list or search for a semptoms 
   public symptomsControllerMode: boolean = true;
-  constructor(private apollo: Apollo, private route: ActivatedRoute) { }
+  constructor(private apollo: Apollo, private route: ActivatedRoute, private virtualAssistantService : VirtualAssistantService) { }
   ngOnInit(): void {
     
     var params = this.route.snapshot.queryParams
     
     this.visit = JSON.parse(decodeURIComponent(params.visit));
-    console.log(this.visit) ; 
+    
     if (this.visit.symptoms) {
       this.selectedSymptoms = this.visit.symptoms;
       this.updateBodyAreaSymptoms();
@@ -61,6 +62,41 @@ export class DiagnosisComponent implements OnInit {
 
         this.predictions = JSON.parse(decodeURIComponent(params.result))[0].output.predictions 
         this.showResult = true ; 
+      }
+    })
+
+    this.virtualAssistantService.onVACommand.subscribe((command) => {
+      if (command.component == "DIAGNOSIS") {
+
+        var symptoms = [] ; 
+        for (let index = 0 ; index < this.allSymptoms.length ; index ++) { 
+          
+          // check if the symptom exists in the command 
+          if (command.default.includes(this.allSymptoms[index].name)) { 
+            let i = 0 ; 
+            // if so check if the small symptom exists replace it 
+            // if it's the small symptom break 
+            // and dont add it 
+            for ( ; i < symptoms.length ; i++) {  
+              
+              if (this.allSymptoms[index].name.includes(symptoms[i].name)) { 
+
+                symptoms[i] = this.allSymptoms[index] ; 
+                break ; 
+              } 
+
+              if (symptoms[i].name.includes(this.allSymptoms[index].name)) { 
+                break ; 
+              }
+            }
+            // if we reach the and without a mach then the symp do not exists ; 
+            if (i == symptoms.length) 
+              symptoms.splice(0 , 0 , this.allSymptoms[index]) ; 
+          }
+
+        }
+        this.selectedSymptoms = this.selectedSymptoms.concat(symptoms) ;  
+        this.updateBodyAreaSymptoms() ; 
       }
     })
   }

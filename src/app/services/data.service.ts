@@ -33,6 +33,34 @@ export class DataService {
   ];
 
   constructor() { }
+  public frToYMDDate(date: string) {
+
+    var day: any = parseInt(date.split(" ")[0]);
+    var month: any = date.split(" ")[1];
+    var year = date.split(" ")[2];
+
+    if (day < 10)
+      day = "0" + day;
+
+    if (isNaN(month)) {
+      month = month.charAt(0).toUpperCase() + month.slice(1)
+
+      if (this.monthes.includes(<string>month)) {
+        var monthIndex: any = this.monthes.findIndex(value => value == month);
+        monthIndex += 1 ; 
+        if (monthIndex < 10)
+          monthIndex = "0" + monthIndex;
+
+        return `${year}-${monthIndex}-${day}`;
+      }
+    } else {
+      month = parseInt(month);
+
+      if (month < 10)
+        month = "0" + month;
+      return `${year}-${month}-${day}`;
+    }
+  }
 
   public periodToText(period) {
     if (period == this.DAY) {
@@ -103,10 +131,10 @@ export class DataService {
       return null;
 
     var dateObject = new Date(date)
-/*
-    if (dateObject.getHours() == 0)
-      dateObject = new Date(dateObject.getTime() + this.HOUR * 1000) ; 
-*/  
+    /*
+        if (dateObject.getHours() == 0)
+          dateObject = new Date(dateObject.getTime() + this.HOUR * 1000) ; 
+    */
     var day: any = dateObject.getUTCDate();
     var month: any = dateObject.getUTCMonth() + 1;
     var year: any = dateObject.getFullYear();

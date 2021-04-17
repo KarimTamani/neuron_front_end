@@ -9,6 +9,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-patient-visit',
@@ -16,7 +17,7 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
-  public page: number = 5;
+  public page: number = 1;
   public visit: Visit;
   public subscriptions: Subscription[] = [];
   public isEdited: boolean = false;
@@ -25,7 +26,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     private apollo: Apollo,
     private interactionService: InteractionService,
     private router: Router,
-    private zone: NgZone,
+    private dataService: DataService,
     private virtualAssistantService: VirtualAssistantService) {
 
     this.visit = new Visit();
@@ -34,11 +35,35 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.virtualAssistantService.onVACommand.subscribe((data) => {
       if (data.component == "PATIENT-VISIT") {
-        if (data.page && data.page != 2) {
+        if (data.page && data.page == 7) {
+          var date = this.dataService.frToYMDDate(data.appointment);
+          if (date) {
+            console.log(date);
+            this.router.navigate([], {
+              queryParams: {
+                'pop-up-window': true,
+                'window-page': 'visit-appointment',
+                'title': "Le prochain rendez-vous",
+                'visit': decodeURIComponent(JSON.stringify({
+                  medicalFile: {
+                    lastname: this.visit.medicalFile.lastname,
+                    name: this.visit.medicalFile.name,
+                    
+                  }, 
+                  appointment: {
+                    date: date 
+                  }
+                }))
+              }
+
+            })
+          }
+        }
+        else if (data.page && data.page != 2) {
           this.page = data.page;
         } else if (data.page == 2) {
           switch (data.diagnosis) {
-            case 1: 
+            case 1:
               this.router.navigate([], {
                 queryParams: {
                   'pop-up-window': true,
@@ -59,8 +84,8 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
               });
               break;
             case 3:
-              this.page = 2 ; 
-              break ; 
+              this.page = 2;
+              break;
           }
 
         }
@@ -142,6 +167,8 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(this.interactionService.newAppointmentAdded.subscribe((data) => {
       this.visit.appointment = data;
+
+      console.log(this.visit.appointment) ; 
       if (data)
         this.isEdited = true;
     }));
@@ -362,7 +389,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
           appointment: {
             visitId: this.visit.id,
             date: this.visit.appointment.date,
-            time: this.visit.appointment.time
+            time: (this.visit.appointment.time)? (this.visit.appointment.time) : (null)
           }
         }
       }).pipe(map(value => (<any>value.data).addAppointment)).subscribe((data) => {

@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class RDVSearchHeaderComponent implements OnInit {
   @Input() startDate : string ; 
   @Output() searchEvent : EventEmitter<any> ; 
-  public searchQuery : any = {} ; 
+  @Input() searchQuery : any = {} ; 
   constructor() {
     this.searchEvent = new EventEmitter<null>() ;  
   }
@@ -18,7 +18,8 @@ export class RDVSearchHeaderComponent implements OnInit {
   public clear() { 
     this.searchQuery = {} 
     this.startDate = null ; 
-
+    this.searchEvent.emit(this.searchQuery)
+    
   }
 
   public search() { 

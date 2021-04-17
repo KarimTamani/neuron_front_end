@@ -14,7 +14,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 export class SearchHeaderComponent implements OnInit {
   public wilayas : Wilaya[] = [] ;  
   public selectedWilaya : Wilaya ; 
-  public searchQuery : any = {} ; 
+  @Input() searchQuery : any = {} ; 
   @Input() advancedSearchOption : string ; 
   @Output() searchEvent : EventEmitter<any> ;
   @Output() addEvent : EventEmitter<null> ; 

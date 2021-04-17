@@ -1,0 +1,55 @@
+! version = 2.0
+
+
+
+
++ [la|le|ma] nom * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "name" : "<star1>" 
++ [la|le|ma] nom * [la|le|ma|un|une|est|me] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "name" : "<star1>" , {@<star2> <star3>}
+
+
++ [la|le|ma] prénom * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "lastname" : "<star1>" 
++ [la|le|ma] prénom * [la|le|ma|un|une|est|me] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "lastname" : "<star1>" , {@<star2> <star3>}
+
+
++ [la|le|ma] date de naissance [la|le|ma|un|une|est|me] * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "birthday" : "<star1>" 
++ [la|le|ma] date de naissance [la|le|ma|un|une|est|me] * [la|le|ma] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "birthday" : "<star1>" , {@<star2> <star3>}
+
+ 
++ [la|le|ma] (numéro de téléphone|numéro|téléphone) [la|le|ma|un|une|est|me] * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "phone" : "<star2>" 
++ [la|le|ma] (numéro de téléphone|numéro|téléphone) [la|le|ma|un|une|est|me] * [la|le|ma] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "phone" : "<star2>" , {@<star3> <star4>}
+
+
++ [la|le|ma] (l'email|email|gmail) [la|le|ma|un|une|est|me] * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "email" : "<star2>" 
++ [la|le|ma] (l'email|email|gmail) [la|le|ma|un|une|est|me] * [la|le|ma] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "email" : "<star2>" , {@<star3> <star4>}
+
++ [la|le|ma] (l'adresse|adresse) [la|le|ma|un|une|est|me] * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "address" : "<star2>" 
++ [la|le|ma] (l'adresse|adresse) [la|le|ma|un|une|est|me] * [la|le|ma] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "address" : "<star2>" , {@<star3> <star4>}
+
+
++ [la|le|ma] wilaya [la|le|ma|un|une|est|me] * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "wilaya" : "<star1>" 
++ [la|le|ma] wilaya [la|le|ma|un|une|est|me] * [la|le|ma] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "wilaya" : "<star1>" , {@<star2> <star3>}
+
+
++ [la|le|ma] commune [la|le|ma|un|une|est|me] * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "commune" : "<star1>" 
++ [la|le|ma] commune [la|le|ma|un|une|est|me] * [la|le|ma] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "commune" : "<star1>" , {@<star2> <star3>}
+
++ [la|le|ma] profession [la|le|ma|un|une|est|me] * 
+- "component" : "MEDICAL-FILE-SUBMITTER",  "profession" : "<star1>" 
++ [la|le|ma] profession [la|le|ma|un|une|est|me] * [la|le|ma] (prénom|date de naissance|numéro de téléphone|numéro|téléphone|l'email|email|gmail|l'adresse|adresse|wilaya|profession) *  
+- "component" : "MEDICAL-FILE-SUBMITTER" , "profession" : "<star1>" , {@<star2> <star3>}

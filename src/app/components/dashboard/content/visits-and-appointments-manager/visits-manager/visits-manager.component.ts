@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-visits-manager',
@@ -16,9 +17,30 @@ export class VisitsManagerComponent implements OnInit {
   public offset: number = 0;
   public limit: number = 20;
   public lastSearch: any = {};
-  constructor(private apollo: Apollo, private interactionService: InteractionService) { }
+  constructor(
+    private apollo: Apollo, 
+    private interactionService: InteractionService , 
+    private virtualAssistantService : VirtualAssistantService, 
+    private zone : NgZone) { }
 
   ngOnInit(): void {
+    
+    this.virtualAssistantService.onVACommand.subscribe((data) => { 
+      if (data.component == "VISITS-AND-APPOINTMENTS-MANAGER") { 
+
+
+        if (data.query && data.query.trim().length > 0) { 
+          this.zone.run(() => {
+
+              this.search({
+                searchQuery: data.query
+              });
+
+            })
+        }
+      }
+    })
+
     this.searchVisits(
       null,
       null,

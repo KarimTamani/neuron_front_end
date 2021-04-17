@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-medical-files-manager',
@@ -18,8 +19,30 @@ export class MedicalFilesManagerComponent implements OnInit {
   public limit : number =  10 ; 
   public lastSearch : any = {}  ;
 
-  constructor(private apollo: Apollo , private router : Router , private  interactionService : InteractionService) {}    
+  constructor(
+    private apollo: Apollo , 
+    private router : Router , 
+    private  interactionService : InteractionService , 
+    private virtualAssistantService : VirtualAssistantService , 
+    private zone : NgZone) {}
+
   ngOnInit(): void {
+
+    this.virtualAssistantService.onVACommand.subscribe((data) => { 
+      if (data.component == "MEDICAL-FILES") { 
+        if (data.query && data.query.trim().length > 0) { 
+          this.zone.run(() => {
+
+            if (data.query && data.query.trim().length > 0) {
+              this.search({
+                searchQuery: data.query
+              });
+            }
+          })
+        }
+      }
+    })
+
     this.searchMedicalFiles(
       null , 
       null ,  

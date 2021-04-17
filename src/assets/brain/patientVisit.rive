@@ -32,3 +32,7 @@
 
 + [*] [les|la|le|ma|rédiger|un|une|creé] [un|une] documents
 - "component" : "PATIENT-VISIT",  "page" : 6
+
++ [*] [prochain] rendez-vous [le|la|ma] * 
+- "component" : "PATIENT-VISIT",  "page" : 7 , "appointment" : "<star>"
+
