@@ -225,4 +225,8 @@ export class VisitDetailsComponent implements OnInit {
       subs.unsubscribe() ; 
     })
   }
+
+  public edit() { 
+    
+  }
 }

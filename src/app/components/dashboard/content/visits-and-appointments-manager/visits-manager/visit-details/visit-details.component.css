@@ -169,18 +169,19 @@ p i {
     margin-top: 8px;
 }
 
-.status button {
+.status a {
     font-size: 12px;
     width: 100%;
     padding: 12px 4px;
+    color: rgb(38, 94, 215);
 }
 
 .controller {
+    margin: -16px;
     margin-top: 8px;
 }
 
-.controller button {
-    float: right;
+.controller .delete {
     background: rgb(254, 101, 85);
 }
 

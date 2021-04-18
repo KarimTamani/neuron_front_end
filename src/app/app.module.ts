@@ -158,6 +158,7 @@ import { VisitDetailsComponent } from './components/dashboard/content/visits-and
 import { VisitMoreDetailsComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/visit-more-details/visit-more-details.component';
 import { MedicalFileDetailsComponent } from './components/dashboard/content/medical-files-manager/medical-file-details/medical-file-details.component';
 import { VirtualAssistantControllerComponent } from './components/dashboard/virtual-assistant-controller/virtual-assistant-controller.component';
+import { EditVisitComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/edit-visit/edit-visit.component';
 
 
 @NgModule({
@@ -304,7 +305,8 @@ import { VirtualAssistantControllerComponent } from './components/dashboard/virt
     VisitDetailsComponent,
     VisitMoreDetailsComponent,
     MedicalFileDetailsComponent,
-    VirtualAssistantControllerComponent
+    VirtualAssistantControllerComponent,
+    EditVisitComponent
   ],
   imports: [
     BrowserModule,
