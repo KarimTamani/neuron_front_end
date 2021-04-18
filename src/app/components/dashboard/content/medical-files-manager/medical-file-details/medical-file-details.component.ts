@@ -81,10 +81,20 @@ export class MedicalFileDetailsComponent implements OnInit {
   }
 
   public edit() {
-
+    // open medical file submitter 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window": true,
+        "window-page": "medical-file-submitter",
+        "title": "Mpdification du dossie medical",
+        "referer": this.router.url,
+        "medical-file" : encodeURIComponent( JSON.stringify(this.medicalFile) )   
+      }
+    })
   }
 
   public delete() {
+    // open yes or no message to confirm 
     this.router.navigate([], {
       queryParams: {
         "pop-up-window": true,

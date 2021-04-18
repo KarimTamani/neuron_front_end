@@ -10,6 +10,7 @@ import { Address } from 'src/app/classes/Address';
 import { DataService } from 'src/app/services/data.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-medical-file',
@@ -57,64 +58,90 @@ export class NewMedicalFileComponent implements OnInit {
   @Input() medicalFile: MedicalFile;
   @Output() newMedicalFileEvent: EventEmitter<MedicalFile>;
   @Input() throwInteraction: boolean = false;
-  @Output() closeEvent : EventEmitter<null> ; 
+  @Output() closeEvent: EventEmitter<null>;
 
   constructor(
-    private apollo: Apollo, 
-    private dataService: DataService, 
-    private interactionService: InteractionService, 
-    private virtualAssistantService : VirtualAssistantService) {
+    private apollo: Apollo,
+    private dataService: DataService,
+    private interactionService: InteractionService,
+    private virtualAssistantService: VirtualAssistantService,
+    private route: ActivatedRoute) {
 
     this.blackWindowEvent = new EventEmitter<null>();
     this.newMedicalFileEvent = new EventEmitter<MedicalFile>();
-    this.closeEvent = new EventEmitter<null>() ; 
+    this.closeEvent = new EventEmitter<null>();
   }
 
   ngOnInit(): void {
-    
-    this.virtualAssistantService.onVACommand.subscribe((data) => { 
-      console.log(data) ; 
-      if (data.component == "MEDICAL-FILE-SUBMITTER") { 
-        if ( data.name )  
-          this.medicalFile.name = data.name ; 
-        
-        if (data.lastname) 
-          this.medicalFile.lastname = data.lastname ; 
-        if (data.birthday) { 
-          var date = this.dataService.frToYMDDate(data.birthday) ; 
-          if (date) { 
-            this.medicalFile.birthday = date ; 
+    // handle va command to modifier the medical file 
+    this.virtualAssistantService.onVACommand.subscribe((data) => {
+
+      if (data.component == "MEDICAL-FILE-SUBMITTER") {
+        if (data.name)
+          this.medicalFile.name = data.name;
+
+        if (data.lastname)
+          this.medicalFile.lastname = data.lastname;
+        if (data.birthday) {
+          var date = this.dataService.frToYMDDate(data.birthday);
+          if (date) {
+            this.medicalFile.birthday = date;
           }
-        } 
-
-        if ( data.phone ) { 
-          this.medicalFile.phone = data.phone.split(" ").join("") ; 
         }
 
-        if (data.email) { 
-          this.medicalFile.email = data.email ; 
+        if (data.phone) {
+          this.medicalFile.phone = data.phone.split(" ").join("");
         }
-        if (data.address) { 
-          this.medicalFile.address.address = data.address ; 
+
+        if (data.email) {
+          this.medicalFile.email = data.email;
         }
-        if (data.wilaya) { 
-          var wilaya = this.wilayas.find(value => value.name.toLowerCase() == data.wilaya) ; 
-          if (wilaya) { 
-          
-            this.selectedWilaya = wilaya ; 
+        if (data.address) {
+          this.medicalFile.address.address = data.address;
+        }
+        if (data.wilaya) {
+          var wilaya = this.wilayas.find(value => value.name.toLowerCase() == data.wilaya);
+          if (wilaya) {
+
+            this.selectedWilaya = wilaya;
             this.medicalFile.address.commune.wilaya.id = this.selectedWilaya.id
           }
         }
-        if (data.profession) { 
-          this.medicalFile.profession.name = data.profession ; 
+        if (data.profession) {
+          this.medicalFile.profession.name = data.profession;
         }
       }
-    })
-    if (this.medicalFile == null)
-      this.medicalFile = new MedicalFile();
-    else {
-      this.apollo.query({
-        query: gql`
+    });
+
+    var params = this.route.snapshot.queryParams;
+    if (params["medical-file"]) {
+      this.medicalFile = JSON.parse(decodeURIComponent(params["medical-file"]));
+    }
+
+
+    // get all the wilayas 
+    this.apollo.query({
+      query: gql`
+      {
+        getAllWilayas {
+          id
+          name
+          communes {
+            id 
+            name
+            postalCode
+          }
+        }
+      }`
+    }).pipe(map(value => (<any>value.data).getAllWilayas)).subscribe((data) => {
+      this.wilayas = data;
+
+
+      if (this.medicalFile == null)
+        this.medicalFile = new MedicalFile();
+      else {
+        this.apollo.query({
+          query: gql`
         {
           getMedicalFile(medicalFileId : ${this.medicalFile.id}) {
               id
@@ -147,33 +174,22 @@ export class NewMedicalFileComponent implements OnInit {
         
         }
         `
-      }).pipe(map(value => (<any>value.data).getMedicalFile)).subscribe((data) => {
-        this.medicalFile = data;
+        }).pipe(map(value => (<any>value.data).getMedicalFile)).subscribe((data) => {
+          this.medicalFile = data;
 
-        if (this.medicalFile.address == null)
-          this.medicalFile.address = new Address();
-        if (this.medicalFile.profession == null)
-          this.medicalFile.profession = new Profession();
+          if (this.medicalFile.address == null)
+            this.medicalFile.address = new Address();
+          if (this.medicalFile.profession == null)
+            this.medicalFile.profession = new Profession();
 
-        this.edit = true;
-      })
-    }
-    // get all the wilayas 
-    this.apollo.query({
-      query: gql`
-      {
-        getAllWilayas {
-          id
-          name
-          communes {
-            id 
-            name
-            postalCode
+          if (this.medicalFile.address) {
+            if (this.medicalFile.address.commune) {
+              this.selectedWilaya = this.wilayas.find(value => value.id == this.medicalFile.address.commune.wilaya.id) ; 
+            }
           }
-        }
-      }`
-    }).pipe(map(value => (<any>value.data).getAllWilayas)).subscribe((data) => {
-      this.wilayas = data;
+          this.edit = true;
+        })
+      }
     })
     this.apollo.query({
       query: gql`
@@ -186,11 +202,13 @@ export class NewMedicalFileComponent implements OnInit {
       this.professions = data;
     })
   }
+
   public professionSearchFunction: any = (query: string) => {
     return new Observable((observer) => {
       observer.next(this.professions.filter(value => value.name.toLowerCase().includes(query.toLowerCase())));
     })
   }
+
   wilayaSelected() {
     // filter by if to find the selected wilaya 
     this.selectedWilaya = this.wilayas.find(wilaya => wilaya.id == this.form.value.wilayaId);
@@ -297,9 +315,9 @@ export class NewMedicalFileComponent implements OnInit {
       this.medicalFile = data;
       if (!this.throwInteraction)
         this.newMedicalFileEvent.emit(this.medicalFile)
-      else 
-        this.interactionService.newMedicalFile.next(data) ;
-      this.closeEvent.emit() 
+      else
+        this.interactionService.newMedicalFile.next(data);
+      this.closeEvent.emit()
     })
   }
 
@@ -351,7 +369,7 @@ export class NewMedicalFileComponent implements OnInit {
       }` ,
       variables: variables
     }).pipe(map(value => (<any>value.data).editMedicalFile)).subscribe((data) => {
-       
+      this.closeEvent.emit() ; 
     })
   }
 }
