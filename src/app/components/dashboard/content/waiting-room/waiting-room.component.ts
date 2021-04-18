@@ -5,7 +5,11 @@ import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 import { InteractionService } from 'src/app/services/interaction.service';
-import { Subject  } from 'rxjs/internal/Subject';
+import { Subject } from 'rxjs/internal/Subject';
+import { ActivatedRoute } from '@angular/router';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
+import { ALWAYS, YesNoVAResponse } from 'src/app/classes/VAResponse';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 @Component({
   selector: 'app-waiting-room',
@@ -20,14 +24,23 @@ export class WaitingRoomComponent implements OnInit {
   public currentDate: string;
 
   public waitingRoom: WaitingRoom;
-  public updateSubject : Subject<any>  ; 
+  public updateSubject: Subject<any>;
 
-  constructor(private apollo: Apollo, public dataService: DataService,
+  public fromVa: boolean = false;
+  constructor(
+    private apollo: Apollo,
+    public dataService: DataService,
+    private route: ActivatedRoute,
+    private virtualAssistantService: VirtualAssistantService,
     private interactionService: InteractionService) {
-      this.updateSubject = new Subject<any>() ; 
-    }
+    this.updateSubject = new Subject<any>();
+  }
 
   ngOnInit(): void {
+    var params = this.route.snapshot.queryParams;
+    this.fromVa = params["from-va"] === "true";
+
+
     // get the current date
     this.apollo.query({
       query: gql`
@@ -41,16 +54,43 @@ export class WaitingRoomComponent implements OnInit {
       this.currentMonth = date.getMonth();
       this.currentYear = date.getFullYear();
       this.currentDay = date.getDate();
-      this.loadWaitingRoom();
+      this.loadWaitingRoom(false, true);
     })
 
     this.interactionService.newVisitAdded.subscribe(() => {
       this.waitingRoom = null;
       this.loadWaitingRoom();
       this.interactionService.updateReport.next();
+    });
+
+    this.virtualAssistantService.onVACommand.subscribe((data) => {
+
+      if (data.command && data.command == "waiting-room-report") {
+
+        var gain = 0;
+        var waitingVisits = [];
+        var visitsDone = [];
+        // get the waiting visits 
+        // and the don visitts so we can calculate the gain 
+        if (this.waitingRoom && this.waitingRoom.visits.length > 0) {
+          visitsDone = this.waitingRoom.visits.filter(visit => visit.status == "visit payed" || visit.status == "visit done");
+          waitingVisits = <any[]>this.waitingRoom.visits.filter(visit => visit.status == "waiting" || visit.status == "in visit");
+        }
+
+        visitsDone.forEach(visit => gain += visit.payedMoney);
+
+        this.virtualAssistantService.onVaResponse.next({
+          message: 
+            `vous avez ${waitingVisits.length} visites en attente,
+            ${visitsDone.length} visites effectuées,
+            et la recette ${gain} dinar algérien.`, 
+          speakable: ALWAYS, 
+          yesNo : false 
+        })
+      }
     })
   }
-  private loadWaitingRoom(update : boolean = false ) {
+  private loadWaitingRoom(update: boolean = false, first: boolean = false) {
     this.apollo.query({
       query: gql`
         {
@@ -102,8 +142,19 @@ export class WaitingRoomComponent implements OnInit {
       `
     }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => {
       this.waitingRoom = data;
-      if (update) 
-        this.updateSubject.next(this.waitingRoom) ; 
+      // check if this is the first load and the page has been requested from va 
+      // and waiting room exists and contains some visits
+      if (this.waitingRoom && this.waitingRoom.visits.length != 0 && this.fromVa && first) {
+
+        this.virtualAssistantService.onVaResponse.next(<YesNoVAResponse>{
+          message: "Voulez vous que je te donne un résumé sur la salle d'attente",
+          speakable: ALWAYS,
+          command: "résumé sur la salle d'attente",
+          yesNo: true
+        })
+      }
+      if (update)
+        this.updateSubject.next(this.waitingRoom);
     })
   }
   public createWaitingRoom() {
@@ -131,7 +182,7 @@ export class WaitingRoomComponent implements OnInit {
     this.currentMonth = $event.getMonth();
     this.currentYear = $event.getFullYear();
     this.currentDay = $event.getDate();
-    
+
     this.loadWaitingRoom(true);
 
   }

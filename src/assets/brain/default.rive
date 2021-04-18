@@ -4,3 +4,6 @@
 
 + * 
 - "default" : "<star>" 
+
++ résumé sur la salle d'attente 
+- "command": "waiting-room-report"

@@ -10,5 +10,6 @@ export class VAResponse {
 }
 
 export class YesNoVAResponse extends VAResponse {
+    public yesNo:boolean = true ; 
     public command: string;
 }

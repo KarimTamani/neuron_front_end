@@ -10,13 +10,14 @@ export class VirtualAssistantControllerComponent implements OnInit {
   // two attributes to describe the state of the VA is she speaking or listening
   public isRecording: boolean = false;
   public isSpeaking: boolean = false;
+  public showYesNo : boolean = false ; 
 
   public tts: SpeechSynthesis;
   public toSpeech: SpeechSynthesisUtterance;
   public recognition: any;
 
   public command: string = "";
-
+  public waitingHandler = null ; 
 
   // the response that the assistant sould speak 
   public vaResponse: VAResponse;
@@ -74,11 +75,24 @@ export class VirtualAssistantControllerComponent implements OnInit {
 
     };
 
-    this.virtualAssistantService.onVaResponse.subscribe((response) => {
-      this.zone.run(() => {
-
+    this.virtualAssistantService.onVaResponse.subscribe((response: any) => {
+      
+      this.zone.run(async () => {
+        this.command = "" ; 
         this.vaResponse = response;
-        this.listen();
+        //this.listen();
+        await this.speak(this.vaResponse);
+        if ((<YesNoVAResponse>this.vaResponse).yesNo) {
+       
+          this.showYesNo = true ; 
+          this.isSpeaking = true;
+          this.waitingHandler =  setTimeout(() => {
+            this.isSpeaking = false;
+            this.showYesNo = false ;
+          }, 5000)
+        } else { 
+          this.vaResponse = null ; 
+        }
 
       })
     })
@@ -98,24 +112,44 @@ export class VirtualAssistantControllerComponent implements OnInit {
 
         for (var i = event.resultIndex; i < event.results.length; ++i) {
           if (event.results[i].isFinal) {
-            
+
             this.command = event.results[i][0].transcript;
-            console.log(this.command) ; 
+
             this.recognition.stop();
 
             this.isRecording = false;
             this.vaResponse = null;
 
             this.virtualAssistantService.execute(this.command);
+        
           } else {
             this.command += event.results[i][0].transcript;
           }
         }
       })
-
-
     }
+  }
 
+  public yes() {
+    if (this.waitingHandler) { 
+      clearInterval(this.waitingHandler) 
+    }
+    this.isSpeaking = false; 
+    this.showYesNo = false ;  
+    this.virtualAssistantService.execute(
+      (<YesNoVAResponse>this.vaResponse).command
+    );
+    this.vaResponse = null ; 
+
+  }
+
+  public no() {
+    if (this.waitingHandler) { 
+      clearInterval(this.waitingHandler) 
+    }
+    this.isSpeaking = false;
+    this.showYesNo = false ; 
+    this.vaResponse = null ; 
   }
 
 
@@ -153,6 +187,7 @@ export class VirtualAssistantControllerComponent implements OnInit {
       if (speaking) {
         this.isSpeaking = true;
         this.tts.speak(this.toSpeech);
+
         this.toSpeech.onend = () => {
           this.isSpeaking = false;
           resolve(null)

@@ -136,3 +136,29 @@
     font-weight: bold;
     margin: 0px;
 }
+
+.commands p.yes-no {
+    padding: 4px 16px;
+}
+
+.commands p.yes-no span:last-child {
+    float: right;
+}
+
+.commands p.yes-no span {
+    float: left;
+    margin-top: 4px;
+    padding: 4px 0px;
+    border: 1px solid white;
+    border-radius: 20px;
+    color: white;
+    width: 80px;
+    text-align: center;
+    transition-duration: 0.3s;
+}
+
+.commands p.yes-no span:hover {
+    background: white;
+    cursor: pointer;
+    color: black;
+}

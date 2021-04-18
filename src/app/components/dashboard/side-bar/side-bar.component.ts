@@ -69,13 +69,12 @@ export class SideBarComponent implements OnInit {
         this.router.navigate(['/dashboard/general'])
 
       else if (page.includes("salle d'attente")) {
-        this.router.navigate(["/dashboard/waiting-room"])
-
-        this.virtualAssistantService.onVaResponse.next(<YesNoVAResponse>{
-          message: "Voulez vous que je te donne un résumé sur la salle d'attente",
-          speakable: ALWAYS,
+        this.router.navigate(["/dashboard/waiting-room"], { 
+          queryParams : { 
+            "from-va" : true 
+          }
         })
-
+        
       }
       else if (page.includes("profil"))
         this.router.navigate(["/dashboard/profil"])

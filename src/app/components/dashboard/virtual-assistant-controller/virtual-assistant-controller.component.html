@@ -5,6 +5,10 @@
             <p *ngIf="vaResponse">{{vaResponse.message}}</p>
             <span *ngIf="isRecording">en ecoute ...</span>
             <p>{{command}}</p>
+            <p *ngIf="vaResponse.yesNo && showYesNo" class="yes-no">
+                <span (click)="no()">No</span>
+                <span (click)="yes()">Yes</span>
+            </p>
         </div>
     </div>
     <div class="box" [class.recording]="isRecording" (click)="listen()">
