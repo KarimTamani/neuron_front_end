@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-medical-files-manager',
@@ -27,7 +28,13 @@ export class MedicalFilesManagerComponent implements OnInit {
     private zone : NgZone) {}
 
   ngOnInit(): void {
-
+    // subscribe to the delete event of the medicalFile  
+    this.interactionService.medicalFileDeleted.subscribe((medicalFile) => { 
+      const index = this.medicalFiles.findIndex(value => value.id == medicalFile.id) ; 
+      if (index >= 0) { 
+        this.medicalFiles.splice(index , 1) ; 
+      }
+    })
     this.virtualAssistantService.onVACommand.subscribe((data) => { 
       if (data.component == "MEDICAL-FILES") { 
         if (data.query && data.query.trim().length > 0) { 

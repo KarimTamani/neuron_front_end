@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
 import { DataService } from 'src/app/services/data.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-medical-file-details',
@@ -12,20 +13,23 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./medical-file-details.component.css']
 })
 export class MedicalFileDetailsComponent implements OnInit {
-  public medicalFile : MedicalFile   ; 
-
+  public medicalFile: MedicalFile;
+  @Output() closeEvent: EventEmitter<null>;
   constructor(
-    private route : ActivatedRoute, 
-    private apollo : Apollo , 
-    private dataService : DataService , 
-    private router  :Router) { }
+    private route: ActivatedRoute,
+    private apollo: Apollo,
+    private dataService: DataService,
+    private router: Router,
+    private interactionService: InteractionService) {
+    this.closeEvent = new EventEmitter<null>();
+  }
 
   ngOnInit(): void {
-    var params = this.route.snapshot.queryParams ; 
+    var params = this.route.snapshot.queryParams;
 
-    var medicalFileId = params["medical-file-id"] ; 
+    var medicalFileId = params["medical-file-id"];
     this.apollo.query({
-      query:gql`
+      query: gql`
         {
           getMedicalFile(medicalFileId : ${medicalFileId}) { 
             id 
@@ -54,25 +58,63 @@ export class MedicalFileDetailsComponent implements OnInit {
 
           }
         }`
-    }).pipe(map(value => (<any>value.data).getMedicalFile)).subscribe((data) => { 
-      this.medicalFile = data ;  
+    }).pipe(map(value => (<any>value.data).getMedicalFile)).subscribe((data) => {
+      this.medicalFile = data;
       this.medicalFile.createdAt = this.dataService.castFRDate(new Date(parseInt(this.medicalFile.createdAt)))
       this.medicalFile.updatedAt = this.dataService.castFRDate(new Date(parseInt(this.medicalFile.updatedAt)))
-      for (let index = 0 ; index < this.medicalFile.visits.length ; index++) { 
-          this.medicalFile.visits[index].createdAt = this.dataService.castFRDate(new Date(parseInt(this.medicalFile.visits[index].createdAt)))
+      for (let index = 0; index < this.medicalFile.visits.length; index++) {
+        this.medicalFile.visits[index].createdAt = this.dataService.castFRDate(new Date(parseInt(this.medicalFile.visits[index].createdAt)))
       }
     })
   }
 
-  public openVisit(visit) { 
-    this.router.navigate([] , { 
-      queryParams : { 
-        "pop-up-window" : true , 
-        "window-page" : "visit-details" , 
-        "visit-id"  : visit.id , 
-        "title" : "Details de visite" , 
-        "referer" : this.router.url  
-      } 
+  public openVisit(visit) {
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "visit-details",
+        "visit-id": visit.id,
+        "title": "Details de visite",
+        "referer": this.router.url
+      }
     })
   }
+
+  public edit() {
+
+  }
+
+  public delete() {
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "yes-no-message",
+        "title": "Suprission du dossie medical",
+        "referer": this.router.url,
+        "message": "Si vous suprimer le dossie medical de " + this.medicalFile.lastname + " " + this.medicalFile.name + " tout les donnes et les visites seront suprimer"
+      }
+    })
+
+
+    const subs = this.interactionService.yesOrNo.subscribe((response) => {
+      if (response) {
+        this.apollo.mutate({
+          mutation: gql`
+          
+            mutation { 
+              removeMedicalFile(medicalFileId : ${this.medicalFile.id}) 
+            }
+          `
+        }).pipe(map(value => (<any>value.data).removeMedicalFile)).subscribe(() => {
+          this.interactionService.medicalFileDeleted.next(this.medicalFile);
+          this.router.navigate(["/dashboard/medical-files"]) ; 
+        })
+      }
+
+      subs.unsubscribe();
+
+    })
+  }
+
+
 }

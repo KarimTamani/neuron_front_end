@@ -35,12 +35,13 @@ export class InteractionService {
   public editExpense: Subject<Expense>;
   public addprescriptionModel: Subject<PrescriptionModel>;
   public editPrescriptionModel: Subject<PrescriptionModel>;
-  public documentAdded : Subject<Document> ; 
-  public documentEdit : Subject<Document> ; 
-  public certificatModelSelected : Subject<CertificatModel> ; 
-  public newMedicalFile : Subject<MedicalFile> ; 
-  public visitEdited : Subject<null> ;   
-  public visitDeleted : Subject<Visit> ; 
+  public documentAdded: Subject<Document>;
+  public documentEdit: Subject<Document>;
+  public certificatModelSelected: Subject<CertificatModel>;
+  public newMedicalFile: Subject<MedicalFile>;
+  public visitEdited: Subject<null>;
+  public visitDeleted: Subject<Visit>;
+  public medicalFileDeleted: Subject<MedicalFile>;
 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
@@ -60,12 +61,13 @@ export class InteractionService {
     this.editExpense = new Subject<Expense>();
     this.addprescriptionModel = new Subject<PrescriptionModel>();
     this.editPrescriptionModel = new Subject<PrescriptionModel>();
-    this.documentAdded = new Subject<Document>()  ;
-    this.documentEdit = new Subject<Document>() ; 
-    this.certificatModelSelected = new Subject<CertificatModel>() ; 
-    this.newMedicalFile = new Subject<MedicalFile>() ; 
-    this.visitEdited = new Subject<null>() ; 
-    this.visitDeleted = new Subject<Visit>() ; 
-    
+    this.documentAdded = new Subject<Document>();
+    this.documentEdit = new Subject<Document>();
+    this.certificatModelSelected = new Subject<CertificatModel>();
+    this.newMedicalFile = new Subject<MedicalFile>();
+    this.visitEdited = new Subject<null>();
+    this.visitDeleted = new Subject<Visit>();
+    this.medicalFileDeleted = new Subject<MedicalFile>() ; 
+
   }
 }

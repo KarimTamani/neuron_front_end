@@ -121,3 +121,17 @@ p i {
     float: right;
     font-weight: bold;
 }
+
+.control {
+    margin-top: 16px;
+}
+
+.control button {
+    width: 160px;
+    cursor: pointer;
+}
+
+.control button.delete {
+    float: right;
+    background: rgb(254, 101, 85);
+}
