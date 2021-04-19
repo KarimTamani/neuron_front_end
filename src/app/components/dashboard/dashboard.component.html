@@ -1,4 +1,14 @@
-<div class="pop-up-window" *ngIf="showPopUpWindow" (click)="closePopUp()">
+<div class="edit-visit-window" *ngIf="showEditVisit">
+    <div class="edit-visit-container">
+        <div class="edit-visit-header">
+            <h5> Modifer la visite <i class="fa fa-times" (click)="closeEditVisit()"></i></h5>
+        </div>
+        <div class="edit-visit-body">
+            <app-edit-visit [visit]="editedVisit" (closeEvent)="closeEditVisit()"></app-edit-visit>
+        </div>
+    </div>
+</div>
+<div class="pop-up-window" *ngIf="showPopUpWindow">
     <app-pop-up-window></app-pop-up-window>
 </div>
 <div class="dashboard-container" [class.blur-filter]="showPopUpWindow" [class.active]="isActive">
@@ -8,7 +18,6 @@
     <div class="content-section">
         <div class="active-background" *ngIf="isActive"></div>
         <app-content></app-content>
-
     </div>
 </div>
 

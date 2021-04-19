@@ -227,6 +227,9 @@ export class VisitDetailsComponent implements OnInit {
   }
 
   public edit() { 
+    this.router.navigate([]) ; 
+
+    this.intervationService.openEditVisitWindow.next(this.visit) ; 
     
   }
 }

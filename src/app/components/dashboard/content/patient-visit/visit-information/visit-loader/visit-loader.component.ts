@@ -17,10 +17,8 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class VisitLoaderComponent implements OnInit {
   @Input() visit: Visit;
+  @Input() isEdit : boolean = false ; 
   @Output() visitSelectedEvent: EventEmitter<Visit>;
-
-
-
   @Output() editVisitEvent : EventEmitter<Visit> ; 
   @Output() saveVisitEvent : EventEmitter<Visit> ; 
 

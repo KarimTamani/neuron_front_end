@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 import { map } from "rxjs/operators";
+import { Visit } from 'src/app/classes/Visit';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,8 +13,15 @@ import { map } from "rxjs/operators";
 })
 export class DashboardComponent implements OnInit {
   public showPopUpWindow: boolean = false;
+  public showEditVisit : boolean = false ; 
+  public editedVisit : Visit ; 
   public isActive: boolean = false;
-  constructor(private route: ActivatedRoute, private router: Router, private apollo: Apollo) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private apollo: Apollo , 
+    private interactionService : InteractionService
+    ) { }
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((paramMap) => {
@@ -56,47 +65,15 @@ export class DashboardComponent implements OnInit {
       }
     })
 
-    /*
-
-    var speechRecognition = window.SpeechRecognition || (<any>window).webkitSpeechRecognition;
-    var recognition = new speechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = 'fr-FR';
-    recognition.onspeechend = function () {
-
-    }
-    recognition.onresult = function (event) {
-      /*
-      console.log(event);
-      var current = event.resultIndex;
-      console.log(event.results[current][0].transcript);
-     var interim_transcript = "" ; 
-
-     for (var i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        console.log("final : " , event.results[i][0].transcript) ;
-      } else {
-        interim_transcript += event.results[i][0].transcript;
+    this.interactionService.openEditVisitWindow.subscribe((visit) => { 
+      if (visit) { 
+        this.showEditVisit = true ; 
+      }else { 
+        this.showEditVisit = false ; 
       }
-    }
-    
- 
-
-    }
-
-    recognition.onstart = function () {
-      console.log("start recording ...");
-    }
-
-    recognition.start();
-
-    */
-
-    /*
-    
-    */
-
+      this.editedVisit = visit ; 
+        
+    })
 
   }
 
@@ -106,6 +83,12 @@ export class DashboardComponent implements OnInit {
 
   public active() {
     this.isActive = !this.isActive;
+  }
+
+
+  public closeEditVisit() { 
+    this.showEditVisit = false ; 
+    this.editedVisit = null ; 
   }
 }
 

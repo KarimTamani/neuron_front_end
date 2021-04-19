@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Visit } from 'src/app/classes/Visit';
 import gql from 'graphql-tag';
@@ -18,10 +18,11 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
   public page: number = 1;
-  public visit: Visit;
+  @Input() visit: Visit;
+  @Input() noHeader: boolean = false;
   public subscriptions: Subscription[] = [];
   public isEdited: boolean = false;
-
+  @Input() isEdit: boolean = false;
   constructor(
     private apollo: Apollo,
     private interactionService: InteractionService,
@@ -38,7 +39,6 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         if (data.page && data.page == 7) {
           var date = this.dataService.frToYMDDate(data.appointment);
           if (date) {
-            console.log(date);
             this.router.navigate([], {
               queryParams: {
                 'pop-up-window': true,
@@ -48,10 +48,10 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
                   medicalFile: {
                     lastname: this.visit.medicalFile.lastname,
                     name: this.visit.medicalFile.name,
-                    
-                  }, 
+
+                  },
                   appointment: {
-                    date: date 
+                    date: date
                   }
                 }))
               }
@@ -167,8 +167,6 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(this.interactionService.newAppointmentAdded.subscribe((data) => {
       this.visit.appointment = data;
-
-      console.log(this.visit.appointment) ; 
       if (data)
         this.isEdited = true;
     }));
@@ -205,13 +203,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     this.visit = $event;
     this.initVisit();
   }
-
-
-
-
-
   public save($event) {
-
     this.visit = $event;
     this.apollo.mutate({
       mutation: gql`
@@ -278,8 +270,8 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         }) : (null)
       }
     }).subscribe((data) => {
-
-      this.visit.status = "in visit";
+      if (!this.isEdit)
+        this.visit.status = "in visit";
 
       this.submitVisitDrugDosages();
       this.submitVisitCheckUps();
@@ -389,7 +381,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
           appointment: {
             visitId: this.visit.id,
             date: this.visit.appointment.date,
-            time: (this.visit.appointment.time)? (this.visit.appointment.time) : (null)
+            time: (this.visit.appointment.time) ? (this.visit.appointment.time) : (null)
           }
         }
       }).pipe(map(value => (<any>value.data).addAppointment)).subscribe((data) => {

@@ -27,7 +27,7 @@
             <h5>Motif de consultation et symptoms</h5>
             <div class="symptoms-container">
                 <span *ngFor="let symptom of visit.symptoms">{{symptom.name}}</span>
-                <p class="no-data-message" *ngIf="visit.symptoms">Aucun Symptoms ou motife de consultation il faut selectioner un dossie médical</p>
+                <p class="no-data-message" *ngIf="visit.symptoms.length == 0">Aucun Symptoms ou motife de consultation il faut selectioner un dossie médical</p>
             </div>
         </div>
         <div class="col col-md-12">
@@ -46,20 +46,20 @@
             </div>
         </div>
         <div class="col col-md-12">
-            <div class="stretch-container" *ngIf="visit.status == 'in visit'">
+            <div class="stretch-container" *ngIf="visit.status == 'in visit' || isEdit">
                 <h5>Condition ou maladie</h5>
                 <div class="search-container">
                     <app-search-input (onChange)="change($event)" [submittedItem]="visit.condition" [searchFunction]="searchCondtion" [placeholder]="'Recherché une condition'"></app-search-input>
                 </div>
             </div>
-            <div *ngIf="visit.status != 'in visit'">
+            <div *ngIf="visit.status != 'in visit' && !isEdit">
                 <h5>Condition ou maladie</h5>
                 <p class="no-data-message">Pour Saisir une patholgie il faut démarer la visite</p>
             </div>
         </div>
         <div class="controller col col-md-12">
-            <button *ngIf="visit.status == 'in visit'" class="primary-button" (click)="saveVsit()"> Sauvgarder la visite <i class="fa fa-save"></i></button>
-            <button *ngIf="visit.status != 'in visit'" class="primary-button" (click)="saveVsit()"> Démarer la visite <i class="fa fa-heartbeat"></i></button>
+            <button *ngIf="visit.status == 'in visit' || isEdit" class="primary-button" (click)="saveVsit()"> Sauvgarder la visite <i class="fa fa-save"></i></button>
+            <button *ngIf="visit.status != 'in visit' && !isEdit" class="primary-button" (click)="saveVsit()"> Démarer la visite <i class="fa fa-heartbeat"></i></button>
         </div>
     </div>
 </div>

@@ -42,7 +42,7 @@ export class InteractionService {
   public visitEdited: Subject<null>;
   public visitDeleted: Subject<Visit>;
   public medicalFileDeleted: Subject<MedicalFile>;
-
+  public openEditVisitWindow : Subject<Visit> ; 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -68,6 +68,7 @@ export class InteractionService {
     this.visitEdited = new Subject<null>();
     this.visitDeleted = new Subject<Visit>();
     this.medicalFileDeleted = new Subject<MedicalFile>() ; 
+    this.openEditVisitWindow = new Subject<Visit>() ; 
 
   }
 }

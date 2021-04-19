@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { decode } from 'punycode';
+import { Visit } from 'src/app/classes/Visit';
 
 @Component({
   selector: 'app-edit-visit',
@@ -6,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-visit.component.css']
 })
 export class EditVisitComponent implements OnInit {
-
-  constructor() { }
+  @Output() closeEvent : EventEmitter<null> ; 
+  @Input() visit : Visit = null ; 
+  constructor(private route : ActivatedRoute) {
+    this.closeEvent = new EventEmitter<null>() ; 
+  }
 
   ngOnInit(): void {
+   
   }
 
 }

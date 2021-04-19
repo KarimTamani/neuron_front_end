@@ -1,10 +1,10 @@
 <div class="main-container">
-    <app-header></app-header>
+    <app-header *ngIf="!noHeader"></app-header>
     <div class="content">
-        <app-visit-header [onlyGeneral]="visit.status != 'in visit'" (selectPageEvent)="select($event)" [visit]="visit" [selectedPage]="page"></app-visit-header>
+        <app-visit-header [onlyGeneral]="visit.status != 'in visit' && !isEdit" (selectPageEvent)="select($event)" [visit]="visit" [selectedPage]="page"></app-visit-header>
         <div class="pages" *ngIf="visit">
             <div class="page" *ngIf="page == 1">
-                <app-visit-information (saveVisitEvent)="save($event)" (editVisitEvent)="edit($event)" (visitSelectedEvent)="visitSelected($event)" [visit]="visit"></app-visit-information>
+                <app-visit-information [isEdit]="isEdit" (saveVisitEvent)="save($event)" (editVisitEvent)="edit($event)" (visitSelectedEvent)="visitSelected($event)" [visit]="visit"></app-visit-information>
             </div>
             <div class="page" *ngIf="page == 2">
                 <app-visit-diagnosis [visit]="visit" *ngIf="visit.medicalFile"></app-visit-diagnosis>
