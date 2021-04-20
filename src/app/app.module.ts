@@ -159,6 +159,7 @@ import { VisitMoreDetailsComponent } from './components/dashboard/content/visits
 import { MedicalFileDetailsComponent } from './components/dashboard/content/medical-files-manager/medical-file-details/medical-file-details.component';
 import { VirtualAssistantControllerComponent } from './components/dashboard/virtual-assistant-controller/virtual-assistant-controller.component';
 import { EditVisitComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/edit-visit/edit-visit.component';
+import { SuccessAndFailMessagesComponent } from './components/global/success-and-fail-messages/success-and-fail-messages.component';
 
 
 @NgModule({
@@ -306,7 +307,8 @@ import { EditVisitComponent } from './components/dashboard/content/visits-and-ap
     VisitMoreDetailsComponent,
     MedicalFileDetailsComponent,
     VirtualAssistantControllerComponent,
-    EditVisitComponent
+    EditVisitComponent,
+    SuccessAndFailMessagesComponent
   ],
   imports: [
     BrowserModule,
