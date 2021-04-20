@@ -1,8 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 import { map } from "rxjs/operators";
+import { Message } from 'src/app/classes/Message';
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
 
@@ -16,6 +18,8 @@ export class DashboardComponent implements OnInit {
   public showEditVisit : boolean = false ; 
   public editedVisit : Visit ; 
   public isActive: boolean = false;
+  public showMessage : boolean = false ; 
+  public message : Message ;  
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
@@ -72,7 +76,12 @@ export class DashboardComponent implements OnInit {
         this.showEditVisit = false ; 
       }
       this.editedVisit = visit ; 
-        
+    })
+
+    this.interactionService.showMessage.subscribe((data) => {
+      this.message = data ; 
+      this.showMessage = true ; 
+
     })
 
   }
@@ -89,6 +98,11 @@ export class DashboardComponent implements OnInit {
   public closeEditVisit() { 
     this.showEditVisit = false ; 
     this.editedVisit = null ; 
+  }
+
+
+  public closeMessage() { 
+    this.showMessage = false ; 
   }
 }
 

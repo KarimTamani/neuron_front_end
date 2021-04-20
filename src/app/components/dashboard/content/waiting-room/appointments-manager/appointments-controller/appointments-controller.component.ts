@@ -19,8 +19,7 @@ export class AppointmentsControllerComponent implements OnInit {
   constructor(private router : Router , private apollo : Apollo) {
     this.nextEvent = new EventEmitter<null>() ; 
   }
-  ngOnInit(): void {
-    console.log(this.waitingRoom.date) ; 
+  ngOnInit(): void {  
     // load the appointments for today
     this.apollo.query({
       query : gql`

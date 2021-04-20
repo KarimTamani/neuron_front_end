@@ -24,3 +24,4 @@
 <div class="virtual-assistant-container">
     <app-virtual-assistant-controller></app-virtual-assistant-controller>
 </div>
+<app-success-and-fail-messages [message]="message" *ngIf="showMessage" (closeEvent)="closeMessage()"> </app-success-and-fail-messages>

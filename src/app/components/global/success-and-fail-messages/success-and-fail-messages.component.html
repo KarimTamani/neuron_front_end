@@ -1,1 +1,13 @@
-<p>success-and-fail-messages works!</p>
+<div class="main-container primary-radius">
+    <div class="stretch-container">
+        <div class="center-v" *ngIf="message.type == 1">
+            <i class="fa fa-check"></i>
+        </div>
+
+        <div class="center-v" *ngIf="message.type == -1">
+            <i class="fa fa-times"></i>
+        </div>
+        <p>{{message.message}}</p>
+
+    </div>
+</div>

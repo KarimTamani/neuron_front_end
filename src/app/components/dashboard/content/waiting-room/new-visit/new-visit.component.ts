@@ -9,6 +9,7 @@ import { MedicalFile } from 'src/app/classes/MedicalFile';
 import { ActivatedRoute } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VitalSetting } from 'src/app/classes/VitalSetting';
+import { SUCCESS } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-new-visit',
@@ -178,6 +179,10 @@ export class NewVisitComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
       this.closeEvent.emit();
       this.interactionservice.newVisitAdded.next();
+      this.interactionservice.showMessage.next({
+        message : `Le patient ${this.visit.medicalFile.lastname} ${this.visit.medicalFile.name} est present dans la salle d'attente` , 
+        type: SUCCESS
+      })
     })
   }
 

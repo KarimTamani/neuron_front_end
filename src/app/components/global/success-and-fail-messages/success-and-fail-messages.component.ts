@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Message, SUCCESS } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-success-and-fail-messages',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./success-and-fail-messages.component.css']
 })
 export class SuccessAndFailMessagesComponent implements OnInit {
+  @Input() message : Message ; 
 
-  constructor() { }
+  @Output() closeEvent : EventEmitter<null> ; 
+  constructor() {
+    this.closeEvent = new EventEmitter<null>() ; 
+
+
+  }
 
   ngOnInit(): void {
+
+    setTimeout(() => { 
+      this.closeEvent.emit() ; 
+    } , 5000 ) ; 
   }
 
 }
