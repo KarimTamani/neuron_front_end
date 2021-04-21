@@ -47,6 +47,8 @@ export class InteractionService {
   public showMessage : Subject<Message> ; 
   public visitDone : Subject<Visit> ; 
 
+  
+
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();

@@ -1,10 +1,13 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { timeStamp } from 'console';
 import gql from 'graphql-tag';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Visit } from 'src/app/classes/Visit';
 import { DataService } from 'src/app/services/data.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
@@ -12,7 +15,7 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
   templateUrl: './debt-manager.component.html',
   styleUrls: ['./debt-manager.component.css']
 })
-export class DebtManagerComponent implements OnInit {
+export class DebtManagerComponent implements OnInit , OnDestroy {
   public offset: number = 0;
   public limit: number = 20;
 
@@ -20,12 +23,16 @@ export class DebtManagerComponent implements OnInit {
   public count: number = 0;
 
   public lastSearch : any = {} ; 
+  public subscription : Subscription[] = [] ; 
+
   
   constructor(
     private apollo: Apollo , 
     private dataService : DataService , 
     private virtualAssistantService : VirtualAssistantService , 
-    private zone : NgZone) {
+    private interactionService : InteractionService , 
+    private zone : NgZone, 
+    private router : Router) {
   }
   ngOnInit(): void {
 
@@ -123,6 +130,30 @@ export class DebtManagerComponent implements OnInit {
   }
 
   public editDebt(visit) { 
-    console.log(visit) ; 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window" : true , 
+        "window-page" : "edit-debt" , 
+        "title" : "Regler le credit" , 
+        "visit" : encodeURIComponent(JSON.stringify(visit))
+      }
+    }) ; 
+
+    
+    const subs = this.interactionService.visitPayed.subscribe((data) => { 
+      var index = this.visits.findIndex( value => value.id == visit.id) ;
+      if (index >= 0 ) { 
+        this.visits.splice(index , 1) ; 
+      }
+      subs.unsubscribe() ; 
+    })
+
+    this.subscription.push(subs) ; 
+  }
+
+  public ngOnDestroy () { 
+    this.subscription.forEach(subs => { 
+      subs.unsubscribe() ; 
+    })
   }
 }

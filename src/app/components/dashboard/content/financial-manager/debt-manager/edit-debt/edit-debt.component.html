@@ -1,1 +1,19 @@
-<p>edit-debt works!</p>
+<div class="main-container">
+    <div class="content primary-radius">
+        <p class="into"> crédit de <span>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</span></p>
+        <div class="row">
+            <div class="col col-md-4">
+                Montant total <span class="hightlight">{{totalPrice}} DA</span>
+            </div>
+            <div class="col col-md-4">
+                Montant Payé <span class="hightlight">{{visit.payedMoney}} DA</span>
+
+            </div>
+            <div class="col col-md-4">
+                Crédit <span class="hightlight">{{visit.debt}} DA</span>
+            </div>
+        </div>
+        <button class="primary-button" (click)="edit()">Réglier le Crédit</button>
+        <div style="clear : both"></div>
+    </div>
+</div>
