@@ -160,6 +160,7 @@ import { MedicalFileDetailsComponent } from './components/dashboard/content/medi
 import { VirtualAssistantControllerComponent } from './components/dashboard/virtual-assistant-controller/virtual-assistant-controller.component';
 import { EditVisitComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/edit-visit/edit-visit.component';
 import { SuccessAndFailMessagesComponent } from './components/global/success-and-fail-messages/success-and-fail-messages.component';
+import { NextVisitComponent } from './components/global/next-visit/next-visit.component';
 
 
 @NgModule({
@@ -308,7 +309,8 @@ import { SuccessAndFailMessagesComponent } from './components/global/success-and
     MedicalFileDetailsComponent,
     VirtualAssistantControllerComponent,
     EditVisitComponent,
-    SuccessAndFailMessagesComponent
+    SuccessAndFailMessagesComponent,
+    NextVisitComponent
   ],
   imports: [
     BrowserModule,
