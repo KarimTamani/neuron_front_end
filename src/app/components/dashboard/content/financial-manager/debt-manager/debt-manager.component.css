@@ -23,6 +23,8 @@
 .visit-container {
     background: white;
     padding: 8px 12px;
+    cursor: pointer;
+    transition-duration: 0.3s
 }
 
 .visit-container span {
@@ -33,4 +35,8 @@
 
 .pagination-container {
     margin-top: 16px;
+}
+
+.visit-container:hover {
+    background: #eee;
 }

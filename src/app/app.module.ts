@@ -161,6 +161,7 @@ import { VirtualAssistantControllerComponent } from './components/dashboard/virt
 import { EditVisitComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visit-details/edit-visit/edit-visit.component';
 import { SuccessAndFailMessagesComponent } from './components/global/success-and-fail-messages/success-and-fail-messages.component';
 import { NextVisitComponent } from './components/global/next-visit/next-visit.component';
+import { EditDebtComponent } from './components/dashboard/content/financial-manager/debt-manager/edit-debt/edit-debt.component';
 
 
 @NgModule({
@@ -310,7 +311,8 @@ import { NextVisitComponent } from './components/global/next-visit/next-visit.co
     VirtualAssistantControllerComponent,
     EditVisitComponent,
     SuccessAndFailMessagesComponent,
-    NextVisitComponent
+    NextVisitComponent,
+    EditDebtComponent
   ],
   imports: [
     BrowserModule,

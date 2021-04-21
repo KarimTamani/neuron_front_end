@@ -32,7 +32,7 @@
         </span>
     </div>
     <div class="body  primary-radius">
-        <div class="visit-container" *ngFor="let visit of visits">
+        <div class="visit-container" (click)="editDebt(visit)" *ngFor="let visit of visits">
             <div class="stretch-container">
                 <span>{{visit.medicalFile.name}}</span>
                 <span>{{visit.medicalFile.lastname}}</span>

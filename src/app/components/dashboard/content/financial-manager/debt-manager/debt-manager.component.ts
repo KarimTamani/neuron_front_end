@@ -121,4 +121,8 @@ export class DebtManagerComponent implements OnInit {
       this.limit  
     ) ;
   }
+
+  public editDebt(visit) { 
+    console.log(visit) ; 
+  }
 }
