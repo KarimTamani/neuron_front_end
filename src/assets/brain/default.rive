@@ -9,7 +9,6 @@
 - "command": "waiting-room-report"
 
 
-
-+ * [la] prochaine visite 
++ * [la] (prochaine|prochain) visite 
 - "command": "get-next-visit"
 

@@ -89,6 +89,7 @@ export class VirtualAssistantControllerComponent implements OnInit {
           this.waitingHandler =  setTimeout(() => {
             this.isSpeaking = false;
             this.showYesNo = false ;
+            this.vaResponse = null ; 
           }, 5000)
         } else { 
           this.vaResponse = null ; 

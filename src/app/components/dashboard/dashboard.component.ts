@@ -94,13 +94,28 @@ export class DashboardComponent implements OnInit {
                 id 
                 arrivalTime 
                 status 
+                waitingRoomId 
+                medicalActs { 
+                  id price name 
+                }
                 medicalFile { 
-                  lastname name birthday phone email 
+                  lastname name birthday phone email gender 
                 }
               }
             }`
         }).pipe(map(value => (<any>value.data).getNextVisit)).subscribe((data) => { 
-          console.log(data)  ; 
+          if (data) { 
+              this.router.navigate([] , { 
+                queryParams : { 
+                  "pop-up-window" : true , 
+                  "window-page" : "next-visit" , 
+                  "title" : "la prochaine visite" , 
+                  "visit" : encodeURIComponent(JSON.stringify(data))
+                }
+              })
+          }else {
+             
+          }
         })
       }
     })

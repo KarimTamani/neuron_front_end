@@ -1,1 +1,31 @@
-<p>next-visit works!</p>
+<div class="main-container">
+    <div class="content primary-radius">
+        <div class="stretch-container">
+
+            <div class="image-side">
+                <img src="{{(visit.medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
+            </div>
+            <div class="info-side">
+                <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
+                <p>
+                    <i class="fa fa-calendar"></i> {{visit.medicalFile.birthday}}
+                    <span></span>
+                </p>
+                <p>
+                    <i class="fa fa-envelope"></i> {{(visit.medicalFile.email) ? (visit.medicalFile.email) : ("Inconnue")}}
+                </p>
+                <p>
+                    <i class="fa fa-phone"></i> {{(visit.medicalFile.phone) ? (visit.medicalFile.phone) : ("Inconnue")}}
+                </p>
+            </div>
+        </div>
+        <div class="footer stretch-container">
+            <div class="price center-v">
+                <p *ngIf="price > 0">Montant de la visite : <span>{{price}} DA</span> </p>
+            </div>
+            <div class="run">
+                <button class="primary-button" (click)="run()">Démare la visite <i class="fa fa-heartbeat"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,14 +28,15 @@ export class VirtualAssistantService {
     const handleCommand = this.handleCommands;
     const getComponents = this.getComponents;
 
-    this.bot.loadFile([
+    this.bot.loadFile([ 
+
       "../assets/brain/default.rive",
       "../assets/brain/prescription.rive",
       "../assets/brain/sidebar.rive",
       "../assets/brain/vitalSetting.rive",
       "../assets/brain/patientVisit.rive",
       "../assets/brain/search.rive" , 
-      "../assets/brain/medicalFile.rive"
+      "../assets/brain/medicalFile.rive", 
 
     ]).then(() => {
       // sort replies 
@@ -52,6 +53,7 @@ export class VirtualAssistantService {
         // add slaches to json data       
         reply = "{" + reply + "}";
         reply = reply.replace(/'/g, "\'");
+        console.log(reply) ; 
 
         this.handleCommands(JSON.parse(reply),
           this.onVACommand,
