@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
@@ -10,23 +10,24 @@ import { ActivatedRoute } from '@angular/router';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 import { ALWAYS, YesNoVAResponse } from 'src/app/classes/VAResponse';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-waiting-room',
   templateUrl: './waiting-room.component.html',
   styleUrls: ['./waiting-room.component.css']
 })
-export class WaitingRoomComponent implements OnInit {
+export class WaitingRoomComponent implements OnInit, OnDestroy {
 
   public currentMonth: number;
   public currentYear: number;
   public currentDay: number;
   public currentDate: string;
-
+  public subscriptions : Subscription[] = [] ; 
   public waitingRoom: WaitingRoom;
   public updateSubject: Subject<any>;
-
   public fromVa: boolean = false;
+
   constructor(
     private apollo: Apollo,
     public dataService: DataService,
@@ -57,13 +58,13 @@ export class WaitingRoomComponent implements OnInit {
       this.loadWaitingRoom(false, true);
     })
 
-    this.interactionService.newVisitAdded.subscribe(() => {
+    this.subscriptions.push(this.interactionService.newVisitAdded.subscribe(() => {
       this.waitingRoom = null;
       this.loadWaitingRoom();
       this.interactionService.updateReport.next();
-    });
+    }));
 
-    this.virtualAssistantService.onVACommand.subscribe((data) => {
+    this.subscriptions.push(this.virtualAssistantService.onVACommand.subscribe((data) => {
 
       if (data.command && data.command == "waiting-room-report") {
 
@@ -88,7 +89,7 @@ export class WaitingRoomComponent implements OnInit {
           yesNo : false 
         })
       }
-    })
+    }))
   }
   private loadWaitingRoom(update: boolean = false, first: boolean = false) {
     this.apollo.query({
@@ -187,4 +188,9 @@ export class WaitingRoomComponent implements OnInit {
 
   }
 
+  public ngOnDestroy() { 
+    this.subscriptions.forEach((subs) => { 
+      subs.unsubscribe() ; 
+    })
+  }
 }

@@ -7,6 +7,7 @@ import { map } from "rxjs/operators";
 import { Message } from 'src/app/classes/Message';
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,8 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router, 
     private apollo: Apollo , 
-    private interactionService : InteractionService
+    private interactionService : InteractionService, 
+    private virtualAssistantService : VirtualAssistantService
     ) { }
 
   ngOnInit(): void {
@@ -81,7 +83,26 @@ export class DashboardComponent implements OnInit {
     this.interactionService.showMessage.subscribe((data) => {
       this.message = data ; 
       this.showMessage = true ; 
+    })
 
+    this.virtualAssistantService.onVACommand.subscribe((data) => { 
+      if ( data.command == "get-next-visit") { 
+        this.apollo.query({
+          query : gql`
+            {
+              getNextVisit{
+                id 
+                arrivalTime 
+                status 
+                medicalFile { 
+                  lastname name birthday phone email 
+                }
+              }
+            }`
+        }).pipe(map(value => (<any>value.data).getNextVisit)).subscribe((data) => { 
+          console.log(data)  ; 
+        })
+      }
     })
 
   }

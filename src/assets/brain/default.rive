@@ -7,3 +7,9 @@
 
 + résumé sur la salle d'attente 
 - "command": "waiting-room-report"
+
+
+
++ * [la] prochaine visite 
+- "command": "get-next-visit"
+
