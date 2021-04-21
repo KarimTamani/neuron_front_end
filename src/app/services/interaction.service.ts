@@ -45,6 +45,8 @@ export class InteractionService {
   public medicalFileDeleted: Subject<MedicalFile>;
   public openEditVisitWindow : Subject<Visit> ; 
   public showMessage : Subject<Message> ; 
+  public visitDone : Subject<Visit> ; 
+
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
@@ -72,5 +74,6 @@ export class InteractionService {
     this.medicalFileDeleted = new Subject<MedicalFile>() ; 
     this.openEditVisitWindow = new Subject<Visit>() ; 
     this.showMessage = new Subject<Message>() ; 
+    this.visitDone = new Subject<Visit>() ; 
   }
 }

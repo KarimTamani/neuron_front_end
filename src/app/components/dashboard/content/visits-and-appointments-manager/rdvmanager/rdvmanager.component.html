@@ -29,7 +29,7 @@
         </span>
     </div>
     <div class="body primary-radius">
-        <div class="appointment-row" *ngFor="let appointment of appointments">
+        <div class="appointment-row" (click)="editAppointment(appointment)" *ngFor="let appointment of appointments">
             <div class="stretch-container">
                 <span>{{appointment.visit.medicalFile.name}}</span>
                 <span>{{appointment.visit.medicalFile.lastname}}</span>

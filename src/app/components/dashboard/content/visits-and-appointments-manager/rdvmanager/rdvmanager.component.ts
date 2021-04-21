@@ -1,9 +1,12 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Appointment } from 'src/app/classes/Appointment';
 import { DataService } from 'src/app/services/data.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
@@ -11,7 +14,7 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
   templateUrl: './rdvmanager.component.html',
   styleUrls: ['./rdvmanager.component.css']
 })
-export class RDVManagerComponent implements OnInit {
+export class RDVManagerComponent implements OnInit, OnDestroy {
   public offset: number = 0;
   public limit: number = 20;
 
@@ -20,16 +23,21 @@ export class RDVManagerComponent implements OnInit {
 
   public startDate: string;
   public lastSearch: any = {};
+
+
+  public subscription : Subscription[] = [] ; 
   constructor(
     private apollo: Apollo,
     private dataService: DataService,
     private virtualAssistantService: VirtualAssistantService,
-    private zone: NgZone) { }
+    private interactionService : InteractionService , 
+    private zone: NgZone, 
+    private router : Router) { }
 
   ngOnInit(): void {
     this.virtualAssistantService.onVACommand.subscribe((data) => {
       if (data.component == "VISITS-AND-APPOINTMENTS-MANAGER") {
-        console.log(data) ; 
+
         if (data.query && data.query.trim().length > 0) {
           this.zone.run(() => {
 
@@ -77,6 +85,7 @@ export class RDVManagerComponent implements OnInit {
             rows {
               id date time 
                 visit {
+                  id 
                   createdAt , 
                   medicalFile {
                     id name lastname birthday phone email
@@ -122,5 +131,48 @@ export class RDVManagerComponent implements OnInit {
       this.offset,
       this.limit
     );
+  }
+  public editAppointment(appointment) { 
+    var visit = JSON.parse(JSON.stringify(appointment.visit)); 
+    visit.appointment = appointment ; 
+
+    this.router.navigate([] , {
+      queryParams : { 
+        "pop-up-window" : true , 
+        "title" : "Modifer le Rendez-vous" , 
+        "window-page" : "visit-appointment" , 
+        "visit" : encodeURIComponent(JSON.stringify(visit))
+      }
+    })
+    const subs =  this.interactionService.newAppointmentAdded.subscribe((app) => { 
+      appointment.date = app.date ; 
+      appointment.time = app.time ; 
+
+      this.apollo.mutate({
+        mutation: gql`
+          mutation ADD_APPOINTMENT($appointment : AppointmentInput){ 
+            addAppointment(appointment : $appointment) { 
+              id date time 
+            }
+          }
+        ` , variables: {
+          appointment: {
+            visitId: visit.id,
+            date: appointment.date,
+            time: (appointment.time) ? (appointment.time) : (null)
+          }
+        }
+      }).pipe(map(value => (<any>value.data).addAppointment)).subscribe(() => { 
+
+      })
+  
+    })  ; 
+    this.subscription.push(subs) ; 
+  }
+
+  public ngOnDestroy() { 
+    this.subscription.forEach(subs => { 
+      subs.unsubscribe() ; 
+    }) 
   }
 }

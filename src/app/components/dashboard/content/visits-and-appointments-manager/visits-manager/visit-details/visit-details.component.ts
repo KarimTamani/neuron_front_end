@@ -14,28 +14,29 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class VisitDetailsComponent implements OnInit {
   @Input() visitId: number;
-  @Output() closeEvent : EventEmitter<null> ; 
+  @Output() closeEvent: EventEmitter<null>;
   public visit: Visit;
   public totalPrice: number = 0;
   public moreDetails: boolean = false;
+  public noEdit: boolean = false;
 
   constructor(
-    private route: ActivatedRoute, 
-    private apollo: Apollo , 
-    private router : Router , 
-    private intervationService : InteractionService) {
-    this.closeEvent = new EventEmitter<null>() ; 
+    private route: ActivatedRoute,
+    private apollo: Apollo,
+    private router: Router,
+    private intervationService: InteractionService) {
+    this.closeEvent = new EventEmitter<null>();
 
   }
 
   ngOnInit(): void {
 
-    this.route.queryParams.subscribe((params) => { 
-      
-      if (params["more-details"] != null) 
-        this.moreDetails = JSON.parse(params["more-details"]) ;
-      else 
-        this.moreDetails  = false ; 
+    this.route.queryParams.subscribe((params) => {
+
+      if (params["more-details"] != null)
+        this.moreDetails = JSON.parse(params["more-details"]);
+      else
+        this.moreDetails = false;
     })
 
     var params = this.route.snapshot.queryParams;
@@ -117,13 +118,16 @@ export class VisitDetailsComponent implements OnInit {
           }`
     }).pipe(map(value => (<any>value.data).getVisit)).subscribe((data) => {
 
-      this.visit = data; 
+      this.visit = data;
 
       if (this.visit.medicalActs)
         this.visit.medicalActs.forEach(act => {
           this.totalPrice += act.price;
         })
 
+      if (params["no-edit"] && this.visit.status == "in visit") {
+        this.noEdit = true;
+      }
     })
   }
 
@@ -139,97 +143,98 @@ export class VisitDetailsComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).visitDone)).subscribe((data) => {
       this.visit.endTime = data.endTime;
       this.visit.status = data.status;
+      this.intervationService.visitDone.next();
+      if (this.noEdit == true)
+        this.noEdit = false;
+
     })
 
   }
 
-  public visitPaye() {  
-    this.router.navigate([] , {
-      queryParams : { 
-        "pop-up-window" : true , 
-        "window-page" : "paye-visit" , 
-        "title" : "Payé la visite" , 
-        "referer" : this.router.url , 
-        "visit" : encodeURIComponent(JSON.stringify(this.visit)) 
-      } 
-    }); 
-    const subs = this.intervationService.visitPayed.subscribe((data) => { 
-      this.visit =  data ; 
-      subs.unsubscribe() ; 
+  public visitPaye() {
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "paye-visit",
+        "title": "Payé la visite",
+        "referer": this.router.url,
+        "visit": encodeURIComponent(JSON.stringify(this.visit))
+      }
+    });
+    const subs = this.intervationService.visitPayed.subscribe((data) => {
+      this.visit = data;
+      subs.unsubscribe();
     })
   }
 
   public editPayment() {
-    this.router.navigate([] , {
-      queryParams : { 
-        "pop-up-window" : true , 
-        "window-page" : "paye-visit" , 
-        "title" : "Payé la visite" , 
-        "referer" : this.router.url , 
-        "visit" : encodeURIComponent(JSON.stringify(this.visit)) 
-      } 
-    }); 
-    const subs = this.intervationService.visitPayed.subscribe((data) => { 
-      this.visit =  data ; 
-      console.log(this.visit) ; 
-      subs.unsubscribe() ; 
-    })
-  }; 
-
-  public openMoreDetails() { 
-    
- 
-    this.router.navigate([] , { 
-      queryParams : {
-
-        "pop-up-window" : true , 
-        "window-page" : "visit-details" , 
-        "title" : "Visite en details" , 
-        "referer" : this.router.url , 
-        "visit-id" : this.visit.id , 
-        "more-details" : true 
-      } 
-    })
-  }
-
-  public back() { 
-    var params = this.route.snapshot.queryParams ; 
-    var referer =  params["referer"] ; 
-    this.router.navigateByUrl(referer) ;  
-    
-  }
-
-  public delete() { 
-    this.router.navigate([] , { 
-      queryParams : {
-        "pop-up-window" : true , 
-        "window-page" : "yes-no-message" ,
-        "title" : "Suprission" , 
-        "message" : "Voulais vous vraiment suprimer la visite de : " + this.visit.medicalFile.name + " " + this.visit.medicalFile.lastname , 
-        "referer" : this.router.url 
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "paye-visit",
+        "title": "Payé la visite",
+        "referer": this.router.url,
+        "visit": encodeURIComponent(JSON.stringify(this.visit))
       }
-    }) ; 
-    const subs = this.intervationService.yesOrNo.subscribe((response) => { 
-      if (response === true) { 
+    });
+    const subs = this.intervationService.visitPayed.subscribe((data) => {
+      this.visit = data;
+      subs.unsubscribe();
+    })
+  };
+
+  public openMoreDetails() {
+
+
+    this.router.navigate([], {
+      queryParams: {
+
+        "pop-up-window": true,
+        "window-page": "visit-details",
+        "title": "Visite en details",
+        "referer": this.router.url,
+        "visit-id": this.visit.id,
+        "more-details": true
+      }
+    })
+  }
+
+  public back() {
+    var params = this.route.snapshot.queryParams;
+    var referer = params["referer"];
+    this.router.navigateByUrl(referer);
+
+  }
+
+  public delete() {
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "yes-no-message",
+        "title": "Suprission",
+        "message": "Voulais vous vraiment suprimer la visite de : " + this.visit.medicalFile.name + " " + this.visit.medicalFile.lastname,
+        "referer": this.router.url
+      }
+    });
+    const subs = this.intervationService.yesOrNo.subscribe((response) => {
+      if (response === true) {
         this.apollo.mutate({
-          mutation : gql`
+          mutation: gql`
             mutation { 
               removeVisit(visitId : ${this.visit.id})  
             }`
-        }).pipe(map(value => (<any>value.data).removeVisit)).subscribe((data) => { 
-          this.intervationService.visitDeleted.next(this.visit) ; 
-          this.closeEvent.emit() ;  
+        }).pipe(map(value => (<any>value.data).removeVisit)).subscribe((data) => {
+          this.intervationService.visitDeleted.next(this.visit);
+          this.closeEvent.emit();
 
-        }); 
-      } 
-      subs.unsubscribe() ; 
+        });
+      }
+      subs.unsubscribe();
     })
   }
 
-  public edit() { 
-    this.router.navigate([]) ; 
-
-    this.intervationService.openEditVisitWindow.next(this.visit) ; 
-    
+  public edit() {
+    this.router.navigate([]);
+    this.intervationService.openEditVisitWindow.next(this.visit);
   }
 }

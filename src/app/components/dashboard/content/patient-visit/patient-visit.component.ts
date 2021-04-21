@@ -175,6 +175,12 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       this.isEdited = true;
     }))
 
+
+    this.subscriptions.push(this.interactionService.visitDone.subscribe((data) => {
+      this.visit = new Visit();
+      this.initVisit();
+    }))
+
   }
 
   private initVisit() {
@@ -232,15 +238,25 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         }) : (null),
         status: "in visit"
       }
-    }).pipe(map(value => (<any>value.data).addVisit)).subscribe((data) => {
+    }).pipe(map(value => (<any>value.data).addVisit)).subscribe( async (data) => {
       this.visit.id = data.id;
       this.visit.status = data.status;
       this.visit.createdAt = data.createdAt;
 
-      this.submitVisitDrugDosages();
-      this.submitVisitCheckUps();
-      this.submitCertificats();
-      this.submitAppointment();
+      await this.submitVisitDrugDosages();
+      await this.submitVisitCheckUps();
+      await this.submitCertificats();
+      await this.submitAppointment();
+
+      this.router.navigate([] , { 
+        queryParams : { 
+          "pop-up-window": true , 
+          "window-page" : "visit-details" , 
+          "title" : "Visiste en details" , 
+          "visit-id" : this.visit.id,
+          "no-edit" : true 
+        }
+      })
     })
   }
 
@@ -269,22 +285,33 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
           name: this.visit.condition.name
         }) : (null)
       }
-    }).subscribe((data) => {
+    }).subscribe(async (data) => {
       if (!this.isEdit)
         this.visit.status = "in visit";
 
-      this.submitVisitDrugDosages();
-      this.submitVisitCheckUps();
-      this.submitCertificats();
-      this.submitAppointment();
+      await this.submitVisitDrugDosages();
+      await this.submitVisitCheckUps();
+      await this.submitCertificats();
+      await this.submitAppointment();
+      
+      console.log(this.visit) ; 
+      this.router.navigate([] , { 
+        queryParams : { 
+          "pop-up-window": true , 
+          "window-page" : "visit-details" , 
+          "title" : "Visiste en details" , 
+          "visit-id" : this.visit.id , 
+          "no-edit" : true 
+        }
+      })
 
     })
 
   }
 
-  private submitVisitDrugDosages() {
+  private async submitVisitDrugDosages() {
     if (this.visit.visitDrugDosages.length > 0) {
-      this.apollo.mutate({
+      var data = await this.apollo.mutate({
         mutation: gql`
     mutation ADD_VISIT_DRUG_DOSAGES($visitId : ID! , $visitDrugDosages : [VisitDrugDosageInput!]! ){ 
       addVisitDrugDosages(visitId : $visitId , visitDrugDosages : $visitDrugDosages) { 
@@ -314,17 +341,16 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
             }
           })
         }
-      }).pipe(map(value => (<any>value.data).addVisitDrugDosages)).subscribe((data) => {
-        this.visit.visitDrugDosages = data;
-      })
+      }).pipe(map(value => (<any>value.data).addVisitDrugDosages)).toPromise()
+      this.visit.visitDrugDosages = data;
     }
   }
 
 
 
-  private submitVisitCheckUps() {
+  private async submitVisitCheckUps() {
     if (this.visit.checkUps.length > 0 && this.visit.id) {
-      this.apollo.mutate({
+      var data = await this.apollo.mutate({
         mutation: gql`
           mutation ADD_VISIT_CHECKUPS($visitId : ID! , $checkUps : [ID!]!) { 
             addVisitCheckUps(visitId : $visitId, checkUps : $checkUps ) { 
@@ -335,17 +361,15 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
           visitId: this.visit.id,
           checkUps: this.visit.checkUps.map(value => value.id)
         }
-      }).pipe(map(value => (<any>value.data).addVisitCheckUps)).subscribe(() => {
-
-      })
+      }).pipe(map(value => (<any>value.data).addVisitCheckUps)).toPromise() 
     }
   }
 
 
 
-  private submitCertificats() {
+  private async submitCertificats() {
     if (this.visit.certificats.length > 0 && this.visit.id) {
-      this.apollo.mutate({
+      await this.apollo.mutate({
         mutation: gql`
           mutation ADD_VISIT_CERTIFICATS ($visitId:ID! , $certificats : [CertificatInput!]!) { 
             addVisitCertificats(visitId : $visitId , certificats : $certificats) { 
@@ -361,16 +385,14 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
             }
           })
         }
-      }).pipe(map(value => (<any>value.data).addVisitCertificats)).subscribe((data) => {
-
-      })
+      }).pipe(map(value => (<any>value.data).addVisitCertificats)).toPromise() 
     }
   }
 
 
-  private submitAppointment() {
+  private async submitAppointment() {
     if (this.visit.appointment && this.visit.id) {
-      this.apollo.mutate({
+      await this.apollo.mutate({
         mutation: gql`
           mutation ADD_APPOINTMENT($appointment : AppointmentInput){ 
             addAppointment(appointment : $appointment) { 
@@ -384,9 +406,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
             time: (this.visit.appointment.time) ? (this.visit.appointment.time) : (null)
           }
         }
-      }).pipe(map(value => (<any>value.data).addAppointment)).subscribe((data) => {
-
-      })
+      }).pipe(map(value => (<any>value.data).addAppointment)).toPromise()
     }
   }
 

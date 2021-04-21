@@ -185,7 +185,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-md-6 controller">
+            <div class="col col-md-6 controller" *ngIf="!noEdit">
                 <div class="row">
                     <div class="col col-md-6">
                         <button class="primary-button" (click)="edit()">Modifer La visite <i class="fa fa-edit"></i></button>

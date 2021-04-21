@@ -23,6 +23,12 @@
 .appointment-row {
     background: white;
     padding: 8px 12px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.appointment-row:hover {
+    background: #eee;
 }
 
 .appointment-row span {
