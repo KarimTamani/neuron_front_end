@@ -28,8 +28,8 @@ export class EditDebtComponent implements OnInit {
     var params = this.route.snapshot.queryParams;
     if (params["visit"])
       this.visit = JSON.parse(decodeURIComponent(params["visit"]));
-
-    this.visit.medicalActs.forEach(act => this.totalPrice = act.price);
+    
+    this.visit.medicalActs.forEach(act => this.totalPrice += act.price);
   }
 
 

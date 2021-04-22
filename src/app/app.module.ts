@@ -162,6 +162,7 @@ import { EditVisitComponent } from './components/dashboard/content/visits-and-ap
 import { SuccessAndFailMessagesComponent } from './components/global/success-and-fail-messages/success-and-fail-messages.component';
 import { NextVisitComponent } from './components/global/next-visit/next-visit.component';
 import { EditDebtComponent } from './components/dashboard/content/financial-manager/debt-manager/edit-debt/edit-debt.component';
+import { DocumentDetailsComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/document-details/document-details.component';
 
 
 @NgModule({
@@ -312,7 +313,8 @@ import { EditDebtComponent } from './components/dashboard/content/financial-mana
     EditVisitComponent,
     SuccessAndFailMessagesComponent,
     NextVisitComponent,
-    EditDebtComponent
+    EditDebtComponent,
+    DocumentDetailsComponent
   ],
   imports: [
     BrowserModule,
