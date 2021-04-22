@@ -1,1 +1,29 @@
-<p>document-details works!</p>
+<div class="main-container">
+    <div class="content primary-radius">
+        <div class="stretch-container">
+            <div class="image-side">
+                <img [src]="document.path">
+            </div>
+            <div class="info-side">
+                <app-document-info [document]="document"></app-document-info>
+                <div class="info">
+                    <h5>{{document.name}}</h5>
+                    <label>Description</label>
+                    <p *ngIf="document.description">{{document.description}}</p>
+                    <p *ngIf="!document.description">Aucun description pour ce document</p>
+
+                </div>
+                <div class="row controller">
+                    <div class="col col-md-6">
+                        <button class="primary-button" (click)="edit()">Modifier <i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="col col-md-6">
+                        <button class="primary-button delete" (click)="delete()">Suprimer <i class="fa fa-trash"></i></button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

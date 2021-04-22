@@ -46,6 +46,7 @@ export class InteractionService {
   public openEditVisitWindow : Subject<Visit> ; 
   public showMessage : Subject<Message> ; 
   public visitDone : Subject<Visit> ; 
+  public documentDeleted : Subject<Document> ; 
 
   
 
@@ -77,5 +78,7 @@ export class InteractionService {
     this.openEditVisitWindow = new Subject<Visit>() ; 
     this.showMessage = new Subject<Message>() ; 
     this.visitDone = new Subject<Visit>() ; 
+    this.documentDeleted = new Subject<Document>() ; 
+    
   }
 }

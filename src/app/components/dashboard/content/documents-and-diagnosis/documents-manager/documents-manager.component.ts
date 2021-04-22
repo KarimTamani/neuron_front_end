@@ -1,22 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Document } from 'src/app/classes/Document';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-documents-manager',
   templateUrl: './documents-manager.component.html',
   styleUrls: ['./documents-manager.component.css']
 })
-export class DocumentsManagerComponent implements OnInit {
+export class DocumentsManagerComponent implements OnInit, OnDestroy{
   public offset: number = 0;
   public limit: number = 10;
   public lastSearch: any = {};
   public count: number = 0;
   public documents: Document[] = [];
-
-  constructor(private apollo: Apollo) { }
+  public subscriptions : Subscription[] = [] ; 
+  constructor(
+    private apollo: Apollo,
+    private router: Router,
+    private interactionService: InteractionService
+  ) { }
 
   ngOnInit(): void {
     this.loadDocuments(null, null, null);
@@ -35,6 +42,7 @@ export class DocumentsManagerComponent implements OnInit {
             limit : $limit 
           ) { 
             rows {
+              id 
               path
               createdAt
               updatedAt
@@ -55,11 +63,23 @@ export class DocumentsManagerComponent implements OnInit {
         limit: this.limit
       }
     }).pipe(map(value => (<any>value.data).searchDocuments)).subscribe((data) => {
-      this.documents = data.rows;
-      console.log(this.documents);
+      this.documents = data.rows; 
       this.count = data.count;
-    })
-  }
+    }); 
+
+    this.subscriptions.push(this.interactionService.documentDeleted.subscribe((data) => { 
+      var index = this.documents.findIndex(value => value.id == data.id) ; 
+      if (index >= 0) 
+        this.documents.splice(index , 1 ) ; 
+    }) ) ; 
+
+    this.subscriptions.push( this.interactionService.documentEdit.subscribe((data) => { 
+      var index = this.documents.findIndex(value => value.id == data.id) ; 
+      if (index >= 0) { 
+        this.documents[index].name = data.name ; 
+        this.documents[index].description = data.description ; 
+      }
+    })) ;   }
 
 
   search($event) {
@@ -78,6 +98,22 @@ export class DocumentsManagerComponent implements OnInit {
       this.lastSearch.startDate,
       this.lastSearch.ednDate
     )
+  }
+
+
+  public selectDocument(document) {
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "document-details",
+        "title": "Details du document",
+        "document": encodeURIComponent(JSON.stringify(document))
+      }
+    }) ; 
+  }
+
+  public ngOnDestroy() { 
+    this.subscriptions.forEach(subs => subs.unsubscribe()) ; 
   }
 
 }

@@ -7,7 +7,7 @@
 
             <div class="col col-md-3" *ngFor="let document of documents">
                 <div class="document-container">
-                    <app-document [patientInfo]="true" [document]="document"></app-document>
+                    <app-document (clickEvent)="selectDocument(document)" [patientInfo]="true" [document]="document"></app-document>
                 </div>
             </div>
 

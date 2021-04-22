@@ -1,0 +1,65 @@
+.main-container {
+    padding: 16px;
+}
+
+.content {
+    background: white;
+    padding: 16px;
+}
+
+.image-side {
+    max-width: 640px;
+    min-width: 640px;
+    position: relative;
+    height: 560px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.info-side {
+    max-width: 360px;
+    min-width: 360px;
+    margin-left: 16px;
+}
+
+.info {
+    padding-left: 16px;
+}
+
+.info h5 {
+    font-weight: bold;
+    color: #212121;
+}
+
+.info label {
+    font-size: 12px;
+}
+
+.info p {
+    font-size: 12px;
+    height: 400px;
+    max-height: 400px;
+    overflow: auto;
+    color: #555;
+}
+
+.image-side img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 20px;
+}
+
+.delete {
+    float: right;
+    background: rgb(254, 101, 85);
+}
+
+.controller button {
+    width: 100%;
+}
+
+.controller {
+    padding-left: 16px;
+}
