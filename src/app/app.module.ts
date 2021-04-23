@@ -165,6 +165,7 @@ import { EditDebtComponent } from './components/dashboard/content/financial-mana
 import { DocumentDetailsComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/document-details/document-details.component';
 import { PrescriptionManagerComponent } from './components/dashboard/content/prescription-manager/prescription-manager.component';
 import { PrescriptionModelsComponent } from './components/dashboard/content/prescription-manager/prescription-models/prescription-models.component';
+import { CheckUpsModelsComponent } from './components/dashboard/content/prescription-manager/check-ups-models/check-ups-models.component';
 
 
 @NgModule({
@@ -318,7 +319,8 @@ import { PrescriptionModelsComponent } from './components/dashboard/content/pres
     EditDebtComponent,
     DocumentDetailsComponent,
     PrescriptionManagerComponent,
-    PrescriptionModelsComponent
+    PrescriptionModelsComponent,
+    CheckUpsModelsComponent
   ],
   imports: [
     BrowserModule,
