@@ -1,1 +1,19 @@
-<p>prescription-manager works!</p>
+<div class="main-container">
+    <app-header></app-header>
+    <div class="body">
+        <div class="inner-navigation row">
+            <a [class.selected]="selectedOption == 'visits'" routerLink="visits">
+                <i class="fa fa-prescription-bottle-alt"></i>
+                <span>Ordonnance</span>
+            </a>
+            <a [class.selected]="selectedOption == 'appointments'" routerLink="appointments">
+                <i class="fa fa-vials"></i> <span>Bilan</span>
+            </a>
+
+            <a [class.selected]="selectedOption == 'appointments'" routerLink="appointments">
+                <i class="fa fa-envelope-open-text"></i> <span>Certificats</span>
+            </a>
+        </div>
+
+    </div>
+</div>
