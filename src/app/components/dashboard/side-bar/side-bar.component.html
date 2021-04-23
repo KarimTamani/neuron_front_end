@@ -54,6 +54,13 @@
                 </a>
             </li>
 
+            <li [class.active]="activatedRouter == 10">
+                <a routerLink="/dashboard/prescription-manager">
+                    <i class="fa fa-file-medical-alt"></i>
+                    <span>Gestion des prescriptions</span>
+                </a>
+            </li>
+
             <li [class.active]="activatedRouter == 7">
                 <a routerLink="/dashboard/financial-manager/expenses">
                     <i class="fa fa-coins"></i>

@@ -52,6 +52,10 @@ export class SideBarComponent implements OnInit {
       this.activatedRouter = 7;
     else if (url.includes("analytics"))
       this.activatedRouter = 8;
+    else if (url.includes("documents-and-diagnosis"))
+      this.activatedRouter = 9;
+    else if (url.includes("prescription-manager"))
+      this.activatedRouter = 10;
   }
   activeSideBar() {
     this.isActive = !this.isActive;
@@ -69,12 +73,12 @@ export class SideBarComponent implements OnInit {
         this.router.navigate(['/dashboard/general'])
 
       else if (page.includes("salle d'attente")) {
-        this.router.navigate(["/dashboard/waiting-room"], { 
-          queryParams : { 
-            "from-va" : true 
+        this.router.navigate(["/dashboard/waiting-room"], {
+          queryParams: {
+            "from-va": true
           }
         })
-        
+
       }
       else if (page.includes("profil"))
         this.router.navigate(["/dashboard/profil"])

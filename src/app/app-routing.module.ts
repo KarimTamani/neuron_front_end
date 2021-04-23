@@ -20,6 +20,7 @@ import { DebtManagerComponent } from './components/dashboard/content/financial-m
 import { DocumentsAndDiagnosisComponent } from './components/dashboard/content/documents-and-diagnosis/documents-and-diagnosis.component';
 import { DocumentsManagerComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/documents-manager.component';
 import { DiagnosisManagerComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-manager.component';
+import { PrescriptionManagerComponent } from './components/dashboard/content/prescription-manager/prescription-manager.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,8 @@ const routes: Routes = [
             path : "diagnosis" , component : DiagnosisManagerComponent
           }
         ]
+      }, { 
+        path : "prescription-manager" , component : PrescriptionManagerComponent
       }
     ]
   },

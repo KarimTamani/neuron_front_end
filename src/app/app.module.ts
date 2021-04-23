@@ -163,6 +163,7 @@ import { SuccessAndFailMessagesComponent } from './components/global/success-and
 import { NextVisitComponent } from './components/global/next-visit/next-visit.component';
 import { EditDebtComponent } from './components/dashboard/content/financial-manager/debt-manager/edit-debt/edit-debt.component';
 import { DocumentDetailsComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/document-details/document-details.component';
+import { PrescriptionManagerComponent } from './components/dashboard/content/prescription-manager/prescription-manager.component';
 
 
 @NgModule({
@@ -314,7 +315,8 @@ import { DocumentDetailsComponent } from './components/dashboard/content/documen
     SuccessAndFailMessagesComponent,
     NextVisitComponent,
     EditDebtComponent,
-    DocumentDetailsComponent
+    DocumentDetailsComponent,
+    PrescriptionManagerComponent
   ],
   imports: [
     BrowserModule,
