@@ -14,13 +14,16 @@ import { ExpensesManagerComponent } from './components/dashboard/content/financi
 import { AnalyticsComponent } from './components/dashboard/content/analytics/analytics.component';
 import { VisitsAndAppointmentsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-and-appointments-manager.component';
 import { FinancialManagerComponent } from './components/dashboard/content/financial-manager/financial-manager.component';
-import { AppointmentsManagerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-manager.component';
 import { RDVManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/rdvmanager/rdvmanager.component';
 import { DebtManagerComponent } from './components/dashboard/content/financial-manager/debt-manager/debt-manager.component';
 import { DocumentsAndDiagnosisComponent } from './components/dashboard/content/documents-and-diagnosis/documents-and-diagnosis.component';
 import { DocumentsManagerComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/documents-manager.component';
 import { DiagnosisManagerComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-manager.component';
 import { PrescriptionManagerComponent } from './components/dashboard/content/prescription-manager/prescription-manager.component';
+import { CheckUpsModelsComponent } from './components/dashboard/content/prescription-manager/check-ups-models/check-ups-models.component';
+import { CertificatModelsComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-models/certificat-models.component';
+import { DrugDosagesLibraryComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/drug-dosages-library.component';
+import { PrescriptionModelsComponent } from './components/dashboard/content/prescription-manager/prescription-models/prescription-models.component';
 
 const routes: Routes = [
   {
@@ -66,7 +69,15 @@ const routes: Routes = [
           }
         ]
       }, { 
-        path : "prescription-manager" , component : PrescriptionManagerComponent
+        path : "prescription-manager" , component : PrescriptionManagerComponent , children : [
+          { 
+            path : "prescriptions" , component : PrescriptionModelsComponent, 
+          } , { 
+            path : "check-ups" , component : CheckUpsModelsComponent 
+          }, { 
+            path : "certificats" , component : CertificatModelsComponent
+          }
+        ]
       }
     ]
   },

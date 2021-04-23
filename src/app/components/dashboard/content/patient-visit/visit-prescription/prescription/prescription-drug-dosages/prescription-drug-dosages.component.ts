@@ -10,8 +10,7 @@ export class PrescriptionDrugDosagesComponent implements OnInit {
   @Input() visit : Visit ; 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.visit.visitDrugDosages) ; 
+  ngOnInit(): void { 
   }
 
 }

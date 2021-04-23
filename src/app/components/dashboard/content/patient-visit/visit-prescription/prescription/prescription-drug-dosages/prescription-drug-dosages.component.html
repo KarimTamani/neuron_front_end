@@ -1,6 +1,6 @@
 <div class="main-container">
     <div class="patient-info">
-        <app-prescription-patient-info [visit]="visit"></app-prescription-patient-info>
+        <app-prescription-patient-info *ngIf="visit.medicalFile" [visit]="visit"></app-prescription-patient-info>
     </div>
     <div class="visit-drug-dosages">
         <div class="drug-dosage" *ngFor="let drugDosage of visit.visitDrugDosages">

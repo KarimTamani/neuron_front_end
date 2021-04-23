@@ -1,19 +1,25 @@
 <div class="main-container">
     <app-header></app-header>
-    <div class="body">
-        <div class="inner-navigation row">
-            <a [class.selected]="selectedOption == 'visits'" routerLink="visits">
-                <i class="fa fa-prescription-bottle-alt"></i>
-                <span>Ordonnance</span>
-            </a>
-            <a [class.selected]="selectedOption == 'appointments'" routerLink="appointments">
-                <i class="fa fa-vials"></i> <span>Bilan</span>
-            </a>
+    <div class="inner-navigation row">
+        <a [class.selected]="selectedOption == 'prescriptions'" routerLink="prescriptions">
+            <i class="fa fa-prescription-bottle-alt"></i>
+            <span>Ordonnance</span>
+        </a>
+        <a [class.selected]="selectedOption == 'check-ups'" routerLink="check-ups">
+            <i class="fa fa-vials"></i> <span>Bilan</span>
+        </a>
 
-            <a [class.selected]="selectedOption == 'appointments'" routerLink="appointments">
-                <i class="fa fa-envelope-open-text"></i> <span>Certificats</span>
-            </a>
+        <a [class.selected]="selectedOption == 'certificats'" routerLink="certificats">
+            <i class="fa fa-envelope-open-text"></i> <span>Certificats</span>
+        </a>
+    </div>
+    <div class="body stretch-container">
+        <div class="submitter primary-radius">
+            <router-outlet></router-outlet>
+
         </div>
-
+        <div class="prescription primary-radius">
+            <app-prescription [visit]="visit"></app-prescription>
+        </div>
     </div>
 </div>

@@ -164,9 +164,9 @@ import { NextVisitComponent } from './components/global/next-visit/next-visit.co
 import { EditDebtComponent } from './components/dashboard/content/financial-manager/debt-manager/edit-debt/edit-debt.component';
 import { DocumentDetailsComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/document-details/document-details.component';
 import { PrescriptionManagerComponent } from './components/dashboard/content/prescription-manager/prescription-manager.component';
-import { PrescriptionModelsComponent } from './components/dashboard/content/prescription-manager/prescription-models/prescription-models.component';
 import { CheckUpsModelsComponent } from './components/dashboard/content/prescription-manager/check-ups-models/check-ups-models.component';
 import { CertificatsModelsComponent } from './components/dashboard/content/prescription-manager/certificats-models/certificats-models.component';
+import { PrescriptionModelsComponent } from './components/dashboard/content/prescription-manager/prescription-models/prescription-models.component';
 
 
 @NgModule({
@@ -320,9 +320,9 @@ import { CertificatsModelsComponent } from './components/dashboard/content/presc
     EditDebtComponent,
     DocumentDetailsComponent,
     PrescriptionManagerComponent,
-    PrescriptionModelsComponent,
     CheckUpsModelsComponent,
-    CertificatsModelsComponent
+    CertificatsModelsComponent,
+    PrescriptionModelsComponent
   ],
   imports: [
     BrowserModule,
