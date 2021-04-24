@@ -14,6 +14,7 @@ import { SubjectSubscriber } from 'rxjs/internal/Subject';
 import { CertificatModel } from '../classes/CertificatModel';
 import { MedicalFile } from '../classes/MedicalFile';
 import { Message } from '../classes/Message';
+import { CheckUpType } from '../classes/CheckUpType';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,8 @@ export class InteractionService {
   public showMessage : Subject<Message> ; 
   public visitDone : Subject<Visit> ; 
   public documentDeleted : Subject<Document> ; 
+  public checkUpTypeCreated : Subject<CheckUpType>; 
+  public checkUpTypeEdited : Subject<CheckUpType> ; 
 
   
 
@@ -79,6 +82,10 @@ export class InteractionService {
     this.showMessage = new Subject<Message>() ; 
     this.visitDone = new Subject<Visit>() ; 
     this.documentDeleted = new Subject<Document>() ; 
+
+    this.checkUpTypeCreated = new Subject<CheckUpType>() ; 
+    this.checkUpTypeEdited = new Subject<CheckUpType>() ; 
+    
     
   }
 }

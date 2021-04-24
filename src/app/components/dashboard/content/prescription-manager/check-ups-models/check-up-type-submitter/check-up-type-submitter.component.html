@@ -1,1 +1,20 @@
-<p>check-up-type-submitter works!</p>
+<div class="main-container">
+    <div class="content primary-radius">
+        <form name="form" [formGroup]="form">
+            <div class="form-group">
+
+                <input type="text" class="primary-input" placeholder="Le type de bilan" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                    <div *ngIf="form.get('name').errors.required">le nom est requis</div>
+                    <div *ngIf="form.get('name').errors.minlength">au moins 3 caractères</div>
+                </div>
+            </div>
+
+            <div class="controller">
+                <button class="primary-button" (click)="add()" [disabled]="!form.valid">Ajouter <i class="fa fa-plus"></i></button>
+                <div style="clear : both"></div>
+            </div>
+        </form>
+
+    </div>
+</div>

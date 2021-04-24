@@ -1,0 +1,17 @@
+.main-container {
+    padding: 16px;
+    width: 360px;
+}
+
+.content {
+    background: white;
+    padding: 16px;
+}
+
+.controller button {
+    float: right;
+}
+
+.controller {
+    margin-top: 16px;
+}
