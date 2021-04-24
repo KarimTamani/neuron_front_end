@@ -167,6 +167,7 @@ import { PrescriptionManagerComponent } from './components/dashboard/content/pre
 import { CheckUpsModelsComponent } from './components/dashboard/content/prescription-manager/check-ups-models/check-ups-models.component';
 import { CertificatsModelsComponent } from './components/dashboard/content/prescription-manager/certificats-models/certificats-models.component';
 import { PrescriptionModelsComponent } from './components/dashboard/content/prescription-manager/prescription-models/prescription-models.component';
+import { CheckUpTypeSubmitterComponent } from './components/dashboard/content/prescription-manager/check-ups-models/check-up-type-submitter/check-up-type-submitter.component';
 
 
 @NgModule({
@@ -322,7 +323,8 @@ import { PrescriptionModelsComponent } from './components/dashboard/content/pres
     PrescriptionManagerComponent,
     CheckUpsModelsComponent,
     CertificatsModelsComponent,
-    PrescriptionModelsComponent
+    PrescriptionModelsComponent,
+    CheckUpTypeSubmitterComponent
   ],
   imports: [
     BrowserModule,

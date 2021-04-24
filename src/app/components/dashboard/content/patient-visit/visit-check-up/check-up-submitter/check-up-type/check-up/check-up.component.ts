@@ -17,10 +17,11 @@ export class CheckUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    const index = this.selectedCheckUps.findIndex((checkUp) => checkUp.id == this.checkUp.id);
-    if (index >= 0)
-      this.selected = true;
+    if (this.selectedCheckUps) {
+      const index = this.selectedCheckUps.findIndex((checkUp) => checkUp.id == this.checkUp.id);
+      if (index >= 0)
+        this.selected = true;
+    }
 
   }
 
@@ -30,8 +31,6 @@ export class CheckUpComponent implements OnInit {
     if (index >= 0) {
       this.selectedCheckUps.splice(index, 1);
     } else {
-      console.log(this.checkUp);
-
       this.selectedCheckUps.push(this.checkUp);
     }
     this.selected = !this.selected;
