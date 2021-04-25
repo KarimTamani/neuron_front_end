@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { throwServerError } from '@apollo/client/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CertificatModel } from 'src/app/classes/CertificatModel';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-certificats-models',
   templateUrl: './certificats-models.component.html',
   styleUrls: ['./certificats-models.component.css']
 })
-export class CertificatsModelsComponent implements OnInit {
+export class CertificatsModelsComponent implements OnInit, OnDestroy {
   public certificatModels: CertificatModel[] = [];
   public openModelSubmitter: boolean = false;
   public submittedModel: CertificatModel;
@@ -19,9 +21,10 @@ export class CertificatsModelsComponent implements OnInit {
     "Certificat",
     "Compte-Rendu"
   ];
-
+  public subscriptions: Subscription[] = [];
   public selectedType: string;
-  constructor(private apollo: Apollo) {
+
+  constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
     this.selectedType = this.certificatTypes[0];
   }
   ngOnInit(): void {
@@ -49,7 +52,7 @@ export class CertificatsModelsComponent implements OnInit {
 
   public back() {
     this.openModelSubmitter = false;
-    this.editMode = false ; 
+    this.editMode = false;
   }
 
   public save($event) {
@@ -64,21 +67,50 @@ export class CertificatsModelsComponent implements OnInit {
   }
 
   public delete($event) {
-  
-    
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "yes-no-message",
+        "title": "Supression du model de " + this.selectedType,
+        "message": "Vouslais vous vraiment suprimer " + $event.title
+      }
+    });
+
+    const subs = this.interactionService.yesOrNo.subscribe(response => {
+      if (response) { 
+        this.apollo.mutate({
+          mutation : gql`
+            mutation {
+              removeCertificatModel(certificatModelId : ${$event.id})
+            }`
+        }).pipe(map(value =>(<any>value.data).removeCertificatModel)).subscribe((data) => { 
+          var index = this.certificatModels.findIndex(value => value.id == $event.id)
+          if (index >= 0) { 
+            this.certificatModels.splice(index , 1) ; 
+          }
+        })
+      }
+      subs.unsubscribe();
+    });
+
+    this.subscriptions.push(subs);
+
   }
 
-  public edit($event) { 
+  public edit($event) {
     this.submittedModel.title = $event.title;
     this.submittedModel.html = $event.html;
     if (this.selectedType == this.certificatTypes[0])
       this.submittedModel = this.certificatModels[1];
     else
-      this.submittedModel = this.certificatModels[0]; 
-    
-    this.editMode = false ; 
-    this.openModelSubmitter = false; 
+      this.submittedModel = this.certificatModels[0];
 
-
+    this.editMode = false;
+    this.openModelSubmitter = false;
   }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe()) ; 
+  }
+
 }
