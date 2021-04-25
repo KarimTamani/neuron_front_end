@@ -57,3 +57,7 @@ h5 i:hover {
     background: rgb(38, 94, 215);
     color: white;
 }
+
+.form-group {
+    position: relative;
+}

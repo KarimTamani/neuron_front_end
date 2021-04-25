@@ -1,0 +1,44 @@
+.main-container {
+    padding: 16px;
+}
+
+.header h5 {
+    font-weight: bold;
+    color: #212121;
+    width: 100%;
+}
+
+.header select {
+    max-width: 180px;
+    min-width: 180px;
+}
+
+.certificats-list {
+    margin-top: 16px;
+    max-height: 560px;
+    height: 560px;
+}
+
+.model:hover {
+    background: #eeee;
+}
+
+.model {
+    margin: 8px 0px;
+    color: #555;
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.footer button {
+    max-width: 160px;
+    min-width: 160px;
+    margin-left: 16px;
+}
+
+.footer p {
+    color: #555;
+}

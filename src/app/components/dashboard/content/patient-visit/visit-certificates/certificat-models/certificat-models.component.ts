@@ -32,7 +32,7 @@ export class CertificatModelsComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).getCertificatModels)).subscribe((data) => {
       this.certificatModels = data ; 
       if (this.certificatModels.length >= 2 ) { 
-        this.submittedModel = this.certificatModels[1]  ; 
+        this.submittedModel = this.certificatModels[1]; 
       }
     })
      

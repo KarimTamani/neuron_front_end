@@ -34,7 +34,7 @@ p:not(.check-ups p):hover {
     color: rgb(254, 101, 85);
 }
 
-.main-container:hover .control {
+.main-container p:hover .control {
     opacity: 1;
 }
 

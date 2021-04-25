@@ -24,6 +24,7 @@ import { CheckUpsModelsComponent } from './components/dashboard/content/prescrip
 import { CertificatModelsComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-models/certificat-models.component';
 import { DrugDosagesLibraryComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/drug-dosages-library.component';
 import { PrescriptionModelsComponent } from './components/dashboard/content/prescription-manager/prescription-models/prescription-models.component';
+import { CertificatsModelsComponent } from './components/dashboard/content/prescription-manager/certificats-models/certificats-models.component';
 
 const routes: Routes = [
   {
@@ -75,7 +76,7 @@ const routes: Routes = [
           } , { 
             path : "check-ups" , component : CheckUpsModelsComponent 
           }, { 
-            path : "certificats" , component : CertificatModelsComponent
+            path : "certificats" , component : CertificatsModelsComponent
           }
         ]
       }

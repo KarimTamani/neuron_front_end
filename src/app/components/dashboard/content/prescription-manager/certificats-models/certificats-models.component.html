@@ -1,1 +1,25 @@
-<p>certificats-models works!</p>
+<div class="main-container" *ngIf="!openModelSubmitter">
+    <div class="header stretch-container">
+        <h5>Les models des {{selectedType}}s</h5>
+        <select [(ngModel)]="selectedType">
+            <option *ngFor="let type of certificatTypes" [value]="type">{{type}}</option>
+        </select>
+    </div>
+    <div class="certificats-list">
+        <div class="model" *ngFor="let model of certificatTypeBased" (click)="select(model)">
+            {{model.title}}
+        </div>
+    </div>
+    <div class="footer stretch-container">
+        <p>Si vous voualis crée un model de certificat médical ou compte-rendu</p>
+        <div class="center-v">
+            <button class="primary-button" (click)="openModelSubmitter = true">Ajouter <i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+</div>
+
+<div class="main-container" *ngIf="openModelSubmitter">
+    <div class="content primary-radius">
+        <app-certificat-model-submitter *ngIf="submittedModel" (saveEvent)="save($event)" (backEvent)="back()" [initModel]="submittedModel"></app-certificat-model-submitter>
+    </div>
+</div>

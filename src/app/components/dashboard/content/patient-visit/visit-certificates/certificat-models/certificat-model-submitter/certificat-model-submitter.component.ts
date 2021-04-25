@@ -39,6 +39,7 @@ export class CertificatModelSubmitterComponent implements OnInit {
 
   ngOnInit(): void {
     this.certificatModel = new CertificatModel();
+    
     this.certificatModel.html = this.initModel.html;
     this.certificatModel.id = this.initModel.id;
     this.certificatModel.type = this.initModel.type
@@ -51,7 +52,6 @@ export class CertificatModelSubmitterComponent implements OnInit {
 
     this.editor.view.dom.addEventListener("keyup", (event) => {
       this.insertedPosition = this.editor.view.state.selection.$anchor;
-
     })
 
   }
