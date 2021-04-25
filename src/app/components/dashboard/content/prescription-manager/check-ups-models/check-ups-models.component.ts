@@ -48,4 +48,11 @@ export class CheckUpsModelsComponent implements OnInit , OnDestroy{
   public ngOnDestroy() { 
     this.subscriptions.forEach(subs => subs.unsubscribe()) ; 
   }
+
+  public delete($event) { 
+    var index = this.checkUpTypes.findIndex( value => value.id == $event.id) ; 
+    if (index >= 0) { 
+      this.checkUpTypes.splice(index , 1 ) ; 
+    }
+  }
 }

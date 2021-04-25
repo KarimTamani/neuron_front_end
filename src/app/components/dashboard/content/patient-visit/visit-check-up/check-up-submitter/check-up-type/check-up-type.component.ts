@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CheckUp } from 'src/app/classes/CheckUp';
 import { CheckUpType } from 'src/app/classes/CheckUpType';
 import { InteractionService } from 'src/app/services/interaction.service';
@@ -14,11 +17,15 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
   @Input() checkUpType: CheckUpType;
   @Input() selectedCheckUps: CheckUp[];
   @Input() controllable: boolean = false;
+  @Output() deleteEvent : EventEmitter<CheckUpType> ; 
   public subscriptions: Subscription[] = [];
   public expand: boolean = false;
 
-  constructor(private router: Router, private interactionService: InteractionService) {
-
+  constructor(
+    private router: Router, 
+    private interactionService: InteractionService , 
+    private apollo : Apollo) {
+      this.deleteEvent = new EventEmitter<CheckUpType>() ; 
   }
   ngOnInit(): void {
 
@@ -42,7 +49,31 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
   }
 
   public delete() {
+    this.router.navigate([] , { 
+      queryParams :  { 
+        "pop-up-window" : true ,
+        "window-page" : "yes-no-message" , 
+        "message" : "Voulais vous vraiment suprimer le "+this.checkUpType.name , 
+        "title" : "Suprission d'un bilan" 
+      }
+    }); 
+    const subs = this.interactionService.yesOrNo.subscribe((response) => {
+      if (response) { 
+        this.apollo.mutate({
+          mutation : gql`
+          mutation {   
+            removeCheckUpType(checkUpTypeId : ${this.checkUpType.id}) 
+          }`
+        }).pipe(
+          map(value => (<any>value.data).removeCheckUpType)
+        ).subscribe((data) => { 
+          this.deleteEvent.emit(this.checkUpType) ; 
+        })        
+      }
 
+      subs.unsubscribe() ; 
+    })
+    this.subscriptions.push( subs ) ; 
   }
 
   public ngOnDestroy() {
