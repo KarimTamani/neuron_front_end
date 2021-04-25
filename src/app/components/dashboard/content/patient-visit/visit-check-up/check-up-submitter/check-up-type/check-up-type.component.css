@@ -13,7 +13,7 @@ p i {
     margin-right: 4px;
 }
 
-p:hover {
+p:not(.check-ups p):hover {
     border-color: #eee;
 }
 
@@ -36,4 +36,27 @@ p:hover {
 
 .main-container:hover .control {
     opacity: 1;
+}
+
+.check-ups p {
+    color: #888;
+    font-size: 12px;
+    font-weight: 100;
+    position: relative;
+}
+
+.check-ups p span {
+    color: #212121;
+}
+
+.check-ups p i {
+    float: right;
+    border-radius: 50%;
+    padding: 6px 7px;
+    position: relative;
+    background: rgb(38, 94, 215);
+    color: white;
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }

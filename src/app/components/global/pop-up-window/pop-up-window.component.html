@@ -37,5 +37,7 @@
         <app-edit-debt *ngIf="windowPage == 'edit-debt'" (closeEvent)="close()"></app-edit-debt>
         <app-document-details *ngIf="windowPage == 'document-details'" (closeEvent)="close()"></app-document-details>
         <app-check-up-type-submitter *ngIf="windowPage == 'check-up-type-submitter'" (closeEvent)="close()"></app-check-up-type-submitter>
+        <app-check-up-type-submitter *ngIf="windowPage == 'check-up-submitter'" [type]="'check-up'" (closeEvent)="close()"></app-check-up-type-submitter>
+
     </div>
 </div>

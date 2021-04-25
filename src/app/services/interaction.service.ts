@@ -15,6 +15,7 @@ import { CertificatModel } from '../classes/CertificatModel';
 import { MedicalFile } from '../classes/MedicalFile';
 import { Message } from '../classes/Message';
 import { CheckUpType } from '../classes/CheckUpType';
+import { CheckUp } from '../classes/CheckUp';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,9 @@ export class InteractionService {
   public checkUpTypeCreated : Subject<CheckUpType>; 
   public checkUpTypeEdited : Subject<CheckUpType> ; 
 
-  
+  public checkUpCreated : Subject<CheckUp>  ; 
+  public checkUpEdited : Subject<CheckUp> ; 
+
 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
@@ -85,7 +88,10 @@ export class InteractionService {
 
     this.checkUpTypeCreated = new Subject<CheckUpType>() ; 
     this.checkUpTypeEdited = new Subject<CheckUpType>() ; 
+  
     
+    this.checkUpCreated = new Subject<CheckUp>() ; 
+    this.checkUpEdited = new Subject<CheckUp>() ; 
     
-  }
+   }
 }

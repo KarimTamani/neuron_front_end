@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="content primary-radius">
         <form name="form" [formGroup]="form">
-            <div class="form-group">
+            <div class="form-group" *ngIf="type == 'check-up-type'">
 
                 <input type="text" [(ngModel)]="checkUpType.name" class="primary-input" placeholder="Le type de bilan" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
                 <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
@@ -10,10 +10,25 @@
                 </div>
             </div>
 
-            <div class="controller">
+            <div class="form-group" *ngIf="type == 'check-up'">
+
+                <input type="text" [(ngModel)]="checkUp.name" class="primary-input" placeholder="Le parmetre de bilan" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                    <div *ngIf="form.get('name').errors.required">le nom est requis</div>
+                    <div *ngIf="form.get('name').errors.minlength">au moins 3 caractères</div>
+                </div>
+            </div>
+
+            <div class="controller" *ngIf="type == 'check-up-type'">
                 <button class="primary-button" (click)="add()" *ngIf="!checkUpType.id" [disabled]="!form.valid">Ajouter <i class="fa fa-plus"></i></button>
                 <button class="primary-button" (click)="edit()" *ngIf="checkUpType.id" [disabled]="!form.valid">Modifer <i class="fa fa-edit"></i></button>
+                <div style="clear : both"></div>
+            </div>
 
+
+            <div class="controller" *ngIf="type == 'check-up'">
+                <button class="primary-button" (click)="addCheckUp()" *ngIf="!checkUp.id" [disabled]="!form.valid">Ajouter <i class="fa fa-plus"></i></button>
+                <button class="primary-button" (click)="editCheckUp()" *ngIf="checkUp.id" [disabled]="!form.valid">Modifer <i class="fa fa-edit"></i></button>
                 <div style="clear : both"></div>
             </div>
         </form>

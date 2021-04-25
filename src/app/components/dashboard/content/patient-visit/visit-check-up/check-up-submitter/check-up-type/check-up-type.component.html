@@ -6,6 +6,11 @@
         <i class="fa fa-edit control" (click)="edit()" *ngIf="!checkUpType.isPublic && controllable"></i>
     </p>
     <div class="check-ups row" *ngIf="expand">
+        <p *ngIf="controllable">
+            ajouter un paramétre pour
+            <span>{{checkUpType.name}}</span>
+            <i class="fa fa-plus" (click)="addCheckUp()"></i>
+        </p>
         <div class="col col-md-6" *ngFor="let checkUp of checkUpType.checkUps">
             <app-check-up [controllable]="controllable" [selectedCheckUps]="selectedCheckUps" [checkUp]="checkUp"></app-check-up>
         </div>

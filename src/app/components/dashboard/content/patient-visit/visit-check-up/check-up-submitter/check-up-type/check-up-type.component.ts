@@ -79,4 +79,26 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
+
+
+  public addCheckUp() { 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window" : true , 
+        "window-page" : "check-up-submitter" , 
+        "title" : "Ajoter un paramétre de bilan" , 
+        "check-up-type" : encodeURIComponent(JSON.stringify(this.checkUpType))
+      }
+    }); 
+
+
+    const subs = this.interactionService.checkUpCreated.subscribe((checkUp) => { 
+      console.log(checkUp) ; 
+      console.log(this.checkUpType) ; 
+      this.checkUpType.checkUps.push(checkUp) ; 
+      subs.unsubscribe() ; 
+    })
+
+    this.subscriptions.push(subs) ;  
+  }
 }

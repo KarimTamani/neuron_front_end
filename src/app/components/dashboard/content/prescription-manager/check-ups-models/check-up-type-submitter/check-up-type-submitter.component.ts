@@ -1,9 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { CheckUp } from 'src/app/classes/CheckUp';
 import { CheckUpType } from 'src/app/classes/CheckUpType';
 import { InteractionService } from 'src/app/services/interaction.service';
 
@@ -20,6 +21,9 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
     ])
   }); 
   public checkUpType : CheckUpType ; 
+  public checkUp : CheckUp ; 
+  @Input() type : string = "check-up-type" ; 
+
   @Output() closeEvent : EventEmitter<CheckUpType> ; 
 
   constructor(
@@ -32,14 +36,15 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
 
   ngOnInit(): void {
     var params = this.route.snapshot.queryParams ; 
-
-    if (params["check-up-type"]) { 
+    if (params["check-up-type"])  
       this.checkUpType = JSON.parse(decodeURIComponent(params["check-up-type"])) ; 
-      console.log(this.checkUpType) ; 
-    }else { 
+    else  
       this.checkUpType = new CheckUpType() ; 
-    }
-  
+    if (params["chec-up"] )  
+      this.checkUp = JSON.parse(decodeURIComponent(params["check-up-type"])) ;
+    else 
+      this.checkUp = new CheckUp() ; 
+
   }
 
 
@@ -76,6 +81,29 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       this.interactionService.checkUpTypeEdited.next(this.checkUpType) ; 
       this.closeEvent.emit() ; 
     })
+  }
+
+  public addCheckUp() { 
+    this.apollo.mutate({
+      mutation : gql`
+        mutation {
+          addCheckUp(checkUp : {name : "${this.form.value.name}" , checkUpTypeId : ${this.checkUpType.id}}) {
+            id name isPublic checkUpTypeId 
+          }
+        }`
+    }).pipe(
+      map(value => (<any>value.data).addCheckUp)
+    ).subscribe((data) => { 
+      
+      this.checkUp = data ; 
+      this.checkUp.checkUpType = this.checkUpType ; 
+      this.interactionService.checkUpCreated.next(this.checkUp) ; 
+      this.closeEvent.emit() ; 
+    })
+  }
+
+  public editCheckUp() { 
+
   }
 
 

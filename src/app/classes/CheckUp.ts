@@ -6,6 +6,7 @@ export class CheckUp {
 
     public checkUpTypeId : number ; 
     public checkUpType : CheckUpType ;
+    public isPublic : boolean ; 
     
     public constructor() { 
         this.checkUpType = new CheckUpType()  ;
