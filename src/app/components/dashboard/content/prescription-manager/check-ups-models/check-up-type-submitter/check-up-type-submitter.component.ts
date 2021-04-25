@@ -40,10 +40,12 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       this.checkUpType = JSON.parse(decodeURIComponent(params["check-up-type"])) ; 
     else  
       this.checkUpType = new CheckUpType() ; 
-    if (params["chec-up"] )  
-      this.checkUp = JSON.parse(decodeURIComponent(params["check-up-type"])) ;
+    if (params["check-up"] )  
+      this.checkUp = JSON.parse(decodeURIComponent(params["check-up"])) ;
     else 
       this.checkUp = new CheckUp() ; 
+    
+    console.log(this.checkUp) ; 
 
   }
 
@@ -102,8 +104,17 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
     })
   }
 
-  public editCheckUp() { 
-
+  public editCheckUp() {  
+    this.apollo.mutate({
+      mutation : gql`
+        mutation {
+          editCheckUp(checkUpId : ${this.checkUp.id} , checkUp : { name : "${this.form.value.name}" , checkUpTypeId : ${this.checkUp.checkUpTypeId}}) 
+        }
+      `
+    }).pipe(map(value => (<any>value.data).editCheckUp)).subscribe((data) => { 
+      this.interactionService.checkUpEdited.next(this.checkUp) ; 
+      this.closeEvent.emit() ; 
+    })
   }
 
 

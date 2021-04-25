@@ -4,9 +4,10 @@
     transition-duration: 0.3s;
     border-radius: 20px;
     cursor: pointer;
+    position: relative;
 }
 
-.main-container i {
+.main-container p i {
     float: right;
     padding: 4px;
     border: 1px solid #eee;
@@ -32,4 +33,30 @@
 
 .main-container:hover {
     background: #eee;
+}
+
+.main-container:hover .control {
+    opacity: 1;
+}
+
+.control {
+    position: absolute;
+    right: 8px;
+    top: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+.control i {
+    margin-left: 4px;
+    font-size: 14px;
+}
+
+.control i.fa-edit {
+    color: rgb(38, 94, 215);
+}
+
+.control i.fa-trash {
+    color: rgb(254, 101, 85);
 }

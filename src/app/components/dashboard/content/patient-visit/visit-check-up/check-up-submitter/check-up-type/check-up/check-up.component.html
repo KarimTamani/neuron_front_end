@@ -1,3 +1,9 @@
 <div class="main-container" (click)="select()">
-    <p>{{checkUp.name}} <i *ngIf="!controllable" class="fa fa-check" [class.selected]="selected"></i></p>
+    <p>{{checkUp.name}}
+        <i *ngIf="!controllable" class="fa fa-check" [class.selected]="selected"></i>
+    </p>
+    <div class="control" *ngIf="controllable && !checkUp.isPublic">
+        <i class="fa fa-edit" title="modifer" (click)="edit()"></i>
+        <i class="fa fa-trash" title="suprimer" (click)="delete()"></i>
+    </div>
 </div>
