@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CheckUp } from 'src/app/classes/CheckUp';
 import { InteractionService } from 'src/app/services/interaction.service';
 
@@ -11,7 +14,6 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class CheckUpComponent implements OnInit , OnDestroy {
   @Input() checkUp: CheckUp;
-
   @Input() selectedCheckUps: CheckUp[];
   @Input() controllable : boolean = false ; 
 
@@ -19,12 +21,15 @@ export class CheckUpComponent implements OnInit , OnDestroy {
   public selectEvent: EventEmitter<CheckUp>;
   public subscriptions : Subscription[] = [] ; 
   
-  constructor(private interactionService: InteractionService , private router : Router) {
-    this.selectEvent = new EventEmitter<CheckUp>();
+  @Output() deleteEvent : EventEmitter<CheckUp> ; 
+
+  constructor(private interactionService: InteractionService , private router : Router , private apollo : Apollo) {
+    this.selectEvent = new EventEmitter<CheckUp>(); 
+    this.deleteEvent = new EventEmitter<CheckUp>() ; 
   }
 
   ngOnInit(): void {
-    if (this.selectedCheckUps) {
+    if ( this.selectedCheckUps != null ) {
       const index = this.selectedCheckUps.findIndex((checkUp) => checkUp.id == this.checkUp.id);
       if (index >= 0)
         this.selected = true;
@@ -33,7 +38,7 @@ export class CheckUpComponent implements OnInit , OnDestroy {
   }
 
   public select() {
-
+    
     const index = this.selectedCheckUps.findIndex((checkUp) => checkUp.id == this.checkUp.id);
     if (index >= 0) {
       this.selectedCheckUps.splice(index, 1);
@@ -65,6 +70,31 @@ export class CheckUpComponent implements OnInit , OnDestroy {
 
   public delete() { 
 
+    this.router.navigate([] , { 
+      queryParams: { 
+        "pop-up-window" : true , 
+        "window-page" : "yes-no-message" , 
+        "message" : "Voulais vous vraiments suprimer le paramétre de bilan " + this.checkUp.name , 
+        "title" :"Suprission de parametre de bilan" 
+      }
+    }) ; 
+
+    const subs = this.interactionService.yesOrNo.subscribe(response => { 
+      if ( response ) {   
+       this.apollo.mutate({
+         mutation : gql`
+          mutation {
+            removeCheckUp(checkUpId : ${this.checkUp.id}) 
+          }
+         `
+       }) .pipe(map(value => (<any>value.data).removeCheckUp)).subscribe((data) => { 
+        this.deleteEvent.emit(this.checkUp) ; 
+       })
+      }
+      subs.unsubscribe() ; 
+    }) ; 
+
+    this.subscriptions.push(subs) ; 
   }
 
 

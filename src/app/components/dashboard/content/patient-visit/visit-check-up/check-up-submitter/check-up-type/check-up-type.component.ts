@@ -49,6 +49,7 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
   }
 
   public delete() {
+ 
     this.router.navigate([] , { 
       queryParams :  { 
         "pop-up-window" : true ,
@@ -70,7 +71,6 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
           this.deleteEvent.emit(this.checkUpType) ; 
         })        
       }
-
       subs.unsubscribe() ; 
     })
     this.subscriptions.push( subs ) ; 
@@ -93,12 +93,22 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
 
 
     const subs = this.interactionService.checkUpCreated.subscribe((checkUp) => { 
-      console.log(checkUp) ; 
-      console.log(this.checkUpType) ; 
+
       this.checkUpType.checkUps.push(checkUp) ; 
       subs.unsubscribe() ; 
     })
 
     this.subscriptions.push(subs) ;  
+  
+  }
+
+
+  public onCheckUpDeleted($event) { 
+
+    console.log($event) ; 
+    var index = this.checkUpType.checkUps.findIndex(value => value.id == $event.id) ; 
+    if ( index >= 0) { 
+      this.checkUpType.checkUps.splice(index , 1) ; 
+    }
   }
 }
