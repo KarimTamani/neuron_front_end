@@ -16,10 +16,11 @@ export class CertificatModelSubmitterComponent implements OnInit {
   public certificatModel: CertificatModel;
   public editor: Editor;
   private insertedPosition: any = null;
+  @Input() editMode : boolean = false ; 
   @Input() initModel: CertificatModel;
   @Output() backEvent: EventEmitter<null>;
   @Output() saveEvent: EventEmitter<CertificatModel>;
-
+  @Output() editEvent : EventEmitter<CertificatModel> ; 
 
   public form: FormGroup = new FormGroup({
     title: new FormControl("", [
@@ -35,6 +36,8 @@ export class CertificatModelSubmitterComponent implements OnInit {
     this.editor = new Editor();
     this.backEvent = new EventEmitter<null>();
     this.saveEvent = new EventEmitter<CertificatModel>();
+    this.editEvent = new EventEmitter<CertificatModel>() ; 
+
   }
 
   ngOnInit(): void {
@@ -42,7 +45,12 @@ export class CertificatModelSubmitterComponent implements OnInit {
     
     this.certificatModel.html = this.initModel.html;
     this.certificatModel.id = this.initModel.id;
-    this.certificatModel.type = this.initModel.type
+    this.certificatModel.type = this.initModel.type; 
+    if (this.editMode) { 
+      this.certificatModel.title = this.initModel.title ; 
+    }
+
+    console.log(this.editMode) ; 
     //this.insertedPosition = this.certificatModel.html.lastIndexOf("</p>");
 
     this.editor.view.dom.addEventListener("click", (event) => {
@@ -125,5 +133,20 @@ export class CertificatModelSubmitterComponent implements OnInit {
     position += tagsLength  ; 
     html[insertedNode] = node.slice(0, position) + "<strong>__________________</strong>" + node.slice(position);
     this.certificatModel.html = "<p>" + html.join("<p>");
+  }
+
+  public edit() { 
+    this.apollo.mutate({
+      mutation : gql`
+        mutation {
+          editCertificatModel(certificatModelId : ${this.certificatModel.id} ,certificatModel : { 
+            title : "${this.certificatModel.title}" ,
+            html : "${this.certificatModel.html}" 
+            type : "${this.certificatModel.type}"
+          })
+        }`
+    }).pipe(map(value => (<any>value.data).editCertificatModel)).subscribe((data) => { 
+      this.editEvent.emit(this.certificatModel) ; 
+    })
   }
 }

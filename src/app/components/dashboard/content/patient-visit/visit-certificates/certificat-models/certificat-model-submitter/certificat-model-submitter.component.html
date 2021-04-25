@@ -17,7 +17,9 @@
                     <div *ngIf="form.get('title').errors.minlength">au mois 3 characters</div>
                 </div>
             </div>
-            <button class="primary-button" (click)="save()" [disabled]="form.invalid">Ajouter <i class="fa fa-plus"></i></button>
+            <button class="primary-button" *ngIf="!editMode" (click)="save()" [disabled]="form.invalid">Ajouter <i class="fa fa-plus"></i></button>
+            <button class="primary-button" *ngIf="editMode" (click)="edit()" [disabled]="form.invalid">Modifer <i class="fa fa-edit"></i></button>
+
         </div>
     </form>
 </div>

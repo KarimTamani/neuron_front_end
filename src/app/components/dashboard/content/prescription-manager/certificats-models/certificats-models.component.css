@@ -31,6 +31,7 @@
     border-radius: 20px;
     transition-duration: 0.3s;
     cursor: pointer;
+    position: relative;
 }
 
 .footer button {
@@ -41,4 +42,28 @@
 
 .footer p {
     color: #555;
+}
+
+.controller {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+.model:hover .controller {
+    opacity: 1;
+}
+
+.controller i {
+    margin-left: 8px;
+}
+
+.controller i.fa-edit {
+    color: rgb(38, 94, 215);
+}
+
+.controller i.fa-trash {
+    color: rgb(254, 101, 85);
 }

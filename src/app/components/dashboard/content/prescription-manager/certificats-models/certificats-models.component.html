@@ -8,6 +8,11 @@
     <div class="certificats-list">
         <div class="model" *ngFor="let model of certificatTypeBased" (click)="select(model)">
             {{model.title}}
+            <div class="controller" *ngIf="!model.isPublic">
+                <i class="fa fa-edit" (click)="editModel(model)"></i>
+                <i class="fa fa-trash" (click)="delete(model)"></i>
+            </div>
+
         </div>
     </div>
     <div class="footer stretch-container">
@@ -20,6 +25,6 @@
 
 <div class="main-container" *ngIf="openModelSubmitter">
     <div class="content primary-radius">
-        <app-certificat-model-submitter *ngIf="submittedModel" (saveEvent)="save($event)" (backEvent)="back()" [initModel]="submittedModel"></app-certificat-model-submitter>
+        <app-certificat-model-submitter (editEvent)="edit($event)" [editMode]="editMode" *ngIf="submittedModel" (saveEvent)="save($event)" (backEvent)="back()" [initModel]="submittedModel"></app-certificat-model-submitter>
     </div>
 </div>
