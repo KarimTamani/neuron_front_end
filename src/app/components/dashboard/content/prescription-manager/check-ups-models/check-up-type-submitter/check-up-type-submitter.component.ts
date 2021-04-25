@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
@@ -18,14 +19,27 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       Validators.minLength(3)
     ])
   }); 
+  public checkUpType : CheckUpType ; 
   @Output() closeEvent : EventEmitter<CheckUpType> ; 
 
-  constructor(private apollo : Apollo , private interactionService : InteractionService) {
+  constructor(
+    private apollo : Apollo , 
+    private interactionService : InteractionService , 
+    private route : ActivatedRoute) {
     this.closeEvent = new EventEmitter<CheckUpType>() ; 
 
   }
 
   ngOnInit(): void {
+    var params = this.route.snapshot.queryParams ; 
+
+    if (params["check-up-type"]) { 
+      this.checkUpType = JSON.parse(decodeURIComponent(params["check-up-type"])) ; 
+      console.log(this.checkUpType) ; 
+    }else { 
+      this.checkUpType = new CheckUpType() ; 
+    }
+  
   }
 
 
@@ -45,7 +59,24 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       data.checkUps = [] ; 
       this.interactionService.checkUpTypeCreated.next(data) ; 
       this.closeEvent.emit() ; 
-
     })
   }
+
+  public edit() { 
+    this.apollo.mutate({
+      mutation : gql`
+      
+        mutation {
+          editCheckUpType(checkUpTypeId : ${this.checkUpType.id} , checkUpType: { name : "${this.form.value.name}"}) 
+        }
+      `
+    }).pipe(
+      map(value => (<any>value.data).addCheckUpType)
+    ).subscribe((data) => { 
+      this.interactionService.checkUpTypeEdited.next(this.checkUpType) ; 
+      this.closeEvent.emit() ; 
+    })
+  }
+
+
 }

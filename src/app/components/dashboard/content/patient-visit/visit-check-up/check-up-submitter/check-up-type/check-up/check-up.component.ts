@@ -10,8 +10,11 @@ import { InteractionService } from 'src/app/services/interaction.service';
 export class CheckUpComponent implements OnInit {
   @Input() checkUp: CheckUp;
   @Input() selectedCheckUps: CheckUp[];
+  @Input() controllable : boolean = false ; 
+
   public selected: boolean = false;
   public selectEvent: EventEmitter<CheckUp>;
+  
   constructor(private interactionService: InteractionService) {
     this.selectEvent = new EventEmitter<CheckUp>();
   }

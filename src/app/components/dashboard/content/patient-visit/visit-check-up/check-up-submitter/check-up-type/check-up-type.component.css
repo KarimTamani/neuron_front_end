@@ -22,3 +22,18 @@ p:hover {
     margin: 0px;
     overflow: auto;
 }
+
+.control {
+    float: right;
+    margin-left: 4px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.control.fa-trash {
+    color: rgb(254, 101, 85);
+}
+
+.main-container:hover .control {
+    opacity: 1;
+}

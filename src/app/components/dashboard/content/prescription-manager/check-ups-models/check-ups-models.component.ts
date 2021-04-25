@@ -21,7 +21,7 @@ export class CheckUpsModelsComponent implements OnInit , OnDestroy{
     this.apollo.query({
       query: gql`
         {  
-          getCheckUpTypes { id name checkUps { id name checkUpTypeId }}
+          getCheckUpTypes { id name isPublic checkUps  { id name checkUpTypeId isPublic}}
         }`
     }
     ).pipe(map(value => (<any>value.data).getCheckUpTypes)).subscribe((data) => {

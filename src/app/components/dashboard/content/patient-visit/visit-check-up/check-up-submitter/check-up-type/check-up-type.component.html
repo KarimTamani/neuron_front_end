@@ -2,10 +2,12 @@
     <p (click)="expand = !expand">
         <i class="fa fa-chevron-down" *ngIf="!expand"></i>
         <i class="fa fa-chevron-up" *ngIf="expand"></i> {{checkUpType.name}}
+        <i class="fa fa-trash control" (click)="delete()" *ngIf="!checkUpType.isPublic && controllable"></i>
+        <i class="fa fa-edit control" (click)="edit()" *ngIf="!checkUpType.isPublic && controllable"></i>
     </p>
     <div class="check-ups row" *ngIf="expand">
         <div class="col col-md-6" *ngFor="let checkUp of checkUpType.checkUps">
-            <app-check-up [selectedCheckUps]="selectedCheckUps" [checkUp]="checkUp"></app-check-up>
+            <app-check-up [controllable]="controllable" [selectedCheckUps]="selectedCheckUps" [checkUp]="checkUp"></app-check-up>
         </div>
     </div>
 </div>
