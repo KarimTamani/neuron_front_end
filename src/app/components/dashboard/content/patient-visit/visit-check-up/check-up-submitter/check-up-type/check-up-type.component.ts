@@ -28,7 +28,7 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
       this.deleteEvent = new EventEmitter<CheckUpType>() ; 
   }
   ngOnInit(): void {
-
+    console.log(this.selectedCheckUps) ; 
   }
 
   public edit() {
@@ -105,7 +105,6 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
 
   public onCheckUpDeleted($event) { 
 
-    console.log($event) ; 
     var index = this.checkUpType.checkUps.findIndex(value => value.id == $event.id) ; 
     if ( index >= 0) { 
       this.checkUpType.checkUps.splice(index , 1) ; 

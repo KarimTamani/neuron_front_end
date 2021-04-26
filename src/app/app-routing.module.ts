@@ -70,15 +70,7 @@ const routes: Routes = [
           }
         ]
       }, { 
-        path : "prescription-manager" , component : PrescriptionManagerComponent , children : [
-          { 
-            path : "prescriptions" , component : PrescriptionModelsComponent, 
-          } , { 
-            path : "check-ups" , component : CheckUpsModelsComponent 
-          }, { 
-            path : "certificats" , component : CertificatsModelsComponent
-          }
-        ]
+        path : "prescription-manager/:page" , component : PrescriptionManagerComponent 
       }
     ]
   },

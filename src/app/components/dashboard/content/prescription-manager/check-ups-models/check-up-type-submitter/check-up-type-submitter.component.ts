@@ -44,9 +44,7 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       this.checkUp = JSON.parse(decodeURIComponent(params["check-up"])) ;
     else 
       this.checkUp = new CheckUp() ; 
-    
-    console.log(this.checkUp) ; 
-
+   
   }
 
 

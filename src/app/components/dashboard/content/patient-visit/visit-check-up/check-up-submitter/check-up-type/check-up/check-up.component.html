@@ -1,4 +1,4 @@
-<div class="main-container" (click)="select()">
+<div class="main-container" (click)="select()" [class.selected]="selected">
     <p>{{checkUp.name}}
         <i *ngIf="!controllable" class="fa fa-check" [class.selected]="selected"></i>
     </p>

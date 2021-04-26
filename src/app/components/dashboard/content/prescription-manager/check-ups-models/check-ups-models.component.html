@@ -6,7 +6,7 @@
 
     <div class="check-up-types">
         <div class="check-up-type" *ngFor="let checkUpType of checkUpTypes">
-            <app-check-up-type (deleteEvent)="delete($event)" [controllable]="true" [selectedCheckUps]="checkUps" [checkUpType]="checkUpType"></app-check-up-type>
+            <app-check-up-type [selectedCheckUps]="visit.checkUps" (deleteEvent)="delete($event)" [controllable]="true" [checkUpType]="checkUpType"></app-check-up-type>
         </div>
     </div>
 </div>

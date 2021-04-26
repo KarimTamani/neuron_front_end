@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { EventEmitter, Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
+
 import gql from 'graphql-tag';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -23,10 +24,16 @@ export class CertificatsModelsComponent implements OnInit, OnDestroy {
   ];
   public subscriptions: Subscription[] = [];
   public selectedType: string;
+  @Output() typeChanged: EventEmitter<string>;
+  @Output() certificatSelected : EventEmitter<CertificatModel> ;  
 
   constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
     this.selectedType = this.certificatTypes[0];
+    this.typeChanged = new EventEmitter<string>() ; 
+    this.certificatSelected = new EventEmitter<CertificatModel>() ;  
   }
+
+
   ngOnInit(): void {
     this.apollo.query({
       query: gql`
@@ -39,14 +46,12 @@ export class CertificatsModelsComponent implements OnInit, OnDestroy {
       this.certificatModels = data;
       if (this.certificatModels.length >= 2)
         this.submittedModel = this.certificatModels[1];
-
     });
   }
 
   get certificatTypeBased() {
     if (this.selectedType == this.certificatTypes[0])
       this.submittedModel = this.certificatModels[1];
-
     return this.certificatModels.filter(value => value.type == this.selectedType);
   }
 
@@ -77,24 +82,22 @@ export class CertificatsModelsComponent implements OnInit, OnDestroy {
     });
 
     const subs = this.interactionService.yesOrNo.subscribe(response => {
-      if (response) { 
+      if (response) {
         this.apollo.mutate({
-          mutation : gql`
+          mutation: gql`
             mutation {
               removeCertificatModel(certificatModelId : ${$event.id})
             }`
-        }).pipe(map(value =>(<any>value.data).removeCertificatModel)).subscribe((data) => { 
+        }).pipe(map(value => (<any>value.data).removeCertificatModel)).subscribe((data) => {
           var index = this.certificatModels.findIndex(value => value.id == $event.id)
-          if (index >= 0) { 
-            this.certificatModels.splice(index , 1) ; 
+          if (index >= 0) {
+            this.certificatModels.splice(index, 1);
           }
         })
       }
       subs.unsubscribe();
     });
-
     this.subscriptions.push(subs);
-
   }
 
   public edit($event) {
@@ -108,9 +111,15 @@ export class CertificatsModelsComponent implements OnInit, OnDestroy {
     this.editMode = false;
     this.openModelSubmitter = false;
   }
-
   ngOnDestroy() {
-    this.subscriptions.forEach(subs => subs.unsubscribe()) ; 
+    this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
+  public onChange() { 
+    this.typeChanged.emit(this.selectedType) ; 
   }
 
+
+  public select(model) { 
+    this.certificatSelected.emit(model) ; 
+  }
 }

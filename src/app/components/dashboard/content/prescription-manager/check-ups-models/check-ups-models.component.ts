@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CheckUpType } from 'src/app/classes/CheckUpType';
+import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -13,20 +14,15 @@ import { InteractionService } from 'src/app/services/interaction.service';
   styleUrls: ['./check-ups-models.component.css']
 })
 export class CheckUpsModelsComponent implements OnInit , OnDestroy{
-  public checkUpTypes : CheckUpType[] = [] ; 
+  @Input() checkUpTypes : CheckUpType[] = [] ; 
   public subscriptions : Subscription[] = [] ;  
+  @Input() visit : Visit ; 
+
   constructor(private apollo : Apollo , private router : Router, private interactionService : InteractionService) {}
   
   ngOnInit(): void {
-    this.apollo.query({
-      query: gql`
-        {  
-          getCheckUpTypes { id name isPublic checkUps  { id name checkUpTypeId isPublic}}
-        }`
-    }
-    ).pipe(map(value => (<any>value.data).getCheckUpTypes)).subscribe((data) => {
-      this.checkUpTypes = data;
-    })
+    
+    
   }
 
 

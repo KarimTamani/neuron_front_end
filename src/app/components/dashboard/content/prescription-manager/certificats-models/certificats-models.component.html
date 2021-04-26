@@ -1,7 +1,7 @@
 <div class="main-container" *ngIf="!openModelSubmitter">
     <div class="header stretch-container">
         <h5>Les models des {{selectedType}}s</h5>
-        <select [(ngModel)]="selectedType">
+        <select [(ngModel)]="selectedType" (change)="onChange()">
             <option *ngFor="let type of certificatTypes" [value]="type">{{type}}</option>
         </select>
     </div>
