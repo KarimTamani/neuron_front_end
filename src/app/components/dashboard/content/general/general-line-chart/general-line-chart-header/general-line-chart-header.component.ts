@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-general-line-chart-header',
@@ -12,16 +13,16 @@ export class GeneralLineChartHeaderComponent implements OnInit {
   
   public options: string[] = [
 
-    "ce joure",
-    "cet semain",
-    "ce mois",
-    "ce trimester",
-    "ce semester",
-    "cette année",
+    "Joure",
+    "Semaine",
+    "Mois",
+    "Trimestre",
+    "Semestre",
+    "Année",
   ];
-  constructor(private dataService : DataService) {
+  constructor(private dataService : DataService, private interactionService : InteractionService) {
 
-    this.selectedOption = this.options[0];
+    this.selectedOption = this.options[2];
     this.periodSelectedEvent = new EventEmitter<number>();
   }
 
@@ -57,6 +58,10 @@ export class GeneralLineChartHeaderComponent implements OnInit {
       default:
         break;
     }
+ 
+    this.interactionService.showMessage.next(<any>{
+      message : "la période sélectionnée : " + this.selectedOption  ,
+    })
   }
 
 }

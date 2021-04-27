@@ -19,15 +19,15 @@ export class GeneralLineChartComponent implements OnInit {
   public lineChartLabels: Label[] = [];
   public lineChartOptions: ChartOptions;
   public lineChartColors: Color[] = [
+    { // red
+      backgroundColor: 'transparent',
+      borderColor: '#FE6555',
+    } , 
     { // dark grey
       backgroundColor: 'transparent',
       borderColor: '#265ED7',
 
-    },
-    { // red
-      backgroundColor: 'transparent',
-      borderColor: '#FE6555',
-    }
+    } 
   ];
 
   // Set true to show legends
@@ -73,7 +73,10 @@ export class GeneralLineChartComponent implements OnInit {
           {
             ticks: {
               beginAtZero: true,
-              stepSize: 10
+              stepSize: 10, 
+              callback : function(value , index , values) { 
+                return dataService.castValues(<number>value) ; 
+              }
             },
             id: "A",
             gridLines: {
@@ -84,7 +87,10 @@ export class GeneralLineChartComponent implements OnInit {
             id: "B",
             ticks: {
               beginAtZero: true,
-              min: 0, 
+              min: 0,
+              callback : function(value , index , values) { 
+                return dataService.castValues(<number>value) ; 
+              } 
             },
             position: "right",
             gridLines: {
@@ -101,11 +107,11 @@ export class GeneralLineChartComponent implements OnInit {
     this.lineChartData = [
       {
         data: this.analytics.getAnalyticsVisits.map(slice => slice.value),
-        label: "Visites",
+        label: "Les Visites",
         yAxisID: 'A'
       }, {
         data: this.analytics.getAnalyticsGain.map(slice => slice.value),
-        label: "le Gain", yAxisID: 'B'
+        label: "Le Gain", yAxisID: 'B'
       }
     ];
     this.lineChartLabels = this.analytics.getAnalyticsGain.map(value => this.dataService.castDateYMD(value.endTime));
@@ -140,11 +146,11 @@ export class GeneralLineChartComponent implements OnInit {
         this.lineChartData = [
           {
             data: this.analytics.getAnalyticsVisits.map(slice => slice.value),
-            label: "Visites",
+            label: "Les Visites",
             yAxisID: 'A'
           }, {
             data: this.analytics.getAnalyticsGain.map(slice => slice.value),
-            label: "le Gain", yAxisID: 'B'
+            label: "Le Gain", yAxisID: 'B'
           }
         ];
 

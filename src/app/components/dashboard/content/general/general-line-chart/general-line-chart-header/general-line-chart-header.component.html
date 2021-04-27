@@ -1,10 +1,13 @@
 <div class="header stretch-container">
     <h5>Vos activités</h5>
     <div class="controller stretch-container">
-        <p><span class="round"></span>Consultations</p>
         <p><span class="round"></span>Gain</p>
-        <select [(ngModel)]="selectedOption" (change)="selectPeriod()"> 
-            <option (click)="selectPeriod()" *ngFor="let option of options" [value]="option">{{option}}</option>
-        </select>
+        <p><span class="round"></span>Visites</p>
+
+        <div class="select-container">
+            <select [(ngModel)]="selectedOption" (change)="selectPeriod()"> 
+                <option (click)="selectPeriod()" *ngFor="let option of options" [value]="option">{{option}}</option>
+            </select>
+        </div>
     </div>
 </div>

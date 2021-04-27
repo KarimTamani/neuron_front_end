@@ -14,9 +14,7 @@ export class GeneralWaitingRoomComponent implements OnInit {
   
   constructor(private apollo: Apollo ) { }
   public visits: Visit[] = [];
-
   ngOnInit(): void {
-
     this.apollo.query({
       query: gql`
       {
@@ -33,9 +31,9 @@ export class GeneralWaitingRoomComponent implements OnInit {
             createdAt
           }
         }
-      }  
-      `
+      }`
     }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => {
+      
       if (data && data.visits)
         this.visits = data.visits.filter(value => value.status == "waiting");
     })

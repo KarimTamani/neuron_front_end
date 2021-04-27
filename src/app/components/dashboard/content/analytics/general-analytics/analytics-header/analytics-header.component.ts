@@ -18,12 +18,12 @@ export class AnalyticsHeaderComponent implements OnInit {
   @Output() periodSelectedEvent: EventEmitter<number>;
   public options: string[] = [
 
-    "ce joure",
-    "cet semain",
-    "ce mois",
-    "ce trimester",
-    "ce semester",
-    "cette année",
+    "Joure",
+    "Semaine",
+    "Mois",
+    "Trimester",
+    "Semester",
+    "Année",
   ];
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     this.selectedOption = this.options[0];

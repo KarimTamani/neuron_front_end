@@ -15,7 +15,7 @@ export class GeneralWaitingRoomPatientComponent implements OnInit {
   ngOnInit(): void {
     
     this.age = this.dataService.calculateAge(this.visit.medicalFile.birthday , new Date(parseInt ( this.visit.createdAt))) ; 
-
+    this.visit.arrivalTime = this.dataService.castTime(this.visit.arrivalTime) ; 
   
   }
 

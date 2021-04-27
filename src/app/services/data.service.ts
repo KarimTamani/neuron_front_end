@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getTypenameFromStoreObject } from '@apollo/client/cache/inmemory/helpers';
+import { split } from 'apollo-link';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,32 @@ export class DataService {
     "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"
   ];
 
+
+  
   constructor() { }
+
+  public castTime(time : string) {
+    var splitted = time.split(":") ; 
+    if (splitted.length != 2) { 
+      return time ; 
+    }
+    return splitted[0] + "h " + splitted[1] + " min" ;  
+    
+  }
+
+  public castValues(value: number) {
+    if (value >= 1000000000) {
+      return (Math.trunc((value / 1000000000) * 100) / 100) + "Mil"
+    }
+    if (value >= 1000000)
+      return (Math.trunc((value / 1000000) * 100) / 100) + "M"
+
+    if (value >= 1000)
+      return (Math.trunc((value / 1000) * 100) / 100) + "K" ; 
+
+    return value ; 
+  }
+
   public frToYMDDate(date: string) {
 
     var day: any = parseInt(date.split(" ")[0]);
@@ -47,7 +73,7 @@ export class DataService {
 
       if (this.monthes.includes(<string>month)) {
         var monthIndex: any = this.monthes.findIndex(value => value == month);
-        monthIndex += 1 ; 
+        monthIndex += 1;
         if (monthIndex < 10)
           monthIndex = "0" + monthIndex;
 

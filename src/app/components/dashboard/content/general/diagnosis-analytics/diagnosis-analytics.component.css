@@ -3,3 +3,13 @@
     border-radius: 16px;
     padding: 16px;
 }
+
+.row {
+    height: 260px;
+    max-height: 260px;
+    overflow: auto;
+}
+
+.no-data-message {
+    padding: 8px 16px;
+}

@@ -66,6 +66,7 @@ export class GeneralComponent implements OnInit {
     else
       this.interval.startDate = this.interval.endDate;
 
+    console.log(this.interval) ; 
     this.apollo.query({
       query: gql`
       query GET_ANALYTICS($interval: IntervalInput!) {
@@ -104,14 +105,21 @@ export class GeneralComponent implements OnInit {
       this.evolutionParams[1].evolutionValue = this.analytics.getGainEvolution.value
       this.evolutionParams[1].evolutionPercentage = this.analytics.getGainEvolution.percentage
 
+
+      if (this.evolutionParams[0].evolutionValue > 0)
+        this.evolutionParams[0].evolutionValue = "+" + this.evolutionParams[0].evolutionValue
+      if (this.evolutionParams[1].evolutionValue > 0)
+        this.evolutionParams[1].evolutionValue = "+" + this.evolutionParams[1].evolutionValue
+
+
       this.evolutionParams[0].evolutionValue = this.evolutionParams[0].evolutionValue + " Visite"
       this.evolutionParams[1].evolutionValue = this.evolutionParams[1].evolutionValue + " DA"
 
       this.evolutionParams[0].evolutionPercentage = this.evolutionParams[0].evolutionPercentage * 100
       this.evolutionParams[1].evolutionPercentage = this.evolutionParams[1].evolutionPercentage * 100
-      
-      this.evolutionParams[0].period = period ; 
-      this.evolutionParams[1].period = period ; 
+
+      this.evolutionParams[0].period = period;
+      this.evolutionParams[1].period = period;
       this.updateAnalytics.next({ analytics: this.analytics, period: period });
     })
   }

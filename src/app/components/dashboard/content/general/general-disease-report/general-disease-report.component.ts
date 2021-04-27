@@ -23,7 +23,7 @@ export class GeneralDiseaseReportComponent implements OnInit {
 
   public radarChartData: ChartDataSets[] = [];
   public radarChartType: ChartType = 'radar';
-
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -31,11 +31,11 @@ export class GeneralDiseaseReportComponent implements OnInit {
     this.radarChartData = [
       {
         data: this.analytics.getAnalyticsDiseases.map(value => value.value),
-        label: "Patient",
-        
+        label: "Patient",       
       }
     ]
-
+    var percentages =this.analytics.getAnalyticsDiseases.map(value =>Math.trunc( value.percentage * 100) )  ; 
+    
     var labels = this.analytics.getAnalyticsDiseases.map(value => value.group);
     this.radarChartLabels = labels.map(this.processLabels) ; 
     
@@ -73,7 +73,8 @@ export class GeneralDiseaseReportComponent implements OnInit {
         mode: 'nearest',   
         callbacks: {
           label: function (tooltipItems, data) {
-            return " " + tooltipItems.yLabel + " " + data.datasets[tooltipItems.datasetIndex].label+ " : " + labels[tooltipItems.index];
+            
+            return " " + tooltipItems.yLabel + " " + data.datasets[tooltipItems.datasetIndex].label+ " : " + labels[tooltipItems.index] + " , "+ percentages[tooltipItems.index] + "%";
           },
           title : () => { 
             return "" ;  

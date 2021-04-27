@@ -13,8 +13,8 @@
 }
 
 .controller p {
-    min-width: 30%;
-    max-width: 30%;
+    min-width: 20%;
+    max-width: 20%;
     display: flex;
     align-items: center;
     color: #555555;
@@ -46,4 +46,14 @@ h5 {
     font-size: 16px;
     display: flex;
     align-items: center;
+    width: 100%;
+}
+
+select {
+    float: right;
+    width: 60%;
+}
+
+.select-container {
+    width: 100%;
 }
