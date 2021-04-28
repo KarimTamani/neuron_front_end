@@ -17,8 +17,10 @@ export class VirtualAssistantService {
     this.onVACommand = new Subject<any>();
     this.onVaResponse = new Subject<any>();
 
+
     // init the bot 
-    this.bot = new (<any>window).RiveScript({ utf8: true });
+    if ((<any>window).RiveScript)
+      this.bot = new (<any>window).RiveScript({ utf8: true });
     // load files from the brain directory 
     // save bot as constant to pass it to the brain loaded funciton
     // and save the router 
@@ -27,23 +29,23 @@ export class VirtualAssistantService {
     const constRouter = this.router;
     const handleCommand = this.handleCommands;
     const getComponents = this.getComponents;
+    if (this.bot)
+      this.bot.loadFile([
 
-    this.bot.loadFile([ 
+        "../assets/brain/default.rive",
+        "../assets/brain/prescription.rive",
+        "../assets/brain/sidebar.rive",
+        "../assets/brain/vitalSetting.rive",
+        "../assets/brain/patientVisit.rive",
+        "../assets/brain/search.rive",
+        "../assets/brain/medicalFile.rive",
 
-      "../assets/brain/default.rive",
-      "../assets/brain/prescription.rive",
-      "../assets/brain/sidebar.rive",
-      "../assets/brain/vitalSetting.rive",
-      "../assets/brain/patientVisit.rive",
-      "../assets/brain/search.rive" , 
-      "../assets/brain/medicalFile.rive", 
+      ]).then(() => {
+        // sort replies 
+        // and perform actions
+        bot.sortReplies();
 
-    ]).then(() => {
-      // sort replies 
-      // and perform actions
-      bot.sortReplies();
-
-    }).catch(this.loadBrainError);
+      }).catch(this.loadBrainError);
   }
 
 
@@ -53,7 +55,7 @@ export class VirtualAssistantService {
         // add slaches to json data       
         reply = "{" + reply + "}";
         reply = reply.replace(/'/g, "\'");
-        console.log(reply) ; 
+        console.log(reply);
 
         this.handleCommands(JSON.parse(reply),
           this.onVACommand,
@@ -91,11 +93,11 @@ export class VirtualAssistantService {
       return "MEDICAL-FILES";
     if (url.includes("visits-and-appointments-manager"))
       return "VISITS-AND-APPOINTMENTS-MANAGER";
-    if (url.includes("financial-manager")) 
-      return "FINANCIAL-MANAGER" ;
-    if (url.includes("medical-file-submitter")) 
-      return "MEDICAL-FILE-SUBMITTER" ; 
-       
+    if (url.includes("financial-manager"))
+      return "FINANCIAL-MANAGER";
+    if (url.includes("medical-file-submitter"))
+      return "MEDICAL-FILE-SUBMITTER";
+
     return null;
   }
 

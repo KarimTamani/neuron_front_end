@@ -11,6 +11,7 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
 import { ALWAYS, YesNoVAResponse } from 'src/app/classes/VAResponse';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { Subscription } from 'rxjs';
+import { Message, SUCCESS } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-waiting-room',
@@ -23,11 +24,12 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
   public currentYear: number;
   public currentDay: number;
   public currentDate: string;
-  public subscriptions : Subscription[] = [] ; 
+  public subscriptions: Subscription[] = [];
   public waitingRoom: WaitingRoom;
   public updateSubject: Subject<any>;
   public fromVa: boolean = false;
-
+  public todayDate: string;
+  public controllable: boolean = true;
   constructor(
     private apollo: Apollo,
     public dataService: DataService,
@@ -40,8 +42,6 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     var params = this.route.snapshot.queryParams;
     this.fromVa = params["from-va"] === "true";
-
-
     // get the current date
     this.apollo.query({
       query: gql`
@@ -50,8 +50,11 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
         }
       `
     }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
+
       const date = new Date(data);
       this.currentDate = data;
+      this.todayDate = this.dataService.castDateYMD(this.currentDate);
+
       this.currentMonth = date.getMonth();
       this.currentYear = date.getFullYear();
       this.currentDay = date.getDate();
@@ -62,6 +65,8 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
       this.waitingRoom = null;
       this.loadWaitingRoom();
       this.interactionService.updateReport.next();
+      
+      
     }));
 
     this.subscriptions.push(this.virtualAssistantService.onVACommand.subscribe((data) => {
@@ -81,17 +86,22 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
         visitsDone.forEach(visit => gain += visit.payedMoney);
 
         this.virtualAssistantService.onVaResponse.next({
-          message: 
+          message:
             `vous avez ${waitingVisits.length} visites en attente,
             ${visitsDone.length} visites effectuées,
-            et la recette ${gain} dinar algérien.`, 
-          speakable: ALWAYS, 
-          yesNo : false 
+            et la recette ${gain} dinar algérien.`,
+          speakable: ALWAYS,
+          yesNo: false
         })
       }
     }))
   }
   private loadWaitingRoom(update: boolean = false, first: boolean = false) {
+    if (this.dataService.castDateYMD(this.currentDate) != this.todayDate)
+      this.controllable = false;
+    else
+      this.controllable = true;
+
     this.apollo.query({
       query: gql`
         {
@@ -148,14 +158,21 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
       if (this.waitingRoom && this.waitingRoom.visits.length != 0 && this.fromVa && first) {
 
         this.virtualAssistantService.onVaResponse.next(<YesNoVAResponse>{
-          message: "Voulez vous que je te donne un résumé sur la salle d'attente",
+          message: "vous voulez un résumé de la salle d'attente",
           speakable: ALWAYS,
           command: "résumé sur la salle d'attente",
           yesNo: true
         })
       }
+      if (this.waitingRoom)
+        this.interactionService.showMessage.next(<any>{
+          message: "la salle d'attente "+ this.dataService.castFRDate(new Date(this.currentDate))+ " a été chargée"
+        });
+
+
       if (update)
         this.updateSubject.next(this.waitingRoom);
+
     })
   }
   public createWaitingRoom() {
@@ -174,23 +191,30 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
     }).pipe(map(value => (<any>value.data).addWaitingRoom)).subscribe((data) => {
       this.waitingRoom = data;
       this.waitingRoom.visits = [];
+
+      this.interactionService.showMessage.next(<Message>{
+        message: "la salle d'attente "+this.dataService.castFRDate(new Date(this.currentDate))+" a été créée " ,
+        type: SUCCESS
+      })
     })
   }
 
   public dateChanged($event: Date) {
+
     this.currentDate = $event.toISOString();
 
     this.currentMonth = $event.getMonth();
     this.currentYear = $event.getFullYear();
     this.currentDay = $event.getDate();
 
+
     this.loadWaitingRoom(true);
 
   }
 
-  public ngOnDestroy() { 
-    this.subscriptions.forEach((subs) => { 
-      subs.unsubscribe() ; 
+  public ngOnDestroy() {
+    this.subscriptions.forEach((subs) => {
+      subs.unsubscribe();
     })
   }
 }

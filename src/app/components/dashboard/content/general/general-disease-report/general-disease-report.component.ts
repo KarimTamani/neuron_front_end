@@ -74,7 +74,7 @@ export class GeneralDiseaseReportComponent implements OnInit {
         callbacks: {
           label: function (tooltipItems, data) {
             
-            return " " + tooltipItems.yLabel + " " + data.datasets[tooltipItems.datasetIndex].label+ " : " + labels[tooltipItems.index] + " , "+ percentages[tooltipItems.index] + "%";
+            return percentages[tooltipItems.index] + "% "+labels[tooltipItems.index] +" "+ tooltipItems.yLabel + " " + data.datasets[tooltipItems.datasetIndex].label ;
           },
           title : () => { 
             return "" ;  

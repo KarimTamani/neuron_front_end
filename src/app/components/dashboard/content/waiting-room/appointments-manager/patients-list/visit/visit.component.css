@@ -48,6 +48,7 @@
         color: #555555;
         margin: 0px;
         margin-bottom: 6px;
+        text-transform: capitalize;
     }
     
     p .hightlight {
@@ -331,11 +332,11 @@
     }
     
     .controller span.edit:after {
-        content: "Modifier";
+        content: "Éditer";
     }
     
     .controller span.visit:after {
-        content: "Démaré la visite";
+        content: "Lancer la visite";
     }
     
     .controller span.igonre:after {
@@ -351,15 +352,15 @@
     }
     
     .controller span.start-visit:after {
-        content: "Démare la visite";
+        content: "Lancer la visite";
     }
     
     .controller span.paye-visit:after {
-        content: "Payé la visite"
+        content: "Payer la visite"
     }
     
     .controller span.visit-done:after {
-        content: "Visite terminé"
+        content: "Terminé la visite "
     }
     
     .visit-container.fade-in {

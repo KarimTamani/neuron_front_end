@@ -1,12 +1,12 @@
 <div class="main-container">
     <button class="secondary-button" (click)="newVisit()" [disabled]="waitingRoom == null">
         <i class="fa fa-plus"></i>
-        Nouvelle visit 
+        Nouvelle visite
     </button>
     <a *ngIf="appointments.length > 0" (click)="openAppointmentsLoader()">
-        <i class="fa fa-calendar-alt"></i> {{appointments.length}} RDV pour aujourd'hui
+        <i class="fa fa-calendar-alt"></i> {{appointments.length}} Rendez-vous
     </a>
     <button class="secondary-button right" (click)="next()" [disabled]="waitingRoom == null"> 
-        Patient Suivant <i class="fa fa-arrow-right"></i>
+        Prochaine visite<i class="fa fa-arrow-right"></i>
     </button>
 </div>

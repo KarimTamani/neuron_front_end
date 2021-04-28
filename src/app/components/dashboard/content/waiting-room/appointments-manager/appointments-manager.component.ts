@@ -1,47 +1,68 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, ViewChild, QueryList } from '@angular/core';
 import { Visit } from 'src/app/classes/Visit';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
+import { PatientsListComponent } from './patients-list/patients-list.component';
+import { AppointmentsControllerComponent } from './appointments-controller/appointments-controller.component';
+import { Message } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-appointments-manager',
   templateUrl: './appointments-manager.component.html',
   styleUrls: ['./appointments-manager.component.css']
 })
-export class AppointmentsManagerComponent implements OnInit {
+export class AppointmentsManagerComponent implements OnInit, OnDestroy {
   public waitingVisits: Visit[] = [];
   public visitsDone: Visit[] = []
   public nextSubject: Subject<number>;
   public currentVisit: Visit;
 
-
-
+  public subscriptions: Subscription[] = [];
   @Input() waitingRoom: WaitingRoom;
-  @Input() updateSubject : Subject<WaitingRoom> ; 
+  @Input() updateSubject: Subject<WaitingRoom>;
+  @Input() controllable: boolean;
+  @ViewChild(PatientsListComponent) patientsLists: QueryList<PatientsListComponent[]>;
+  @ViewChild(AppointmentsControllerComponent) controller: QueryList<AppointmentsControllerComponent[]>;
+
+
+  public updateController: Subject<null>;
+  public updateVisits: Subject<null>;
 
   constructor(private apollo: Apollo, private dataService: DataService, private interactionService: InteractionService) {
 
     this.nextSubject = new Subject<number>();
+    this.updateVisits = new Subject<null>();
+    this.updateController = new Subject<null>();
+
   }
 
   ngOnInit(): void {
-    this.getVisits() ; 
-    if ( this.updateSubject ) { 
-      this.updateSubject.subscribe((data) => { 
-        this.waitingRoom = data ; 
-        this.getVisits() ; 
-    
-      })
+    this.getVisits();
+    if (this.updateSubject) {
+      this.subscriptions.push(this.updateSubject.subscribe((data) => {
+        this.waitingRoom = data;
+        this.getVisits();
+
+
+        (<any>this.patientsLists).visits = this.waitingVisits;
+        (<any>this.patientsLists).currentVisit = this.currentVisit;
+        if (this.controllable) {
+          (<any>this.controller).waitingRoom = this.waitingRoom;
+          this.updateController.next();
+        }
+        this.updateVisits.next();
+
+      }));
     }
-    
+
   }
 
-  private getVisits() { 
+  private getVisits() {
     // get the waiting visits including the one in the doctor office
     this.waitingVisits = <any[]>this.waitingRoom.visits.filter(visit => visit.status == "waiting" || visit.status == "in visit");
 
@@ -51,7 +72,7 @@ export class AppointmentsManagerComponent implements OnInit {
     this.currentVisit = this.waitingRoom.visits.find(visit => visit.status == "in visit");
     // get the visits dones
     this.visitsDone = this.waitingRoom.visits.filter(visit => visit.status == "visit payed" || visit.status == "visit done");
-  
+    this.visitsDone = this.visitsDone.reverse();
   }
 
   next() {
@@ -100,6 +121,9 @@ export class AppointmentsManagerComponent implements OnInit {
       }
 
       this.interactionService.updateReport.next();
+      this.interactionService.showMessage.next(<Message>{
+        message : "la prochaine visite commence"
+      })
     })
   }
   public inVisit($event) {
@@ -152,11 +176,15 @@ export class AppointmentsManagerComponent implements OnInit {
   public visitDone($event) {
     // find the visit from the waiting visits to delete it 
     // and mark it as new done visit and added it to the visitsDone
-    
+
     const index = this.waitingVisits.findIndex(value => value.id == this.currentVisit.id);
     this.waitingVisits.splice(index, 1);
     (<any>this.currentVisit).newDone = true;
-    this.visitsDone.splice(0, 0, this.currentVisit); 
-    this.currentVisit = null ; 
+    this.visitsDone.splice(0, 0, this.currentVisit);
+    this.currentVisit = null;
   }
+  public ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
+
 }

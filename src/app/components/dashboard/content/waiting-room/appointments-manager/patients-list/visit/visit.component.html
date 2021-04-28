@@ -7,10 +7,10 @@
             <div class="info-side">
                 <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
                 <p>
-                    <i class="fa fa-clock"></i> temp d'arrivé : <span class="hightlight">{{visit.arrivalTime}}</span>
+                    <i class="fa fa-clock"></i> Temps d'arrivée : <span class="hightlight">{{visit.arrivalTime}}</span>
                 </p>
                 <p>
-                    <i class="fa fa-sort-amount-up"></i>l'order :
+                    <i class="fa fa-sort-amount-up"></i>Order :
                     <span>
                 {{visit.order}}
             </span>
@@ -30,7 +30,7 @@
             </p>
         </div>
 
-        <div class="controller" *ngIf="!ignore && !next && !currentVisit">
+        <div class="controller" *ngIf="controllable && !ignore && !next && !currentVisit">
             <span class="edit" (click)="editVisit ( )">
                 <i class="fa fa-edit"></i>
             </span>
@@ -48,12 +48,12 @@
             </span>
         </div>
 
-        <div class="new-controller controller" *ngIf="new || currentVisit">
+        <div class="new-controller controller" *ngIf="controllable && new || currentVisit">
             <span class="out-visit" (click)="outVisit()">
                 <i class="fa fa-pause"></i>
             </span>
             <span class="start-visit">
-                <i class="fa fa-heartbeat"></i>
+                <i class="fa fa-heartbeat" (click)="startVisit()"></i>
             </span>
             <span class="visit-done" (click)="visitDone ()">
                 <i class="fa fa-check"></i>
@@ -70,14 +70,14 @@
         <div class="info-side">
             <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
             <p>
-                <i class="fa fa-clock"></i> debut <span class="hightlight"> {{visit.startTime}}</span> - fin <span class="hightlight">   {{visit.endTime}}</span>
+                <i class="fa fa-clock"></i> de <span class="hightlight"> {{visit.startTime}}</span> à <span class="hightlight">   {{visit.endTime}}</span>
             </p>
             <p>
                 <i class="fa fa-money-bill-wave"></i>Montant total <span>{{totalMoney}} DA</span>
             </p>
 
             <p *ngIf="visit.status =='visit payed' ">
-                Payé : <span>{{visit.payedMoney}} DA</span> Credit : <span>{{visit.debt}} DA</span>
+                Payé <span>{{visit.payedMoney}} DA</span> Credit <span>{{visit.debt}} DA</span>
             </p>
             <p *ngIf="visit.status == 'visit done'">
                 <i class="round"></i>
@@ -94,7 +94,7 @@
         </p>
     </div>
 
-    <div class="controller">
+    <div class="controller" *ngIf="controllable">
         <span class="paye-visit" (click)="payeVisit()">
             <i class="fa fa-money-bill"></i>
         </span>

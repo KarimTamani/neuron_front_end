@@ -1,15 +1,15 @@
 <div class="main-container">
-    <div class="header primary-radius">
-        <app-appointments-controller (nextEvent)="next()" [waitingRoom]="waitingRoom"></app-appointments-controller>
+    <div class="header primary-radius" *ngIf="controllable">
+        <app-appointments-controller [updateController]="updateController" (nextEvent)="next()" [waitingRoom]="waitingRoom"></app-appointments-controller>
     </div>
-    <div class="body primary-radius">
+    <div class="body primary-radius" [class.no-controllable]="!controllable">
         <div class="row">
             <div class="col col-md-6">
-                <app-patients-list (visitDoneEvent)="visitDone($event)" [waitingRoom]="waitingRoom" (outVisitEvent)="outVisit($event)" (restoreVisitEvent)="restoreVisit($event)" (ignoreVisitEvent)="ignoreVisit($event)" (inVisitEvent)="inVisit($event)" [currentVisit]="currentVisit"
-                    [header]="'visites d\'attente'" [color]="'rgb(254, 101, 85)'" [visits]="waitingVisits" [nextSubject]="nextSubject"></app-patients-list>
+                <app-patients-list [controllable]="controllable" [updateVisits]="updateVisits" (visitDoneEvent)="visitDone($event)" [waitingRoom]="waitingRoom" (outVisitEvent)="outVisit($event)" (restoreVisitEvent)="restoreVisit($event)" (ignoreVisitEvent)="ignoreVisit($event)"
+                    (inVisitEvent)="inVisit($event)" [currentVisit]="currentVisit" [header]="'Visites en attente'" [color]="'rgb(254, 101, 85)'" [visits]="waitingVisits" [nextSubject]="nextSubject"></app-patients-list>
             </div>
             <div class="col col-md-6">
-                <app-patients-list [done]="true" [header]="'visites terminées'" [color]='"rgb(38, 94, 215)"' [visits]="visitsDone"></app-patients-list>
+                <app-patients-list [controllable]="controllable" [done]="true" [header]="'Visites effectuées'" [color]='"rgb(38, 94, 215)"' [visits]="visitsDone"></app-patients-list>
             </div>
         </div>
     </div>

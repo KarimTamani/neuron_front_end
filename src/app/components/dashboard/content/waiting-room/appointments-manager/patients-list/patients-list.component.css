@@ -40,3 +40,9 @@
     box-shadow: -3px -3px 26px rgba(0, 0, 0, 0.1), -3px -3px 26px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
 }
+
+.no-data-message {
+    margin: 0px;
+    text-align: center;
+    font-size: 12px;
+}

@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
+import { Message } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-visit',
@@ -34,6 +35,7 @@ export class VisitComponent implements OnInit {
   @Output() restoreVisitEvent: EventEmitter<Visit>;
   @Output() outVisitEvent: EventEmitter<Visit>;
   @Output() visitDoneEvent: EventEmitter<Visit>;
+  @Input() controllable : boolean ; 
   constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
@@ -53,7 +55,7 @@ export class VisitComponent implements OnInit {
     this.ignore = this.visit.status == "visit quited";
 
     // if the visit is done
-    if (this.done) {
+    if (this.done) { 
       // and it's new done play the done animation 
       // and end it after 100 miliseconds
       if (this.newDone) {
@@ -90,6 +92,10 @@ export class VisitComponent implements OnInit {
         this.inVisitEvent.emit(this.visit);
 
         this.interactionService.updateReport.next();
+
+        this.interactionService.showMessage.next(<Message> {
+          message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a commencé`
+        })
       }, 1000)
     })
   }
@@ -113,9 +119,13 @@ export class VisitComponent implements OnInit {
         this.ignore = true;
         this.fadeIn = false;
         this.ignoreVisitEvent.emit(this.visit);
-
         this.interactionService.updateReport.next();
+        this.interactionService.showMessage.next(<Message> {
+          message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a été ignorée`
+        })
       }, 1000)
+
+
     })
   }
 
@@ -135,9 +145,10 @@ export class VisitComponent implements OnInit {
       setTimeout(() => {
         this.fadeIn = false;
         this.restoreVisitEvent.emit(this.visit);
-
         this.interactionService.updateReport.next();
-
+        this.interactionService.showMessage.next(<Message> {
+          message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a été renouvelée`
+        })
       }, 500)
     })
   }
@@ -161,7 +172,9 @@ export class VisitComponent implements OnInit {
       this.hide = false;
       this.fadeIn = false;
       this.interactionService.updateReport.next();
-
+      this.interactionService.showMessage.next(<Message> {
+        message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} en attente`
+      })
     })
   }
 
@@ -170,7 +183,7 @@ export class VisitComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "paye-visit",
-        "title": "Payé la visite",
+        "title": "Payer la visite",
         "visit": encodeURIComponent(JSON.stringify(this.visit))
       }
     });
@@ -211,5 +224,9 @@ export class VisitComponent implements OnInit {
       this.visitDoneEvent.emit(this.visit) ; 
     })
 
+  }
+
+  public startVisit() { 
+    this.router.navigate(["/dashboard/visit"])
   }
 }

@@ -65,10 +65,9 @@ export class NewVisitComponent implements OnInit {
       this.selectedMedicalActs.forEach((act) => {
         this.totalPrice += act.price;
       })
-      if (params["edit"] !== null)
-        this.edit = JSON.parse(params["edit"]);
-      else
-        this.edit = true;
+      if (this.visit.id) { 
+        this.edit = true ; 
+      }
     }
     if (params["waiting-room"]) {
       // get the waiting room from the params 

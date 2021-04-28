@@ -25,16 +25,16 @@ export class CalendarComponent implements OnInit {
   public year: number;
 
   public loaded: boolean = false;
-  public updateSubject : Subject<any> ; 
+  public updateSubject: Subject<any>;
 
-  @Output() dateChangedEvent : EventEmitter<any>  ;
+  @Output() dateChangedEvent: EventEmitter<any>;
 
   //public schedule: Schedule;
   ngOnInit(): void { }
-  constructor(private apollo: Apollo , private dataService : DataService, private interactionService : InteractionService) {
-    this.updateSubject = new Subject<any>() ; 
+  constructor(private apollo: Apollo, private dataService: DataService, private interactionService: InteractionService) {
+    this.updateSubject = new Subject<any>();
 
-    this.dateChangedEvent = new EventEmitter<any>()  ;
+    this.dateChangedEvent = new EventEmitter<any>();
 
     this.apollo.query({
       query: gql`
@@ -45,9 +45,9 @@ export class CalendarComponent implements OnInit {
 
       this.currentDate = new Date(data);
 
-      this.currentMonth = this.currentDate.getMonth();
+      this.currentMonth = this.currentDate.getUTCMonth();
       this.currentYear = this.currentDate.getFullYear();
-      this.currentDay = this.currentDate.getDate();
+      this.currentDay = this.currentDate.getUTCDate();
 
       this.day = this.currentDay;
       this.month = this.currentMonth;
@@ -69,13 +69,16 @@ export class CalendarComponent implements OnInit {
     if (this.currentYear == this.year && this.currentMonth == this.month) {
       this.day = this.currentDay;
     }
+
     this.currentDate = new Date(this.currentMonth + 1 + " " + this.day + " " + this.currentYear);
-    this.dateChangedEvent.emit(this.currentDate) ;   
-    this.updateSubject.next(this.currentDate) ;  
+    this.currentDate = new Date(this.currentDate.getTime() + this.dataService.HOUR * 1000 );
+
+    this.dateChangedEvent.emit(this.currentDate);
+    this.updateSubject.next(this.currentDate);
   }
 
   previousMonth() {
-  
+
     this.day = 1;
     if (this.currentMonth != 0)
       this.currentMonth--;
@@ -87,17 +90,20 @@ export class CalendarComponent implements OnInit {
       this.day = this.currentDay;
     }
     this.currentDate = new Date(this.currentMonth + 1 + " " + this.day + " " + this.currentYear);
-    this.dateChangedEvent.emit(this.currentDate) ;   
-    this.updateSubject.next(this.currentDate) ;  
+    this.currentDate = new Date(this.currentDate.getTime() + this.dataService.HOUR * 1000 );
+
+    this.dateChangedEvent.emit(this.currentDate);
+    this.updateSubject.next(this.currentDate);
+
   }
-  
+
   private getStartOfMonth(date: Date) {
-  
+
     let time = date.getTime();
     time = time - (date.getDate() - 1) * 24 * 3600 * 1000;
     let startDate = new Date(time);
     return startDate;
-  
+
   }
 
   public getMonthDays(date: Date) {
@@ -137,8 +143,10 @@ export class CalendarComponent implements OnInit {
 
     this.day = d;
     this.currentDate = new Date(this.currentMonth + 1 + " " + this.day + " " + this.currentYear);
-    this.dateChangedEvent.emit(this.currentDate) ;  
-    this.updateSubject.next(this.currentDate) ;  
+    this.currentDate = new Date(this.currentDate.getTime() + this.dataService.HOUR * 1000 );
+
+    this.dateChangedEvent.emit(this.currentDate);
+    this.updateSubject.next(this.currentDate);
   }
 
 }

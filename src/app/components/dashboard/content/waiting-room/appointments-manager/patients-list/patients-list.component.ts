@@ -25,18 +25,24 @@ export class PatientsListComponent implements OnInit {
   @Output() restoreVisitEvent: EventEmitter<Visit>;
   @Output() outVisitEvent: EventEmitter<Visit>;
   @Output() visitDoneEvent : EventEmitter<Visit> ; 
-
   @Input() waitingRoom: WaitingRoom;
+  @Input() updateVisits : Subject<null> ;  
+  @Input() controllable : boolean  ;  
   constructor(private apollo: Apollo) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
     this.restoreVisitEvent = new EventEmitter<Visit>();
     this.outVisitEvent = new EventEmitter<Visit>();
     this.visitDoneEvent = new EventEmitter<Visit>() ; 
+    
   }
 
   ngOnInit(): void {
     this.initSubjects();
+    if (this.updateVisits) 
+      this.updateVisits.subscribe(() => { 
+        this.initSubjects() ; 
+      })
   }
 
   private initSubjects() {

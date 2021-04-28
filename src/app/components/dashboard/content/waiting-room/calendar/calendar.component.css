@@ -73,3 +73,7 @@ table tr td span:not(.current-day):hover {
     position: relative;
     padding: 0px 16px;
 }
+
+.calendar-body {
+    height: 230px;
+}
