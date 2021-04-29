@@ -91,3 +91,19 @@ p i {
 .controller button {
     float: right;
 }
+
+.no-data-message {
+    margin-top: 12px;
+    color: #888;
+}
+
+.stretch-container h5 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.search-container {
+    max-width: 180px;
+    min-width: 180px;
+}

@@ -19,7 +19,7 @@ export class SearchInputComponent implements OnInit {
   @Input() formControlName : string ; 
   @ViewChild("input", {}) input;
   @Input() type : string = "name"
-
+  @Input() valid : boolean = true ; 
   public results: any[] = [];
   private handler: any = null;
 

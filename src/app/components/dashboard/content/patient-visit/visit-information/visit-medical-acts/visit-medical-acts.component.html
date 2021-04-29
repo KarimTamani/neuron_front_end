@@ -1,7 +1,8 @@
 <div class="main-container primary-radius">
     <app-no-visit-background *ngIf="!active"></app-no-visit-background>
-    <h5>Les Actes medicaux</h5>
-    <div class="medical-acts-container">
+    <h5>Les Actes médicaux</h5>
+    <div class="medical-acts-container" [class.is-invalid]="!valid">
+
         <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
             <span>
                 {{medicalAct.name}} 
@@ -11,7 +12,10 @@
             </span>
             <i class="fa fa-check"></i>
         </div>
+
     </div>
+
+
     <div class="info">
         Montant Total <span class="hightlight">{{totalPrice}} DA</span>
     </div>

@@ -14,6 +14,7 @@ export class VisitMedicalActsComponent implements OnInit {
   public medicalActs: MedicalAct[] = [];
   @Input() selectedMedicalActs: MedicalAct[] = [];
   @Input() active : boolean = false ;
+  @Input() valid : boolean = true ; 
   public totalPrice: number = 0;
   constructor(private apollo: Apollo , private interactionService : InteractionService) { }
 
@@ -51,7 +52,12 @@ export class VisitMedicalActsComponent implements OnInit {
       this.totalPrice += act.price;
     }); 
 
-    this.interactionService.visitEdited.next() ;  
+    this.interactionService.visitEdited.next() ; 
+    if (this.medicalActs.length ==0) { 
+      this.valid = false ; 
+    } else { 
+      this.valid = true ; 
+    }
   }
 
   public isMedicalActSelected(medicalAct) {

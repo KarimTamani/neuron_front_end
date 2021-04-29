@@ -1,6 +1,6 @@
 <div class="search-container">
-    <input (blur)="blur($event)" (change)="change($event)" *ngIf="!formControlName" #input type="text" class="primary-input" [(ngModel)]="submittedItem.name" placeholder="{{placeholder}}" (keyup)="search($event)">
-    <input (blur)="blur($event)" (change)="change($event)" *ngIf="formControlName" formControlName="formControlName" #input type="text" class="primary-input" [(ngModel)]="submittedItem.name" placeholder="{{placeholder}}" (keyup)="search($event)">
+    <input (blur)="blur($event)" (change)="change($event)" *ngIf="!formControlName" #input type="text" class="primary-input" [(ngModel)]="submittedItem.name" [class.is-invalid]="!valid" placeholder="{{placeholder}}" (keyup)="search($event)">
+    <input (blur)="blur($event)" (change)="change($event)" *ngIf="formControlName" formControlName="formControlName" #input type="text" class="primary-input" [class.is-invalid]="!valid" [(ngModel)]="submittedItem.name" placeholder="{{placeholder}}" (keyup)="search($event)">
 
     <div class="search-result" *ngIf="results.length > 0">
         <ul *ngIf="type == 'name'">
@@ -11,7 +11,7 @@
         <ul *ngIf="type == 'medicalFile'">
             <li *ngFor="let result of results" (click)="select(result)" class="medicalFile">
                 <p>{{result.name}} {{result.lastname}} <span class="right">{{result.birthday}}</span></p>
-                <p> {{result.email}} <span class="right">{{result.phone}}</span></p>
+                <p> {{result.email}} <span class="right">{{result.phone}}</span><span style="clear : both"></span></p>
             </li>
         </ul>
     </div>

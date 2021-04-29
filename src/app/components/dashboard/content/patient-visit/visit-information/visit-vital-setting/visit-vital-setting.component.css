@@ -69,3 +69,7 @@ h5 {
     min-width: 120px;
     border-radius: 12px;
 }
+
+.imc {
+    height: 16px;
+}

@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 import { DataService } from 'src/app/services/data.service';
+import { Message, SUCCESS } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-patient-visit',
@@ -23,6 +24,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public isEdited: boolean = false;
   @Input() isEdit: boolean = false;
+
   constructor(
     private apollo: Apollo,
     private interactionService: InteractionService,
@@ -170,12 +172,9 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       if (data)
         this.isEdited = true;
     }));
-
     this.subscriptions.push(this.interactionService.visitEdited.subscribe(() => {
       this.isEdited = true;
     }))
-
-
     this.subscriptions.push(this.interactionService.visitDone.subscribe((data) => {
       this.visit = new Visit();
       this.initVisit();
@@ -210,6 +209,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     this.initVisit();
   }
   public save($event) {
+    
     this.visit = $event;
     this.apollo.mutate({
       mutation: gql`
@@ -248,11 +248,12 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       await this.submitCertificats();
       await this.submitAppointment();
 
+      this.isEdited = false ; 
       this.router.navigate([] , { 
         queryParams : { 
           "pop-up-window": true , 
           "window-page" : "visit-details" , 
-          "title" : "Visiste en details" , 
+          "title" : "les details de la visite" , 
           "visit-id" : this.visit.id,
           "no-edit" : true 
         }
@@ -294,19 +295,13 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       await this.submitCertificats();
       await this.submitAppointment();
       
-      console.log(this.visit) ; 
-      this.router.navigate([] , { 
-        queryParams : { 
-          "pop-up-window": true , 
-          "window-page" : "visit-details" , 
-          "title" : "Visiste en details" , 
-          "visit-id" : this.visit.id , 
-          "no-edit" : true 
-        }
+      this.isEdited = false ; 
+      
+      this.interactionService.showMessage.next(<Message>{
+        message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.name} a commencé` , 
+        type : SUCCESS
       })
-
     })
-
   }
 
   private async submitVisitDrugDosages() {

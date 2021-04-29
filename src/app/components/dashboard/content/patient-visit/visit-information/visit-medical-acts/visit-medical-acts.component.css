@@ -16,7 +16,20 @@ h5 {
     max-height: 240px;
     overflow: auto;
     margin-bottom: 16px;
+    border: 1px solid transparent;
     border-bottom: 1px solid #eeeeee;
+    border-radius: 8px;
+    padding: 8px 0px;
+    position: relative;
+}
+
+.medical-acts-container.is-invalid:after {
+    content: "veuillez choisir un acte médical";
+    font-size: 11px;
+    color: rgb(254, 101, 85);
+    position: absolute;
+    bottom: 0px;
+    left: 8px;
 }
 
 .medical-act span {

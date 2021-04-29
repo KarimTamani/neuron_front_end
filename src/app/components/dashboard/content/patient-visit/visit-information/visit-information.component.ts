@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Apollo } from 'apollo-angular';
+import { FAIL, Message } from 'src/app/classes/Message';
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
 
@@ -15,6 +16,7 @@ export class VisitInformationComponent implements OnInit {
   
   @Output() saveVisitEvent : EventEmitter<Visit> ; 
   @Output() editVisitEvent : EventEmitter<Visit> ; 
+  public validMedicalActs : boolean = true ;
   
   constructor(private apollo: Apollo, private interactionService: InteractionService) {
     this.visitSelectedEvent = new EventEmitter<Visit>() ; 
@@ -33,10 +35,26 @@ export class VisitInformationComponent implements OnInit {
   }
 
   public save($event) { 
+    if (this.visit.medicalActs.length == 0) { 
+      this.validMedicalActs = false ; 
+      this.interactionService.showMessage.next(<Message>{
+        message : "choisissez un act medical" , 
+        type : FAIL
+      })
+      return ; 
+    }
     this.saveVisitEvent.emit($event) ; 
   }
 
   public edit($event ) { 
+    if (this.visit.medicalActs.length == 0) { 
+      this.validMedicalActs = false ; 
+      this.interactionService.showMessage.next(<Message>{
+        message : "choisissez un act medical" , 
+        type : FAIL
+      }) 
+      return ; 
+    }
     this.editVisitEvent.emit($event) ; 
   
   }

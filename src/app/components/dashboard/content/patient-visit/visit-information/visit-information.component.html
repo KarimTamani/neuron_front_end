@@ -10,7 +10,7 @@
                 <app-visit-vital-setting [active]="visit.medicalFile != null" [vitalSetting]="visit.vitalSetting"></app-visit-vital-setting>
             </div>
             <div class="side-card">
-                <app-visit-medical-acts [active]="visit.medicalFile != null" [selectedMedicalActs]="visit.medicalActs"></app-visit-medical-acts>
+                <app-visit-medical-acts [valid]="validMedicalActs" [active]="visit.medicalFile != null" [selectedMedicalActs]="visit.medicalActs"></app-visit-medical-acts>
             </div>
         </div>
         <div class="col col-md-4">

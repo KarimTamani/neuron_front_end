@@ -2,7 +2,7 @@
 
     <app-no-visit-background *ngIf="!active"></app-no-visit-background>
     <h5>
-        Les pramétres vitaux
+        Paramètres vitaux
     </h5>
     <div class="row">
         <div class="col col-md-6">
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="value-container">
-                    <span *ngIf="vitalSetting.obesity === null">Inconnue</span>
+                    <span *ngIf="vitalSetting.obesity === undefined || vitalSetting.obesity === null">Inconnue</span>
                     <span *ngIf="vitalSetting.obesity != null" class="value">
                         {{(vitalSetting.obesity == true) ? ("Oui") : ("No")}}
                     </span>
@@ -113,7 +113,7 @@
                     <i class="fa fa-smoking "></i>
                 </div>
                 <div class="value-container">
-                    <span *ngIf="vitalSetting.smoker === null">Inconnue</span>
+                    <span *ngIf="vitalSetting.smoker === undefined || vitalSetting.smoker === null">Inconnue</span>
                     <span *ngIf="vitalSetting.smoker != null" class="value">
                         {{(vitalSetting.smoker == true) ? ("Oui") : ("No")}}
                     </span>
@@ -121,15 +121,16 @@
             </div>
         </div>
         <div class="col col-md-12">
-            <div class="stretch-container">
+            <div class="stretch-container imc" *ngIf="imc">
                 IMC <span class="bold"> {{imc}} Kg / m </span> interpretation <span class="bold">{{ interpretation }}</span>
+            </div>
+            <div class="stretch-container imc" *ngIf="!imc">
+                <p class="no-data-message">interprétation IMC indisponnible</p>
             </div>
         </div>
         <div class="col col-md-12" *ngIf="editable">
             <div class="stretch-container edit">
                 <div>
-                    <p>Modifier les paramétres vitaux ici </p>
-
                 </div>
                 <button (click)="openVitalSetting()" class="secondary-button">Modifier <i class="fa fa-edit"></i></button>
             </div>

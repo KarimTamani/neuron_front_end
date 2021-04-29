@@ -9,6 +9,7 @@ import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { FAIL, Message } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-visit-loader',
@@ -25,6 +26,7 @@ export class VisitLoaderComponent implements OnInit {
   public showSearch: boolean = false;
   public submittedMedicalFile: MedicalFile;
   public waitingRoom: WaitingRoom;
+  public medicalFileValid : boolean = true ; 
   constructor(
     private apollo: Apollo, 
     private dataService: DataService , 
@@ -179,6 +181,7 @@ export class VisitLoaderComponent implements OnInit {
       }
       
       this.visitSelectedEvent.emit(this.visit);
+      this.medicalFileValid = true ; 
 
     })
   }
@@ -234,6 +237,15 @@ export class VisitLoaderComponent implements OnInit {
   }
 
   public saveVsit() {
+    if (!this.visit.medicalFile) { 
+      this.medicalFileValid = false ; 
+      this.interactionService.showMessage.next(<Message>{
+        message : "choisissez un dossier médical" , 
+        type : FAIL
+      })
+      return ; 
+    }
+
     if (this.visit.id) { 
       this.editVisitEvent.emit(this.visit) ; 
     }else { 
@@ -257,8 +269,9 @@ export class VisitLoaderComponent implements OnInit {
       this.visit.waitingRoom = this.waitingRoom;
       this.visit.waitingRoomId = this.waitingRoom.id;
       this.visit.order = this.visit.waitingRoom.visits.length + 1 ;       
-
+      this.medicalFileValid = true 
       subscription.unsubscribe() ; 
+
     })
   }
 

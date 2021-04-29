@@ -1,19 +1,21 @@
 <div class="main-container primary-radius">
     <div class="row">
         <div class="col col-md-12" *ngIf="!visit.medicalFile">
-            <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
+
+            <app-search-input [valid]="medicalFileValid" (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Rechercher un dossier médical'"></app-search-input>
+
         </div>
         <div class="col col-md-12">
             <div class="new-medicalfile-message stretch-container" *ngIf="visit.medicalFile == null">
                 <p>
-                    Si le dossie medical n'existe pas
+                    Si le dossie médical n'existe pas
                 </p>
                 <button class="secondary-button" (click)="showNewMedicalFile = true" (click)="openMedicalFileSubmitter()">
                     Creé le <i class="fa fa-plus"></i>
                 </button>
             </div>
             <div class="medical-file" *ngIf="visit.medicalFile">
-                <app-mini-medical-file (closeEvent)="closeMedicalFile()" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
+                <app-mini-medical-file [controllable]="!(visit.status == 'in visit' || isEdit)" (closeEvent)="closeMedicalFile()" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
             </div>
         </div>
         <div class="col col-md-12" *ngIf="visit.waitingRoom">
@@ -24,42 +26,48 @@
             </p>
         </div>
         <div class="col col-md-12">
-            <h5>Motif de consultation et symptoms</h5>
+            <h5>Motif de consultation et symptômes</h5>
             <div class="symptoms-container">
+
+                <p class="no-data-message" *ngIf="!visit.medicalFile">choisissez un dossier médical pour ajouter des symptômes</p>
+                <p class="no-data-message" *ngIf="visit.medicalFile && visit.symptoms.length == 0">aucun symptôme</p>
+
                 <span *ngFor="let symptom of visit.symptoms">{{symptom.name}}</span>
-                <p class="no-data-message" *ngIf="visit.symptoms.length == 0">Aucun Symptoms ou motife de consultation il faut selectioner un dossie médical</p>
+
             </div>
         </div>
         <div class="col col-md-12">
             <div class="antecedents-header stretch-container">
                 <h5>
-                    Antecedents
+                    Antécédents
                 </h5>
             </div>
             <div class="antecedents-container" *ngIf="visit.medicalFile">
+                <p class="no-data-message" *ngIf="visit.medicalFile.antecedents.length == 0"> aucun antécédents</p>
+
                 <span *ngFor="let antecedent of visit.medicalFile.antecedents">
                     {{antecedent.name}}
                 </span>
             </div>
             <div class="antecedents-container" *ngIf="visit.medicalFile == null">
-                <p class="no-data-message">Aucun Antencents il faut selectioner un dossie médical</p>
+                <p class="no-data-message">choisissez un dossier médical pour ajouter des antécédents</p>
             </div>
         </div>
         <div class="col col-md-12">
             <div class="stretch-container" *ngIf="visit.status == 'in visit' || isEdit">
-                <h5>Condition ou maladie</h5>
+                <h5>Pathologie</h5>
                 <div class="search-container">
                     <app-search-input (onChange)="change($event)" [submittedItem]="visit.condition" [searchFunction]="searchCondtion" [placeholder]="'Recherché une condition'"></app-search-input>
                 </div>
             </div>
             <div *ngIf="visit.status != 'in visit' && !isEdit">
-                <h5>Condition ou maladie</h5>
-                <p class="no-data-message">Pour Saisir une patholgie il faut démarer la visite</p>
+                <h5>Pathologie</h5>
+                <p class="no-data-message">choisissez un dossier médical pour ajouter une pathologie</p>
             </div>
         </div>
         <div class="controller col col-md-12">
-            <button *ngIf="visit.status == 'in visit' || isEdit" class="primary-button" (click)="saveVsit()"> Sauvgarder la visite <i class="fa fa-save"></i></button>
-            <button *ngIf="visit.status != 'in visit' && !isEdit" class="primary-button" (click)="saveVsit()"> Démarer la visite <i class="fa fa-heartbeat"></i></button>
+            <button *ngIf="visit.status == 'in visit' || isEdit" class="primary-button" (click)="saveVsit()"> Sauvegarder la visite <i class="fa fa-save"></i></button>
+            <button *ngIf="visit.status != 'in visit' && !isEdit" class="primary-button" (click)="saveVsit()"> Démarrer la visite <i class="fa fa-heartbeat"></i></button>
         </div>
     </div>
 </div>
