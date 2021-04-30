@@ -60,9 +60,6 @@ export class CertificatEditorComponent implements OnInit, OnDestroy {
     })
   }
 
-
-
-
   private preprocessCertificat(html: string): string {
     if (!html)
       return "";

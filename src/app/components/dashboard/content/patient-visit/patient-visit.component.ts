@@ -18,7 +18,7 @@ import { Message, SUCCESS } from 'src/app/classes/Message';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
-  public page: number = 3;
+  public page: number = 5;
   @Input() visit: Visit;
   @Input() noHeader: boolean = false;
   public subscriptions: Subscription[] = [];
@@ -209,7 +209,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     this.initVisit();
   }
   public save($event) {
-    
+
     this.visit = $event;
     this.apollo.mutate({
       mutation: gql`
@@ -238,7 +238,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         }) : (null),
         status: "in visit"
       }
-    }).pipe(map(value => (<any>value.data).addVisit)).subscribe( async (data) => {
+    }).pipe(map(value => (<any>value.data).addVisit)).subscribe(async (data) => {
       this.visit.id = data.id;
       this.visit.status = data.status;
       this.visit.createdAt = data.createdAt;
@@ -248,16 +248,13 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       await this.submitCertificats();
       await this.submitAppointment();
 
-      this.isEdited = false ; 
-      this.router.navigate([] , { 
-        queryParams : { 
-          "pop-up-window": true , 
-          "window-page" : "visit-details" , 
-          "title" : "les details de la visite" , 
-          "visit-id" : this.visit.id,
-          "no-edit" : true 
-        }
+      this.isEdited = false;
+
+      this.interactionService.showMessage.next(<Message>{
+        message: `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.name} a commencé`,
+        type: SUCCESS
       })
+
     })
   }
 
@@ -294,13 +291,20 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       await this.submitVisitCheckUps();
       await this.submitCertificats();
       await this.submitAppointment();
-      
-      this.isEdited = false ; 
-      
-      this.interactionService.showMessage.next(<Message>{
-        message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.name} a commencé` , 
-        type : SUCCESS
-      })
+
+      this.isEdited = false;
+      if (!this.isEdit) {
+        this.router.navigate([], {
+          queryParams: {
+            "pop-up-window": true,
+            "window-page": "visit-details",
+            "title": "les details de la visite",
+            "visit-id": this.visit.id,
+            "no-edit": true
+          }
+        })
+      }
+
     })
   }
 
@@ -356,7 +360,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
           visitId: this.visit.id,
           checkUps: this.visit.checkUps.map(value => value.id)
         }
-      }).pipe(map(value => (<any>value.data).addVisitCheckUps)).toPromise() 
+      }).pipe(map(value => (<any>value.data).addVisitCheckUps)).toPromise()
     }
   }
 
@@ -380,7 +384,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
             }
           })
         }
-      }).pipe(map(value => (<any>value.data).addVisitCertificats)).toPromise() 
+      }).pipe(map(value => (<any>value.data).addVisitCertificats)).toPromise()
     }
   }
 

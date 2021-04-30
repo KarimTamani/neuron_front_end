@@ -1,7 +1,7 @@
 <div class="main-container">
     <h5>Ajouter une demande de bilan</h5>
     <div class="search-input">
-        <input type="text" [(ngModel)]="name" (keyup)="search($event)" class="primary-input" placeholder="Recherché un Critères de bilan">
+        <input type="text" [(ngModel)]="name" (keyup)="search($event)" class="primary-input" placeholder="Rechercher un Critères de bilan">
     </div>
     <div class="check-up-types" *ngIf="checkUpsList.length == 0">
         <div class="check-up-type" *ngFor="let checkUpType of checkUpTypes">

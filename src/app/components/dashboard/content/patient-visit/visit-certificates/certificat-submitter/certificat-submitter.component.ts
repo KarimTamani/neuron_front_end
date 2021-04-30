@@ -19,14 +19,17 @@ export class CertificatSubmitterComponent implements OnInit {
   public selectedType: string;
   public newCertificat: Certificat; 
   public isEdit : boolean = false ; 
-  @Input() selectedCertificat : Certificat = null ; 
 
+  @Input() selectedCertificat : Certificat = null ; 
   @Input() visit: Visit;
   @Output() selectCertificat: EventEmitter<Certificat>;
+  @Output() typeSelcted : EventEmitter<string> ; 
+
 
   constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
     this.selectedType = this.certificatTypes[0];
     this.selectCertificat = new EventEmitter<Certificat>();
+    this.typeSelcted = new EventEmitter<string>( )  ;
   }
   ngOnInit(): void {
 
@@ -38,7 +41,8 @@ export class CertificatSubmitterComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "certificat-models",
-        "title": "Choisie un Model de Certificat"
+        "title": `Choisir un modèle de ${this.prescriptionTitle}` , 
+        "type" : this.selectedType 
       }
     });
 
@@ -47,6 +51,7 @@ export class CertificatSubmitterComponent implements OnInit {
       this.newCertificat = new Certificat();
       this.newCertificat.certificatModel = data;
       this.newCertificat.html = data.html;
+    
       this.newCertificat.id = new Date().getTime();
 
       subscription.unsubscribe();
@@ -59,7 +64,7 @@ export class CertificatSubmitterComponent implements OnInit {
     // whene we back from the editor assign newCertificat to null 
     // and always make sure that the selectedCertificat is on
     this.newCertificat = null;
-    this.selectCertificat.emit(this.selectedCertificat);
+    this.selectCertificat.emit(null);
   }
 
 
@@ -75,10 +80,29 @@ export class CertificatSubmitterComponent implements OnInit {
     this.isEdit = true ; 
     this.newCertificat = certificat ; 
     this.select(certificat) ; 
-
     this.interactionService.visitEdited.next() ; 
   }
+ 
+  get certificatTypeBased() { 
+    return this.visit.certificats.filter(value => value.certificatModel.type == this.selectedType);
+  }
 
+  
+
+  get prescriptionTitle() {
+
+    if (this.selectedType == "Certificat")
+      return "Certificat Médical";
+    else if (this.selectedType == "Compte-Rendu") 
+      return "Compte-Rendu"
+  }
+
+
+  public typeChenged() { 
+
+    this.selectCertificat.emit(null);
+    this.typeSelcted.emit(this.selectedType) ; 
+  }
 
   public select(certificat) { 
     this.selectedCertificat = certificat ; 
@@ -94,7 +118,6 @@ export class CertificatSubmitterComponent implements OnInit {
     if (index >= 0 ) { 
       this.visit.certificats.splice(index , 1) ; 
     }
-
     this.interactionService.visitEdited.next() ; 
   }
 }

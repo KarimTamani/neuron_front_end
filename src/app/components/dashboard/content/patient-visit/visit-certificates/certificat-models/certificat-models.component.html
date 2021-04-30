@@ -1,18 +1,10 @@
 <div class="main-container" *ngIf="!openModelSubmitter">
     <div class="content primary-radius">
-        <h5>Les Models de Certificats</h5>
+        <h5>Les Models des {{type}}s</h5>
         <div class="list">
-            <p class="model" *ngFor="let model of certificatModels" (click)="select(model)">
+            <p class="model" *ngFor="let model of certificatTypeBased" (click)="select(model)">
                 {{model.title}}
             </p>
         </div>
-        <a id="create-model" (click)="openModelSubmitter = true">
-            Si le model de certificat n'existe pas Créé le <i class="fa fa-plus"></i>
-        </a>
-    </div>
-</div>
-<div class="model-container" *ngIf="openModelSubmitter">
-    <div class="content primary-radius">
-        <app-certificat-model-submitter (saveEvent)="save($event)" (backEvent)="back()" [initModel]="submittedModel"></app-certificat-model-submitter>
     </div>
 </div>

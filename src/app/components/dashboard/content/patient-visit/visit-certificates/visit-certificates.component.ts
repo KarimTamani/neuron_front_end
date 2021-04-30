@@ -11,6 +11,7 @@ export class VisitCertificatesComponent implements OnInit {
   
   @Input() visit : Visit ; 
   public selectedCertificat : Certificat ;
+  public selectedType : string= "Certificat"; 
   constructor() {}
     
   ngOnInit(): void {
@@ -22,4 +23,17 @@ export class VisitCertificatesComponent implements OnInit {
   selectCertificat($event) { 
     this.selectedCertificat = $event ; 
   }
+
+  public typeSelcted($event) { 
+    this.selectedType = $event ; 
+  }
+
+  get prescriptionTitle() {
+
+    if (this.selectedType == "Certificat")
+      return "Certificat Médical";
+    else if (this.selectedType == "Compte-Rendu") 
+      return "Compte-Rendu"
+  } 
+
 }

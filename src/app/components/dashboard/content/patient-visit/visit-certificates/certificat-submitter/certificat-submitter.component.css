@@ -2,7 +2,7 @@
     padding: 16px;
 }
 
-.certificat-header h5 {
+h5 {
     margin: 0px;
     font-weight: bold;
     color: #212121;
@@ -13,13 +13,15 @@
 
 .certificat-header {
     padding-bottom: 16px;
-    border-bottom: 1px solid #eeee;
+}
+
+.certificat-header div {
+    width: 50%;
 }
 
 .certificat-header select {
-    width: 180px;
-    max-width: 180px;
-    min-width: 180px;
+    max-width: 200px;
+    min-width: 200px;
 }
 
 .certificats-list {
@@ -32,7 +34,7 @@
     margin: 8px 0px;
     color: #555;
     font-size: 14px;
-    padding: 4px 12px;
+    padding: 8px 12px;
     border-radius: 20px;
     transition-duration: 0.3s;
     cursor: pointer;
@@ -46,28 +48,39 @@
     background: #eeee;
 }
 
-.fa-times {
-    float: right;
-    background: rgb(254, 101, 85);
-    color: white;
-    padding: 4px 6px;
-    border-radius: 50%;
-}
-
 .certificat span {
+    width: 24px;
+    height: 24px;
+    background: rgb(254, 101, 85);
+    border-radius: 50%;
     float: right;
-    background: white;
-    padding: 3px 8px;
-    border-radius: 20px;
-    color: rgb(38, 94, 215);
-    font-size: 11px;
-    margin-right: 16px;
+    color: white;
+    font-size: 12px;
+    position: relative;
+    margin-top: -2px;
+    opacity: 0;
+    transition-duration: 0.3s;
 }
 
-.add-new {
+.certificat:hover span {
+    opacity: 1;
+}
+
+.certificat span i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.certificat span:last-child {
+    background: rgb(38, 94, 215);
+    margin-right: 8px;
+}
+
+.certificat-header button {
+    max-width: 200px;
+    min-width: 200px;
     float: right;
-    margin: 16px 0px;
-    width: 180px;
-    text-align: center;
-    cursor: pointer;
+    padding: 10px 16px;
 }

@@ -39,6 +39,12 @@ h5.title {
 .controller button {
     padding: 8px 16px;
     border-radius: 8px;
+    width: 180px;
+}
+
+.controller .secondary-button:hover {
+    background: rgb(254, 101, 85);
+    color: white;
 }
 
 .controller {

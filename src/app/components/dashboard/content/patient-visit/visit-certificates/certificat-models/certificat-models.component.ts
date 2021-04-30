@@ -14,14 +14,18 @@ import { InteractionService } from 'src/app/services/interaction.service';
 export class CertificatModelsComponent implements OnInit {
   public certificatModels: CertificatModel[] = [];
   public openModelSubmitter : boolean = false  ; 
-  public submittedModel : CertificatModel ; 
+  public type : string = "Certificat" ; 
+
   @Output() closeEvent : EventEmitter<null> ; 
 
   constructor(private route: ActivatedRoute , private apollo : Apollo, private InteractionService : InteractionService) {
     this.closeEvent = new EventEmitter<null>() ; 
   }
   ngOnInit(): void {
-    
+    var params = this.route.snapshot.queryParams ; 
+    if (params["type"]) { 
+      this.type = params["type"] ; 
+    }  
     this.apollo.query({
       query: gql`
           query {
@@ -31,11 +35,12 @@ export class CertificatModelsComponent implements OnInit {
           }`
     }).pipe(map(value => (<any>value.data).getCertificatModels)).subscribe((data) => {
       this.certificatModels = data ; 
-      if (this.certificatModels.length >= 2 ) { 
-        this.submittedModel = this.certificatModels[1]; 
-      }
     })
      
+  }
+
+  get certificatTypeBased() { 
+    return this.certificatModels.filter(value => value.type == this.type);
   }
 
   public select(model) { 
@@ -43,12 +48,4 @@ export class CertificatModelsComponent implements OnInit {
     this.closeEvent.emit() ; 
   }
 
-  public back() { 
-    this.openModelSubmitter = false ; 
-  }
-
-  public save($event) { 
-    this.certificatModels.push($event) ; 
-    this.openModelSubmitter = false ; 
-  }
 }

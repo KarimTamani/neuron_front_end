@@ -47,7 +47,7 @@ export class CheckUpComponent implements OnInit , OnDestroy {
     }
     this.selected = !this.selected;
     this.interactionService.visitEdited.next();
-
+    console.log(this.selected) ; 
   }
 
   public edit() { 

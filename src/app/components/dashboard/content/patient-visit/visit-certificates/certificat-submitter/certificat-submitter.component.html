@@ -1,19 +1,28 @@
 <div class="main-container" *ngIf="!newCertificat">
     <div class="certificat-header stretch-container">
-        <h5>{{this.selectedType}}</h5>
-        <select [(ngModel)]="selectedType">
-            <option *ngFor="let type of certificatTypes" [value]="type">{{type}}</option>
-        </select>
+        <div class="select-container">
+            <select [(ngModel)]="selectedType" (change)="typeChenged()">
+                <option *ngFor="let type of certificatTypes" [value]="type">{{type}}</option>
+            </select>
+        </div>
+        <div class="add-new">
+            <button class="primary-button" (click)="openModels()">
+                Ajouter {{selectedType}} <i class="fa fa-plus"></i>
+            </button>
+        </div>
     </div>
-    <span class="primary-button add-new" (click)="openModels()">
-        Ajouter <i class="fa fa-plus"></i>
-    </span>
     <div style="clear: both;"></div>
+    <h5>List des {{selectedType}}s</h5>
     <div class="certificats-list">
-        <div class="certificat" [class.selected]="selectedCertificat && selectedCertificat.id == certificat.id" *ngFor="let certificat of visit.certificats" (click)="select(certificat)">
+        <p class="no-data-message" *ngIf="certificatTypeBased.length == 0">Aucun {{prescriptionTitle}} veuillez en ajouter un nouveau </p>
+        <div class="certificat" [class.selected]="selectedCertificat && selectedCertificat.id == certificat.id" *ngFor="let certificat of certificatTypeBased" (click)="select(certificat)">
             {{certificat.certificatModel.title}}
+            <span>
             <i class="fa fa-times" (click)="remove(certificat)"></i>
-            <span (click)="openCertificat(certificat)">Modifer <i class="fa fa-edit" ></i></span>
+        </span>
+            <span>
+            <i class="fa fa-edit" (click)="openCertificat(certificat)"></i>
+        </span>
         </div>
     </div>
 </div>
