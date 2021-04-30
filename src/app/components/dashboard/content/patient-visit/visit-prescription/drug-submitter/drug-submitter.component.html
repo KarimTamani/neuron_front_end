@@ -1,12 +1,12 @@
 <div class="main-container">
-    <h5 class="primary-title">Ajouter un traitment</h5>
+    <h5 class="primary-title">Ajouter un traitement</h5>
 
     <form name="form" [formGroup]="form">
         <div class="row">
             <div class="col col-md-8">
                 <div class="form-group">
                     <div class="input-container" [ngClass]="{'is-invalid' : form.get('drug').touched && form.get('drug').invalid}">
-                        <app-search-input [submittedItem]="submittedVisitDrugDosage.drug" [placeholder]="'Recherché un medicament .. '" [searchFunction]="searchDrugFunction"></app-search-input>
+                        <app-search-input [submittedItem]="submittedVisitDrugDosage.drug" [placeholder]="'médicament '" [searchFunction]="searchDrugFunction"></app-search-input>
                     </div>
                     <div class="invalid-feedback" *ngIf="form.get('drug').touched && form.get('drug').invalid">
                         <div *ngIf="form.get('drug').errors.required">le medicament est obligé</div>
@@ -22,7 +22,7 @@
             <div class="col col-md-8">
                 <div class="form-group">
                     <div class="input-container" [ngClass]="{'is-invalid' : form.get('dosage').touched && form.get('dosage').invalid}">
-                        <app-search-input [submittedItem]="submittedVisitDrugDosage.dosage" [placeholder]="'Recherché une posology .. '" [searchFunction]="searchDosageFunction"></app-search-input>
+                        <app-search-input [submittedItem]="submittedVisitDrugDosage.dosage" [placeholder]="'posologie'" [searchFunction]="searchDosageFunction"></app-search-input>
                     </div>
                     <div class="invalid-feedback" *ngIf="form.get('dosage').touched && form.get('dosage').invalid">
                         <div *ngIf="form.get('dosage').errors.required">la posologie est obligé</div>
@@ -36,14 +36,16 @@
                 </div>
             </div>
             <div class="col col-md-12 controller">
-                <button class="secondary-input" (click)="clear()">Effacer</button>
+                <button class="secondary-button" (click)="clear()">Effacer</button>
                 <button class="primary-button" (click)="add()">Ajouter <i class="fa fa-plus"></i></button>
+
             </div>
         </div>
     </form>
     <div class="visit-drug-dosages">
-        <h5 class="primary-title">List des medicaments</h5>
+        <h5 class="primary-title">List des médicaments</h5>
         <div class="list">
+            <p class="no-data-message" *ngIf="visitDrugDosages.length ==0">Aucun médicament</p>
             <div class="drug-dosage" *ngFor="let visitDrugDosage of visitDrugDosages">
                 <app-drug-dosage (editEvent)="editVisitDrugDosage($event)" (deleteEvent)="deleteVisitDrugDosage($event)" [visitDrugDosage]="visitDrugDosage"></app-drug-dosage>
             </div>

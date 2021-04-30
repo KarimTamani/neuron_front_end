@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { VisitDrugDosage } from 'src/app/classes/VisitDrugDosage';
 import { InteractionService } from 'src/app/services/interaction.service';
@@ -13,9 +14,10 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
   templateUrl: './drug-submitter.component.html',
   styleUrls: ['./drug-submitter.component.css']
 })
-export class DrugSubmitterComponent implements OnInit {
+export class DrugSubmitterComponent implements OnInit, OnDestroy {
   @Input() visitDrugDosages: VisitDrugDosage[] = [];
   public submittedVisitDrugDosage: VisitDrugDosage;
+  public subscriptions: Subscription[] = [];
   public submitedQSP: any = {
     name: ""
   };
@@ -33,14 +35,11 @@ export class DrugSubmitterComponent implements OnInit {
       Validators.minLength(3)
     ])
   })
-  constructor(private apollo: Apollo , private interactionService : InteractionService , private virtualAssistantService : VirtualAssistantService) {
+  constructor(private apollo: Apollo, private interactionService: InteractionService, private virtualAssistantService: VirtualAssistantService) {
     this.submittedVisitDrugDosage = new VisitDrugDosage();
     this.submittedVisitDrugDosage.drug.name = "";
     this.submittedVisitDrugDosage.dosage.name = "";
-
   }
-
-
   public searchDrugFunction: any = (query) => {
     // search drugs based on query name
     return this.apollo.query({
@@ -84,31 +83,32 @@ export class DrugSubmitterComponent implements OnInit {
       }
     }).pipe(map(value => (<any>value.data).searchQSP));
   }
+
   ngOnInit(): void {
-    this.virtualAssistantService.onVACommand.subscribe((command: any) => {
-      
+    this.subscriptions.push(this.virtualAssistantService.onVACommand.subscribe((command: any) => {
+
       if (command.default && command.component == null) {
         this.submittedVisitDrugDosage.drug.name = command.default
-      } else if (command.component == "DRUG-SUBMITTER"){
+      } else if (command.component == "DRUG-SUBMITTER") {
         this.submittedVisitDrugDosage.drug.name = command.drugName;
         if (command.dosage)
           this.submittedVisitDrugDosage.dosage.name = command.dosage;
-        if (command.qsp) 
-          this.submitedQSP.name = command.qsp ; 
+        if (command.qsp)
+          this.submitedQSP.name = command.qsp;
       }
-      
+
       this.submittedVisitDrugDosage.drug.name = this.submittedVisitDrugDosage.drug.name.toUpperCase()
-     
-      if (command.operation == "ADD") 
-        this.add() ;
-    })
+
+      if (command.operation == "ADD")
+        this.add();
+    }));
   }
 
-  public editVisitDrugDosage($event) { 
-    this.submittedVisitDrugDosage  = $event ; 
-    this.submitedQSP = { name : $event.qsp } ; 
-    this.deleteVisitDrugDosage($event) ;  
-    this.interactionService.visitEdited.next() ; 
+  public editVisitDrugDosage($event) {
+    this.submittedVisitDrugDosage = $event;
+    this.submitedQSP = { name: $event.qsp };
+    this.deleteVisitDrugDosage($event);
+    this.interactionService.visitEdited.next();
   }
 
   public deleteVisitDrugDosage($event) {
@@ -120,9 +120,9 @@ export class DrugSubmitterComponent implements OnInit {
       $event.unitNumber == value.unitNumber &&
       $event.qsp == value.qsp
     );
-    this.visitDrugDosages.splice(index , 1) ; 
-    this.interactionService.visitEdited.next() ; 
-  
+    this.visitDrugDosages.splice(index, 1);
+    this.interactionService.visitEdited.next();
+
   }
   public add() {
     // whene we add a visit drug dosage to the visit 
@@ -135,8 +135,7 @@ export class DrugSubmitterComponent implements OnInit {
     this.form.setValue({
       drug: this.submittedVisitDrugDosage.drug.name,
       dosage: this.submittedVisitDrugDosage.dosage.name,
-      unitNumber: (this.submittedVisitDrugDosage.unitNumber) ? (this.submittedVisitDrugDosage.unitNumber) : (1)
-
+      unitNumber: (this.submittedVisitDrugDosage.unitNumber) ? (this.submittedVisitDrugDosage.unitNumber) : (null)
     });
 
     this.submittedVisitDrugDosage.qsp = this.submitedQSP.name;
@@ -144,15 +143,19 @@ export class DrugSubmitterComponent implements OnInit {
       return;
 
     this.visitDrugDosages.push(this.submittedVisitDrugDosage);
-    this.submittedVisitDrugDosage = new VisitDrugDosage() ; 
-    this.submitedQSP = { 
-      name : "" 
+    this.submittedVisitDrugDosage = new VisitDrugDosage();
+    this.submitedQSP = {
+      name: ""
     }
 
-    this.interactionService.visitEdited.next() ; 
+    this.interactionService.visitEdited.next();
 
   }
   public clear() {
     this.submittedVisitDrugDosage = new VisitDrugDosage();
+  }
+
+  public ngOnDestroy() { 
+    this.subscriptions.forEach(subs => subs.unsubscribe()) ; 
   }
 }

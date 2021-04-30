@@ -12,15 +12,15 @@
 }
 
 .controller {
-    margin-top: 16px;
+    margin: 16px 0px;
 }
 
 .controller button {
-    width: 33.33%;
     border-radius: 8px;
     padding: 8px 16px;
     font-size: 14px;
     border: none;
+    width: 30%;
 }
 
 .controller .primary-button {
@@ -32,7 +32,19 @@
 }
 
 .list {
-    height: 300px;
+    height: 360px;
     overflow: auto;
-    max-height: 300px;
+    max-height: 360px;
+    padding: 16px;
+    border: 1px solid #eee;
+    border-radius: 16px;
+}
+
+.no-data-message {
+    margin: 0px;
+}
+
+.secondary-button:hover {
+    background: rgb(254, 101, 85);
+    color: white;
 }
