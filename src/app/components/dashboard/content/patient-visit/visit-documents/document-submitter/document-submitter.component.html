@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="content primary-radius">
         <div class="image-container">
-            <app-image-viewer [height]="'320px'" [initUrl]="initUrl" (imageSelectedEvent)="onImageSelected($event)"></app-image-viewer>
+            <app-image-viewer [clearImage]="clearImage" [height]="'320px'" [initUrl]="initUrl" (imageSelectedEvent)="onImageSelected($event)"></app-image-viewer>
         </div>
         <div class="info-container">
             <form name="form" [formGroup]="form">

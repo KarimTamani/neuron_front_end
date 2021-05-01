@@ -1,36 +1,39 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-image-viewer',
   templateUrl: './image-viewer.component.html',
   styleUrls: ['./image-viewer.component.css']
 })
-export class ImageViewerComponent implements OnInit {
+export class ImageViewerComponent implements OnInit, OnDestroy {
   // bind to the file input 
   // create event emitter to emit every time and image selected
   @ViewChild("file") file;
   @ViewChild("image", { static: true }) image;
-  //@Input("clearImage") clearImage: Subject<null>
-  @Output("imageSelectedEvent") imageSelectedEvent: EventEmitter<any>; 
+  @Input("clearImage") clearImage: Subject<null>
+  @Output("imageSelectedEvent") imageSelectedEvent: EventEmitter<any>;
+
 
   @Input() initImage: any = null;
-  @Input() initUrl : string = null ; 
-  @Input() height : string = "520px"
+  @Input() initUrl: string = null;
+  @Input() height: string = "520px"
+
+  public subscriptions: Subscription[] = [];
+
   constructor() {
     this.imageSelectedEvent = new EventEmitter<any>()
   }
 
   ngOnInit(): void {
-    /*
     //  whene the parent component is done with the image we clear it  
-    this.clearImage.subscribe(() => {
-      this.image.nativeElement.src = "" ; 
-      this.file.nativeElement.value = "" 
-    })
-  */
+    this.subscriptions.push(this.clearImage.subscribe(() => {
+      this.image.nativeElement.src = "";
+      this.file.nativeElement.value = ""
+    }));
+
     if (this.initImage) {
-      let fileReader = new FileReader(); 
+      let fileReader = new FileReader();
       // file reader load listener
       fileReader.onload = (event) => {
         this.image.nativeElement.src = event.target.result
@@ -57,5 +60,10 @@ export class ImageViewerComponent implements OnInit {
       // emit to the parent component 
       this.imageSelectedEvent.emit(imageFile)
     }
+  }
+
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 }

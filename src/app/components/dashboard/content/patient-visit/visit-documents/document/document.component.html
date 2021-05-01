@@ -9,7 +9,7 @@
     <div class="description-container" *ngIf="!patientInfo">
         <p *ngIf="document.description">{{document.description}}</p>
         <p *ngIf="!document.description" class="no-desc">
-            Aucun Description pour ce document
+            Description indisponible
         </p>
     </div>
     <div class="document-info" *ngIf="patientInfo">

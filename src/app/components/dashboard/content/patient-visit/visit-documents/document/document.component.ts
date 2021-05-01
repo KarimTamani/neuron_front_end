@@ -12,22 +12,16 @@ import { InteractionService } from 'src/app/services/interaction.service';
   styleUrls: ['./document.component.css']
 })
 export class DocumentComponent implements OnInit {
-  @Input() document: Document;
-  @Input() controllable : boolean = true ; 
-  @Output() editEvent: EventEmitter<Document>;
-  @Output() deleteEvent: EventEmitter<number>;
+  @Input() document: Document; 
   @Input() patientInfo : boolean = false ; 
   @Output() clickEvent : EventEmitter<Document> ; 
 
   constructor(private router: Router, private interactionService: InteractionService , private apollo : Apollo ) {
-    this.editEvent = new EventEmitter<Document>();
-    this.deleteEvent = new EventEmitter<number>();
     this.clickEvent = new EventEmitter<Document>() ; 
     
   }
 
-  ngOnInit(): void { 
-
+  ngOnInit(): void {  
   }
 
 

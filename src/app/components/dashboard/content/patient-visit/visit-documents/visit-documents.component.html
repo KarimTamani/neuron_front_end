@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="col col-md-3" *ngFor="let document of visitDocument.documents">
-                <app-document (deleteEvent)="delete($event)" [document]="document" (editEvent)="editDocument($event)"></app-document>
+                <app-document (clickEvent)="selectDocument(document)" (deleteEvent)="delete($event)" [document]="document" (editEvent)="editDocument($event)"></app-document>
             </div>
         </div>
     </div>

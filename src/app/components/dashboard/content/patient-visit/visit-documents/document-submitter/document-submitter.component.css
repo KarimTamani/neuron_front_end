@@ -35,3 +35,8 @@ textarea {
 .control button:last-child {
     float: right;
 }
+
+.secondary-button:hover {
+    background: rgb(254, 101, 85);
+    color: white;
+}

@@ -77,7 +77,9 @@ export class DocumentsManagerComponent implements OnInit, OnDestroy{
       var index = this.documents.findIndex(value => value.id == data.id) ; 
       if (index >= 0) { 
         this.documents[index].name = data.name ; 
-        this.documents[index].description = data.description ; 
+        this.documents[index].description = data.description ;
+        this.documents[index].path = data.path ;  
+
       }
     })) ;   }
 

@@ -53,10 +53,16 @@
     color: #555;
     font-size: 12px;
     padding: 8px 16px;
+    position: relative;
 }
 
 .no-desc {
     color: rgb(254, 101, 85) !important;
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+    width: 100%;
     display: block;
     text-align: center;
 }

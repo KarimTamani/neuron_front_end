@@ -1,11 +1,12 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Document } from 'src/app/classes/Document';
+import { SUCCESS , Message} from 'src/app/classes/Message';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class DocumentSubmitterComponent implements OnInit {
   public image: any = null;
   public document: Document;
   public visitId: number;
+  public clearImage : Subject<null> ; 
   public form: FormGroup = new FormGroup({
     name: new FormControl("", [
       Validators.required,
@@ -33,6 +35,7 @@ export class DocumentSubmitterComponent implements OnInit {
   constructor(private apollo: Apollo, private route: ActivatedRoute, private interactionService: InteractionService) {
     this.closeEvent = new EventEmitter<null>();
     this.document = new Document();
+    this.clearImage = new Subject<null>() ; 
 
   }
   ngOnInit(): void {
@@ -50,7 +53,7 @@ export class DocumentSubmitterComponent implements OnInit {
 
   public clear() {
     this.document = new Document();
-
+    this.clearImage.next() ;  
   }
   public save() {
     this.apollo.mutate({
@@ -76,7 +79,12 @@ export class DocumentSubmitterComponent implements OnInit {
       }
     }).pipe(map(value => (<any>value.data).addDocument)).subscribe((data) => {
       this.interactionService.documentAdded.next(data);
+      this.interactionService.showMessage.next(<Message> {
+        message : `le document ${this.document.name} est ajouté` , 
+        type : SUCCESS
+      })
       this.closeEvent.emit();
+
     })
   }
 
@@ -102,7 +110,12 @@ export class DocumentSubmitterComponent implements OnInit {
         useMultipart: true
       }
     }).pipe(map(value => (<any>value.data).editDocument)).subscribe((data) => {
+      
       this.interactionService.documentEdit.next(data);
+      this.interactionService.showMessage.next(<Message> {
+        message : `le document ${this.document.name} est édité` , 
+        type : SUCCESS
+      })
       this.closeEvent.emit();
     })
     

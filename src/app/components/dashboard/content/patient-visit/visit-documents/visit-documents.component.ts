@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Document } from 'src/app/classes/Document';
+import { Message, SUCCESS } from 'src/app/classes/Message';
 import { Visit } from 'src/app/classes/Visit';
 import { DataService } from 'src/app/services/data.service';
 import { InteractionService } from 'src/app/services/interaction.service';
@@ -13,11 +15,12 @@ import { InteractionService } from 'src/app/services/interaction.service';
   templateUrl: './visit-documents.component.html',
   styleUrls: ['./visit-documents.component.css']
 })
-export class VisitDocumentsComponent implements OnInit {
+export class VisitDocumentsComponent implements OnInit, OnDestroy {
   public documents: Document[] = [];
   public visitsDocuments: Visit[] = []
   @Input() visit: Visit;
   public expandVisit: number;
+  public subscriptions: Subscription[] = [];
   constructor(private apollo: Apollo, private dataService: DataService, private router: Router, private interactionService: InteractionService) { }
 
   ngOnInit(): void {
@@ -26,7 +29,7 @@ export class VisitDocumentsComponent implements OnInit {
         { 
           getDocuments(medicalFileId : ${this.visit.medicalFile.id}) { 
             id name path description createdAt updatedAt visit {
-              id createdAt 
+              id createdAt  
             }
           }
         }`
@@ -34,13 +37,14 @@ export class VisitDocumentsComponent implements OnInit {
 
       data.forEach(document => {
         document.visit.createdAt = this.dataService.castFRDate(new Date(parseInt(document.visit.createdAt)));
+        document.visit.medicalFile = this.visit.medicalFile;
       })
       this.documents = data;
 
       this.visitsDocuments.push(<Visit>{
         id: this.visit.id,
         documents: [],
-        createdAt: this.visit.createdAt = this.dataService.castFRDate(new Date(parseInt(this.visit.createdAt)))
+        createdAt: this.dataService.castFRDate(new Date(parseInt(this.visit.createdAt)))
       });
 
       // pipe documents into visitDocuments 
@@ -58,8 +62,34 @@ export class VisitDocumentsComponent implements OnInit {
           this.visitsDocuments.push(visit);
         }
       }
-
     })
+
+    this.subscriptions.push(this.interactionService.documentDeleted.subscribe((event) => {
+       
+      this.delete(event);
+      this.interactionService.showMessage.next(<Message>{
+        message: `le document ${event.name} est supprimé`,
+        type: SUCCESS
+      })
+    }));
+    
+    this.subscriptions.push(this.interactionService.documentEdit.subscribe((event) => {
+      console.log(event); 
+      this.editDocument(event);
+    }));
+    
+    
+    this.subscriptions.push(this.interactionService.documentAdded.subscribe((data) => {
+      (<any>data).visit = {
+        id: this.visit.id,
+        documents: [],
+        createdAt: this.dataService.castFRDate(new Date(parseInt(this.visit.createdAt)))
+      }; 
+      (<any>data).visit.medicalFile = this.visit.medicalFile; 
+      this.visitsDocuments[0].documents.splice(0, 0, data);
+      this.documents.splice(0, 0, data)
+    })) ; 
+
   }
 
   public selectVisit(visitDocument, i) {
@@ -84,14 +114,11 @@ export class VisitDocumentsComponent implements OnInit {
       }
     });
 
-    const subscription = this.interactionService.documentAdded.subscribe((data) => {
-      this.visitsDocuments[0].documents.splice(0, 0, data);
-      subscription.unsubscribe();
-    })
   }
   public editDocument($event) {
 
     const index = this.documents.findIndex(value => value.id == $event.id);
+    console.log(this.documents[index]) ; 
     this.documents[index].path = $event.path;
     this.documents[index].description = $event.description;
     this.documents[index].name = $event.name;
@@ -99,17 +126,32 @@ export class VisitDocumentsComponent implements OnInit {
   }
 
   public delete($event) {
-    console.log("i am deleting right now" ) ; 
     let index = this.documents.findIndex(document => document.id == $event)
     this.documents.splice(index, 1);
 
     for (index = 0; index < this.visitsDocuments.length; index++) {
       let visit = this.visitsDocuments[index];
-      let i = visit.documents.findIndex(value => value.id == $event);
+      let i = visit.documents.findIndex(value => value.id == $event.id);
       if (i >= 0) {
         visit.documents.splice(i, 1);
         break;
       }
     }
+  }
+
+
+  public selectDocument(document) {
+    this.router.navigate([], {
+      queryParams: {
+        "pop-up-window": true,
+        "window-page": "document-details",
+        "title": "Details du document",
+        "document": encodeURIComponent(JSON.stringify(document))
+      }
+    });
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 }

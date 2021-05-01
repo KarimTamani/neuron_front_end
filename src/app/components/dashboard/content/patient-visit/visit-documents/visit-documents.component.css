@@ -56,8 +56,14 @@
     padding: 16px;
 }
 
+.main-container {
+    height: 560px;
+    max-height: 560px;
+    overflow: auto;
+}
+
 .document-submitter {
-    height: 308px;
+    height: 340px;
     background: #eee;
     border: 5px dashed #aaa;
     position: relative;
