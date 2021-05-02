@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MedicalAct } from 'src/app/classes/MedicalAct';
 import { Symptom } from 'src/app/classes/Symptom';
+import { DataService } from 'src/app/services/data.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -22,7 +23,11 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
   public status: string[] = [];
   public withDebt: boolean = true;
   public noDebt: boolean = true;
-  constructor(private router: ActivatedRoute, private apollo: Apollo , private interactionService : InteractionService) {
+  constructor(
+    private router: ActivatedRoute,
+    private apollo: Apollo,
+    private interactionService: InteractionService,
+    private dataService: DataService) {
     this.closeEvent = new EventEmitter<null>();
     this.submittedSymptom = new Symptom();
   }
@@ -36,9 +41,11 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
             this.searchQuery.medicalActs = [];
           if (this.searchQuery.symptoms === undefined)
             this.searchQuery.symptoms = [];
-          if (this.searchQuery.status == null)  
-            this.searchQuery.status = undefined ; 
-
+          if (this.searchQuery.status == null)
+            this.searchQuery.status = undefined;
+          else { 
+            this.searchQuery.status = this.dataService.castStatusToFr(this.searchQuery.status) ; 
+          } 
         }
       })
     )
@@ -92,8 +99,9 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
 
 
   public symptomSelected($event) {
-    this.apollo.mutate({
-      mutation: gql`
+    if ($event && $event.name && $event.name.trim().length > 0)
+      this.apollo.mutate({
+        mutation: gql`
         mutation { 
           addSymptom(symptom : { 
             name : "${$event.name}"
@@ -102,17 +110,15 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
           }
         }
       `
-    }).pipe(map((response) => (<any>response.data).addSymptom)).subscribe((data) => {
-      this.searchQuery.symptoms.splice(0, 0, data);
-    })
+      }).pipe(map((response) => (<any>response.data).addSymptom)).subscribe((data) => {
+        this.searchQuery.symptoms.splice(0, 0, data);
+      })
   }
   removeSymptom(symptom) {
-    const index =  this.searchQuery.symptoms.findIndex((value) => value.id == symptom.id);
+    const index = this.searchQuery.symptoms.findIndex((value) => value.id == symptom.id);
     this.searchQuery.symptoms.splice(index, 1);
   }
-
   public selectDebt(debt) {
-  
     if (debt == "debt") {
       if (this.noDebt == true)
         this.withDebt = !this.withDebt;
@@ -125,22 +131,25 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
   }
 
   public onDateIntervalChange($event) {
-    this.searchQuery.startDate = $event.startDate ; 
-    this.searchQuery.endDate = $event.endDate ; 
+    this.searchQuery.startDate = $event.startDate;
+    this.searchQuery.endDate = $event.endDate;
   }
   public submit() {
-    if (this.withDebt && this.noDebt) 
-      this.searchQuery.debt = null ; 
-    else if (this.withDebt) 
-      this.searchQuery.debt = true ; 
-    else if (this.noDebt) 
-      this.searchQuery.debt = false ; 
+    if (this.withDebt && this.noDebt)
+      this.searchQuery.debt = null;
+    else if (this.withDebt)
+      this.searchQuery.debt = true;
+    else if (this.noDebt)
+      this.searchQuery.debt = false;
     if (this.searchQuery.status == "undefined")
-      this.searchQuery.status = null ;   
- 
-    this.interactionService.advancedSearchValidated.next(this.searchQuery) ; 
-    this.closeEvent.emit() ; 
-  
+      this.searchQuery.status = null;
+    else { 
+      this.searchQuery.status = this.dataService.castStatusFrToEn(this.searchQuery.status)  ;
+    }
+    
+    this.interactionService.advancedSearchValidated.next(this.searchQuery);
+    this.closeEvent.emit();
+
   }
 
   ngOnDestroy() {

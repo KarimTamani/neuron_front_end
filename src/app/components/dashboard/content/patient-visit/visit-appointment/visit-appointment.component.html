@@ -1,6 +1,6 @@
 <div class="main-container">
     <div class="content primary-radius">
-        <p>Prochain rendez-vous de : <span>{{visit.medicalFile.lastname}} {{visit.medicalFile.name}}</span></p>
+        <p>Prochain rendez-vous de <span>{{visit.medicalFile.name}} {{visit.medicalFile.lastname }}</span></p>
 
         <form name="form" [formGroup]="form">
             <div class="row">
@@ -14,18 +14,27 @@
                     </div>
                 </div>
                 <div class="col col-md-6">
-                    <div class="form-group">
-                        <input type="time" [(ngModel)]="visit.appointment.time" formControlName="time" placeholder="le temps" class="primary-input" [ngClass]="{'is-invalid' : form.get('time').touched && form.get('time').invalid}">
+
+                    <div class="stretch-container time-container">
+                        <select [(ngModel)]="selectedHour" (change)="hourChanged()" [ngModelOptions]="{standalone: true}">
+                            <option default selected hidden [value]="null">Heure</option>
+                            <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
+                        </select>
+                        <select [(ngModel)]="selectedMinute" [ngModelOptions]="{standalone: true}" *ngIf="selectedHour">
+                            <option default selected hidden [value]="null">Minute</option>
+                            <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
+                        </select>
                     </div>
+
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="row">
                 <div class="col col-md-6">
-
+                    <button class="secondary-button" (click)="clear()">Annuler</button>
                 </div>
                 <div class="col col-md-6">
-                    <button class="primary-button" [disabled]="!form.valid" (click)="submit()">Ajouter <i class="fa fa-plus"></i></button>
+                    <button class="primary-button" [disabled]="!form.valid" (click)="submit()">Validé <i class="fa fa-check"></i></button>
                 </div>
             </div>
         </form>

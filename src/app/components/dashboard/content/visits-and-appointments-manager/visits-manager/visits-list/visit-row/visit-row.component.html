@@ -1,12 +1,12 @@
 <div class="visit-container" (click)="openDetails()">
     <div class="stretch-container">
-        <span>{{visit.medicalFile.name}}</span>
-        <span>{{visit.medicalFile.lastname}}</span>
-        <span>{{visit.medicalFile.birthday}}</span>
-        <span>{{visit.medicalFile.phone}}</span>
-        <span class="red">{{visit.status}}</span>
+        <span class="cap">{{visit.medicalFile.name}}</span>
+        <span class="cap">{{visit.medicalFile.lastname}}</span>
+        <span>{{birthday}}</span>
+        <span>{{(visit.medicalFile.phone) ? (visit.medicalFile.phone) : ("Inconnue")}}</span>
+        <span class="red">{{visitStatus}}</span>
         <span>{{visit.payedMoney}} DA</span>
-        <span>{{visit.debt}} DA</span>
+        <span [class.red]="visit.debt > 0">{{visit.debt}} DA</span>
         <span>{{(visitPeriod) ? (visitPeriod) : ("Inconnue")}}</span>
         <span>{{visitDate}}</span>
     </div>

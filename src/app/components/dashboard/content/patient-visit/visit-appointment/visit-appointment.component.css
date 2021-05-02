@@ -1,5 +1,5 @@
 .main-container {
-    width: 420px;
+    width: 460px;
     padding: 16px;
 }
 
@@ -12,8 +12,28 @@
 p span {
     color: #212121;
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 button {
     width: 100%;
+}
+
+.stretch-container select {
+    margin: 0px 4px;
+}
+
+.time-container {
+    margin: 0px -4px;
+}
+
+.secondary-button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.secondary-button:hover {
+    background: rgb(254, 101, 85);
+    color: white;
 }

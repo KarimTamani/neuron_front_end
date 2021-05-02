@@ -23,12 +23,34 @@ export class VisitAppointmentComponent implements OnInit {
       Validators.required,
       this.futureValidator(this)
     ]),
-    time: new FormControl("", [
+  });
 
-    ])
-  })
+  public minutes: string[] = [];
+  public hours: string[] = [];
+
+  public selectedHour : string = null ; 
+  public selectedMinute : string = null ; 
+
+
   constructor(private route: ActivatedRoute, private interactionService: InteractionService, private apollo: Apollo, private dataService: DataService) {
     this.closeEvent = new EventEmitter<null>();
+    // init minutes 
+    for (let index = 0; index < 4; index++) {
+      var minute: any = index * 15
+      if (minute == 0)
+        minute = "00";
+      else 
+        minute = "" + minute ; 
+      this.minutes.push(minute) ; 
+    }
+    // init hours  
+    for (let hour = 8 ; hour < 20 ; hour ++) { 
+      if ( hour < 10) { 
+        this.hours.push("0" + hour) ; 
+      }else {
+        this.hours.push("" + hour) ; 
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -36,9 +58,14 @@ export class VisitAppointmentComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params["visit"]) {
         this.visit = JSON.parse(decodeURIComponent(params["visit"]))
-        if (this.visit.appointment == null)
+        if (this.visit.appointment == null) { 
           this.visit.appointment = new Appointment();
-
+        }else { 
+          if (this.visit.appointment.time) { 
+            this.selectedHour = this.visit.appointment.time.split(":")[0] ;
+            this.selectedMinute = this.visit.appointment.time.split(":")[1] ;
+          }
+        }
       }
     });
     this.apollo.query({
@@ -47,7 +74,6 @@ export class VisitAppointmentComponent implements OnInit {
         }`
     }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
       this.currentDate = this.dataService.castDateYMD(data);
-
     })
   }
 
@@ -55,10 +81,26 @@ export class VisitAppointmentComponent implements OnInit {
   public submit() {
     this.interactionService.newAppointmentAdded.next(<any>{
       date: this.form.value.date,
-      time: (this.form.value.time) ? (this.form.value.time) : (null)
+      time: (this.selectedHour) ? (`${this.selectedHour}:${this.selectedMinute}`) : (null)
     });
-    this.closeEvent.emit() ; 
+    this.closeEvent.emit();
+    
   }
+
+  public hourChanged() { 
+    this.selectedMinute = "00" ; 
+  }
+
+
+  public clear() {
+    this.form.value.date = null ; 
+    this.visit.appointment.date = null ; 
+    this.selectedMinute = null ; 
+    this.selectedHour = null ; 
+    this.interactionService.clearAppointment.next() ; 
+  
+  }
+
 
   private futureValidator(visitAppointment): any {
     return (formControl: FormControl) => {

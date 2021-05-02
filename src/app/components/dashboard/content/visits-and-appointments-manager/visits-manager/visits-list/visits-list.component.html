@@ -7,22 +7,22 @@
             Prénom 
         </span>
         <span>
-            Date de n'essance
+            Date de naissance
         </span>
         <span>
-            teléphone
+            Teléphone
         </span>
         <span>
-            Etat 
+            État 
         </span>
         <span>
-            montant payé
+            Montant payé
         </span>
         <span>
-            credit
+            Crédit
         </span>
         <span>
-            period de la visit
+            Period
         </span>
         <span>
             Date
@@ -32,5 +32,7 @@
         <div class="visit-row" *ngFor="let visit of visits">
             <app-visit-row [visit]="visit"></app-visit-row>
         </div>
+        <p class="no-data-message" *ngIf="visits.length ==0 ">Désolé, aucune visite n'a été trouvée</p>
+
     </div>
 </div>

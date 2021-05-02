@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-header',
@@ -19,7 +20,7 @@ export class SearchHeaderComponent implements OnInit {
   @Output() searchEvent : EventEmitter<any> ;
   @Output() addEvent : EventEmitter<null> ; 
   @Input() addOption : boolean = false ; 
-
+  public subscriptions : Subscription[] = [ ] ;  
   constructor(private apollo : Apollo , private router : Router, private interactionService : InteractionService)  {
     this.searchEvent = new EventEmitter<any>() ; 
     this.addEvent = new EventEmitter<null>() ; 
@@ -40,7 +41,10 @@ export class SearchHeaderComponent implements OnInit {
     }).pipe(map(value =>(<any>value.data).getAllWilayas)).subscribe((data) => { 
       this.wilayas = data ;  
     })
-  
+    this.subscriptions.push(this.interactionService.advancedSearchValidated.subscribe((searchQuery) => { 
+      this.searchQuery = searchQuery ; 
+      this.search() ; 
+    }) ) ; 
   }
   
   public wilayaSelected() {
@@ -54,14 +58,12 @@ export class SearchHeaderComponent implements OnInit {
 
   public clear() { 
     this.searchQuery = {} ; 
+    this.selectedWilaya = null ;
+    
     this.searchEvent.emit(this.searchQuery) ; 
   }
   public openAdvancedSearch() { 
-    const subscription = this.interactionService.advancedSearchValidated.subscribe((searchQuery) => { 
-      this.searchQuery = searchQuery ; 
-      subscription.unsubscribe() ; 
-
-    })
+    
     this.router.navigate([] , { 
       queryParams : { 
         "pop-up-window" : true , 

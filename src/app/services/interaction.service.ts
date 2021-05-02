@@ -34,6 +34,8 @@ export class InteractionService {
   public useClinicalExam: Subject<ClinicalExam>;
   public advancedSearchValidated: Subject<any>;
   public newAppointmentAdded: Subject<Appointment>;
+  public clearAppointment : Subject<null> ; 
+
   public newExpenseAdded: Subject<Expense>;
   public editExpense: Subject<Expense>;
   public addprescriptionModel: Subject<PrescriptionModel>;
@@ -92,6 +94,6 @@ export class InteractionService {
     
     this.checkUpCreated = new Subject<CheckUp>() ; 
     this.checkUpEdited = new Subject<CheckUp>() ; 
-    
+    this.clearAppointment = new Subject<null>() ; 
    }
 }

@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { Message, SUCCESS } from 'src/app/classes/Message';
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
@@ -27,15 +28,11 @@ export class VisitsManagerComponent implements OnInit {
     
     this.virtualAssistantService.onVACommand.subscribe((data) => { 
       if (data.component == "VISITS-AND-APPOINTMENTS-MANAGER") { 
-
-
         if (data.query && data.query.trim().length > 0) { 
           this.zone.run(() => {
-
               this.search({
                 searchQuery: data.query
               });
-
             })
         }
       }
@@ -151,6 +148,12 @@ export class VisitsManagerComponent implements OnInit {
   search($event) {
     this.offset = 0;
     this.lastSearch = $event;
+    
+    this.interactionService.showMessage.next(<Message>{
+      message : "Recherche de visites" , 
+      type : SUCCESS
+    }) ; 
+
     this.searchVisits(
       $event.searchQuery,
       $event.address,

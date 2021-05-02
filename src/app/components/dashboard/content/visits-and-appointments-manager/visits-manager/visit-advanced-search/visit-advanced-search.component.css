@@ -1,7 +1,11 @@
 .main-container {
-    background: white;
     padding: 16px;
     width: 420px;
+}
+
+.content {
+    padding: 16px;
+    background: white;
 }
 
 .medical-act {
@@ -82,8 +86,10 @@ h5 {
 }
 
 .symptoms-container {
+    max-height: 210px;
     height: 210px;
     padding: 8px 0px;
+    margin-bottom: 16px;
 }
 
 .search-input {
@@ -112,6 +118,21 @@ h5 {
 }
 
 button {
-    float: right;
-    width: 160px;
+    width: 100%;
+}
+
+.center-v p {
+    margin: 0px;
+}
+
+.center-v {
+    height: 42px;
+}
+
+.medical-acts-container {
+    max-height: 100px;
+    height: 100px;
+    overflow: auto;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 16px;
 }

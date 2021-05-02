@@ -3,12 +3,13 @@
     padding: 8px 12px;
     transition-duration: 0.3s;
     cursor: pointer;
+    text-align: center;
 }
 
 span {
     width: 50%;
-    color: #555555;
-    font-size: 13px;
+    color: #777;
+    font-size: 12px;
 }
 
 span.red {
@@ -17,4 +18,8 @@ span.red {
 
 .visit-container:hover {
     background: #eee;
+}
+
+.cap {
+    text-transform: capitalize;
 }

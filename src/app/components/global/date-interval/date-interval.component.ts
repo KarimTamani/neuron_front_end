@@ -13,24 +13,24 @@ export class DateIntervalComponent implements OnInit {
   @Input() placeholder: string;
   public isCustom: boolean = true;
   public options: string[] = [
-    "tout le temps",
-    "ce joure",
-    "cet semain",
-    "ce mois",
-    "ce trimester",
-    "ce semester",
-    "cette année",
-    "custumizable"
+    "Tout le temps",
+    "Joure",
+    "Semaine",
+    "Mois",
+    "Trimestre",
+    "Semestre",
+    "Année",
+    "Customizable"
   ];
   public currentDate: string;
   public selectedOption: string;
   public startDate: string;
   public endDate: string;
-  @Output() changeEvent : EventEmitter<any> ; 
+  @Output() changeEvent: EventEmitter<any>;
   constructor(private apollo: Apollo, private dataService: DataService) {
-  
+
     this.selectedOption = this.options[0];
-    this.changeEvent = new EventEmitter<null>() ; 
+    this.changeEvent = new EventEmitter<null>();
   }
   ngOnInit(): void {
     this.apollo.query({
@@ -71,21 +71,20 @@ export class DateIntervalComponent implements OnInit {
       case this.options[6]:
         this.startDate = this.dataService.castDateYMD(this.dataService.dateMinusPeriod(this.currentDate, this.dataService.YEAR));
         break;
-      default :   
+      default:
         break;
     }
-  
-    this.changeEvent.emit({ 
-      startDate : this.startDate , 
-      endDate : this.endDate  
+
+    this.changeEvent.emit({
+      startDate: this.startDate,
+      endDate: this.endDate
     })
-  
   }
 
-  public inputChange()  {  
-    this.changeEvent.emit({ 
-      startDate : this.startDate , 
-      endDate : this.endDate  
+  public inputChange() {
+    this.changeEvent.emit({
+      startDate: this.startDate,
+      endDate: this.endDate
     })
-  } 
+  }
 }

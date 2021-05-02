@@ -172,6 +172,22 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       if (data)
         this.isEdited = true;
     }));
+
+    this.subscriptions.push(this.interactionService.clearAppointment.subscribe(() => {
+      
+      this.apollo.mutate({ 
+        mutation : gql`
+          mutation { 
+            removeAppointment(appointmentId : ${this.visit.appointment.id}) 
+          }
+        `
+      }).pipe(map(value => (<any>value.data).removeAppointment)).subscribe((data) => { 
+        this.visit.appointment = null ;  
+      })
+      
+    }));
+
+    
     this.subscriptions.push(this.interactionService.visitEdited.subscribe(() => {
       this.isEdited = true;
     }))

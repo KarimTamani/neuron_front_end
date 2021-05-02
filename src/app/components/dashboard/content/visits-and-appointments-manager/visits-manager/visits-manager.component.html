@@ -3,11 +3,10 @@
         <div class="search-header">
             <app-search-header [searchQuery]="lastSearch" [advancedSearchOption]="'visit-advanced-search'" (searchEvent)="search($event)"></app-search-header>
         </div>
-        <div class="visits-list" *ngIf="visits.length > 0">
+        <div class="visits-list">
             <app-visits-list [visits]="visits"></app-visits-list>
         </div>
     </div>
-
     <div class="pagination-container">
         <app-pagination (pageSelected)="selectPage($event)" [count]="count" [loaded]="visits.length" [offset]="offset" [limit]="limit"></app-pagination>
     </div>

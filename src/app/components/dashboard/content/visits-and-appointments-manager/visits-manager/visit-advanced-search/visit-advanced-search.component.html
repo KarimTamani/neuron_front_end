@@ -1,69 +1,77 @@
 <div class="main-container">
-    <div class="row">
-        <div class="col col-md-12">
-            <h5>Les Actes medicaux</h5>
-            <div class="medical-acts-container">
-                <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
-                    <span>
+    <div class="content primary-radius">
+        <div class="row">
+            <div class="col col-md-12">
+                <h5>Les Actes médicaux</h5>
+                <div class="medical-acts-container">
+                    <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
+                        <span>
             {{medicalAct.name}} 
 
         </span>
-                    <span>
+                        <span>
             {{medicalAct.price}} DA
         </span>
-                    <i class="fa fa-check"></i>
+                        <i class="fa fa-check"></i>
+                    </div>
                 </div>
+            </div>
+            <div class="col col-md-12">
+
+                <h5>
+                    Motif de consultation ou symptoms
+                </h5>
+                <div class="symptoms-input-container stretch-container">
+                    <div class="search-input">
+                        <app-search-input (searchSubmitted)="symptomSelected($event)" [submittedItem]="submittedSymptom" [placeholder]="'Recherché un symptom'" [searchFunction]="symptomsSearchFunction"></app-search-input>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fa fa-plus primary-button" (click)="symptomSelected(submittedSymptom)"></i>
+                    </div>
+
+                </div>
+                <div class="symptoms-container">
+                    <span *ngFor="let symptom of searchQuery.symptoms" class="symptom">
+                    {{symptom.name}} <i class="fa fa-times" (click)="removeSymptom(symptom)"></i>
+                </span>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6">
+            <div class="center-v">
+                <p>L'état de la visite </p>
+            </div>
+        </div>
+        <div class="col col-md-6">
+            <select [(ngModel)]="searchQuery.status">
+            <option  [value]="undefined">Tout</option>      
+            <option *ngFor="let state of dataService.status" [value]="state">{{state}}</option>
+        </select>
+        </div>
+        <div class="col col-md-6">
+            <div class="debt-label" [class.selected]="noDebt" (click)="selectDebt ('no-debt')">
+                <label>Sans Crédit</label>
+                <i class="fa fa-check"></i>
+            </div>
+        </div>
+        <div class="col col-md-6">
+            <div class="debt-label" [class.selected]="withDebt" (click)="selectDebt ('debt')">
+                <label>Avec Crédit</label>
+                <i class="fa fa-check"></i>
             </div>
         </div>
         <div class="col col-md-12">
-
-            <h5>
-                Motif de consultation ou symptoms
-            </h5>
-            <div class="symptoms-input-container stretch-container">
-                <div class="search-input">
-                    <app-search-input (searchSubmitted)="symptomSelected($event)" [submittedItem]="submittedSymptom" [placeholder]="'Recherché un symptom'" [searchFunction]="symptomsSearchFunction"></app-search-input>
-                </div>
-                <div class="icon-container">
-                    <i class="fa fa-plus primary-button" (click)="symptomSelected(submittedSymptom)"></i>
+            <app-date-interval (changeEvent)="onDateIntervalChange($event)" [placeholder]="'La Date'"></app-date-interval>
+        </div>
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-6"></div>
+                <div class="col col-md-6">
+                    <button class="primary-button" (click)="submit()">Validé  <i class="fa fa-check"></i></button>
                 </div>
 
             </div>
-            <div class="symptoms-container">
-                <span *ngFor="let symptom of searchQuery.symptoms" class="symptom">
-                    {{symptom.name}} <i class="fa fa-times" (click)="removeSymptom(symptom)"></i>
-                </span>
-            </div>
         </div>
+        <div style="clear: both;"></div>
     </div>
-    <div class="col col-md-6">
-        <div class="center-v">
-            <p>L'etat de la visite : </p>
-        </div>
-    </div>
-    <div class="col col-md-6">
-        <select [(ngModel)]="searchQuery.status">
-            <option  [value]="undefined">Tout</option>      
-            <option *ngFor="let state of status" [value]="state">{{state}}</option>
-        </select>
-    </div>
-    <div class="col col-md-6">
-        <div class="debt-label" [class.selected]="noDebt" (click)="selectDebt ('no-debt')">
-            <label>Sans Credit</label>
-            <i class="fa fa-check"></i>
-        </div>
-    </div>
-    <div class="col col-md-6">
-        <div class="debt-label" [class.selected]="withDebt" (click)="selectDebt ('debt')">
-            <label>Avec Credit</label>
-            <i class="fa fa-check"></i>
-        </div>
-    </div>
-    <div class="col col-md-12">
-        <app-date-interval (changeEvent)="onDateIntervalChange($event)" [placeholder]="'intervale des visits'"></app-date-interval>
-    </div>
-    <div class="col col-md-12">
-        <button class="primary-button" (click)="submit()">Validé   <i class="fa fa-check"></i></button>
-    </div>
-    <div style="clear: both;"></div>
 </div>

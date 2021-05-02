@@ -34,16 +34,20 @@ export class DataService {
   ];
 
 
-  
+
   constructor() { }
 
-  public castTime(time : string) {
-    var splitted = time.split(":") ; 
-    if (splitted.length != 2) { 
-      return time ; 
+  public castTime(time: string) {
+    var splitted = time.split(":");
+    if (splitted.length != 2) {
+      return time;
     }
-    return splitted[0] + "h " + splitted[1] + " min" ;  
-    
+    if (splitted[0] !== "00")
+      return splitted[0] + "h " + splitted[1] + " min";
+    else { 
+      return  splitted[1] + " min";
+
+    }
   }
 
   public castValues(value: number) {
@@ -54,9 +58,9 @@ export class DataService {
       return (Math.trunc((value / 1000000) * 100) / 100) + "M"
 
     if (value >= 1000)
-      return (Math.trunc((value / 1000) * 100) / 100) + "K" ; 
+      return (Math.trunc((value / 1000) * 100) / 100) + "K";
 
-    return value ; 
+    return value;
   }
 
   public frToYMDDate(date: string) {
@@ -255,5 +259,46 @@ export class DataService {
     return nextStep / 2;
   }
 
+  public castStatusToFr(status: string) {
+    switch (status) {
 
+      case "waiting":
+        return "en attente";
+
+      case "in visit":
+        return "consultation";
+
+      case "visit done":
+        return "terminé";
+
+      case "visit payed":
+        return "payée";
+
+      case "visit quited":
+        return "abandonnée";
+
+    }
+  }
+
+  public status: string[] = [
+    "en attente",
+    "consultation",
+    "terminé",
+    "payée",
+    "abandonnée"
+  ]
+  public castStatusFrToEn(status: string) {
+    switch (status) {
+      case "en attente":
+        return "waiting";
+      case "consultation":
+        return "in visit";
+      case "terminé":
+        return "visit done";
+      case "payée":
+        return "visit payed";
+      case "abandonnée":
+        return "visit quited"
+    }
+  }
 }
