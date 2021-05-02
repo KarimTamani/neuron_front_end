@@ -18,6 +18,7 @@ export class VisitAppointmentComponent implements OnInit {
   public visit: Visit;
   public currentDate: string = "";
   @Output() closeEvent: EventEmitter<null>;
+
   public form: FormGroup = new FormGroup({
     date: new FormControl("", [
       Validators.required,
@@ -93,12 +94,15 @@ export class VisitAppointmentComponent implements OnInit {
 
 
   public clear() {
+
+
+    this.closeEvent.emit()  ;
+    this.interactionService.clearAppointment.next(this.visit.appointment) ; 
     this.form.value.date = null ; 
     this.visit.appointment.date = null ; 
     this.selectedMinute = null ; 
     this.selectedHour = null ; 
-    this.interactionService.clearAppointment.next() ; 
-  
+    
   }
 
 

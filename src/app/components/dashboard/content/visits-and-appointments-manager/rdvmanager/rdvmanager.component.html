@@ -10,36 +10,38 @@
             Prénom 
         </span>
         <span>
-            Date de n'essance
+            Date de naissance
         </span>
         <span>
-            teléphone
+            Teléphone
         </span>
         <span>
-            email
+            Email
         </span>
         <span>
-            date de RDV
+            Dernier visite
+        </span>
+
+        <span>
+            Date de RDV
         </span>
         <span>
-            le temps de RDV
+            Temps 
         </span>
-        <span>
-            Date de creation
-        </span>
+
     </div>
     <div class="body primary-radius">
+        <p class="no-data-message" *ngIf="appointments.length == 0">Aucun Rendez-vous n'a été trouvé</p>
         <div class="appointment-row" (click)="editAppointment(appointment)" *ngFor="let appointment of appointments">
             <div class="stretch-container">
                 <span>{{appointment.visit.medicalFile.name}}</span>
                 <span>{{appointment.visit.medicalFile.lastname}}</span>
-                <span>{{appointment.visit.medicalFile.birthday}}</span>
-                <span>{{appointment.visit.medicalFile.phone}}</span>
-                <span>{{appointment.visit.medicalFile.email}}</span>
-                <span>{{appointment.date}}</span>
-                <span>{{appointment.time}}</span>
+                <span>{{appointment.visit.medicalFile.birthday }}</span>
+                <span>{{(appointment.visit.medicalFile.phone)? (appointment.visit.medicalFile.phone) : ("Inconnue")}}</span>
+                <span>{{(appointment.visit.medicalFile.email)? (appointment.visit.medicalFile.email) : ("Inconnue")}}</span>
                 <span>{{appointment.visit.createdAt}}</span>
-
+                <span>{{ castFrDate(appointment.date) }}</span>
+                <span>{{(appointment.time) ? (appointment.time) : ("Inconnue")}}</span>
             </div>
         </div>
     </div>

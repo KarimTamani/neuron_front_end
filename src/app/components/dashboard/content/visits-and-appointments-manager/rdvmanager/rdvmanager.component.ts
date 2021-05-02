@@ -8,6 +8,7 @@ import { Appointment } from 'src/app/classes/Appointment';
 import { DataService } from 'src/app/services/data.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
+import { AppointmentComponent } from '../../waiting-room/appointments-loader/appointment/appointment.component';
 
 @Component({
   selector: 'app-rdvmanager',
@@ -24,7 +25,7 @@ export class RDVManagerComponent implements OnInit, OnDestroy {
   public startDate: string;
   public lastSearch: any = {};
 
-
+  public status : string[] = [] ; 
   public subscription : Subscription[] = [] ; 
   constructor(
     private apollo: Apollo,
@@ -34,10 +35,9 @@ export class RDVManagerComponent implements OnInit, OnDestroy {
     private zone: NgZone, 
     private router : Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.virtualAssistantService.onVACommand.subscribe((data) => {
       if (data.component == "VISITS-AND-APPOINTMENTS-MANAGER") {
-
         if (data.query && data.query.trim().length > 0) {
           this.zone.run(() => {
 
@@ -67,7 +67,38 @@ export class RDVManagerComponent implements OnInit, OnDestroy {
         this.offset,
         this.limit
       )
-    })
+    }) ; 
+
+
+    this.subscription.push( this.interactionService.clearAppointment.subscribe((appointment) => { 
+ 
+      this.router.navigate([] , { 
+        queryParams : { 
+          "pop-up-window" : true , 
+          "window-page" : "yes-no-message" , 
+          "title" : "Suppression de rendez-vous" , 
+          "message" : `Vous voulez vraiment supprimer le rendez-vous de ${appointment.visit.medicalFile.name} ${appointment.visit.medicalFile.lastname} ?`
+        }
+      })
+      const subs = this.interactionService.yesOrNo.subscribe((response) => { 
+        if (response) { 
+          this.apollo.mutate({ 
+            mutation : gql`
+              mutation { 
+                removeAppointment(appointmentId : ${appointment.id}) 
+              }
+            `
+          }).pipe(map(value => (<any>value.data).removeAppointment)).subscribe((data) => { 
+            const index = this.appointments.findIndex(value => value.id == appointment.id) ; 
+            this.appointments.splice(index , 1) ; 
+          })
+        }
+        subs.unsubscribe() ; 
+      }) 
+
+      this.subscription.push(subs) ; 
+    }))
+    
   }
 
   private loadAppointments(searchQuery = null, startDate = null, endDate = null, offset = null, limit = null) {
@@ -107,6 +138,8 @@ export class RDVManagerComponent implements OnInit, OnDestroy {
       this.count = data.count;
       for (let index = 0; index < data.rows.length; index++) {
         data.rows[index].visit.createdAt = this.dataService.castDateYMD(new Date(parseInt(data.rows[index].visit.createdAt)).toISOString())
+        data.rows[index].visit.createdAt = this.dataService.castFRDate(new Date(data.rows[index].visit.createdAt)) ; 
+        data.rows[index].visit.medicalFile.birthday = this.dataService.castFRDate(new Date(data.rows[index].visit.medicalFile.birthday)) ; 
       }
       this.appointments = data.rows;
     })
@@ -131,6 +164,10 @@ export class RDVManagerComponent implements OnInit, OnDestroy {
       this.offset,
       this.limit
     );
+  }
+
+  public castFrDate(date) { 
+    return this.dataService.castFRDate(new Date(date)) ; 
   }
   public editAppointment(appointment) { 
     var visit = JSON.parse(JSON.stringify(appointment.visit)); 

@@ -33,6 +33,7 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.status = this.dataService.status  ; 
     this.subscriptions.push(
       this.router.queryParams.subscribe((params) => {
         if (params["search-query"]) {
@@ -58,17 +59,7 @@ export class VisitAdvancedSearchComponent implements OnInit, OnDestroy {
         }`
     }).pipe(map(value => (<any>value.data).getAllMedicalActs)).subscribe((data) => {
       this.medicalActs = data;
-    });
-    // get visit status  
-    this.apollo.query({
-      query: gql`
-        {
-          getVisitStatus
-        }
-      `
-    }).pipe(map(value => (<any>value.data).getVisitStatus)).subscribe((data) => {
-      this.status = data;
-    })
+    }); 
   }
 
   public symptomsSearchFunction: any = (query) => {

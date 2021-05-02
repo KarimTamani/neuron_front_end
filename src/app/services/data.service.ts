@@ -32,7 +32,13 @@ export class DataService {
   public days: string[] = [
     "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"
   ];
-
+  public status: string[] = [
+    "en attente",
+    "consultation",
+    "terminé",
+    "payée",
+    "abandonnée"
+  ]
 
 
   constructor() { }
@@ -280,13 +286,7 @@ export class DataService {
     }
   }
 
-  public status: string[] = [
-    "en attente",
-    "consultation",
-    "terminé",
-    "payée",
-    "abandonnée"
-  ]
+  
   public castStatusFrToEn(status: string) {
     switch (status) {
       case "en attente":
