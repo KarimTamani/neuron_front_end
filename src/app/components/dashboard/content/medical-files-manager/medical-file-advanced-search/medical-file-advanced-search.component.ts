@@ -18,6 +18,7 @@ export class MedicalFileAdvancedSearchComponent implements OnInit , OnDestroy{
   public searchQuery : any = {} ; 
   public professions : Profession[] = [] ; 
   public showAntecedentsManager : boolean = false; 
+  
   constructor(private route: ActivatedRoute , private apollo : Apollo , private interactionService : InteractionService) {
     this.closeEvent = new EventEmitter<null>();
   }
@@ -46,7 +47,7 @@ export class MedicalFileAdvancedSearchComponent implements OnInit , OnDestroy{
     this.searchQuery.startDate = $event.startDate ; 
     this.searchQuery.endDate = $event.endDate ; 
   }
-  public valid() { 
+  public valid() {  
     this.interactionService.advancedSearchValidated.next(this.searchQuery) ; 
     this.closeEvent.emit() ; 
   }

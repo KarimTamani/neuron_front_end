@@ -5,14 +5,15 @@
         </div>
         <div class="row">
             <div class="col col-md-12">
-                <h5>Antecedents <span (click)="showAntecedentsManager = true">Modifier <i class="fa fa-edit"></i></span></h5>
+                <h5>Antécédents <span (click)="showAntecedentsManager = true">Éditer <i class="fa fa-edit"></i></span></h5>
                 <div class="antecedents-container">
+                    <p class="no-data-message" *ngIf="searchQuery.antecedents.length == 0">Pas d'Antécédents</p>
                     <span *ngFor="let antecedent of searchQuery.antecedents">{{antecedent.name}}</span>
                 </div>
             </div>
             <div class="col col-md-6">
                 <div class="center-v">
-                    <label>Prefession : </label>
+                    <label>Prefession</label>
                 </div>
             </div>
             <div class="col col-md-6">
@@ -22,13 +23,16 @@
             </select>
             </div>
             <div class="col col-md-12">
-                <app-date-interval (changeEvent)="onDateChanged($event)" [placeholder]="'date de creation'"></app-date-interval>
+                <app-date-interval (changeEvent)="onDateChanged($event)" [placeholder]="'Date de création'"></app-date-interval>
             </div>
             <div class="col col-md-12">
-                <button class="primary-button" (click)="valid()">Validé <i class="fa fa-check"></i></button>
-                <div style="clear: both;"></div>
+                <div class="row">
+                    <div class="col col-md-6"></div>
+                    <div class="col col-md-6">
+                        <button class="primary-button" (click)="valid()">Valider <i class="fa fa-check"></i></button>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 </div>

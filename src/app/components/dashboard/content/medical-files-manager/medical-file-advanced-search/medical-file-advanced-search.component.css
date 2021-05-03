@@ -18,6 +18,9 @@ h5 {
 
 .antecedents-container {
     height: 210px;
+    max-height: 210px;
+    margin-bottom: 16px;
+    overflow: auto;
 }
 
 h5 span {
@@ -55,6 +58,9 @@ h5 span:hover {
 }
 
 button.primary-button {
-    float: right;
-    width: 120px;
+    width: 100%;
+}
+
+.center-v {
+    height: 42px;
 }

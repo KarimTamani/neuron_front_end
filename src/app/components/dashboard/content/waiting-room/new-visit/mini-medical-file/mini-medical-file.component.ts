@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-mini-medical-file',
@@ -14,18 +15,23 @@ export class MiniMedicalFileComponent implements OnInit {
 
   @Input() disabelShadow : boolean = false; 
   @Input() controllable : boolean = true ; 
-  @Input() clickable : boolean = false ;  
+  @Input() clickable : boolean = false ; 
+  @Input() currentDate : Date ;  
 
+  public birthday : string ;  
+  public age : number ; 
 
-  constructor() {
+  constructor(private dataService : DataService) {
     this.closeEvent = new EventEmitter<null>();
     this.editEvent = new EventEmitter<null>();
     this.clickMedicalFile = new EventEmitter<MedicalFile>() ; 
-
   }
 
   ngOnInit(): void {
-
+    
+    this.birthday = this.dataService.castFRDate(new Date(this.medicalFile.birthday)) ; 
+    this.age = this.dataService.calculateAge(this.medicalFile.birthday , new Date(this.currentDate)) ;   
+    console.log(this.age) ; 
   }
 
   editMedicalFile() {

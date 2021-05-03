@@ -4,10 +4,13 @@
         <img src="{{(medicalFile.gender)? ('../../../../../../../../assets/male.jpg') : ('../../../../../../../../assets/female.jpg')}} ">
     </div>
     <div class="info-side">
-        <h5>{{medicalFile.name}} {{medicalFile.lastname}}</h5>
+        <h5>
+            {{medicalFile.name}} {{medicalFile.lastname}}
+        </h5>
         <p>
-            <i class="fa fa-calendar"></i> {{medicalFile.birthday}}
-            <span></span>
+            <i class="fa fa-calendar"></i> {{birthday}}
+
+            <span class="age hightlight" *ngIf="age">{{age}} Ans</span>
         </p>
         <p>
             <i class="fa fa-envelope"></i> {{(medicalFile.email) ? (medicalFile.email) : ("Inconnue")}}

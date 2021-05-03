@@ -5,9 +5,12 @@
             <app-search-header [searchQuery]="lastSearch" [addOption]="true" (addEvent)="add()" [advancedSearchOption]="'medical-file-advanced-search'" (searchEvent)="search($event)"></app-search-header>
         </div>
     </div>
-    <div class="row files-list">
+    <div class="row files-list" *ngIf="currentDate">
+        <div class="col col-md-12">
+            <p class="no-data-message" *ngIf="medicalFiles.length == 0">Aucun dossier médical</p>
+        </div>
         <div class="col col-md-4" *ngFor="let medicalFile of medicalFiles">
-            <app-mini-medical-file (clickMedicalFile)="clickEvent($event)" [clickable]="true" [controllable]="false" [disabelShadow]="true" [medicalFile]="medicalFile"></app-mini-medical-file>
+            <app-mini-medical-file [currentDate]="currentDate" (clickMedicalFile)="clickEvent($event)" [clickable]="true" [controllable]="false" [disabelShadow]="true" [medicalFile]="medicalFile"></app-mini-medical-file>
         </div>
     </div>
     <div class="pagination-container">

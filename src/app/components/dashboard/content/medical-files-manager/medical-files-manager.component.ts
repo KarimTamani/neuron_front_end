@@ -19,27 +19,37 @@ export class MedicalFilesManagerComponent implements OnInit {
   public offset : number = 0 ; 
   public limit : number =  10 ; 
   public lastSearch : any = {}  ;
+  public currentDate : Date ; 
+  
 
   constructor(
     private apollo: Apollo , 
     private router : Router , 
-    private  interactionService : InteractionService , 
+    private interactionService : InteractionService , 
     private virtualAssistantService : VirtualAssistantService , 
     private zone : NgZone) {}
 
   ngOnInit(): void {
+    this.apollo.query({
+      query : gql`
+        {
+          getCurrentDate 
+        }`
+    }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => { 
+      this.currentDate = data ; 
+    })
     // subscribe to the delete event of the medicalFile  
     this.interactionService.medicalFileDeleted.subscribe((medicalFile) => { 
       const index = this.medicalFiles.findIndex(value => value.id == medicalFile.id) ; 
       if (index >= 0) { 
         this.medicalFiles.splice(index , 1) ; 
       }
-    })
+    }) ; 
+
     this.virtualAssistantService.onVACommand.subscribe((data) => { 
       if (data.component == "MEDICAL-FILES") { 
         if (data.query && data.query.trim().length > 0) { 
           this.zone.run(() => {
-
             if (data.query && data.query.trim().length > 0) {
               this.search({
                 searchQuery: data.query
@@ -62,6 +72,7 @@ export class MedicalFilesManagerComponent implements OnInit {
       this.offset , 
       this.limit 
     ); 
+
   }
   private searchMedicalFiles(
     searchQuery = null, address = null, communeId = null, wilayaId = null, professionId = null, antecedents = null, startDate = null, endDate = null, offset = null, limit = null
