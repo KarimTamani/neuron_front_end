@@ -134,7 +134,7 @@ export class DebtManagerComponent implements OnInit , OnDestroy {
       queryParams : { 
         "pop-up-window" : true , 
         "window-page" : "edit-debt" , 
-        "title" : "Regler le credit" , 
+        "title" : "Régler le crédit de " + visit.medicalFile.name + " " + visit.medicalFile.lastname , 
         "visit" : encodeURIComponent(JSON.stringify(visit))
       }
     }) ; 
@@ -155,5 +155,10 @@ export class DebtManagerComponent implements OnInit , OnDestroy {
     this.subscription.forEach(subs => { 
       subs.unsubscribe() ; 
     })
+  }
+
+
+  public frDate ( date : string) { 
+    return this.dataService.castFRDate(new Date(date)) ; 
   }
 }

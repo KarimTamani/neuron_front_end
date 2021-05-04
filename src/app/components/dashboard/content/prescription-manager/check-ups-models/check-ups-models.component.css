@@ -16,3 +16,9 @@
 .header {
     margin-bottom: 16px;
 }
+
+.check-up-types {
+    max-height: 600px;
+    height: 600px;
+    overflow: auto;
+}

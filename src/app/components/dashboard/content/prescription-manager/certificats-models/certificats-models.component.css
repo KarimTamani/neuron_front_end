@@ -17,6 +17,7 @@
     margin-top: 16px;
     max-height: 560px;
     height: 560px;
+    overflow: auto;
 }
 
 .model:hover {
@@ -41,7 +42,8 @@
 }
 
 .footer p {
-    color: #555;
+    color: #666;
+    font-size: 12px;
 }
 
 .controller {

@@ -5,7 +5,7 @@
             <i class="fa fa-chevron-up" *ngIf="expand"></i> {{prescriptionModel.name}}
         </p>
         <div class="control">
-            <span class="secondary-button" (click)="useEvent.emit (prescriptionModel)">utiliser <i class="fa fa-check"></i></span>
+            <span class="secondary-button" (click)="useEvent.emit (prescriptionModel)">Voir <i class="fa fa-check"></i></span>
             <i class="fa fa-edit" (click)="editEvent.emit ( prescriptionModel )"></i>
             <i class="fa fa-trash" (click)="deleteEvent.emit(prescriptionModel)"></i>
         </div>

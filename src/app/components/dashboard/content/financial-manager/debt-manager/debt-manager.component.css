@@ -10,6 +10,7 @@
     font-weight: bold;
     font-size: 12px;
     margin: 16px -8px;
+    text-align: center;
 }
 
 .body {
@@ -29,8 +30,9 @@
 
 .visit-container span {
     width: 50%;
-    color: #555555;
-    font-size: 13px;
+    color: #777;
+    font-size: 12px;
+    text-align: center;
 }
 
 .pagination-container {

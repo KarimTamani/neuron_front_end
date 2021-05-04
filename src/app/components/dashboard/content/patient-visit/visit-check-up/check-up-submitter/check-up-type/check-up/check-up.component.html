@@ -1,6 +1,6 @@
 <div class="main-container" (click)="select()" [class.selected]="selected">
     <p>{{checkUp.name}}
-        <i *ngIf="!controllable" class="fa fa-check" [class.selected]="selected"></i>
+        <i *ngIf="!controllable" class="fa fa-check" [class.selected]="controllable && selected"></i>
     </p>
     <div class="control" *ngIf="controllable && !checkUp.isPublic">
         <i class="fa fa-edit" title="modifer" (click)="edit()"></i>

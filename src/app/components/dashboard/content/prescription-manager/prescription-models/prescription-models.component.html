@@ -4,9 +4,10 @@
         <button class="primary-button" (click)="openSubmitter()">Ajouter <i class="fa fa-plus"></i></button>
     </div>
     <div class="search-header">
-        <input type="text" placeholder="Recherché un Traitment" [(ngModel)]="name" class="primary-input">
+        <input type="text" placeholder="Rechercher un Traitement" [(ngModel)]="name" class="primary-input" (keyup)="search($event)">
     </div>
     <div class="body">
+        <p class="no-data-message" *ngIf="prescriptionModels.length == 0">Aucun modèle de ordonnances est enregistré</p>
         <div class="prescription-model" *ngFor="let prescriptionModel of prescriptionModels">
             <app-prescription-model (deleteEvent)="delete($event )" (editEvent)="edit($event)" (useEvent)="use($event)" [prescriptionModel]="prescriptionModel"></app-prescription-model>
         </div>

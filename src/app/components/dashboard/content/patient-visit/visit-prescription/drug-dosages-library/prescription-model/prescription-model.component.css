@@ -51,7 +51,7 @@
 .control span {
     border-radius: 16px;
     padding-right: 8px;
-    padding-left: 8px;
+    padding-left: 16px;
     cursor: pointer;
     margin-right: 8px;
 }

@@ -18,3 +18,13 @@
 .header {
     margin-bottom: 16px;
 }
+
+.no-data-message {
+    margin-top: 16px;
+}
+
+.body {
+    height: 580px;
+    max-height: 580px;
+    overflow: auto;
+}

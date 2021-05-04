@@ -2,6 +2,9 @@
     <div class="body">
         <app-expenses-header (searchEvent)="search($event)"></app-expenses-header>
         <div class="row">
+            <div class="col col-md-12" *ngIf="expenses.length ==0 ">
+                <p class="no-data-message">Aucun frais est trouvé</p>
+            </div>
             <div class="col col-md-4" *ngFor="let expense of expenses">
                 <app-expense (deleteEvent)="delete($event)" (editEvent)="edit($event)" [expense]="expense"></app-expense>
             </div>

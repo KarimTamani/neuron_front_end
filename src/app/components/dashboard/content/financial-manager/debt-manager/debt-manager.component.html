@@ -10,25 +10,22 @@
             Prénom 
         </span>
         <span>
-            Date de n'essance
+            Date de naissance
         </span>
         <span>
-            teléphone
+            Teléphone
         </span>
         <span>
             Email 
         </span>
         <span>
-            montant payé
+            Montant payé
         </span>
         <span>
-            credit
+            Crédit
         </span>
         <span>
-            period de la visit
-        </span>
-        <span>
-            Date
+            Deriner Visite
         </span>
     </div>
     <div class="body  primary-radius">
@@ -36,13 +33,12 @@
             <div class="stretch-container">
                 <span>{{visit.medicalFile.name}}</span>
                 <span>{{visit.medicalFile.lastname}}</span>
-                <span>{{visit.medicalFile.birthday}}</span>
-                <span>{{visit.medicalFile.phone}}</span>
-                <span>{{visit.medicalFile.email}}</span>
+                <span>{{frDate(  visit.medicalFile.birthday )}}</span>
+                <span>{{(visit.medicalFile.phone) ? (visit.medicalFile.phone) : ("Inconnue")}}</span>
+                <span>{{(visit.medicalFile.email) ? (visit.medicalFile.email) : ("Inconnue")}}</span>
                 <span>{{visit.payedMoney}} DA</span>
                 <span>{{visit.debt}} DA</span>
-                <span>{{(visitPeriod) ? (visitPeriod) : ("Inconnue")}}</span>
-                <span>{{visit.createdAt}}</span>
+                <span>{{frDate ( visit.createdAt ) }}</span>
             </div>
         </div>
     </div>

@@ -60,3 +60,7 @@
 .control i.fa-trash {
     color: rgb(254, 101, 85);
 }
+
+.main-container.selected {
+    background: #eee;
+}

@@ -14,13 +14,15 @@ import { InteractionService } from 'src/app/services/interaction.service';
 export class PrescriptionModelsComponent implements OnInit {
   public name: string;
   public prescriptionModels: PrescriptionModel[] = [];
+  public searchHandler: any = null;
   @Output() useEvent: EventEmitter<PrescriptionModel>;
+
   constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
-    this.useEvent = new EventEmitter<PrescriptionModel>() ; 
+    this.useEvent = new EventEmitter<PrescriptionModel>();
   }
 
   ngOnInit(): void {
-    this.searchPrescriptionModel() ; 
+    this.searchPrescriptionModel();
 
   }
 
@@ -51,12 +53,14 @@ export class PrescriptionModelsComponent implements OnInit {
       }
     });
     const subscription = this.interactionService.editPrescriptionModel.subscribe((prescriptionModel) => {
-      const index = this.prescriptionModels.findIndex(value => value.id == prescriptionModel.id) ; 
-      this.prescriptionModels.splice(index , 1 ,  prescriptionModel) ; 
+      const index = this.prescriptionModels.findIndex(value => value.id == prescriptionModel.id);
+      this.prescriptionModels.splice(index, 1, prescriptionModel);
+      this.useEvent.emit(prescriptionModel);
+
       subscription.unsubscribe();
     })
   }
-  public delete($event) {  
+  public delete($event) {
     this.router.navigate([], {
       queryParams: {
         "pop-up-window": true,
@@ -66,22 +70,23 @@ export class PrescriptionModelsComponent implements OnInit {
       }
     });
 
-    const subscription = this.interactionService.yesOrNo.subscribe((response) => { 
-      if (response) { 
+    const subscription = this.interactionService.yesOrNo.subscribe((response) => {
+      if (response) {
         this.apollo.mutate({
-          mutation : gql`
+          mutation: gql`
             mutation { 
               removePrescriptionModel(prescriptionModelId : ${$event.id})
             }
           `
-        }).pipe(map( value => (<any>value.data).removePrescriptionModel)).subscribe((id) => { 
-          if (id == $event.id) { 
+        }).pipe(map(value => (<any>value.data).removePrescriptionModel)).subscribe((id) => {
+          if (id == $event.id) {
             const index = this.prescriptionModels.findIndex(value => value.id == id)
-            this.prescriptionModels.splice(index , 1) ; 
+            this.prescriptionModels.splice(index, 1);
+            this.useEvent.emit(null);
           }
         })
       }
-      subscription.unsubscribe() ; 
+      subscription.unsubscribe();
     })
   }
 
@@ -101,6 +106,20 @@ export class PrescriptionModelsComponent implements OnInit {
       this.prescriptionModels.splice(0, 0, prescriptionModel);
       subscription.unsubscribe();
     })
+
   }
 
+
+
+  public search($event) {
+
+    if (this.searchHandler != null)
+      clearInterval(this.searchHandler);
+
+    this.searchHandler = setTimeout(() => {
+        this.searchPrescriptionModel();
+      
+    }, 200);
+
+  }
 }

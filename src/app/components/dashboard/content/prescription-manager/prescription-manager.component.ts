@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Certificat } from 'src/app/classes/Certificat';
-import { CheckUpType } from 'src/app/classes/CheckUpType'; 
+import { CheckUpType } from 'src/app/classes/CheckUpType';
 import { Visit } from 'src/app/classes/Visit';
 import { DataService } from 'src/app/services/data.service';
 
@@ -19,8 +19,8 @@ export class PrescriptionManagerComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public visit: Visit;
   public certificatType: string = "Certificat";
-  public checkUpTypes : CheckUpType[] = [] ; 
-  public selectedCertificat : Certificat ; 
+  public checkUpTypes: CheckUpType[] = [];
+  public selectedCertificat: Certificat;
 
   constructor(
     private router: Router,
@@ -52,11 +52,11 @@ export class PrescriptionManagerComponent implements OnInit, OnDestroy {
     }
     ).pipe(map(value => (<any>value.data).getCheckUpTypes)).subscribe((data) => {
       this.checkUpTypes = data;
-    }); 
+    });
     this.updateOptions();
-    this.selectedCertificat = new Certificat() ; 
+    this.selectedCertificat = new Certificat();
   }
-  
+
   private updateOptions() {
     if (this.router.url.endsWith("prescriptions"))
       this.selectedOption = "prescriptions";
@@ -89,7 +89,7 @@ export class PrescriptionManagerComponent implements OnInit, OnDestroy {
       return "Demande de bilan"
     if (this.selectedOption == "certificats" && this.certificatType == "Certificat")
       return "Certificat Médical";
-    else if (this.selectedOption == "certificats" && this.certificatType == "Compte-Rendu") 
+    else if (this.selectedOption == "certificats" && this.certificatType == "Compte-Rendu")
       return "Compte-Rendu"
   }
 
@@ -97,14 +97,18 @@ export class PrescriptionManagerComponent implements OnInit, OnDestroy {
     this.certificatType = $event;
   }
 
-  public usePrescription($event) { 
-    this.visit.visitDrugDosages = $event.drugDosages ; 
+  public usePrescription($event) {
+    if ($event != null)
+      this.visit.visitDrugDosages = $event.drugDosages;
+    else
+      this.visit.visitDrugDosages = [];
+
   }
 
-  public selectCertificat($event) { 
-    
-    this.selectedCertificat.certificatModel = $event ; 
-    this.selectedCertificat.html = $event.html ; 
+  public selectCertificat($event) {
+
+    this.selectedCertificat.certificatModel = $event;
+    this.selectedCertificat.html = $event.html;
 
   }
 }

@@ -70,3 +70,7 @@
 select {
     height: 40px;
 }
+
+.center-v {
+    text-align: center;
+}
