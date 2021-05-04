@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/classes/Appointment';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-analytics-appointment',
@@ -8,9 +9,14 @@ import { Appointment } from 'src/app/classes/Appointment';
 })
 export class AnalyticsAppointmentComponent implements OnInit {
   @Input() appointment : Appointment ; 
-  constructor() { }
+  constructor(private dataSerice : DataService) { }
 
   ngOnInit(): void {
+
+  }
+
+  public frDate(date : string) { 
+    return this.dataSerice.castFRDate(new Date(date)) ; 
   }
 
 }

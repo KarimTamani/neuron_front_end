@@ -50,8 +50,10 @@ export class RecentPatientsComponent implements OnInit {
 
       })
     })
+  }
 
-
+  public frDate(date : string) { 
+    this.dataService.castFRDate(new Date(date)) ;  
   }
 
 }

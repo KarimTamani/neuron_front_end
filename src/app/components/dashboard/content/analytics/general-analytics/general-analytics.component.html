@@ -9,13 +9,15 @@
             <h5>Nombres des visites</h5>
 
             <span>{{totalGain}} DA</span>
-            <h5>Gain Total</h5>
+            <h5>Gain total</h5>
 
             <span>{{totalExpenses}} DA</span>
             <h5>Total des frais</h5>
 
             <span>{{totalPureGain}} DA</span>
-            <h5>Gain Net Total</h5>
+            <h5>Gain-Net Total</h5>
+
+            <a class="secondary-button" routerLink="/dashboard/visits-and-appointments-manager/visits">Détails</a>
         </div>
         <div class="canvas-side">
             <canvas #chart baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>

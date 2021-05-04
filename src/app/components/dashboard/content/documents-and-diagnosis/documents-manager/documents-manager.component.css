@@ -6,4 +6,9 @@
     height: 560px;
     max-height: 560px;
     overflow: auto;
+    margin-bottom: 16px;
+}
+
+.no-data-message {
+    margin-top: 16px;
 }

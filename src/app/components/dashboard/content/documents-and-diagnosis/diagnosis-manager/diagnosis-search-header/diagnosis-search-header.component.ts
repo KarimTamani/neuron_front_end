@@ -8,8 +8,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class DiagnosisSearchHeaderComponent implements OnInit {
   public diagnosisOptions: string[] = [
     "Tout",
-    "Diagnostique Symptomatiques",
-    "Diagnostique Avancées"
+    "Diagnostic symptomatique",
+    "Diagnostics avancés"
   ];
   public selectedOption: string;
   public searchQuery: any = {};
@@ -40,6 +40,7 @@ export class DiagnosisSearchHeaderComponent implements OnInit {
 
   public clear() {
     this.searchQuery = {};
+    this.searchEvent.emit(this.searchQuery) ; 
   }
 
   public search() {

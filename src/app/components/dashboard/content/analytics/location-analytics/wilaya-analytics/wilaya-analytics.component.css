@@ -13,3 +13,7 @@ h5 {
     margin-top: 36px;
     display: block;
 }
+
+.no-data-message {
+    margin-bottom: 16px;
+}

@@ -11,6 +11,10 @@
     margin: 0px 8px;
 }
 
+.hint {
+    text-align: center;
+}
+
 .search-input {
     width: 100%;
 }

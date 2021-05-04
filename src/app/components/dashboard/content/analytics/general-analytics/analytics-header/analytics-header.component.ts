@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-analytics-header',
@@ -13,7 +14,7 @@ export class AnalyticsHeaderComponent implements OnInit {
   public primaryOption: number = null;
   public secondaryOption: number = null;
   @Input() showOptions : boolean = true ; 
-  @Input() title : string = "Vos Statistques"
+  @Input() title : string = "Vos Statistiques"
 
   @Output() periodSelectedEvent: EventEmitter<number>;
   public options: string[] = [
@@ -25,8 +26,12 @@ export class AnalyticsHeaderComponent implements OnInit {
     "Semester",
     "Année",
   ];
-  constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) {
-    this.selectedOption = this.options[0];
+  constructor(
+    private dataService: DataService,
+     private router: Router, 
+     private route: ActivatedRoute , 
+     private interactionService : InteractionService) {
+    this.selectedOption = this.options[2];
     this.periodSelectedEvent = new EventEmitter<number>();
   }
 
@@ -72,7 +77,11 @@ export class AnalyticsHeaderComponent implements OnInit {
         break;
       default:
         break;
+      
     }
+    this.interactionService.showMessage.next(<any>{
+      message : "la période sélectionnée : " + this.selectedOption  ,
+    })
   }
 
   public selectOption(option) {
@@ -88,9 +97,7 @@ export class AnalyticsHeaderComponent implements OnInit {
     }
 
     else if (this.primaryOption === null) {
-
       this.primaryOption = option
-
     }
     else if (this.secondaryOption === null)
       this.secondaryOption = option

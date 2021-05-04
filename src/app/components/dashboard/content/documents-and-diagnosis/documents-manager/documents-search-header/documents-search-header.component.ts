@@ -18,6 +18,7 @@ export class DocumentsSearchHeaderComponent implements OnInit {
 
   public clear() {
     this.searchQuery = {};
+    this.searchEvent.emit(this.searchQuery) ; 
   }
 
   public search() {

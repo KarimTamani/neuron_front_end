@@ -90,7 +90,7 @@ export class GeneralAnalyticsComponent implements OnInit {
 
             callback: function (value, index, values) {
               
-              if (devider == null)
+              if (devider.hour == false)
                 return dataService.castFRDate(new Date(value));
               return value;
             }
@@ -102,6 +102,9 @@ export class GeneralAnalyticsComponent implements OnInit {
               beginAtZero: true,
               min: 0,
               maxTicksLimit: 2,
+              callback : function(value , index , values) { 
+                return dataService.castValues(<number>value) ; 
+              }
             },
             id: "A",
             gridLines: {
@@ -112,7 +115,10 @@ export class GeneralAnalyticsComponent implements OnInit {
             id: "B",
             ticks: {
               beginAtZero: true,
-              min: 0
+              min: 0 , 
+              callback : function(value , index , values) { 
+                return dataService.castValues(<number>value) ; 
+              }
             },
             position: "right",
             gridLines: {

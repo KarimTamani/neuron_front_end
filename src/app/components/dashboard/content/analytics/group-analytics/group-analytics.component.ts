@@ -20,24 +20,26 @@ export class GroupAnalyticsComponent implements OnInit {
       data: [],
       label: "Age",
       labels: [], 
-    
-
+      percentages : [] 
     }, {
       data: [],
       label: "Maladie",
       labels: [] , 
-      originalLabels : [] 
+      originalLabels : [] , 
+      percentages : []
     }, {
       data: [],
       label: "Sexe",
       labels: [] , 
+      percentages : []
 
     },
     { 
       data : [] , 
       label : "Profession" , 
       labels : [] , 
-      originalLabels : [] 
+      originalLabels : [] , 
+      percentages : []
     }
 
   ];
@@ -81,21 +83,21 @@ export class GroupAnalyticsComponent implements OnInit {
             
             if ( data.datasets[tooltipItems.datasetIndex].label == "Age") { 
               var selectedDataSet = dataset[0] ;
-              return " " + tooltipItems.yLabel + " Patient " + selectedDataSet.labels[tooltipItems.index] + " ans ";  
+              return " " + selectedDataSet.percentages[tooltipItems.index] + " % " +  selectedDataSet.labels[tooltipItems.index] + " ans | " + tooltipItems.yLabel + " Patient " ;  
             } 
             if ( data.datasets[tooltipItems.datasetIndex].label == "Maladie") { 
               var selectedDataSet = dataset[1] ;
-              return " " + tooltipItems.yLabel + " Patient : " + selectedDataSet.originalLabels[tooltipItems.index] ;  
+              return " " + selectedDataSet.percentages[tooltipItems.index] + " % " + selectedDataSet.originalLabels[tooltipItems.index] +" | "+ tooltipItems.yLabel + " Patient "   ;  
             } 
             if ( data.datasets[tooltipItems.datasetIndex].label == "Sexe") { 
               var selectedDataSet = dataset[2] ;
-              return " " + tooltipItems.yLabel + " Patient : " + selectedDataSet.labels[tooltipItems.index] ;  
+              return " " + selectedDataSet.percentages[tooltipItems.index] + " % " +  selectedDataSet.labels[tooltipItems.index] + " | " + tooltipItems.yLabel + " Patient " ;  
+
             }
             if ( data.datasets[tooltipItems.datasetIndex].label == "Profession") { 
               
               var selectedDataSet = dataset[3] ;
-              console.log(selectedDataSet) ; 
-              return " " + tooltipItems.yLabel + " Patient : " + selectedDataSet.labels[tooltipItems.index] ;  
+              return " " + selectedDataSet.percentages[tooltipItems.index] + " % " +  selectedDataSet.labels[tooltipItems.index] + " | " + tooltipItems.yLabel + " Patient " ;  
             }    
            return "" ; 
           },
@@ -121,7 +123,12 @@ export class GroupAnalyticsComponent implements OnInit {
     this.dataset[0].data = this.analytics.getAnalyticsAge.map(value => value.value);
     this.dataset[2].data = this.analytics.getAnalyticsGender.map(value => value.value);
     this.dataset[3].data = this.analytics.getAnalyticsProfession.map(value => value.value) ; 
-   
+    
+    this.dataset[0].percentages = this.analytics.getAnalyticsAge.map(value => Math.trunc(value.percentage * 100) ) ; 
+    this.dataset[1].percentages = this.analytics.getAnalyticsDiseases.map(value => Math.trunc(value.percentage * 100)) ; 
+    this.dataset[2].percentages = this.analytics.getAnalyticsGender.map(value => Math.trunc(value.percentage * 100)) ; 
+    this.dataset[3].percentages = this.analytics.getAnalyticsProfession.map(value => Math.trunc(value.percentage * 100)) ; 
+     
     this.dataset[1].originalLabels = this.analytics.getAnalyticsDiseases.map(value => (value.group)); 
     this.dataset[3].originalLabels = this.analytics.getAnalyticsProfession.map(value => (value.group)); 
    

@@ -1,6 +1,7 @@
 <div class="main-container">
-    <app-analytics-header (periodSelectedEvent)="periodSelectedEvent.emit($event)" [title]="'Statistique des communes'" [showOptions]="false"></app-analytics-header>
-    <div class="canvas-container">
+    <app-analytics-header (periodSelectedEvent)="periodSelectedEvent.emit($event)" [title]="'Statistique par communes'" [showOptions]="false"></app-analytics-header>
+    <p class="no-data-message" *ngIf="analytics.getCommuneAnalytics.length == 0">Aucun statistique de Commune</p>
+    <div class="canvas-container" *ngIf="analytics.getCommuneAnalytics.length != 0">
         <canvas baseChart [colors]="barChartColors" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
       </canvas>
     </div>

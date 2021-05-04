@@ -4,8 +4,11 @@
             <app-documents-search-header (searchEvent)="search($event)"></app-documents-search-header>
         </div>
         <div class="document-list row">
-
+            <div class="col col-md-12" *ngIf="documents.length ==0 ">
+                <p class="no-data-message">Aucun document</p>
+            </div>
             <div class="col col-md-3" *ngFor="let document of documents">
+
                 <div class="document-container">
                     <app-document (clickEvent)="selectDocument(document)" [patientInfo]="true" [document]="document"></app-document>
                 </div>

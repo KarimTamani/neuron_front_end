@@ -9,7 +9,7 @@ export class GroupAnalyticsHeaderComponent implements OnInit {
   public options: any[] = [
     {
       id: 1,
-      name: "Rapport d'age"
+      name: "Rapport d'âge"
     },{
       id: 2,
       name: "Rapport des maladies"
@@ -18,7 +18,7 @@ export class GroupAnalyticsHeaderComponent implements OnInit {
       name: "Rapport De Sexe"
     } , { 
       id: 4,
-      name: "Rapport De Profession"
+      name: "Rapport Des Professions"
     }
   ];
   public selectedOption: any;

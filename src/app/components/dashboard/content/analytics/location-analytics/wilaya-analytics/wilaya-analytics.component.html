@@ -1,6 +1,8 @@
 <div class="main-container">
-    <h5>Statistqiue par Wilaya</h5>
-    <div class="canvas-container">
+    <h5>Statistique par Wilaya</h5>
+    <p class="no-data-message" *ngIf="analytics.getWilayaAnalytics.length == 0">Aucun statistique de Wilaya</p>
+
+    <div class="canvas-container" *ngIf="analytics.getWilayaAnalytics.length != 0">
         <canvas baseChart [legend]="false" height="280px" [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels" [chartType]="radarChartType">
         </canvas>
     </div>

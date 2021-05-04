@@ -57,7 +57,8 @@ export class EvolutionAnalyticsComponent implements OnInit {
 
 
   private loadAnalytics() { 
-    this.evolutionParams[0].evolutionValue  = this.analytics.getVisitsEvolution.value 
+    this.evolutionParams[0].evolutionValue = this.analytics.getVisitsEvolution.value 
+    
     this.evolutionParams[0].evolutionPercentage  = this.analytics.getVisitsEvolution.percentage 
 
     this.evolutionParams[1].evolutionValue  = this.analytics.getGainEvolution.value 
@@ -66,6 +67,15 @@ export class EvolutionAnalyticsComponent implements OnInit {
     this.evolutionParams[2].evolutionValue  = this.analytics.getPatientsEvolution.value 
     this.evolutionParams[2].evolutionPercentage  = this.analytics.getPatientsEvolution.percentage
   
+    if (this.evolutionParams[0].evolutionValue > 0){
+      this.evolutionParams[0].evolutionValue = "+" +  this.evolutionParams[0].evolutionValue ; 
+    }
+    if (this.evolutionParams[1].evolutionValue > 0){
+      this.evolutionParams[1].evolutionValue = "+" +  this.evolutionParams[1].evolutionValue ; 
+    }
+    if (this.evolutionParams[2].evolutionValue > 0){
+      this.evolutionParams[2].evolutionValue = "+" +  this.evolutionParams[2].evolutionValue ; 
+    }
     this.evolutionParams[0].evolutionValue = this.evolutionParams[0].evolutionValue + " Visite"
     this.evolutionParams[1].evolutionValue = this.evolutionParams[1].evolutionValue + " DA"
     this.evolutionParams[2].evolutionValue = this.evolutionParams[2].evolutionValue + " Patient"

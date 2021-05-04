@@ -4,7 +4,9 @@
             <app-diagnosis-search-header (searchEvent)="search($event)"></app-diagnosis-search-header>
         </div>
         <div class="responses-list row">
-
+            <div class="col col-md-12" *ngIf="neuronResponses.length ==0 ">
+                <p class="no-data-message">Aucun diagnostic</p>
+            </div>
             <div class="col col-md-3" *ngFor="let response of neuronResponses">
                 <div class="response-container">
                     <app-neuron-response [patientInfo]="true" [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>

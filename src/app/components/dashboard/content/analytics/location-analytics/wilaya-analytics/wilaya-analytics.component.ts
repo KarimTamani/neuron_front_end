@@ -18,7 +18,8 @@ export class WilayaAnalyticsComponent implements OnInit {
   public radarChartOptions: RadialChartOptions = null;
   public dataset: any = {
     data: [],
-    labels: []
+    labels: [] , 
+    percentages : []
   }
   constructor() { }
 
@@ -54,7 +55,7 @@ export class WilayaAnalyticsComponent implements OnInit {
         callbacks: {
           label: function (tooltipItems, data) {
 
-            return " " + tooltipItems.yLabel + " Patient " + dataset.labels[tooltipItems.index] ;
+            return " "+  dataset.percentages[tooltipItems.index]+" % "+ dataset.labels[tooltipItems.index]  +" | "+ tooltipItems.yLabel + " Patient "  ;
           },
           title: () => {
             return "";
@@ -80,6 +81,6 @@ export class WilayaAnalyticsComponent implements OnInit {
     this.radarChartLabels = this.analytics.getWilayaAnalytics.map(value => value.group);
     this.radarChartData = [{ data: this.analytics.getWilayaAnalytics.map(value => value.value), label: "Patient" }];
     this.dataset.labels = this.radarChartLabels;
-
+    this.dataset.percentages = this.analytics.getWilayaAnalytics.map(value => Math.trunc(value.percentage * 100) )
   }
 }

@@ -78,6 +78,7 @@ export class CommuneAnalyticsComponent implements OnInit {
 
   private loadAnalytics() { 
     this.barChartLabels = this.analytics.getCommuneAnalytics.map(value => value.group);
+  
     this.barChartData = [{ 
         data: this.analytics.getCommuneAnalytics.map(value => value.value), 
         label: "Patient" ,    

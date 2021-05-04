@@ -5,8 +5,8 @@
         <img src="../../../../../../../assets/female.jpg" *ngIf="!appointment.visit.medicalFile.gender">
     </div>
     <div class="info-side">
-        <h5>{{appointment.visit.medicalFile.lastname}} {{appointment.visit.medicalFile.name}} </h5>
-        <p>date de RDV : <span>{{appointment.date}}</span> au <span>{{appointment.time}}</span></p>
+        <h5>{{appointment.visit.medicalFile.name}} {{appointment.visit.medicalFile.lastname}} </h5>
+        <p>Date de RDV : <span>{{frDate(appointment.date)}}</span> à <span>{{appointment.time}}</span></p>
         <div class="contant stretch-container">
             <p>
 

@@ -6,16 +6,17 @@
         <span>Age</span>
         <span>Email</span>
         <span>Telephone</span>
-        <span>Date de creation</span>
+        <span>Date de création</span>
     </div>
     <div class="patients">
+        <p class="no-data-message">pas de nouveaux patients ce mois-ci</p>
         <div class="patient stretch-container" *ngFor="let medicalFile of medicalFiles">
             <span>{{medicalFile.name}}</span>
             <span>{{medicalFile.lastname}}</span>
             <span>{{this.dataService.calculateAge(medicalFile.birthday , currentDate)}} Ans</span>
             <span>{{(medicalFile.email) ? (medicalFile.email) : ("Inconnue")}}</span>
             <span>{{(medicalFile.phone) ? (medicalFile.phone) : ("Inconnue")}}</span>
-            <span>{{medicalFile.createdAt }}</span>
+            <span>{{ frDate ( medicalFile.createdAt ) }}</span>
         </div>
     </div>
 </div>

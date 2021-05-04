@@ -7,3 +7,7 @@
     max-height: 560px;
     overflow: auto;
 }
+
+.no-data-message {
+    margin-top: 16px;
+}

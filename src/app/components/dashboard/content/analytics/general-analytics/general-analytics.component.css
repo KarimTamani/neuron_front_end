@@ -25,3 +25,16 @@
 canvas {
     width: 100%;
 }
+
+a {
+    display: block;
+    width: 80%;
+    margin-top: 56px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+a:hover {
+    text-decoration: none;
+}
