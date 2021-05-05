@@ -1,18 +1,30 @@
-.header {
+.sidebar-header {
     height: 8vh;
     border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
 }
 
-.header img {
-    width: 52px;
-    height: 52px;
+.sidebar-header img {
+    width: 46px;
+    height: 46px;
 }
 
 .sidebar-container {
     padding: 8px;
     height: 100vh;
     overflow: hidden;
+    width: 58px;
+    background: #265ED7;
+    transition-duration: 0.3s;
+}
+
+.sidebar-container.active {
+    position: fixed;
+    z-index: 999;
     width: 300px;
+    border-top-right-radius: 28px;
+    border-bottom-right-radius: 28px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 ul {
@@ -27,10 +39,12 @@ ul li {
     transition-duration: 0.3s;
     cursor: pointer;
     margin: 12px 0px;
+    position: relative;
 }
 
 ul li a {
     display: block;
+    position: relative;
 }
 
 ul li i {
@@ -66,7 +80,7 @@ ul li.active span {
     cursor: pointer;
     padding: 4px 2px;
     display: inline-block;
-    margin: 8px 0px;
+    margin-top: 16px;
 }
 
 .humb-container:hover {
@@ -85,17 +99,20 @@ ul li.active span {
     background: white;
     height: 3px;
     border-radius: 8px;
-    width: 32px;
-    margin: 8px;
+    width: 28px;
+    margin: 6px;
     display: block;
     transition-duration: 0.3s;
 }
 
 ul li a span {
-    margin: 0px 16px;
+    margin: 8px 16px;
     color: rgba(255, 255, 255, 0.6);
     display: inline-block;
     font-weight: bold;
+    position: absolute;
+    font-size: 12px;
+    width: 200px;
 }
 
 ul li:hover span {

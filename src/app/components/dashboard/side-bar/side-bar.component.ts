@@ -10,7 +10,7 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
 })
 export class SideBarComponent implements OnInit {
   public activatedRouter: number = 0;
-  public isActive: boolean = false;
+  public isActive: boolean = false ;
   @Output() activeEvent: EventEmitter<null>;
 
   constructor(private route: ActivatedRoute, private router: Router, private virtualAssistantService: VirtualAssistantService) {
@@ -103,7 +103,9 @@ export class SideBarComponent implements OnInit {
 
       else if (page.includes("statistiques"))
         this.router.navigate(["/dashboard/analytics"])
-
+    
+      else if (page.includes("prescriptions")) 
+        this.router.navigate(["/dashboard/prescription-manager/prescriptions"])
       else if (page.includes("dossiers") || page.includes("médicaux"))
         this.router.navigate(["/dashboard/medical-files"])
     }

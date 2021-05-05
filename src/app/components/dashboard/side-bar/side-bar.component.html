@@ -1,5 +1,5 @@
-<div class="sidebar-container">
-    <div class="header">
+<div class="sidebar-container" [class.active]="isActive">
+    <div class="sidebar-header">
         <img src="../../../../assets/logo.png">
     </div>
     <div class="humb-container" [class.active]="isActive" (click)="activeSideBar()">
@@ -9,7 +9,6 @@
 
     </div>
     <div class="navigation">
-
         <ul>
             <li [class.active]="activatedRouter == 1">
                 <a routerLink="/dashboard/general">
