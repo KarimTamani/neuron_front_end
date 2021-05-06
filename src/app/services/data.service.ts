@@ -167,10 +167,7 @@ export class DataService {
       return null;
 
     var dateObject = new Date(date)
-    /*
-        if (dateObject.getHours() == 0)
-          dateObject = new Date(dateObject.getTime() + this.HOUR * 1000) ; 
-    */
+    
     var day: any = dateObject.getUTCDate();
     var month: any = dateObject.getUTCMonth() + 1;
     var year: any = dateObject.getFullYear();

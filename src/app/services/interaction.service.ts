@@ -56,7 +56,9 @@ export class InteractionService {
 
   public checkUpCreated : Subject<CheckUp>  ; 
   public checkUpEdited : Subject<CheckUp> ; 
+  
 
+  public blackBackgroundActive :Subject<boolean> ; 
 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
@@ -95,5 +97,7 @@ export class InteractionService {
     this.checkUpCreated = new Subject<CheckUp>() ; 
     this.checkUpEdited = new Subject<CheckUp>() ; 
     this.clearAppointment = new Subject<null>() ; 
+    this.blackBackgroundActive = new Subject<boolean>() ; 
+ 
    }
 }

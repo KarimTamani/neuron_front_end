@@ -3,18 +3,23 @@
 }
 
 .page-title-section {
-    min-width: 10%;
-    max-width: 10%;
+    min-width: 20%;
+    max-width: 20%;
+}
+
+.page-title-section h5 {
+    font-size: 16px;
 }
 
 .search-field-section {
-    min-width: 40%;
-    max-width: 40%;
+    min-width: 35%;
+    max-width: 35%;
+    position: relative;
 }
 
 .info-section {
-    min-width: 50%;
-    max-width: 50%;
+    min-width: 45%;
+    max-width: 45%;
 }
 
 h5 {
@@ -26,6 +31,70 @@ h5 {
 
 .input-container {
     position: relative;
+    height: 42px;
+    border: 3px solid transparent;
+    margin-top: -3px;
+    transition-duration: 0.3s;
+    background: transparent;
+    width: 95%;
+}
+
+.medical-files {
+    position: absolute;
+    background: white;
+    padding: 8px;
+    border-radius: 16px;
+    width: 95%;
+    top: 58px;
+    z-index: 999;
+}
+
+.medical-file {
+    border-radius: 8px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    padding: 8px 12px;
+}
+
+.medical-file:hover {
+    background: #eee;
+}
+
+.medical-file h5 {
+    color: #212121;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+.medical-file h5 span {
+    font-weight: 100;
+    float: right;
+    font-size: 11px;
+    color: rgb(254, 101, 85);
+}
+
+.medical-file .info {
+    color: #555;
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+.right {
+    float: right;
+}
+
+.medical-file i {
+    color: rgb(38, 94, 215);
+    margin-right: 4px;
+}
+
+.search-field-section.active .input-container {
+    background: white;
+    border-color: rgb(38, 94, 215);
+    position: absolute;
+    z-index: 999;
+    width: 95%;
 }
 
 .input-container input {

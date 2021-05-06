@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
 import { ALWAYS, YesNoVAResponse } from 'src/app/classes/VAResponse';
+import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
@@ -10,29 +11,33 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
 })
 export class SideBarComponent implements OnInit {
   public activatedRouter: number = 0;
-  public isActive: boolean = false ;
+  public isActive: boolean = false;
   @Output() activeEvent: EventEmitter<null>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private virtualAssistantService: VirtualAssistantService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private virtualAssistantService: VirtualAssistantService,
+    private interactionService: InteractionService) {
     this.activeEvent = new EventEmitter<null>();
   }
 
   ngOnInit(): void {
 
     // update side bar router at the beginings to the app 
-    this.updateSideBarRouters(this.router.url)
-
+    this.updateSideBarRouters(this.router.url) ;  
     // every time the navigation changed update sidebar routers
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd)
+      if (event instanceof NavigationEnd) {
         this.updateSideBarRouters(this.router.url)
+      }
+    }) ; 
 
-    })
     this.virtualAssistantService.onVACommand.subscribe((command) => {
-
       this.handleCommand(command);
     })
   }
+
 
   // this function will update side bar button according to the url 
   private updateSideBarRouters(url: string) {
@@ -103,9 +108,10 @@ export class SideBarComponent implements OnInit {
 
       else if (page.includes("statistiques"))
         this.router.navigate(["/dashboard/analytics"])
-    
-      else if (page.includes("prescriptions")) 
+
+      else if (page.includes("prescription"))
         this.router.navigate(["/dashboard/prescription-manager/prescriptions"])
+
       else if (page.includes("dossiers") || page.includes("médicaux"))
         this.router.navigate(["/dashboard/medical-files"])
     }

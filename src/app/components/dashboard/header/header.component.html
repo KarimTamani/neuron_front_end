@@ -1,13 +1,28 @@
 <div class="header-container stretch-container">
 
     <div class="page-title-section center-v">
-        <h5>Accueil</h5>
+        <h5>{{title}}</h5>
     </div>
 
-    <div class="search-field-section center-v">
-        <div class="stretch-container input-container">
+    <div class="search-field-section center-v" [class.active]="activeSearch">
+        <div class="stretch-container input-container primary-radius">
             <i class="fa fa-search"></i>
-            <input type="text" placeholder="Recherche de patient">
+            <input type="text" placeholder="Recherche de patient" #queryInput [(ngModel)]="query" (keyup)="search()" (focus)="onFocus()" (blur)="onBlur()">
+        </div>
+        <div class="medical-files" *ngIf="medicalFiles.length > 0">
+            <div class="medical-file" *ngFor="let medicalFile of medicalFiles" (click)="selectMedicalFile(medicalFile)">
+                <h5>
+                    {{medicalFile.name}} {{medicalFile.lastname}}
+                    <span>{{frDate(medicalFile.birthday)}}</span>
+
+                </h5>
+                <div class="info" *ngIf="medicalFile.phone || medicalFile.email">
+                    <span *ngIf="medicalFile.phone"><i class="fa fa-phone"></i> {{medicalFile.phone}}</span>
+                    <span [class.right]="medicalFile.phone" *ngIf="medicalFile.email"><i class="fa fa-envelope"></i> {{medicalFile.email}}</span>
+                    <div style="clear: both;"></div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -16,7 +31,7 @@
             <div class="time-picker-container">
                 <p>
                     <i class="fa fa-calendar-alt"></i>
-                    <span>5 Janv 2021</span>-<span>6 Janv 2021</span>
+                    <span>{{getCurrentDate}}</span>
                 </p>
             </div>
             <div class="stretch-container doc-info">

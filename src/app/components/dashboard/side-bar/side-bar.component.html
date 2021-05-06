@@ -25,19 +25,26 @@
             <li [class.active]="activatedRouter == 5">
                 <a routerLink="/dashboard/visit">
                     <i class="fa fa-heartbeat"></i>
-                    <span>La Visite</span>
+                    <span>Visite</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 3">
                 <a routerLink="/dashboard/visits-and-appointments-manager/visits">
                     <i class="fa fa-calendar-check"></i>
-                    <span>Gestion Des Visites</span>
+                    <span>Gestion des Visites</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 4">
                 <a routerLink="/dashboard/medical-files">
                     <i class="fa fa-user-injured"></i>
-                    <span>Gestion Des Dossie medicaux</span>
+                    <span>Dossier médicaux</span>
+                </a>
+            </li>
+
+            <li [class.active]="activatedRouter == 8">
+                <a routerLink="/dashboard/analytics">
+                    <i class="fa fa-chart-pie"></i>
+                    <span>Statistiques</span>
                 </a>
             </li>
             <li [class.active]="activatedRouter == 9">
@@ -46,12 +53,14 @@
                     <span>Documents et diagnostiques</span>
                 </a>
             </li>
-            <li [class.active]="activatedRouter == 8">
-                <a routerLink="/dashboard/analytics">
-                    <i class="fa fa-chart-pie"></i>
-                    <span>Statistiques</span>
+
+            <li [class.active]="activatedRouter == 7">
+                <a routerLink="/dashboard/financial-manager/expenses">
+                    <i class="fa fa-coins"></i>
+                    <span>Gestion Financière</span>
                 </a>
             </li>
+
 
             <li [class.active]="activatedRouter == 10">
                 <a routerLink="/dashboard/prescription-manager/prescriptions">
@@ -60,24 +69,13 @@
                 </a>
             </li>
 
-            <li [class.active]="activatedRouter == 7">
-                <a routerLink="/dashboard/financial-manager/expenses">
-                    <i class="fa fa-coins"></i>
-                    <span>Gestion Financier</span>
-                </a>
-            </li>
             <li [class.active]="activatedRouter == 6">
                 <a routerLink="/dashboard/profil">
                     <i class="fa fa-user-md"></i>
                     <span>Profil</span>
                 </a>
             </li>
-            <li>
-                <a>
-                    <i class="fa fa-sign-out-alt"></i>
-                    <span>Déconnecter</span>
-                </a>
-            </li>
+
         </ul>
 
     </div>

@@ -196,7 +196,7 @@ export class MedicalFilesManagerComponent implements OnInit {
       queryParams : { 
         "window-page" : "medical-file-details" , 
         "pop-up-window" : true , 
-        "title" : "Dossie Medical en details" , 
+        "title" : "Dossie Médical" , 
         "medical-file-id" : $event.id
       }
     })
