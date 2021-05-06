@@ -216,6 +216,8 @@ export class DataService {
   public getPeriod(startTime, endTime) {
     var startTimeMinutes = this.convertIntoMinutes(startTime);
     var endTimeMinutes = this.convertIntoMinutes(endTime);
+    if (endTimeMinutes - startTimeMinutes < 0) 
+      return "Inconnue" ; 
     return this.convertMinutesIntoTime(endTimeMinutes - startTimeMinutes)
   }
 

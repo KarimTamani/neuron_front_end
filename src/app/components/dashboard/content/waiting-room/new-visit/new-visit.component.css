@@ -164,6 +164,12 @@ h5 {
     animation: expandMedicalFile 1s ease;
 }
 
+.medical-file.is-invalid {
+    border: 1px solid;
+    border-radius: 16px;
+    box-shadow: 0px 0px 4px rgb(254, 101, 85);
+}
+
 .vital-setting-container {
     background: white;
     margin-left: 16px;

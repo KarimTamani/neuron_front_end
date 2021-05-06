@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Visit } from 'src/app/classes/Visit';
 import gql from 'graphql-tag';
@@ -24,6 +24,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public isEdited: boolean = false;
   @Input() isEdit: boolean = false;
+  @Output() closeEvent: EventEmitter<null>;
 
   constructor(
     private apollo: Apollo,
@@ -33,9 +34,11 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     private virtualAssistantService: VirtualAssistantService) {
 
     this.visit = new Visit();
+    this.closeEvent = new EventEmitter<null>();
   }
 
   ngOnInit(): void {
+
     this.virtualAssistantService.onVACommand.subscribe((data) => {
       if (data.component == "PATIENT-VISIT") {
         if (data.page && data.page == 7) {
@@ -174,20 +177,20 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     }));
 
     this.subscriptions.push(this.interactionService.clearAppointment.subscribe(() => {
-      
-      this.apollo.mutate({ 
-        mutation : gql`
+
+      this.apollo.mutate({
+        mutation: gql`
           mutation { 
             removeAppointment(appointmentId : ${this.visit.appointment.id}) 
           }
         `
-      }).pipe(map(value => (<any>value.data).removeAppointment)).subscribe((data) => { 
-        this.visit.appointment = null ;  
+      }).pipe(map(value => (<any>value.data).removeAppointment)).subscribe((data) => {
+        this.visit.appointment = null;
       })
-      
+
     }));
 
-    
+
     this.subscriptions.push(this.interactionService.visitEdited.subscribe(() => {
       this.isEdited = true;
     }))
@@ -252,7 +255,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         condition: (this.visit.condition && this.visit.condition.name && this.visit.condition.name.trim().length > 0) ? ({
           name: this.visit.condition.name
         }) : (null),
-        status: "in visit"
+        status: (this.isEdit) ? ("in visit") : (this.visit.status)
       }
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe(async (data) => {
       this.visit.id = data.id;
@@ -279,12 +282,12 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     this.visit = $event;
     this.apollo.mutate({
       mutation: gql`
-      mutation ($symptoms : [ID!] , $clinicalExam :String , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput , $condition : ConditionInput)
+      mutation ($symptoms : [ID!] , $clinicalExam :String , $status : String, $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput , $condition : ConditionInput)
       {
         editVisit(visitId : ${this.visit.id} , visit : {
           symptoms : $symptoms
           medicalActs : $medicalActs 
-          status : "in visit" 
+          status : $status 
           vitalSetting : $vitalSetting 
           clinicalExam : $clinicalExam
           condition : $condition
@@ -297,7 +300,8 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         clinicalExam: (this.visit.clinicalExam && this.visit.clinicalExam.trim().length > 3) ? (this.visit.clinicalExam) : (null),
         condition: (this.visit.condition && this.visit.condition.name && this.visit.condition.name.trim().length > 0) ? ({
           name: this.visit.condition.name
-        }) : (null)
+        }) : (null),
+        status: (!this.isEdit) ? ("in visit") : (this.visit.status)
       }
     }).subscribe(async (data) => {
       if (!this.isEdit)
@@ -307,8 +311,9 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       await this.submitVisitCheckUps();
       await this.submitCertificats();
       await this.submitAppointment();
+      
+      this.isEdited = false; 
 
-      this.isEdited = false;
       if (!this.isEdit) {
         this.router.navigate([], {
           queryParams: {
@@ -319,8 +324,9 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
             "no-edit": true
           }
         })
+      } else { 
+        this.closeEvent.emit() ; 
       }
-
     })
   }
 
@@ -432,6 +438,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
 
 
   public ngOnDestroy() {
+    console.log(this.isEdited) ; 
     if (this.isEdited) {
       this.router.navigate([], {
         queryParams: {

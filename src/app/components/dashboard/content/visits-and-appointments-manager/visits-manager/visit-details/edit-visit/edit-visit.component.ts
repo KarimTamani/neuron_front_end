@@ -19,4 +19,8 @@ export class EditVisitComponent implements OnInit {
    
   }
 
+  close($event) { 
+    this.closeEvent.emit() ; 
+  }
+
 }

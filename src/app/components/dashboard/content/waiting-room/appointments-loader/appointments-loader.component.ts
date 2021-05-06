@@ -32,7 +32,7 @@ export class AppointmentsLoaderComponent implements OnInit {
         'window-page': "new-visit",
         "waiting-room": encodeURIComponent(JSON.stringify(this.waitingRoom)),
         "visit": encodeURIComponent(JSON.stringify(visit)),
-        "edit": false
+        "medical-file-uncontrol": true
       }
     })
   }

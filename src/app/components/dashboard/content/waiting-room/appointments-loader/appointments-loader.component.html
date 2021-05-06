@@ -1,6 +1,6 @@
 <div class="main-container">
     <div class="content primary-radius">
-        <h5>Les Rendez-Vous de aujourd'hui</h5>
+        <h5>Rendez-vous d'aujourd'hui</h5>
         <div class="appointments-list">
             <div class="appointment" *ngFor="let appointment of appointments">
                 <app-appointment (loadAppointmentEvent)="loadAppointment($event)" [appointment]="appointment"></app-appointment>

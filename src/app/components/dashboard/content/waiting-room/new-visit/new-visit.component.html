@@ -2,7 +2,7 @@
     <div class="black-window" *ngIf="blackWindow"></div>
     <div class="visit-container primary-radius">
         <div class="row">
-            <div class="col col-md-12" *ngIf="!edit">
+            <div class="col col-md-12" *ngIf="visit.medicalFile == null">
                 <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
             </div>
             <div class="col col-md-12">
@@ -14,8 +14,8 @@
                         Creé le <i class="fa fa-plus"></i>
                     </button>
                 </div>
-                <div class="medical-file" *ngIf="visit.medicalFile">
-                    <app-mini-medical-file (closeEvent)="closeMedicalFile()" (editEvent)="editMedicalFile()" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
+                <div class="medical-file" *ngIf="visit.medicalFile" [class.is-invalid]="medicalFileInvalid">
+                    <app-mini-medical-file (closeEvent)="closeMedicalFile()" (editEvent)="editMedicalFile()" [controllable]="!medicalFileUnControl" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
                 </div>
             </div>
             <div class="col col-md-12" *ngIf="visit.waitingRoom">

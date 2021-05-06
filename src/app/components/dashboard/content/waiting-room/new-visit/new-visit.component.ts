@@ -9,7 +9,8 @@ import { MedicalFile } from 'src/app/classes/MedicalFile';
 import { ActivatedRoute } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VitalSetting } from 'src/app/classes/VitalSetting';
-import { SUCCESS } from 'src/app/classes/Message';
+import { SUCCESS , Message, FAIL} from 'src/app/classes/Message';
+import { WaitingRoom } from 'src/app/classes/WaitingRoom'; 
 
 @Component({
   selector: 'app-new-visit',
@@ -30,7 +31,9 @@ export class NewVisitComponent implements OnInit {
   public showVitalSetting: boolean = false;
   public edit: boolean = false;
   public blackWindow: boolean = false;
-
+  public medicalFileUnControl: boolean;
+  public medicalFileInvalid : boolean = false ; 
+  public waitingRoom : WaitingRoom ; 
   constructor(private apollo: Apollo, private route: ActivatedRoute, private interactionservice: InteractionService) {
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();
@@ -50,7 +53,19 @@ export class NewVisitComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).getAllMedicalActs)).subscribe((data) => {
       this.medicalActs = data;
     })
+
+
+
     var params = this.route.snapshot.queryParams;
+    
+    if (params["waiting-room"]) 
+      this.waitingRoom = JSON.parse(decodeURIComponent(params["waiting-room"])) ; 
+    
+    
+    
+    if (params["medical-file-uncontrol"])
+      this.medicalFileUnControl = JSON.parse(params["medical-file-uncontrol"]);
+
 
     if (params["visit"]) {
       // if the visit is defined for the edit mode
@@ -65,8 +80,8 @@ export class NewVisitComponent implements OnInit {
       this.selectedMedicalActs.forEach((act) => {
         this.totalPrice += act.price;
       })
-      if (this.visit.id) { 
-        this.edit = true ; 
+      if (this.visit.id) {
+        this.edit = true;
       }
     }
     if (params["waiting-room"]) {
@@ -78,7 +93,6 @@ export class NewVisitComponent implements OnInit {
         this.visit.order = this.visit.waitingRoom.visits.length + 1;
     }
 
-    console.log(this.edit);
   }
 
   public searchFunction: any = (query) => {
@@ -156,8 +170,29 @@ export class NewVisitComponent implements OnInit {
 
     this.visit.medicalFile = $event;
     this.submittedMedicalFile = new MedicalFile();
+   
+    const index = this.waitingRoom.visits.findIndex(value => value.medicalFile.id == this.visit.medicalFile.id) ; 
+    if (index >= 0 )  { 
+      this.medicalFileInvalid = true ; 
+      this.interactionservice.showMessage.next(<Message> { 
+        message : `désolé ce patient ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} existe déjà dans la salle d'attente` , 
+        type : FAIL , 
+      })
+    }
   }
+
   public saveVisit() {
+    
+    
+    
+    if (this.medicalFileInvalid) { 
+      this.interactionservice.showMessage.next(<Message> { 
+        message : `désolé ce patient ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} existe déjà dans la salle d'attente` , 
+        type : FAIL , 
+      })
+      return ; 
+    }
+    
     this.apollo.mutate({
       mutation: gql`
         mutation ($symptoms : [ID!] , $medicalActs : [ID!]! , $vitalSetting : VitalSettingInput){
@@ -179,13 +214,20 @@ export class NewVisitComponent implements OnInit {
       this.closeEvent.emit();
       this.interactionservice.newVisitAdded.next();
       this.interactionservice.showMessage.next({
-        message : `Le patient ${this.visit.medicalFile.lastname} ${this.visit.medicalFile.name} est present dans la salle d'attente` , 
+        message: `Le patient ${this.visit.medicalFile.lastname} ${this.visit.medicalFile.name} est present dans la salle d'attente`,
         type: SUCCESS
       })
     })
   }
 
   public editVisit() {
+    if (this.medicalFileInvalid) { 
+      this.interactionservice.showMessage.next(<Message> { 
+        message : `désolé ce patient ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} existe déjà dans la salle d'attente` , 
+        type : FAIL , 
+      })
+      return ; 
+    }
 
     delete (<any>this.visit.vitalSetting).__typename;
     this.apollo.mutate({
@@ -222,6 +264,7 @@ export class NewVisitComponent implements OnInit {
 
   public closeMedicalFile() {
     this.visit.medicalFile = null;
+    this.medicalFileInvalid = false ; 
   }
   public editMedicalFile() {
     this.showNewMedicalFile = true;

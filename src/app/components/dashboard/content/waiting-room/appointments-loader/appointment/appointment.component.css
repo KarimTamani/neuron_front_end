@@ -37,6 +37,7 @@
     color: #555555;
     margin: 0px;
     margin-bottom: 6px;
+    text-transform: capitalize;
 }
 
 p {

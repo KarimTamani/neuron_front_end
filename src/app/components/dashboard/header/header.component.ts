@@ -76,8 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     var frDate  = this.dataService.castFRDate(this.currentDate) ; 
     var time = this.dataService.getTime(this.currentDate)  ;
-
-    console.log(frDate , time) ; 
+ 
     return frDate +" "+  time ; 
 
   }

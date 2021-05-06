@@ -1,6 +1,7 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Message, SUCCESS } from 'src/app/classes/Message';
 import { Visit } from 'src/app/classes/Visit';
@@ -12,12 +13,13 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
   templateUrl: './visits-manager.component.html',
   styleUrls: ['./visits-manager.component.css']
 })
-export class VisitsManagerComponent implements OnInit {
+export class VisitsManagerComponent implements OnInit , OnDestroy{
   public visits: Visit[] = [];
   public count: number = 0;
   public offset: number = 0;
   public limit: number = 20;
   public lastSearch: any = {};
+  public subscriptions : Subscription[] = [] ; 
   constructor(
     private apollo: Apollo, 
     private interactionService: InteractionService , 
@@ -26,7 +28,7 @@ export class VisitsManagerComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.virtualAssistantService.onVACommand.subscribe((data) => { 
+    this.subscriptions.push(this.virtualAssistantService.onVACommand.subscribe((data) => { 
       if (data.component == "VISITS-AND-APPOINTMENTS-MANAGER") { 
         if (data.query && data.query.trim().length > 0) { 
           this.zone.run(() => {
@@ -36,7 +38,7 @@ export class VisitsManagerComponent implements OnInit {
             })
         }
       }
-    })
+    })) ; 
 
     this.searchVisits(
       null,
@@ -53,11 +55,21 @@ export class VisitsManagerComponent implements OnInit {
       this.limit
     );
 
-    this.interactionService.visitDeleted.subscribe((visit) => { 
+    this.subscriptions.push(this.interactionService.visitDeleted.subscribe((visit) => { 
       const index = this.visits.findIndex(value => value.id == visit.id) ; 
       if (index >= 0) 
         this.visits.splice(index , 1) ; 
-    })
+    })); 
+
+    this.subscriptions.push(
+      this.interactionService.visitEdited.subscribe((data) => { 
+        const index = this.visits.findIndex(value => value.id == data.id) ; 
+        this.visits[index] = data ; 
+      })
+    )
+
+
+  
   }
 
   private searchVisits(searchQuery = null, address = null, wilayaId = null, communeId = null, medicalActs = null, symptoms = null, debt = null, status = null, startDate = null, endDate = null, offset = null, limit = null) {
@@ -150,7 +162,7 @@ export class VisitsManagerComponent implements OnInit {
     this.lastSearch = $event;
     
     this.interactionService.showMessage.next(<Message>{
-      message : "Recherche de visites" , 
+      message : "Recherche des visites effectué" , 
       type : SUCCESS
     }) ; 
 
@@ -185,5 +197,8 @@ export class VisitsManagerComponent implements OnInit {
       this.offset,
       this.limit
     )
+  }
+  ngOnDestroy() { 
+    this.subscriptions.forEach(subs => subs.unsubscribe()) ; 
   }
 }

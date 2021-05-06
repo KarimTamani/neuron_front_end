@@ -44,7 +44,7 @@ export class InteractionService {
   public documentEdit: Subject<Document>;
   public certificatModelSelected: Subject<CertificatModel>;
   public newMedicalFile: Subject<MedicalFile>;
-  public visitEdited: Subject<null>;
+  public visitEdited: Subject<null | Visit>;
   public visitDeleted: Subject<Visit>;
   public medicalFileDeleted: Subject<MedicalFile>;
   public openEditVisitWindow : Subject<Visit> ; 

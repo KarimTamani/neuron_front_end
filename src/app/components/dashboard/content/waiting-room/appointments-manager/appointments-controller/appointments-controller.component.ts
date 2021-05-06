@@ -46,7 +46,11 @@ export class AppointmentsControllerComponent implements OnInit  , OnDestroy {
       }
     }`
     }).pipe(map(value => (<any>value.data).searchAppointments)).subscribe((data) => {
-      this.appointments = data.rows;
+      var currentAppointments = this.waitingRoom.visits ; 
+      this.appointments = data.rows.filter(function(appointment) { 
+        var index = currentAppointments.findIndex((value) => value.medicalFile.id == appointment.visit.medicalFile.id) ; 
+        return index < 0 ; 
+      })   
     })
   }
   ngOnInit(): void {
@@ -79,7 +83,7 @@ export class AppointmentsControllerComponent implements OnInit  , OnDestroy {
     this.router.navigate([], {
       queryParams: {
         "pop-up-window": true,
-        "title": "Les Rendez-Vous de aujourd-hui",
+        "title": "Rendez-vous d'aujourd'hui",
         'window-page': "appointments-loader",
         "appointments": encodeURIComponent(JSON.stringify(this.appointments)),
         "waiting-room": encodeURIComponent(JSON.stringify(this.waitingRoom))
