@@ -19,20 +19,16 @@
 
 .submitter {
     width: 100%;
-    padding: 8px;
-    margin-top: 16px;
+    padding: 16px;
     background: white;
+    padding-top: 32px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 
 .submitter button {
-    width: 200px;
-    background: rgb(38, 94, 215);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 6px;
+    width: 50%;
     float: right;
-    border: none;
-    margin-right: 16px;
 }
 
 .fa-arrow-left {
@@ -55,27 +51,31 @@
     overflow: hidden;
 }
 
-.controller button {
+.controller {
     background: white;
-    border: none;
-    width: 100%;
-    padding: 12px 8px;
-    border-radius: 8px;
-    color: #212121;
-    font-size: 14px;
-    border: 2px solid transparent;
+    padding: 16px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.controller button {
     outline: none;
+    width: 100%;
+    padding: 8px 12px !important;
+    border-radius: 20px;
+    box-shadow: none;
+    color: #888;
+    font-size: 14px;
+    border: none;
+    background: transparent;
 }
 
 .controller button.active {
-    background-color: rgba(38, 94, 215, 0.8);
-    color: white;
+    color: rgba(38, 94, 215);
 }
 
 .symptoms-controllers-container {
     background: white;
-    margin-top: 16px;
-    border-radius: 8px;
     height: 600px;
 }
 

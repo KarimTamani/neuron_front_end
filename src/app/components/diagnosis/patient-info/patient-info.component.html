@@ -8,27 +8,41 @@
         <div class="row">
             <div class="col col-md-4 center-v primary-col">
                 <div class="lastname-name">
-                    <h5>{{visit.medicalFile.lastname}} {{visit.medicalFile.name}}</h5>
-                    <p>{{visit.medicalFile.birthday}}</p>
+                    <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
+                    <p>{{frDate}}</p>
                 </div>
             </div>
             <div class="col col-md-8 primary-col center-v">
                 <div class="row info-row">
                     <div class="col col-md-6">
-                        <p class="info"><i class="fa fa-weight"></i> <span>{{visit.vitalSetting.weight}} Kg </span> </p>
+                        <p class="info"><i class="fa fa-weight"></i>
+                            <span *ngIf="visit.vitalSetting.weight">{{visit.vitalSetting.weight}} Kg </span>
+                            <span *ngIf="!visit.vitalSetting.weight">Inconnue </span>
+
+                        </p>
                     </div>
                     <div class="col col-md-6">
-                        <p class="info"><i class="fa fa-arrows-alt-v"></i> <span>{{visit.vitalSetting.size}} cm </span></p>
+                        <p class="info"><i class="fa fa-arrows-alt-v"></i>
+                            <span *ngIf="visit.vitalSetting.size">{{visit.vitalSetting.size}} cm </span>
+                            <span *ngIf="!visit.vitalSetting.size">Inconnue </span>
+
+                        </p>
                     </div>
                     <div class="col col-md-6">
                         <p class="info">Age : <span>{{age}} ans</span> </p>
                     </div>
 
                     <div class="col col-md-6">
-                        <p class="info">IMC : <span>{{imc}} kg / m2</span> </p>
+                        <p class="info">IMC :
+                            <span *ngIf="imc">{{imc}} kg / m2</span>
+                            <span *ngIf="!imc">{{imc}} kg / m2</span>
+
+                        </p>
                     </div>
                     <div class="col col-md-12">
-                        <p class="info">Interprétation : <span>{{interpretation}}</span></p>
+                        <p class="info" *ngIf="imc">Interprétation : <span>{{interpretation}}</span></p>
+                        <p class="info" *ngIf="!imc">Interprétation indisponible</p>
+
                     </div>
                 </div>
             </div>

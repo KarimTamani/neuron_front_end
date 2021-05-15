@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag"  ;
 import { map } from "rxjs/operators" ; 
+import { Symptom } from 'src/app/classes/Symptom';
 @Component({
   selector: 'app-selected-symptoms',
   templateUrl: './selected-symptoms.component.html',
@@ -10,15 +11,16 @@ import { map } from "rxjs/operators" ;
 export class SelectedSymptomsComponent implements OnInit {
   public searchQuery: string = "";
   public searchResult: any[] = [];
+  @Input() allSymptoms : Symptom[] = [] ; 
   @Input() selectedSymptoms: any[] = [];
 
   // create an event emitter to emit every time a symptom updated 
   @Output() symptomsUpdated: EventEmitter<null>;
-  constructor(private apollo : Apollo) {
+  constructor() {
     this.symptomsUpdated = new EventEmitter<null>();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
   }
   search() {
     // apply search every new ket hit 
@@ -28,19 +30,10 @@ export class SelectedSymptomsComponent implements OnInit {
     if (this.searchQuery.trim().length == 0)
       this.searchResult = []
     else {
-      //  this.searchResult = this.symptoms.filter((symptom) => symptom.disease_name.toLowerCase().includes(this.searchQuery.toLowerCase()))
-      this.apollo.query({
-        query : gql`{
-            searchSymptom(symptom : "${this.searchQuery.trim()}") {
-              id , name , bodyPartId 
-            }
-          } 
-        `
-      }).pipe(map(result => (<any>result.data).searchSymptom)).subscribe((data) => {
-        this.searchResult = data ; 
-      })
+      this.searchResult = this.allSymptoms.filter((symptom) => 
+      symptom.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
+    } 
 
-    }
   }
 
   selectSymptom(symptom) {

@@ -14,7 +14,8 @@ export class PatientInfoComponent implements OnInit {
 
   public imc: number = 0;
   public age: number = 0;
-  public interpretation
+  public interpretation 
+  public frDate : string ; 
 
   constructor(private dataService: DataService) { }
 
@@ -25,6 +26,12 @@ export class PatientInfoComponent implements OnInit {
       this.interpretation = this.dataService.getImcInterpretation(this.imc);
     }
     this.age = this.dataService.calculateAge(this.visit.medicalFile.birthday , new Date (parseInt(this.visit.createdAt)));
+    this.frDate =  this.dataService.castFRDate(new Date (this.visit.medicalFile.birthday)) ; 
+  
+  
   }
 
+
+
+  
 }

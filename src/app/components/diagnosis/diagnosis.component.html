@@ -1,10 +1,10 @@
-<div class="main-container stretch-container">
+<div class="main-container stretch-container" *ngIf="bodyParts.length > 0">
     <div class="symptoms-container-side" *ngIf="!showResult">
 
         <div class="controller">
             <div class="row">
                 <div class="col col-md-6">
-                    <button [class.active]="symptomsControllerMode" (click)="symptomsControllerMode = true">Rechercher un symptôme                    </button>
+                    <button [class.active]="symptomsControllerMode" (click)="symptomsControllerMode = true">Rechercher</button>
                 </div>
                 <div class="col col-md-6">
                     <button [class.active]="!symptomsControllerMode" (click)="symptomsControllerMode = false">Tous les symptômes
@@ -14,14 +14,14 @@
         </div>
 
         <div class="symptoms-controllers-container" *ngIf="symptomsControllerMode">
-            <app-selected-symptoms (symptomsUpdated)="updateBodyAreaSymptoms()" [selectedSymptoms]="selectedSymptoms"></app-selected-symptoms>
+            <app-selected-symptoms [allSymptoms]="allSymptoms" (symptomsUpdated)="updateBodyAreaSymptoms()" [selectedSymptoms]="selectedSymptoms"></app-selected-symptoms>
         </div>
         <div class="symptoms-controllers-container" *ngIf="!symptomsControllerMode">
-            <app-all-symptoms (symptomsUpdated)="updateBodyAreaSymptoms()" [selectedSymptoms]="selectedSymptoms"></app-all-symptoms>
+            <app-all-symptoms [bodyParts]="bodyParts" (symptomsUpdated)="updateBodyAreaSymptoms()" [selectedSymptoms]="selectedSymptoms"></app-all-symptoms>
         </div>
 
-        <div class="submitter primary-radius">
-            <button (click)=" diagnosis() ">Analyser</button>
+        <div class="submitter">
+            <button (click)=" diagnosis()" class="primary-button">Analyser</button>
             <div style="clear : both;"></div>
         </div>
 

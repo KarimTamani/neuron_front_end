@@ -8,52 +8,38 @@ import { map } from "rxjs/operators";
   styleUrls: ['./all-symptoms.component.css']
 })
 export class AllSymptomsComponent implements OnInit {
-  
-  public bodyParts: any[] = [];
+
+  @Input() bodyParts: any[] = [];
   public selectedPart: any = null;
-  @Input() selectedSymptoms: any[] ; 
+  @Input() selectedSymptoms: any[];
   // create an event emitter to emit every time a symptom updated 
-  @Output() symptomsUpdated : EventEmitter<null> ; 
+  @Output() symptomsUpdated: EventEmitter<null>;
 
   constructor(private apollo: Apollo) {
-    this.symptomsUpdated = new EventEmitter<null>() ; 
+    this.symptomsUpdated = new EventEmitter<null>();
   }
 
   ngOnInit(): void {
     // get all body parts and location 
-    this.apollo.watchQuery<any>({
-      query: gql`
-      {
-        getBodyParts{ id , location}
-      }`
-    }).valueChanges.pipe(map(result => result.data.getBodyParts)).subscribe((data) => {
-      this.bodyParts = data;
-    })
+    console.log(this.bodyParts);
   }
 
   selectBodyPart(part) {
     // check if the body part symptoms are not loaded 
-    if (part.symptoms == null) {
-      this.apollo.watchQuery<any>({
-        query: gql`
-          {
-            getBodyPartSymptoms(id : ${part.id} , language : "fr"){
-              symptoms {
-                id , name ,body_part_id 
-              }
-            }
-          }
-        `
-      }).valueChanges.pipe(map(result => result.data.getBodyPartSymptoms.symptoms)).subscribe((data) => {
-        data.forEach((symptom) => {
-          let allReadySelected = this.selectedSymptoms.find((value) => value.id == symptom.id) 
-          console.log(allReadySelected)
-          if (allReadySelected) 
-            symptom.selected = true ; 
-        })
-        part.symptoms = data
-      })
-    }
+
+
+    part.symptoms.forEach((symptom) => {
+      let allReadySelected = this.selectedSymptoms.find((value) => value.id == symptom.id) 
+      
+      if (allReadySelected) 
+        symptom.selected = true ; 
+      else 
+      symptom.selected = false ; 
+       
+    }) 
+
+  
+
     // if the selected part is not null and the part is allready selected 
     // then make the selected part null to close the symptoms list of the selected part 
     // else assign the selected epart to the body part 
@@ -61,7 +47,9 @@ export class AllSymptomsComponent implements OnInit {
       this.selectedPart = null;
     else
       this.selectedPart = part;
-  }
+  
+  
+    }
 
   selectSymptom($event, symptom) {
     // every time a symptoms selected from the body part list 
@@ -81,9 +69,9 @@ export class AllSymptomsComponent implements OnInit {
         // find the index of the symptom in the selected symptoms list 
         // and delete it  
         var index = this.selectedSymptoms.findIndex((value) => value.id == symptom.id)
-        this.selectedSymptoms.splice(index , 1 ) ; 
+        this.selectedSymptoms.splice(index, 1);
       }
     }
-    this.symptomsUpdated.emit() ; 
+    this.symptomsUpdated.emit();
   }
 }

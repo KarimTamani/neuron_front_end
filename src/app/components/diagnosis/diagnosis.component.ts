@@ -20,6 +20,7 @@ export class DiagnosisComponent implements OnInit {
   public selectedSymptoms: any[] = []
   public predictions: any = null;
   public allSymptoms: Symptom[] = [];
+  public bodyParts: any[] = [];
   // global body part symptoms to allocate each symptom in his properiate body area   
   public bodyAreaSymptoms = {
     head: [],
@@ -37,68 +38,60 @@ export class DiagnosisComponent implements OnInit {
   }
   // select either all symptoms list or search for a semptoms 
   public symptomsControllerMode: boolean = true;
-  constructor(private apollo: Apollo, private route: ActivatedRoute, private virtualAssistantService : VirtualAssistantService) { }
+
+  constructor(private apollo: Apollo, private route: ActivatedRoute, private virtualAssistantService: VirtualAssistantService) { }
+
   ngOnInit(): void {
-    
+
     var params = this.route.snapshot.queryParams
-    
+
     this.visit = JSON.parse(decodeURIComponent(params.visit));
-    
+
     if (this.visit.symptoms) {
       this.selectedSymptoms = this.visit.symptoms;
       this.updateBodyAreaSymptoms();
-    } ; 
- 
+    };
+
+
     this.apollo.query({
       query: gql`
       {
-        searchSymptom(symptom : "") { id name bodyPartId } 
+        getAllBodyParts {
+          id
+          name
+          symptoms {
+            id
+            name
+            bodyPartId
+          }
+        }
       }`
-    }).pipe(map(value => (<any>value.data).searchSymptom)).subscribe((data) => {
-      this.allSymptoms = data;
-      if (params.symptoms && params.result)  {
-        this.selectedSymptoms = this.loadSymptomsFromString(decodeURIComponent(params.symptoms)) ; 
-        this.updateBodyAreaSymptoms() ; 
+    }).pipe(map(value => (<any>value.data).getAllBodyParts)).subscribe((data) => {
+      this.bodyParts = data;
 
-        this.predictions = JSON.parse(decodeURIComponent(params.result))[0].output.predictions 
-        this.showResult = true ; 
+      this.bodyParts.forEach(part => this.allSymptoms = this.allSymptoms.concat(part.symptoms));
+      if (params.symptoms && params.result) {
+        this.selectedSymptoms = this.loadSymptomsFromString(decodeURIComponent(params.symptoms));
+        this.updateBodyAreaSymptoms();
+
+        this.predictions = JSON.parse(decodeURIComponent(params.result))[0].output.predictions
+        this.showResult = true;
       }
     })
 
     this.virtualAssistantService.onVACommand.subscribe((command) => {
       if (command.component == "DIAGNOSIS") {
 
-        var symptoms = [] ; 
-        for (let index = 0 ; index < this.allSymptoms.length ; index ++) { 
-          
-          // check if the symptom exists in the command 
-          if (command.default.includes(this.allSymptoms[index].name)) { 
-            let i = 0 ; 
-            // if so check if the small symptom exists replace it 
-            // if it's the small symptom break 
-            // and dont add it 
-            for ( ; i < symptoms.length ; i++) {  
-              
-              if (this.allSymptoms[index].name.includes(symptoms[i].name)) { 
-
-                symptoms[i] = this.allSymptoms[index] ; 
-                break ; 
-              } 
-
-              if (symptoms[i].name.includes(this.allSymptoms[index].name)) { 
-                break ; 
-              }
-            }
-            // if we reach the and without a mach then the symp do not exists ; 
-            if (i == symptoms.length) 
-              symptoms.splice(0 , 0 , this.allSymptoms[index]) ; 
-          }
-
+        var symptoms = this.loadSymptomsFromString(command.default);
+        if (symptoms && symptoms.length > 0) {
+          this.selectedSymptoms = this.selectedSymptoms.concat(symptoms);
+          this.updateBodyAreaSymptoms();
         }
-        this.selectedSymptoms = this.selectedSymptoms.concat(symptoms) ;  
-        this.updateBodyAreaSymptoms() ; 
       }
     })
+
+
+
   }
 
 
