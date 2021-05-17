@@ -16,6 +16,7 @@ import { MedicalFile } from '../classes/MedicalFile';
 import { Message } from '../classes/Message';
 import { CheckUpType } from '../classes/CheckUpType';
 import { CheckUp } from '../classes/CheckUp';
+import { Symptom } from '../classes/Symptom';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,7 @@ export class InteractionService {
   
 
   public blackBackgroundActive :Subject<boolean> ; 
+  public updateVisitSymptoms : Subject<Symptom[]> ; 
 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
@@ -98,6 +100,7 @@ export class InteractionService {
     this.checkUpEdited = new Subject<CheckUp>() ; 
     this.clearAppointment = new Subject<null>() ; 
     this.blackBackgroundActive = new Subject<boolean>() ; 
- 
+    
+    this.updateVisitSymptoms = new Subject<Symptom[]>() ; 
    }
 }

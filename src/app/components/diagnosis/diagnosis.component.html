@@ -28,7 +28,7 @@
     </div>
 
     <div class="diagnosis-result primary-radius" *ngIf="showResult">
-        <div class="header">
+        <div class="header" *ngIf="!oldResult">
             <i class="fa fa-arrow-left " (click)="showResult=false"></i>
         </div>
         <app-diagnosis-predictions [diagnosisPredictions]="predictions"></app-diagnosis-predictions>

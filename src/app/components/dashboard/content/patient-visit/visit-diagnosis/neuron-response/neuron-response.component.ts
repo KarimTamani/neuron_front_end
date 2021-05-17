@@ -76,7 +76,8 @@ export class NeuronResponseComponent implements OnInit {
           })),
           "title": this.neuronResponse.neuronCollection.name, 
           "visit" : decodeURIComponent(JSON.stringify(this.neuronResponse.visit)) ,  
-          "referer" : referer
+          "referer" : referer , 
+          "old" : true , 
         }
       });
     }else { 
@@ -88,7 +89,8 @@ export class NeuronResponseComponent implements OnInit {
           "symptoms" : decodeURIComponent(this.neuronResponse.input) , 
           "title": "Diagnositiuqe symptomsique", 
           "visit" : decodeURIComponent(JSON.stringify(this.neuronResponse.visit)) , 
-          "referer" : referer 
+          "referer" : referer , 
+          "old" : true , 
         }
       });
     }

@@ -1,4 +1,7 @@
 <div class="main-container primary-radius">
+    <p class="no-data-message" *ngIf="visitsNeuronResponses.length == 0">
+        aucun diagnostic n'a été trouvé
+    </p>
     <div class="visit-response" *ngFor="let visitResponse of visitsNeuronResponses ; let i = index">
         <div class="visit-response-header" (click)="selectVisit(visitResponse , i )">
             <span>{{visitResponse.createdAt}}</span>
@@ -7,9 +10,7 @@
         </div>
         <div class="responses row" *ngIf="i == 0 || expandVisit == visitResponse.id">
             <div class="col col-md-3" *ngFor="let response of visitResponse.neuronResponses">
-
                 <app-neuron-response [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>
-
             </div>
         </div>
     </div>

@@ -18,7 +18,7 @@ import { Message, SUCCESS } from 'src/app/classes/Message';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
-  public page: number = 1;
+  public page: number = 2;
   @Input() visit: Visit;
   @Input() noHeader: boolean = false;
   public subscriptions: Subscription[] = [];
@@ -193,12 +193,16 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.interactionService.visitEdited.subscribe(() => {
       this.isEdited = true;
-    }))
+    })) ; 
+
     this.subscriptions.push(this.interactionService.visitDone.subscribe((data) => {
       this.visit = new Visit();
       this.initVisit();
     }))
 
+    this.subscriptions.push(this.interactionService.updateVisitSymptoms.subscribe((symptoms) => { 
+      this.visit.symptoms = symptoms ; 
+    }))
   }
 
   private initVisit() {
@@ -255,7 +259,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         condition: (this.visit.condition && this.visit.condition.name && this.visit.condition.name.trim().length > 0) ? ({
           name: this.visit.condition.name
         }) : (null),
-        status: (this.isEdit) ? ("in visit") : (this.visit.status)
+        status: "in visit" 
       }
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe(async (data) => {
       this.visit.id = data.id;

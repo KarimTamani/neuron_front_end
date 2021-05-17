@@ -54,7 +54,6 @@ export class VisitLoaderComponent implements OnInit {
             getCurrentDate
           }`
     }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
- 
       this.apollo.query({
         query: gql`
           { 

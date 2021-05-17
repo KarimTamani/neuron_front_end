@@ -1,5 +1,8 @@
 <div class="image-viewer-container">
-    <div class="viewer" [ngStyle]="{'height' : height}" (click)="file.click()">
+    <div class="viewer" [ngStyle]="{'height' : height}" (click)="clickViewer() ">
+        <div class="clear-container" *ngIf="imageRendered" (click)="clear($event)">
+            <i class="fa fa-times"></i>
+        </div>
         <i class="fa fa-camera"></i>
         <input type="file" (change)="render(image)" #file>
         <img #image [src]="initUrl">

@@ -5,6 +5,9 @@ import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 import { map } from "rxjs/operators";
 import { Visit } from 'src/app/classes/Visit';
+import { InteractionService } from 'src/app/services/interaction.service';
+import { FAIL, Message } from 'src/app/classes/Message';
+
 @Component({
   selector: 'app-speciality-diagnosis',
   templateUrl: './speciality-diagnosis.component.html',
@@ -23,7 +26,14 @@ export class SpecialityDiagnosisComponent implements OnInit {
 
   public diagnosisResult: any = null;
   public visit: Visit;
-  constructor(private apollo: Apollo, private route: ActivatedRoute, private router: Router) { }
+  
+   
+  public specialityId : number ; 
+  constructor(
+    private apollo: Apollo,
+    private route: ActivatedRoute, 
+    private router: Router , 
+    private interactionService : InteractionService ) { }
   ngOnInit(): void {
 
     this.apollo.query({
@@ -45,6 +55,9 @@ export class SpecialityDiagnosisComponent implements OnInit {
       this.specialities = data;
 
       this.selectedSpeciality = data[0];
+      
+      this.specialityId = this.selectedSpeciality.id ;
+      
       this.selectedCollection = this.selectedSpeciality.neuronCollections[0];
 
       this.route.queryParamMap.subscribe((paramMap: ParamMap) => {
@@ -55,6 +68,8 @@ export class SpecialityDiagnosisComponent implements OnInit {
         var collection_id = paramMap.get("collection_id");
 
         if (speciality_id !== null) {
+        
+        
           this.selectedSpeciality = this.specialities.find((value) => value.id == speciality_id)
           if (collection_id != null) {
             this.selectedCollection = this.selectedSpeciality.neuronCollections.find((value) => value.id == collection_id);
@@ -85,11 +100,15 @@ export class SpecialityDiagnosisComponent implements OnInit {
     // set show result to false 
     this.showResult = false;
   }
-  public onSpecialityChanged(speciality) {
+  public onSpecialityChanged() {
     // every time a speciality changed 
     // we extract the last query params from the url
     // and update the title and set the speciality = speciality 
     // in the url params 
+
+     
+    var speciality = this.specialities.find((value) => value.id == this.specialityId) ; 
+
     if (this.selectedSpeciality && this.selectedSpeciality.id != speciality.id) {
       var params = JSON.parse(JSON.stringify(this.route.snapshot.queryParams))
       params.title = speciality.name;
@@ -101,6 +120,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
       this.selectedSpeciality = speciality;
     }
     this.expandSpecialities = false;
+    
   }
 
   public selectCollection(collection) {
@@ -129,8 +149,17 @@ export class SpecialityDiagnosisComponent implements OnInit {
     // create a formdata to upload to the server 
     // with the image file and the models we want 
     // check if the image and the models are valide 
-    if (this.image == null)
+    if (this.image == null) { 
+    
+      
+      this.interactionService.showMessage.next(<Message>{
+        message : "s'il vous plaît ajouter une image"  , 
+        type : FAIL
+      })
+    
       return;
+
+    }
     if (this.selectCollection == null)
       return;
     this.apollo.mutate({

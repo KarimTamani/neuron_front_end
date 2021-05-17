@@ -1,24 +1,19 @@
 <div class="main-container stretch-container" *ngIf="!showResult">
-    <div class="left-side">
+    <div class="left-side primary-radius">
 
-        <div class="speciality-container">
-            <button class="primary-radius" (click)="expandSpecialities = !expandSpecialities">
-                {{(selectedSpeciality) ? (selectedSpeciality.name) : ("Selectioneé une specialitie")}}
-            </button>
-            <ul *ngIf="expandSpecialities">
-                <li *ngFor="let speciality of specialities" (click)="onSpecialityChanged(speciality)">
-                    {{speciality.name}}
-                </li>
-            </ul>
-        </div>
+        <select (change)="onSpecialityChanged()" [(ngModel)]="specialityId">
+            <option *ngFor="let speciality of specialities" [value]="speciality.id">
+                {{speciality.name}}
+            </option>
+        </select>
 
         <ul *ngIf="selectedSpeciality" class="collections primary-radius">
             <li *ngFor="let collection of selectedSpeciality.neuronCollections" (click)="selectCollection(collection)" [class.selected]="selectedCollection && collection.id == selectedCollection.id">
                 {{collection.name}}
             </li>
         </ul>
-        <div class="controller primary-radius">
-            <button (click)="submit()">Analyser</button>
+        <div class="controller">
+            <button class="primary-button" (click)="submit()">Analyser</button>
             <div style="clear:both"></div>
         </div>
     </div>

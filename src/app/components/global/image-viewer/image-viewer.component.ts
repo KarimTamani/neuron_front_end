@@ -19,6 +19,8 @@ export class ImageViewerComponent implements OnInit, OnDestroy {
   @Input() initUrl: string = null;
   @Input() height: string = "520px"
 
+
+  public imageRendered: boolean = false;
   public subscriptions: Subscription[] = [];
 
   constructor() {
@@ -27,10 +29,11 @@ export class ImageViewerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //  whene the parent component is done with the image we clear it  
-    this.subscriptions.push(this.clearImage.subscribe(() => {
-      this.image.nativeElement.src = "";
-      this.file.nativeElement.value = ""
-    }));
+
+    if (this.clearImage)
+      this.subscriptions.push(this.clearImage.subscribe(() => {
+        this.clear(null);
+      }));
 
     if (this.initImage) {
       let fileReader = new FileReader();
@@ -43,7 +46,7 @@ export class ImageViewerComponent implements OnInit, OnDestroy {
     }
   }
   render(image) {
-
+    this.imageRendered = true;
     // check if image changes
     // render it 
     // and emiit it to the parent component  
@@ -62,8 +65,20 @@ export class ImageViewerComponent implements OnInit, OnDestroy {
     }
   }
 
+  public clear($event) {
+    this.imageRendered = false;
+    this.image.nativeElement.src = "";
+    this.file.nativeElement.value = ""
+    if ($event) 
+      $event.stopPropagation() ; 
+  }
 
   public ngOnDestroy() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
+
+
+  public clickViewer() {
+    this.file.nativeElement.click();
   }
 }

@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Visit } from 'src/app/classes/Visit';
 import { Symptom } from 'src/app/classes/Symptom';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-diagnosis',
@@ -21,6 +22,8 @@ export class DiagnosisComponent implements OnInit {
   public predictions: any = null;
   public allSymptoms: Symptom[] = [];
   public bodyParts: any[] = [];
+
+  public oldResult : boolean = false ; 
   // global body part symptoms to allocate each symptom in his properiate body area   
   public bodyAreaSymptoms = {
     head: [],
@@ -39,13 +42,20 @@ export class DiagnosisComponent implements OnInit {
   // select either all symptoms list or search for a semptoms 
   public symptomsControllerMode: boolean = true;
 
-  constructor(private apollo: Apollo, private route: ActivatedRoute, private virtualAssistantService: VirtualAssistantService) { }
+  constructor(private apollo: Apollo, 
+    private route: ActivatedRoute, 
+    private virtualAssistantService: VirtualAssistantService , 
+    private interactionService : InteractionService) { }
 
   ngOnInit(): void {
 
     var params = this.route.snapshot.queryParams
 
     this.visit = JSON.parse(decodeURIComponent(params.visit));
+
+    
+    if (params["old"]) 
+      this.oldResult = true ; 
 
     if (this.visit.symptoms) {
       this.selectedSymptoms = this.visit.symptoms;
@@ -98,7 +108,8 @@ export class DiagnosisComponent implements OnInit {
   private updateBodyAreaSymptoms() {
     // update the body area symptoms each time a new symptom added or deleted
     // empty the symptoms 
-    this.bodyAreaSymptoms.clear()
+    this.interactionService.updateVisitSymptoms.next(this.selectedSymptoms) ; 
+    this.bodyAreaSymptoms.clear(); 
     for (let index = 0; index < this.selectedSymptoms.length; index++)
       switch (parseInt(this.selectedSymptoms[index].bodyPartId)) {
         case 1:

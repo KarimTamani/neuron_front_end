@@ -1,6 +1,9 @@
 .main-container {
     padding: 16px;
     background: white;
+    height: 560px;
+    max-height: 560px;
+    overflow: auto;
 }
 
 .visit-response-header {

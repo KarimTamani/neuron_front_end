@@ -12,7 +12,7 @@ input[type="file"] {
     display: none;
 }
 
-.viewer i {
+.viewer .fa-camera {
     color: #555555;
     font-size: 56px;
     position: absolute;
@@ -26,4 +26,36 @@ img {
     width: 100%;
     top: 50%;
     transform: translateY(-50%)
+}
+
+.clear-container {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    background: white;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    transition-duration: 0.3s;
+    z-index: 2;
+}
+
+.fa-times {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #555555;
+    padding: 16px;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+.clear-container:hover .fa-times {
+    color: white;
+}
+
+.clear-container:hover {
+    background: rgb(254, 101, 85);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1) -2px -2px 8px rgba(0, 0, 0, 0.1);
 }

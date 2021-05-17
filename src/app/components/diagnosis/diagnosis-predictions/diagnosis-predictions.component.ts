@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-diagnosis-predictions',
@@ -7,10 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DiagnosisPredictionsComponent implements OnInit {
   @Input() diagnosisPredictions: any = null
-  public predictions: any[] = []
+  public predictions: any[] = [] ; 
+
   constructor() { }
 
   ngOnInit(): void {
+
 
     let keys = Object.keys(this.diagnosisPredictions)
     let values = Object.values(this.diagnosisPredictions)
