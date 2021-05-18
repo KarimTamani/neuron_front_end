@@ -27,6 +27,7 @@ export class VisitLoaderComponent implements OnInit {
   public submittedMedicalFile: MedicalFile;
   public waitingRoom: WaitingRoom;
   public medicalFileValid : boolean = true ; 
+  public currentDate : Date ; 
   constructor(
     private apollo: Apollo, 
     private dataService: DataService , 
@@ -40,10 +41,6 @@ export class VisitLoaderComponent implements OnInit {
     this.saveVisitEvent = new EventEmitter<Visit>() ; 
 
   }
-
-
-
-
   ngOnInit(): void {
     if (this.visit.medicalFile == null)
       this.showSearch = true;
@@ -54,6 +51,7 @@ export class VisitLoaderComponent implements OnInit {
             getCurrentDate
           }`
     }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
+      this.currentDate = data ; 
       this.apollo.query({
         query: gql`
           { 
@@ -86,6 +84,21 @@ export class VisitLoaderComponent implements OnInit {
       })
     })
 
+  }
+
+
+
+  public clickMedicalFile($event) { 
+    this.router.navigate([]  , { 
+      queryParams : { 
+        "window-page" : "medical-file-details" , 
+        "pop-up-window" : true , 
+        "title" : "Dossie Médical" , 
+        "medical-file-id" : $event.id , 
+        "in-visit" : true , 
+        "current-date" : this.currentDate 
+      }
+    })
   }
 
   selectMedicalFile($event) {

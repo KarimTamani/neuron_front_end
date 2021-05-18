@@ -23,7 +23,7 @@ export class DiagnosisComponent implements OnInit {
   public allSymptoms: Symptom[] = [];
   public bodyParts: any[] = [];
 
-  public oldResult : boolean = false ; 
+  public newResult : boolean = false ; 
   // global body part symptoms to allocate each symptom in his properiate body area   
   public bodyAreaSymptoms = {
     head: [],
@@ -52,10 +52,6 @@ export class DiagnosisComponent implements OnInit {
     var params = this.route.snapshot.queryParams
 
     this.visit = JSON.parse(decodeURIComponent(params.visit));
-
-    
-    if (params["old"]) 
-      this.oldResult = true ; 
 
     if (this.visit.symptoms) {
       this.selectedSymptoms = this.visit.symptoms;
@@ -99,7 +95,6 @@ export class DiagnosisComponent implements OnInit {
         }
       }
     })
-
 
 
   }
@@ -183,6 +178,7 @@ export class DiagnosisComponent implements OnInit {
     }).pipe(map(result => (<any>result.data).performNeuronRequest)).subscribe((data: string) => {
       this.predictions = JSON.parse(data)[0].output.predictions;
       this.showResult = true;
+      this.newResult = true ; 
     })
   }
 }

@@ -61,6 +61,8 @@ export class InteractionService {
 
   public blackBackgroundActive :Subject<boolean> ; 
   public updateVisitSymptoms : Subject<Symptom[]> ; 
+  public medicalFileEdited : Subject<MedicalFile> ; 
+
 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
@@ -102,5 +104,8 @@ export class InteractionService {
     this.blackBackgroundActive = new Subject<boolean>() ; 
     
     this.updateVisitSymptoms = new Subject<Symptom[]>() ; 
+
+
+    this.medicalFileEdited = new Subject<MedicalFile>() ; 
    }
 }

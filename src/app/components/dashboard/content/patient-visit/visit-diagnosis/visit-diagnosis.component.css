@@ -57,4 +57,10 @@
 
 .responses {
     padding: 16px;
+    height: 480px;
+    max-height: 480px;
+}
+
+.response-container {
+    margin-bottom: 16px;
 }

@@ -21,4 +21,4 @@
         <app-image-viewer [initImage]="image" (imageSelectedEvent)="onImageSelected($event)"></app-image-viewer>
     </div>
 </div>
-<app-diagnosis-result *ngIf="showResult" (backEventListener)="back()"></app-diagnosis-result>
+<app-diagnosis-result [newResult]="newResult" *ngIf="showResult" (backEventListener)="back()"></app-diagnosis-result>

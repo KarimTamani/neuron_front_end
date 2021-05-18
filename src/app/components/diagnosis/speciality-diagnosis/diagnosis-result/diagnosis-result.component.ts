@@ -22,6 +22,7 @@ export class DiagnosisResultComponent implements OnInit, OnDestroy {
   public originalImage: string = null;
 
   @Output() backEventListener : EventEmitter<null> ; 
+  @Input() newResult : boolean = false ; 
   public subscriptions : Subscription[] = [] ;  
 
   constructor(private route: ActivatedRoute, private apollo: Apollo) {

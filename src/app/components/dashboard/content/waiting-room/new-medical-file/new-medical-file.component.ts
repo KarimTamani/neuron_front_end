@@ -11,6 +11,7 @@ import { DataService } from 'src/app/services/data.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 import { ActivatedRoute } from '@angular/router';
+import { Antecedent } from 'src/app/classes/Antecedent';
 
 @Component({
   selector: 'app-new-medical-file',
@@ -333,6 +334,9 @@ export class NewMedicalFileComponent implements OnInit {
       antecedents: this.medicalFile.antecedents.map(value => value.id)
     }
 
+    console.log(variables.antecedents) ; 
+    
+
     if (this.medicalFile.address.commune.id)
       variables.address = {
         address: this.medicalFile.address.address,
@@ -369,7 +373,8 @@ export class NewMedicalFileComponent implements OnInit {
       }` ,
       variables: variables
     }).pipe(map(value => (<any>value.data).editMedicalFile)).subscribe((data) => {
-      this.closeEvent.emit() ; 
+      this.interactionService.medicalFileEdited.next(this.medicalFile) ; 
+      this.closeEvent.emit(); 
     })
   }
 }

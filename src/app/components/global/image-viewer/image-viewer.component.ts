@@ -35,6 +35,7 @@ export class ImageViewerComponent implements OnInit, OnDestroy {
         this.clear(null);
       }));
 
+    
     if (this.initImage) {
       let fileReader = new FileReader();
       // file reader load listener
@@ -69,6 +70,8 @@ export class ImageViewerComponent implements OnInit, OnDestroy {
     this.imageRendered = false;
     this.image.nativeElement.src = "";
     this.file.nativeElement.value = ""
+    this.imageSelectedEvent.emit(null) ; 
+     
     if ($event) 
       $event.stopPropagation() ; 
   }

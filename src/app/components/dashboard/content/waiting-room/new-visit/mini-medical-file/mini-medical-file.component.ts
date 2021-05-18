@@ -11,27 +11,33 @@ export class MiniMedicalFileComponent implements OnInit {
   @Input() medicalFile: MedicalFile;
   @Output() closeEvent: EventEmitter<null>;
   @Output() editEvent: EventEmitter<null>;
-  @Output() clickMedicalFile : EventEmitter<MedicalFile> ; 
+  @Output() clickMedicalFile: EventEmitter<MedicalFile>;
 
-  @Input() disabelShadow : boolean = false; 
-  @Input() controllable : boolean = true ; 
-  @Input() clickable : boolean = false ; 
-  @Input() currentDate : Date ;  
+  @Input() disabelShadow: boolean = false;
+  @Input() controllable: boolean = true;
+  @Input() clickable: boolean = false;
+  @Input() currentDate: Date;
 
-  public birthday : string ;  
-  public age : number ; 
 
-  constructor(private dataService : DataService) {
+  constructor(private dataService: DataService) {
     this.closeEvent = new EventEmitter<null>();
     this.editEvent = new EventEmitter<null>();
-    this.clickMedicalFile = new EventEmitter<MedicalFile>() ; 
+    this.clickMedicalFile = new EventEmitter<MedicalFile>();
   }
 
   ngOnInit(): void {
-    
-    this.birthday = this.dataService.castFRDate(new Date(this.medicalFile.birthday)) ; 
-    this.age = this.dataService.calculateAge(this.medicalFile.birthday , new Date(this.currentDate)) ;   
-    console.log(this.age) ; 
+
+  }
+
+
+  get birthday () { 
+    return this.dataService.castFRDate(new Date(this.medicalFile.birthday));  
+  }
+  get age() {
+    if (this.currentDate)
+      return this.dataService.calculateAge(this.medicalFile.birthday, new Date(this.currentDate));
+    else
+      return null;
   }
 
   editMedicalFile() {
@@ -42,8 +48,8 @@ export class MiniMedicalFileComponent implements OnInit {
     this.closeEvent.emit();
   }
 
-  public click() { 
-    this.clickMedicalFile.emit(this.medicalFile) ; 
+  public click() {
+    this.clickMedicalFile.emit(this.medicalFile);
   }
 
 }

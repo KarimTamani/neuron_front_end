@@ -29,3 +29,9 @@
     background: rgba(38, 94, 215, 0.8);
     color: white;
 }
+
+.predictions {
+    background: white;
+    height: 100%;
+    border-radius: 16px;
+}

@@ -26,7 +26,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
 
   public diagnosisResult: any = null;
   public visit: Visit;
-  
+  public newResult : boolean = false ; 
    
   public specialityId : number ; 
   constructor(
@@ -192,6 +192,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
       });
       // set show result to true 
       this.showResult = true;
+      this.newResult = true ; 
     })
   }
 }

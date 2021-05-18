@@ -14,8 +14,8 @@
                     Creé le <i class="fa fa-plus"></i>
                 </button>
             </div>
-            <div class="medical-file" *ngIf="visit.medicalFile">
-                <app-mini-medical-file [controllable]="!(visit.status == 'in visit' || isEdit)" (closeEvent)="closeMedicalFile()" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
+            <div class="medical-file" *ngIf="visit.medicalFile && currentDate">
+                <app-mini-medical-file [currentDate]="currentDate" [controllable]="!(visit.status == 'in visit' || isEdit)" (clickMedicalFile)="clickMedicalFile($event)" [clickable]="visit.status == 'in visit' || !isEdit" (closeEvent)="closeMedicalFile()" [medicalFile]="visit.medicalFile"></app-mini-medical-file>
             </div>
         </div>
         <div class="col col-md-12" *ngIf="visit.waitingRoom">

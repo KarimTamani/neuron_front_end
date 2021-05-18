@@ -131,4 +131,6 @@ p i {
 .age {
     color: rgb(254, 101, 85);
     float: right;
+    font-size: 10px;
+    padding: 2px 6px;
 }

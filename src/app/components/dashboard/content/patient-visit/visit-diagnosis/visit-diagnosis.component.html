@@ -10,7 +10,9 @@
         </div>
         <div class="responses row" *ngIf="i == 0 || expandVisit == visitResponse.id">
             <div class="col col-md-3" *ngFor="let response of visitResponse.neuronResponses">
-                <app-neuron-response [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>
+                <div class="response-container">
+                    <app-neuron-response [modelOutputs]="modelOutputs" [neuronResponse]="response"></app-neuron-response>
+                </div>
             </div>
         </div>
     </div>

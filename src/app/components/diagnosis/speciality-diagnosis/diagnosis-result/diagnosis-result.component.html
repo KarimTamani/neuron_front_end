@@ -1,8 +1,10 @@
 <div class="main-container stretch-container">
     <div class="left-side">
-        <i class="fa fa-arrow-left" (click)="back()"></i>
-        <app-diagnosis-predictions *ngIf="predictions" [diagnosisPredictions]="predictions"></app-diagnosis-predictions>
-        <app-diagnosis-regions *ngIf="detectionModel" [image]="originalImage" [detectionModel]="detectionModel"></app-diagnosis-regions>
+        <i class="fa fa-arrow-left" (click)="back()" *ngIf="newResult"></i>
+        <div class="predictions">
+            <app-diagnosis-predictions *ngIf="predictions" [diagnosisPredictions]="predictions"></app-diagnosis-predictions>
+            <app-diagnosis-regions *ngIf="detectionModel" [image]="originalImage" [detectionModel]="detectionModel"></app-diagnosis-regions>
+        </div>
     </div>
     <div class="right-side">
         <app-images-grid *ngIf="images.length > 0" [images]="images" [diagnosisResult]="diagnosisResult"></app-images-grid>

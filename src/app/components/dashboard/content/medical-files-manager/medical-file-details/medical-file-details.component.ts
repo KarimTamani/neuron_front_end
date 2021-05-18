@@ -15,6 +15,8 @@ import { InteractionService } from 'src/app/services/interaction.service';
 export class MedicalFileDetailsComponent implements OnInit {
   public medicalFile: MedicalFile;
   @Output() closeEvent: EventEmitter<null>;
+  public inVisit: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private apollo: Apollo,
@@ -28,6 +30,17 @@ export class MedicalFileDetailsComponent implements OnInit {
     var params = this.route.snapshot.queryParams;
 
     var medicalFileId = params["medical-file-id"];
+    var currentDate = null;
+
+    if (params["in-visit"] == "true") {
+      this.inVisit = true;
+
+      if (params["current-date"]) {
+        currentDate = new Date(params["current-date"]);
+      }
+
+    }
+
     this.apollo.query({
       query: gql`
         {
@@ -55,11 +68,19 @@ export class MedicalFileDetailsComponent implements OnInit {
                 id name 
               }
             }
-
           }
         }`
     }).pipe(map(value => (<any>value.data).getMedicalFile)).subscribe((data) => {
       this.medicalFile = data;
+      if (currentDate) { 
+        var index = this.medicalFile.visits.findIndex(
+          value => this.dataService.castDateMDY(new Date(parseInt(value.createdAt))) == this.dataService.castDateMDY(new Date(currentDate))
+        ) ;  
+
+        this.medicalFile.visits.splice(index , 1) ; 
+      }
+
+
       this.medicalFile.createdAt = this.dataService.castFRDate(new Date(parseInt(this.medicalFile.createdAt)))
       this.medicalFile.updatedAt = this.dataService.castFRDate(new Date(parseInt(this.medicalFile.updatedAt)))
       for (let index = 0; index < this.medicalFile.visits.length; index++) {
@@ -82,13 +103,13 @@ export class MedicalFileDetailsComponent implements OnInit {
 
   public edit() {
     // open medical file submitter 
-    this.router.navigate([] , { 
-      queryParams : { 
+    this.router.navigate([], {
+      queryParams: {
         "pop-up-window": true,
         "window-page": "medical-file-submitter",
         "title": "Mpdification du dossie medical",
         "referer": this.router.url,
-        "medical-file" : encodeURIComponent( JSON.stringify(this.medicalFile) )   
+        "medical-file": encodeURIComponent(JSON.stringify(this.medicalFile))
       }
     })
   }
@@ -117,7 +138,7 @@ export class MedicalFileDetailsComponent implements OnInit {
           `
         }).pipe(map(value => (<any>value.data).removeMedicalFile)).subscribe(() => {
           this.interactionService.medicalFileDeleted.next(this.medicalFile);
-          this.router.navigate(["/dashboard/medical-files"]) ; 
+          this.router.navigate(["/dashboard/medical-files"]);
         })
       }
 

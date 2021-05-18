@@ -18,7 +18,7 @@ import { Message, SUCCESS } from 'src/app/classes/Message';
   styleUrls: ['./patient-visit.component.css']
 })
 export class PatientVisitComponent implements OnInit, OnDestroy {
-  public page: number = 2;
+  public page: number = 1;
   @Input() visit: Visit;
   @Input() noHeader: boolean = false;
   public subscriptions: Subscription[] = [];
@@ -202,6 +202,11 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.interactionService.updateVisitSymptoms.subscribe((symptoms) => { 
       this.visit.symptoms = symptoms ; 
+    }))
+
+
+    this.subscriptions.push(this.interactionService.medicalFileEdited.subscribe((data) => { 
+      this.visit.medicalFile = data ; 
     }))
   }
 
