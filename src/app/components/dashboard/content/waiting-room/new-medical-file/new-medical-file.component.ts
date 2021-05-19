@@ -334,8 +334,7 @@ export class NewMedicalFileComponent implements OnInit {
       antecedents: this.medicalFile.antecedents.map(value => value.id)
     }
 
-    console.log(variables.antecedents) ; 
-    
+     
 
     if (this.medicalFile.address.commune.id)
       variables.address = {

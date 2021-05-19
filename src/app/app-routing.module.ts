@@ -5,7 +5,7 @@ import { GeneralComponent } from './components/dashboard/content/general/general
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { NotValidAccountComponent } from './components/login/not-valid-account/not-valid-account.component';
-import { ProfilComponent } from './components/dashboard/content/profil/profil.component';
+import { ProfilComponent } from './components/dashboard/content/profil-manager/profil/profil.component';
 import { WaitingRoomComponent } from './components/dashboard/content/waiting-room/waiting-room.component';
 import { PatientVisitComponent } from './components/dashboard/content/patient-visit/patient-visit.component';
 import { VisitsManagerComponent } from './components/dashboard/content/visits-and-appointments-manager/visits-manager/visits-manager.component';
@@ -20,11 +20,8 @@ import { DocumentsAndDiagnosisComponent } from './components/dashboard/content/d
 import { DocumentsManagerComponent } from './components/dashboard/content/documents-and-diagnosis/documents-manager/documents-manager.component';
 import { DiagnosisManagerComponent } from './components/dashboard/content/documents-and-diagnosis/diagnosis-manager/diagnosis-manager.component';
 import { PrescriptionManagerComponent } from './components/dashboard/content/prescription-manager/prescription-manager.component';
-import { CheckUpsModelsComponent } from './components/dashboard/content/prescription-manager/check-ups-models/check-ups-models.component';
-import { CertificatModelsComponent } from './components/dashboard/content/patient-visit/visit-certificates/certificat-models/certificat-models.component';
-import { DrugDosagesLibraryComponent } from './components/dashboard/content/patient-visit/visit-prescription/drug-dosages-library/drug-dosages-library.component';
-import { PrescriptionModelsComponent } from './components/dashboard/content/prescription-manager/prescription-models/prescription-models.component';
-import { CertificatsModelsComponent } from './components/dashboard/content/prescription-manager/certificats-models/certificats-models.component';
+import { ProfilManagerComponent } from './components/dashboard/content/profil-manager/profil-manager.component';
+import { StructureComponent } from './components/dashboard/content/profil-manager/structure/structure.component';
 
 const routes: Routes = [
   {
@@ -35,7 +32,13 @@ const routes: Routes = [
       {
         path: "general", component: GeneralComponent
       } , { 
-        path : "profil" , component : ProfilComponent
+        path : "profil-manager" , component : ProfilManagerComponent , children : [
+          { 
+            path : "profil" , component : ProfilComponent 
+          } , { 
+            path : "structure" , component : StructureComponent
+          }
+        ]
       } , {
         path : "waiting-room" , component : WaitingRoomComponent 
       } , { 

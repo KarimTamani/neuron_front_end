@@ -1,0 +1,18 @@
+<div class="main-container stretch-container">
+
+    <div class="image-side">
+        <img src="{{(assistant.gender == true)?('../../../../../../../assets/male.jpg'):('../../../../../../../assets/female.jpg')}}">
+    </div>
+    <div class="info-side">
+        <div>
+            <h3>{{assistant.name}} {{assistant.lastname}}</h3>
+            <p>
+                <i class="fa fa-phone"></i> {{assistant.phone}}
+            </p>
+            <p *ngIf="assistant.email">
+                <i class="fa fa-envelope"></i> {{assistant.email}}
+            </p>
+            <i class="fa fa-trash" (click)="askForDelete()"></i>
+        </div>
+    </div>
+</div>

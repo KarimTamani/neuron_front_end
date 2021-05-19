@@ -1,0 +1,15 @@
+<div class="main-container primary-radius">
+    <div class="card-title">
+        <span>Gestion des assistants</span>
+        <a [routerLink]="" class="primary-button" [queryParams]="{'pop-up-window' : true , 'window-page' : 'assistant-submitter' , 'title' : 'Ajouter un/une Assistant(e)'}">Ajouter  <i class="fa fa-plus"></i></a>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="body">
+        <div class="assistants-container">
+            <p class="no-data-message" *ngIf="assistants.length == 0">aucun Assistant(e)</p>
+            <div class="assistant" *ngFor="let assistant of assistants">
+                <app-assistant [assistant]="assistant" (removeEvent)="remove($event)"></app-assistant>
+            </div>
+        </div>
+    </div>
+</div>

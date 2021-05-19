@@ -1,0 +1,33 @@
+<div class="main-container">
+    <div class="header primary-radius stretch-container">
+        <input type="text" class="primary-input" [class.ar]="service.language == 'AR'" [(ngModel)]="service.name" placeholder="{{(service.language == 'FR') ? ('service en Français') : ('الخدمة باللغة العربية')}}">
+        <div class="language-selector">
+            <img src="{{(service.language == 'FR') ? ('../../../../../../../assets/fr.svg') : ('../../../../../../../assets/dz.svg')}}" (click)="toggleLanguage()">
+        </div>
+        <button class="primary-button" (click)="submit()">Ajouter <i class="fa fa-plus"></i></button>
+    </div>
+    <div class="body primary-radius stretch-container">
+
+
+        <div class="list">
+            <h5>Services</h5>
+            <p class="no-data-message" *ngIf="frServices.length == 0">il n'y a pas de service</p>
+            <div class="service" *ngFor="let service of frServices">
+                {{service.name}}
+                <i class="fa fa-trash" (click)="deleteService(service)">
+                </i>
+            </div>
+        </div>
+        <div class="list ar">
+            <h5>الخدمات</h5>
+            <p class="no-data-message" *ngIf="arServices.length == 0 ">لا توجد خدمة</p>
+            <div class="service" *ngFor="let service of arServices">
+                {{service.name}}
+
+                <i class="fa fa-trash" (click)="deleteService(service)">
+                </i>
+            </div>
+
+        </div>
+    </div>
+</div>

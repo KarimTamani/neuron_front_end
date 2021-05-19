@@ -1,0 +1,111 @@
+.main-container {
+    padding: 16px;
+    background: white;
+}
+
+.header {
+    background: rgb(38, 94, 215);
+    border-radius: 20px;
+}
+
+.card-title span {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.card-title a {
+    float: right;
+    width: 160px;
+    text-align: center;
+    margin: 0px;
+}
+
+.card-title a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.body {
+    margin-top: 16px;
+}
+
+.body span {
+    display: inline-block;
+    width: 22%;
+    text-align: center;
+    padding: 4px 0px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.body span#controll-span {
+    min-width: 12%;
+    max-width: 12%;
+}
+
+.body span#controll-span i {
+    margin: 0px 4px;
+    display: inline-block;
+    background: rgb(38, 94, 215);
+    padding: 6px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transition-duration: 0.3s;
+    margin-top: -4px;
+}
+
+.body span#controll-span i.fa-trash {
+    background: rgb(254, 101, 85);
+}
+
+.body span#controll-span i.fa-trash:hover {
+    color: rgb(254, 101, 85);
+    background: transparent;
+}
+
+.body span#controll-span i.fa-edit:hover {
+    color: rgb(38, 94, 215);
+    background: transparent;
+}
+
+.medical-act span {
+    font-weight: 100;
+    margin-top: 4px;
+    color: #666;
+}
+
+.medical-act {
+    margin: 4px 0px;
+    transition-duration: 0.3s;
+    border-radius: 20px;
+}
+
+.medical-act:hover span#controll-span i {
+    opacity: 1;
+}
+
+.medical-act:hover {
+    background: #eeeeee;
+}
+
+a {
+    margin-top: 16px;
+    float: right;
+}
+
+a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.list {
+    max-height: 510px;
+    height: 510px;
+    overflow: auto;
+}

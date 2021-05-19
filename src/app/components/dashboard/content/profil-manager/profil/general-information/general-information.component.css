@@ -1,0 +1,93 @@
+.profil-card {
+    background: white;
+    padding: 16px;
+}
+
+.card-title {
+    margin: 0px;
+    margin-bottom: 16px;
+}
+
+.image-container {
+    width: 132px;
+    height: 132px;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 0px auto;
+    cursor: pointer;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.image-container i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: white;
+    opacity: 0;
+    transition-duration: 0.3s;
+}
+
+.card-row {
+    margin: 16px 0px;
+}
+
+.form-group {
+    margin-top: 16px;
+}
+
+select {
+    background: white;
+    padding: 10px 16px;
+    width: 100%;
+    border: none;
+    color: #212121;
+    border: #cccccc solid 1px;
+    border-radius: 8px;
+    outline: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-group i {
+    float: right;
+    border: 1px solid rgb(254, 101, 85);
+    padding: 2px;
+    border-radius: 2px;
+    color: transparent;
+}
+
+.form-group i.active {
+    color: rgb(254, 101, 85);
+}
+
+.gender {
+    cursor: pointer;
+}
+
+.primary-button {
+    width: 100%;
+}
+
+.ar {
+    text-align: right;
+}
+
+label:not(.gender label) {
+    margin: 0px;
+    margin-bottom: 8px;
+}
+
+button {
+    width: 180px !important;
+    float: right;
+}

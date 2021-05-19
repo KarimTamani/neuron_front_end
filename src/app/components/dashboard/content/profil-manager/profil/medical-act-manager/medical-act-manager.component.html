@@ -1,0 +1,50 @@
+<div class="main-container primary-radius">
+    <div class="card-title">
+        <span>Gestion des Actes médicaux</span>
+        <a class="primary-button" [routerLink]="" [queryParams]="{'pop-up-window' : true , 'window-page' : 'medical-act-submitter'}">
+            Ajouter <i class="fa fa-plus"></i>
+        </a>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="body">
+        <div class="header stretch-container">
+            <span>
+                Acte Medical
+            </span>
+            <span>
+                Montant (DA)
+            </span>
+
+            <span>
+                Date de creation
+            </span>
+
+            <span>
+                Date de modification
+            </span>
+        </div>
+        <div class="list">
+            <p class="no-data-message" *ngIf="medicalActs.length == 0">aucun acte médicaux</p>
+            <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs">
+                <span>
+                {{medicalAct.name}}
+            </span>
+                <span>
+                {{medicalAct.price}}
+            </span>
+                <span>
+                {{medicalAct.createdAt}}
+            </span>
+                <span>
+                {{medicalAct.updatedAt}}
+            </span>
+                <span id="controll-span">
+                <i class="fa fa-edit" (click)="openEdit(medicalAct)"></i>
+                <i class="fa fa-trash" (click)="openDelete(medicalAct)"></i>
+            </span>
+            </div>
+        </div>
+    </div>
+
+</div>

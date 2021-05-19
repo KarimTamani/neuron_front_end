@@ -1,0 +1,108 @@
+.main-container {
+    padding: 16px;
+    width: 560px;
+}
+
+.header {
+    background: white;
+    padding: 16px;
+}
+
+button {
+    width: 120px;
+    max-width: 120px;
+    min-width: 120px;
+    position: relative;
+}
+
+.header button i {
+    float: right;
+    margin-top: 4px;
+}
+
+.header input {
+    margin-right: 16px;
+}
+
+.body {
+    background: white;
+    margin-top: 16px;
+    padding: 16px;
+    height: 360px;
+    overflow: auto;
+}
+
+.language-selector {
+    display: grid;
+    align-items: center;
+    max-width: 32px;
+    min-width: 32px;
+    margin-right: 16px;
+}
+
+img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin: 0px auto;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+img:hover {
+    box-shadow: 1px 1px 6px rgba(38, 94, 215, 0.3), -1px -1px 6px rgba(38, 94, 215, 0.3);
+}
+
+.list {
+    width: 50%;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.list h5 {
+    font-weight: bold;
+    color: #212121;
+    margin: 0px;
+    margin-bottom: 16px;
+}
+
+.list.ar {
+    text-align: right;
+}
+
+.list.ar {
+    border-left: 1px solid #eee;
+}
+
+.service {
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 8px;
+    padding: 4px 0px;
+}
+
+.service .fa-trash {
+    float: right;
+    color: rgb(254, 101, 85);
+    margin-right: 16px;
+    opacity: 0;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.service:hover {
+    color: #212121;
+}
+
+.service:hover .fa-trash {
+    opacity: 1;
+}
+
+.header input.ar {
+    text-align: right;
+}
+
+.list.ar .service .fa-trash {
+    float: left;
+    margin-left: 16px;
+}

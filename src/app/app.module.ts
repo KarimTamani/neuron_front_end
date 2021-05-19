@@ -43,18 +43,18 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { NotValidAccountComponent } from './components/login/not-valid-account/not-valid-account.component';
 import { AskForPremiumWindowComponent } from './components/global/ask-for-premium-window/ask-for-premium-window.component';
 import { FeedbackWindowComponent } from './components/global/feedback-window/feedback-window.component';
-import { ProfilComponent } from './components/dashboard/content/profil/profil.component';
-import { GeneralInformationComponent } from './components/dashboard/content/profil/general-information/general-information.component';
-import { CabinetInformationComponent } from './components/dashboard/content/profil/cabinet-information/cabinet-information.component';
+import { ProfilComponent } from './components/dashboard/content/profil-manager/profil/profil.component';
+import { GeneralInformationComponent } from './components/dashboard/content/profil-manager/profil/general-information/general-information.component';
+import { CabinetInformationComponent } from './components/dashboard/content/profil-manager/profil/cabinet-information/cabinet-information.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServicesComponent } from './components/dashboard/content/profil/cabinet-information/services/services.component';
-import { ServiceSubmitterComponent } from './components/dashboard/content/profil/cabinet-information/service-submitter/service-submitter.component';
-import { AssistantManagerComponent } from './components/dashboard/content/profil/assistant-manager/assistant-manager.component';
-import { MedicalActManagerComponent } from './components/dashboard/content/profil/medical-act-manager/medical-act-manager.component';
-import { AssistantSubmitterComponent } from './components/dashboard/content/profil/assistant-manager/assistant-submitter/assistant-submitter.component';
-import { AssistantComponent } from './components/dashboard/content/profil/assistant-manager/assistant/assistant.component';
+import { ServicesComponent } from './components/dashboard/content/profil-manager/profil/cabinet-information/services/services.component';
+import { ServiceSubmitterComponent } from './components/dashboard/content/profil-manager/profil/cabinet-information/service-submitter/service-submitter.component';
+import { AssistantManagerComponent } from './components/dashboard/content/profil-manager/profil/assistant-manager/assistant-manager.component';
+import { MedicalActManagerComponent } from './components/dashboard/content/profil-manager/profil/medical-act-manager/medical-act-manager.component';
+import { AssistantSubmitterComponent } from './components/dashboard/content/profil-manager/profil/assistant-manager/assistant-submitter/assistant-submitter.component';
+import { AssistantComponent } from './components/dashboard/content/profil-manager/profil/assistant-manager/assistant/assistant.component';
 import { YesNoMessageComponent } from './components/global/yes-no-message/yes-no-message.component';
-import { MedicalActSubmitterComponent } from './components/dashboard/content/profil/medical-act-manager/medical-act-submitter/medical-act-submitter.component';
+import { MedicalActSubmitterComponent } from './components/dashboard/content/profil-manager/profil/medical-act-manager/medical-act-submitter/medical-act-submitter.component';
 import { WaitingRoomComponent } from './components/dashboard/content/waiting-room/waiting-room.component';
 import { CalendarComponent } from './components/dashboard/content/waiting-room/calendar/calendar.component';
 import { AppointmentsManagerComponent } from './components/dashboard/content/waiting-room/appointments-manager/appointments-manager.component';
@@ -168,6 +168,8 @@ import { CheckUpsModelsComponent } from './components/dashboard/content/prescrip
 import { CertificatsModelsComponent } from './components/dashboard/content/prescription-manager/certificats-models/certificats-models.component';
 import { PrescriptionModelsComponent } from './components/dashboard/content/prescription-manager/prescription-models/prescription-models.component';
 import { CheckUpTypeSubmitterComponent } from './components/dashboard/content/prescription-manager/check-ups-models/check-up-type-submitter/check-up-type-submitter.component';
+import { ProfilManagerComponent } from './components/dashboard/content/profil-manager/profil-manager.component';
+import { StructureComponent } from './components/dashboard/content/profil-manager/structure/structure.component';
 
 
 @NgModule({
@@ -324,7 +326,9 @@ import { CheckUpTypeSubmitterComponent } from './components/dashboard/content/pr
     CheckUpsModelsComponent,
     CertificatsModelsComponent,
     PrescriptionModelsComponent,
-    CheckUpTypeSubmitterComponent
+    CheckUpTypeSubmitterComponent,
+    ProfilManagerComponent,
+    StructureComponent
   ],
   imports: [
     BrowserModule,

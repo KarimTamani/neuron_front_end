@@ -14,13 +14,23 @@ export class SelectedSymptomsComponent implements OnInit {
   @Input() allSymptoms : Symptom[] = [] ; 
   @Input() selectedSymptoms: any[] = [];
 
+  public collator : any ; 
+  
+  
   // create an event emitter to emit every time a symptom updated 
   @Output() symptomsUpdated: EventEmitter<null>;
   constructor() {
     this.symptomsUpdated = new EventEmitter<null>();
   }
 
+
   ngOnInit(): void {  
+  
+    this.collator = new Intl.Collator("en" , {
+      sensitivity: 'base',  
+      usage: "search"  
+    }) ;
+  
   }
   search() {
     // apply search every new ket hit 
@@ -31,9 +41,11 @@ export class SelectedSymptomsComponent implements OnInit {
       this.searchResult = []
     else {
       this.searchResult = this.allSymptoms.filter((symptom) => 
-      symptom.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
-    } 
 
+        symptom.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+        .includes(this.searchQuery.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase())     
+      )
+    }  
   }
 
   selectSymptom(symptom) {

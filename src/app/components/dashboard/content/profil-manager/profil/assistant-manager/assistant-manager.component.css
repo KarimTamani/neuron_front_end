@@ -1,0 +1,36 @@
+.main-container {
+    padding: 16px;
+    background: white;
+}
+
+.assistants-container {
+    height: 560px;
+    overflow: auto;
+}
+
+.card-title span {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.card-title a {
+    float: right;
+    width: 160px;
+    text-align: center;
+}
+
+.card-title a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.body {
+    margin-top: 16px;
+}
+
+.assistant {
+    width: 100%;
+    margin: 0px;
+}

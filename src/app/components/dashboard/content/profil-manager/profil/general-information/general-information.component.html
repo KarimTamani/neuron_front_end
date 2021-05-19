@@ -1,0 +1,143 @@
+<div class="profil-card primary-radius">
+
+    <h5 class="card-title">Informations Personnels</h5>
+    <div class="card-row">
+        <div class="image-container">
+            <img src="{{(doctor.gender) ? ('../../../../../assets/male.jpg') : ('../../../../../assets/female.jpg')}}">
+        </div>
+    </div>
+    <div class="card-row">
+        <form name="form" [formGroup]="form">
+            <div class="row">
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nom" [(ngModel)]="doctor.name" class="primary-input" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                            <div *ngIf="form.get('name').errors.required">le nom est requis</div>
+                            <div *ngIf="form.get('name').errors.minlength">au moins 4 caractères</div>
+                            <div *ngIf="form.get('name').errors.maxlength">moins de 20 caractères</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="Prénom" class="primary-input" [(ngModel)]="doctor.lastname" formControlName="lastname" [ngClass]="{'is-invalid' : form.get('lastname').touched && form.get('lastname').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('lastname').touched && form.get('lastname').invalid">
+                            <div *ngIf="form.get('lastname').errors.required">le prénom est requis</div>
+                            <div *ngIf="form.get('lastname').errors.minlength">au moins 4 caractères</div>
+                            <div *ngIf="form.get('lastname').errors.maxlength">moins de 20 caractères</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="form-group" (click)="doctor.gender = true">
+                        <div class="gender">
+                            <label>Homme </label>
+                            <i class="fa fa-check" [class.active]="doctor.gender === true"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="form-group" (click)="doctor.gender = false">
+                        <div class="gender">
+                            <label>Femme </label>
+                            <i class="fa fa-check" [class.active]="doctor.gender === false"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="الاسم" [(ngModel)]="doctor.nameAr" class="primary-input ar" formControlName="nameAr" [ngClass]="{'is-invalid' : form.get('nameAr').touched && form.get('nameAr').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('nameAr').touched && form.get('nameAr').invalid">
+                            <div *ngIf="form.get('name').errors.minlength">au moins 4 caractères</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="اللقب" class="primary-input ar" [(ngModel)]="doctor.lastnameAr" formControlName="lastnameAr" [ngClass]="{'is-invalid' : form.get('lastnameAr').touched && form.get('lastnameAr').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('lastnameAr').touched && form.get('lastnameAr').invalid">
+                            <div *ngIf="form.get('lastnameAr').errors.minlength">au moins 4 caractères</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-12">
+                    <div class="form-group">
+                        <label>
+                            Email
+                        </label>
+                        <input type="text" placeholder="Email" class="primary-input" formControlName="email" [(ngModel)]="doctor.email" [ngClass]="{'is-invalid' : form.get('email').touched && form.get('email').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('email').touched && form.get('email').invalid">
+                            <div *ngIf="form.get('email').errors.required">email est requis</div>
+                            <div *ngIf="form.get('email').errors.email">email invalide</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Numéro de telephone
+                        </label>
+                        <input type="text" placeholder="Numéro de telephone" class="primary-input" formControlName="phone" [(ngModel)]="doctor.phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('phone').touched && form.get('phone').invalid">
+                            <div *ngIf="form.get('phone').errors.required">Numéro de téléphone est requis</div>
+                            <div *ngIf="form.get('phone').errors.pattern">Numéro de téléphone invalide</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Spécialité
+                        </label>
+
+                        <select formControlName="specialityId" [(ngModel)]="selectedSpeciality">
+                            <option style="display:none;"  selected [value]="null ">Choisir une specialitie</option>
+                            <option *ngFor="let speciality of specialities" [value]="speciality.id">{{speciality.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Diplomé
+                        </label>
+                        <input type="text" placeholder="Diplomé" class="primary-input" formControlName="graduation" [(ngModel)]="doctor.graduation" [ngClass]="{'is-invalid' : form.get('graduation').touched && form.get('graduation').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('graduation').touched && form.get('graduation').invalid">
+                            <div *ngIf="form.get('graduation').errors.required">Numéro de téléphone est requis</div>
+                            <div *ngIf="form.get('graduation').errors.pattern">Numéro de téléphone invalide</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Numéro d'order
+                        </label>
+                        <input type="text" placeholder="Numéro d'order " class="primary-input" formControlName="orderNumber" [(ngModel)]="doctor.orderNumber" [ngClass]="{'is-invalid' : form.get('orderNumber').touched && form.get('orderNumber').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('orderNumber').touched && form.get('orderNumber').invalid">
+                            <div *ngIf="form.get('orderNumber').errors.required">Numéro de téléphone est requis</div>
+                            <div *ngIf="form.get('orderNumber').errors.pattern">Numéro de téléphone invalide</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6"></div>
+                <div class="col col-md-6">
+                    <div class="card-row">
+                        <button class="primary-button" [disabled]="!form.valid" (click)="submit()">Sauvegarder <i class="fa fa-save"></i></button>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>

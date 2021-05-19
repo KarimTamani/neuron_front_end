@@ -1,0 +1,31 @@
+<div class="main-container">
+    <div class="header">
+        <label>Services du cabinet
+            
+        </label>
+        <a (click)="openServicesEditor()">
+            Editer    <i class="fa fa-edit"></i>
+        </a>
+    </div>
+    <div class="container-fluid stretch-container">
+
+
+        <div class="list">
+            <h5>Services</h5>
+            <p class="no-data-message" *ngIf="frServices.length == 0">il n'y a pas de service</p>
+            <div class="service" *ngFor="let service of frServices">
+                {{service.name}}
+            </div>
+        </div>
+        <div class="list ar">
+            <h5>الخدمات</h5>
+            <p class="no-data-message" *ngIf="arServices.length == 0 ">لا توجد خدمة</p>
+            <div class="service" *ngFor="let service of arServices">
+                {{service.name}}
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
