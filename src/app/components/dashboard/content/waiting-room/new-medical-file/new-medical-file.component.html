@@ -1,5 +1,5 @@
 <div class="main-container">
-    <form name="form" [formGroup]="form">
+    <form name="form" [formGroup]="form" *ngIf="medicalFile" (keydown)="formSubmitted($event)">
         <div class="row">
             <div class="col col-md-6">
                 <div class="form-group">
@@ -71,9 +71,9 @@
             <div class="col col-md-6" *ngIf="medicalFile.address">
                 <div class="form-group">
                     <label>
-                        Address
+                        Addresse
                     </label>
-                    <input type="text" placeholder="Address" [(ngModel)]="medicalFile.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
+                    <input type="text" placeholder="Addresse" [(ngModel)]="medicalFile.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
                     <div class="invalid-feedback" *ngIf="form.get('address').touched && form.get('address').invalid">
                         <div *ngIf="form.get('address').errors.required">l'address est requis</div>
                         <div *ngIf="form.get('address').errors.minlength">au moins 4 caractères</div>
@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <label>wilaya</label>
                     <select (change)="wilayaSelected()" [(ngModel)]="medicalFile.address.commune.wilaya.id" formControlName="wilayaId" [ngClass]="{'is-invalid' : form.get('wilayaId').touched && form.get('wilayaId').invalid}">
-                        <option  hidden [value]="undefined">Selectioner</option>
+                        <option  hidden [value]="undefined">Wilaya</option>
                         <option *ngFor="let wilaya of wilayas" [value]="wilaya.id">{{wilaya.name}}</option>
                     </select>
                     <div class="invalid-feedback" *ngIf="form.get('wilayaId').touched && form.get('wilayaId').invalid">
@@ -108,7 +108,10 @@
             </div>
             <div class="col col-md-6" *ngIf="medicalFile.profession">
                 <div class="form-group">
-                    <label>la profession : </label>
+
+                    <div class="center-v">
+                        <label>Profession  </label>
+                    </div>
                 </div>
             </div>
             <div class="col col-md-6" *ngIf="medicalFile.profession">
@@ -122,18 +125,19 @@
             </div>
             <div class="col col-md-12">
                 <label>
-                    Les antecedents
+                    Antécédents
                 </label>
-                <span class="edit" (click)="showSubmitter = true ;blackWindowEvent.emit()">Modifier <i class="fa fa-edit"></i></span>
+                <span class="edit" (click)="showSubmitter = true ;blackWindowEvent.emit()">Éditer <i class="fa fa-edit"></i></span>
                 <div class="antecedents-list">
+                    <p class="no-data-message" *ngIf="medicalFile.antecedents.length == 0">il n'y a pas d'antécédents</p>
                     <span *ngFor="let antecedent of medicalFile.antecedents">{{antecedent.name}}</span>
                 </div>
             </div>
             <div class="col col-md-12">
                 <div class="controller">
-                    <button class="clear">Effacer</button>
-                    <button *ngIf="!edit" class="primary-button" [disbaled]="form.invalid" (click)="save()"> Sauvgarder <i class="fa fa-save"></i></button>
-                    <button *ngIf="edit" class="primary-button" [disbaled]="form.invalid" (click)="editMedicalFile()"> Modifier<i class="fa fa-edit"></i></button>
+                    <button class="secondary-button clear" (click)="clear()" *ngIf="!edit">Effacer</button>
+                    <button *ngIf="!edit" class="primary-button" [disabled]="!form.valid" (click)="save()"> Sauvegarder <i class="fa fa-save"></i></button>
+                    <button *ngIf="edit" class="primary-button" [disabled]="form.invalid" (click)="save()"> Éditer<i class="fa fa-edit"></i></button>
                 </div>
             </div>
         </div>

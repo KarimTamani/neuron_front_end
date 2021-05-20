@@ -178,7 +178,7 @@ export class MedicalFilesManagerComponent implements OnInit {
   public add() { 
     this.router.navigate([] , { 
       queryParams : { 
-        "title" : "Ajouter un nouveau Dossie Medical" , 
+        "title" : "Ajouter un nouveau Dossier Médical" , 
         "window-page" : "medical-file-submitter" , 
         "pop-up-window" : true , 
       }
@@ -196,8 +196,9 @@ export class MedicalFilesManagerComponent implements OnInit {
       queryParams : { 
         "window-page" : "medical-file-details" , 
         "pop-up-window" : true , 
-        "title" : "Dossie Médical" , 
-        "medical-file-id" : $event.id
+        "title" : "Dossier Médical" , 
+        "medical-file-id" : $event.id , 
+        "current-date" : this.currentDate  
       }
     })
   }

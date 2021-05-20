@@ -18,8 +18,8 @@
                             <div>
                                 <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
                                 <p>
-                                    <i class="fa fa-calendar"></i> {{visit.medicalFile.birthday}}
-                                    <span></span>
+                                    <i class="fa fa-calendar"></i> {{birthday}}
+                                    <span class="hightlight">{{age}} Ans</span>
                                 </p>
                                 <p>
                                     <i class="fa fa-envelope"></i> {{(visit.medicalFile.email) ? (visit.medicalFile.email) : ("Inconnue")}}
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col col-md-6" *ngIf="visit.medicalFile.address">
                         <div class="address">
-                            <label>Address</label>
+                            <label>Adresse</label>
                             <p>
                                 <i class="fa fa-map-marked-alt"></i>
                                 <span *ngIf="visit.medicalFile.address && visit.medicalFile.address.address">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col col-md-6" *ngIf="visit.medicalFile.profession">
                         <div class="profession">
-                            <label>La Prefession</label>
+                            <label>Profession</label>
                             <p>{{visit.medicalFile.profession.name}}</p>
                         </div>
                     </div>
@@ -74,10 +74,10 @@
 
                 <div class="waiting-room">
 
-                    <label>Salle d'attent</label>
+                    <label>Salle d'attente</label>
 
                     <p class="waiting-room-info">
-                        <span><i class="fa fa-calendar"></i>{{visit.waitingRoom.date}}</span>
+                        <span><i class="fa fa-calendar"></i>{{frDate(visit.waitingRoom.date)}}</span>
                         <span><i class="fa fa-sort-amount-up"></i>{{visit.order}} {{(visit.order == 1) ? ("er") : ("éme")}}</span>
                     </p>
 
@@ -97,7 +97,7 @@
 
                 <div class="medical-acts">
 
-                    <label>L'Actes Medicaaux</label>
+                    <label>Actes Médicaux</label>
 
                     <div class="medical-acts-list">
 
@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="col col-md-4" *ngIf="visit.status == 'visit payed' && visit.debt">
-                            <label>Credit</label>
+                            <label>Crédit</label>
                             <p>{{visit.debt}} DA</p>
                         </div>
 
@@ -144,7 +144,7 @@
 
                     <label>Prochain Rendez-vous</label>
 
-                    <p>le {{visit.appointment.date}}
+                    <p>{{frDate( visit.appointment.date )}}
                         <span *ngIf="visit.appointment.time">
                             {{visit.appointment.time}}
                         </span>
@@ -155,7 +155,7 @@
 
                 <div class="more-details">
 
-                    <a (click)="openMoreDetails()">plus de details documents , prescriptions , diagnostique ...</a>
+                    <a (click)="openMoreDetails()">plus de détails documents , prescriptions , diagnostique ...</a>
 
                 </div>
             </div>
@@ -165,8 +165,8 @@
 
                 <div class="row status">
                     <div class="col col-md-6">
-                        <label>L'Etat de la visite</label>
-                        <p class="red">{{visit.status}}</p>
+                        <label>L'État de la visite</label>
+                        <p class="red">{{status}}</p>
                     </div>
                     <div class="col col-md-6">
 

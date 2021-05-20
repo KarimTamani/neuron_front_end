@@ -71,16 +71,18 @@ p i {
     color: #555555;
     margin: 0px;
     margin-bottom: 6px;
+    text-transform: capitalize;
 }
 
 .antecedents-container span {
     background: #eeeeee;
-    padding: 8px 16px;
+    padding: 6px 12px;
     display: inline-block;
     border-radius: 20px;
     color: #555555;
     margin-right: 8px;
     margin-top: 8px;
+    font-size: 12px;
 }
 
 .antecedents {
@@ -92,7 +94,8 @@ p i {
     margin-top: -4px;
     height: 128px;
     max-height: 128px;
-    overflow: hidden;
+    overflow: auto;
+    margin-bottom: 8px;
 }
 
 .visits-header span {
@@ -103,6 +106,12 @@ p i {
     float: right;
 }
 
+.visits {
+    max-height: 340px;
+    height: 340px;
+    overflow: auto;
+}
+
 .visit {
     margin: 8px 0px;
     display: block;
@@ -110,6 +119,7 @@ p i {
     border-radius: 20px;
     cursor: pointer;
     color: #555;
+    font-size: 12px;
 }
 
 .visit:hover {

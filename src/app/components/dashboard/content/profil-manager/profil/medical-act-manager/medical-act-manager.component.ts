@@ -59,7 +59,8 @@ export class MedicalActManagerComponent implements OnInit {
       {
         'pop-up-window': true,
         'window-page': 'medical-act-submitter' , 
-        'medical-act' : JSON.stringify(medicalAct) 
+        'medical-act' : JSON.stringify(medicalAct) , 
+        "title" : "Editer l'act médical" 
       }
     });
     // subscribe to the medical act editing subject 
@@ -78,7 +79,8 @@ export class MedicalActManagerComponent implements OnInit {
       {
         'pop-up-window': true,
         'window-page': 'yes-no-message' , 
-        "message" : `Voulais vous vraiment suprimer lacte medical ${medicalAct.name} ?`
+        "message" : `Voulais vous vraiment suprimer lacte medical ${medicalAct.name} ?` , 
+        "title" : "Supression de l'act médical"
       }
     });
     const subscription = this.interactionService.yesOrNo.subscribe((response) => {

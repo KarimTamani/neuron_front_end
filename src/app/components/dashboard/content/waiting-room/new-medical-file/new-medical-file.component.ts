@@ -3,15 +3,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Profession } from 'src/app/classes/Profession';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Address } from 'src/app/classes/Address';
 import { DataService } from 'src/app/services/data.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 import { ActivatedRoute } from '@angular/router';
-import { Antecedent } from 'src/app/classes/Antecedent';
+import { FAIL, Message, SUCCESS } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-new-medical-file',
@@ -185,7 +185,7 @@ export class NewMedicalFileComponent implements OnInit {
 
           if (this.medicalFile.address) {
             if (this.medicalFile.address.commune) {
-              this.selectedWilaya = this.wilayas.find(value => value.id == this.medicalFile.address.commune.wilaya.id) ; 
+              this.selectedWilaya = this.wilayas.find(value => value.id == this.medicalFile.address.commune.wilaya.id);
             }
           }
           this.edit = true;
@@ -218,6 +218,9 @@ export class NewMedicalFileComponent implements OnInit {
 
 
   public save() {
+
+    if (this.showSubmitter)
+      return;
     if (this.medicalFile.profession.name && this.medicalFile.profession.name.trim().length > 0)
       this.apollo.mutate({
         mutation: gql`
@@ -230,15 +233,21 @@ export class NewMedicalFileComponent implements OnInit {
         }`
       }).pipe(map(value => (<any>value.data).addProfession)).subscribe((data) => {
         this.medicalFile.profession = data;
-        this.addMedicalFile();
+        if (!this.edit)
+          this.addMedicalFile();
+        else
+          this.editMedicalFile();
       })
-    else
-      this.addMedicalFile();
+    else {
+      if (!this.edit)
+        this.addMedicalFile();
+      else
+        this.editMedicalFile();
+    }
   }
 
 
   private addMedicalFile() {
-
 
     var variables = <any>{
       name: this.medicalFile.name,
@@ -312,12 +321,33 @@ export class NewMedicalFileComponent implements OnInit {
             }
           } ` ,
       variables: variables
-    }).pipe(map(value => (<any>value.data).addMedicalFile)).subscribe((data) => {
+    }).pipe(
+      map(value => (<any>value.data).addMedicalFile),
+      catchError(error => {
+        if (error.graphQLErrors) {
+          this.interactionService.showMessage.next(<Message>{
+            message : error.message.replace('GraphQL error:', '').trim() , 
+            type : FAIL 
+          })  
+        }
+        return of(null);
+      })
+    ).subscribe((data) => {
+      
+      // check if the data exists that mean there is no error has been trigred
+      if (data == null) 
+        return ; 
+
       this.medicalFile = data;
       if (!this.throwInteraction)
         this.newMedicalFileEvent.emit(this.medicalFile)
       else
         this.interactionService.newMedicalFile.next(data);
+
+      this.interactionService.showMessage.next(<Message>{
+        message: `le dossier médical de ${this.medicalFile.name} ${this.medicalFile.lastname} a été créé`,
+        type: SUCCESS
+      })
       this.closeEvent.emit()
     })
   }
@@ -334,7 +364,7 @@ export class NewMedicalFileComponent implements OnInit {
       antecedents: this.medicalFile.antecedents.map(value => value.id)
     }
 
-     
+
 
     if (this.medicalFile.address.commune.id)
       variables.address = {
@@ -372,8 +402,32 @@ export class NewMedicalFileComponent implements OnInit {
       }` ,
       variables: variables
     }).pipe(map(value => (<any>value.data).editMedicalFile)).subscribe((data) => {
-      this.interactionService.medicalFileEdited.next(this.medicalFile) ; 
-      this.closeEvent.emit(); 
+      this.interactionService.medicalFileEdited.next(this.medicalFile);
+      this.closeEvent.emit();
     })
+  }
+
+  public formSubmitted($event) {
+    if ($event.key != "Enter")
+      return true;
+    else {
+
+
+
+      if (!this.showSubmitter && this.form.valid) {
+
+        this.save()  ;
+
+      }
+
+      return false;
+
+    }
+
+  }
+
+  public clear() {
+    this.medicalFile = new MedicalFile();
+    this.selectedWilaya = null;
   }
 }

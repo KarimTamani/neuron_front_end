@@ -55,12 +55,13 @@ p i {
 .symptoms-container span,
 .antecedents-container span {
     background: #eeeeee;
-    padding: 8px 16px;
+    padding: 6px 12px;
     display: inline-block;
     border-radius: 20px;
     color: #555555;
     margin-right: 8px;
     margin-top: 8px;
+    font-size: 12px;
 }
 
 .symptoms-container,

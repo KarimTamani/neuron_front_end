@@ -1,7 +1,11 @@
 .main-container {
-    padding: 16px;
-    background: white;
     width: 560px;
+    padding: 16px;
+}
+
+.content {
+    background: white;
+    padding: 16px;
 }
 
 button {

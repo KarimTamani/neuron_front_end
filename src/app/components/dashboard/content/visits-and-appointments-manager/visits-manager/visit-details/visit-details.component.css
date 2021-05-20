@@ -70,6 +70,7 @@ p i {
     color: #555555;
     margin: 0px;
     margin-bottom: 6px;
+    text-transform: capitalize;
 }
 
 .content .info-side:first-child {
@@ -87,12 +88,13 @@ p i {
 
 .symptoms-container span {
     background: #eeeeee;
-    padding: 8px 16px;
+    padding: 6px 12px;
     display: inline-block;
     border-radius: 20px;
     color: #555555;
     margin-right: 8px;
     margin-top: 8px;
+    font-size: 12px;
 }
 
 .symptoms-container {
@@ -122,6 +124,7 @@ p i {
 
 .medical-acts-list {
     max-height: 80px;
+    height: 80px;
     overflow: auto;
     margin-bottom: 8px;
 }
@@ -174,6 +177,7 @@ p i {
     width: 100%;
     padding: 12px 4px;
     color: rgb(38, 94, 215);
+    cursor: pointer;
 }
 
 .controller {

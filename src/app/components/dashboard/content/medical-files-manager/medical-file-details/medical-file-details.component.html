@@ -13,8 +13,10 @@
                             <div>
                                 <h5>{{medicalFile.name}} {{medicalFile.lastname}}</h5>
                                 <p>
-                                    <i class="fa fa-calendar"></i> {{medicalFile.birthday}}
-                                    <span></span>
+                                    <i class="fa fa-calendar"></i> {{frDate (medicalFile.birthday) }}
+                                    <span class="hightlight">
+                                        {{age}} Ans
+                                    </span>
                                 </p>
                                 <p>
                                     <i class="fa fa-envelope"></i> {{(medicalFile.email) ? (medicalFile.email) : ("Inconnue")}}
@@ -29,7 +31,7 @@
                 <div class="row">
                     <div class="col col-md-6" *ngIf="medicalFile.address">
                         <div class="address">
-                            <label>Address</label>
+                            <label>Addresse</label>
                             <p>
                                 <i class="fa fa-map-marked-alt"></i>
                                 <span *ngIf="medicalFile.address && medicalFile.address.address">
@@ -43,7 +45,7 @@
                     </div>
                     <div class="col col-md-6" *ngIf="medicalFile.profession">
                         <div class="profession">
-                            <label>La Prefession</label>
+                            <label>Profession</label>
                             <p>{{medicalFile.profession.name}}</p>
                         </div>
                     </div>
@@ -51,7 +53,7 @@
 
 
                 <div class="antecedents">
-                    <label>Les Antecedents</label>
+                    <label>Antécédents</label>
                     <div class="antecedents-container">
                         <span class="antecedent" *ngFor="let antecedent of medicalFile.antecedents">
                             {{antecedent.name}}
@@ -60,11 +62,11 @@
                 </div>
                 <div class="row">
                     <div class="col col-md-6">
-                        <label>Date de creation</label>
+                        <label>Date de création</label>
                         <p>{{medicalFile.createdAt}}</p>
                     </div>
                     <div class="col col-md-6">
-                        <label>Date de medification</label>
+                        <label>Date de modification</label>
                         <p>{{medicalFile.updatedAt}}</p>
 
                     </div>
@@ -72,12 +74,15 @@
             </div>
 
             <div class="col col-md-6">
-                <label>Les visits</label>
+                <label>Visites</label>
                 <div class="visits-header">
                     <span>motif</span>
                     <span>date</span>
                 </div>
                 <div class="visits">
+                    <p class="no-data-message" *ngIf="medicalFile.visits.length == 0">
+                        aucune visite n'a été affectée
+                    </p>
                     <a class="visit" (click)="openVisit(visit)" *ngFor="let visit of medicalFile.visits">
                         <span>{{(visit.symptoms.length > 0) ? (visit.symptoms[0].name) : ("Inconue ")}}</span>
                         <span>{{visit.createdAt}}</span>
@@ -87,10 +92,10 @@
         </div>
         <div class="row control">
             <div class="col col-md-6">
-                <button class="primary-button" (click)="edit()">Modifer <i class="fa fa-edit"></i></button>
+                <button class="primary-button" (click)="edit()">Éditer <i class="fa fa-edit"></i></button>
             </div>
             <div class="col col-md-6">
-                <button *ngIf="!inVisit" class="primary-button delete" (click)="delete()">Suprimer <i class="fa fa-trash"></i></button>
+                <button *ngIf="!inVisit" class="primary-button delete" (click)="delete()">Supprimer <i class="fa fa-trash"></i></button>
             </div>
         </div>
     </div>

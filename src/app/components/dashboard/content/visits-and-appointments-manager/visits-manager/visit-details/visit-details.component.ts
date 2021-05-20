@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Visit } from 'src/app/classes/Visit';
+import { DataService } from 'src/app/services/data.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -19,17 +20,22 @@ export class VisitDetailsComponent implements OnInit {
   public totalPrice: number = 0;
   public moreDetails: boolean = false;
   public noEdit: boolean = false;
+  public birthday: string;
+  public age: number;
 
   constructor(
     private route: ActivatedRoute,
     private apollo: Apollo,
     private router: Router,
-    private intervationService: InteractionService) {
+    private intervationService: InteractionService,
+    private dataservice: DataService) {
     this.closeEvent = new EventEmitter<null>();
 
   }
 
   ngOnInit(): void {
+
+
 
     this.route.queryParams.subscribe((params) => {
 
@@ -119,7 +125,8 @@ export class VisitDetailsComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).getVisit)).subscribe((data) => {
 
       this.visit = data;
-
+      this.birthday = this.dataservice.castFRDate(new Date(this.visit.medicalFile.birthday))
+      this.age = this.dataservice.calculateAge(this.visit.medicalFile.birthday, new Date(parseInt(this.visit.createdAt)));
       if (this.visit.medicalActs)
         this.visit.medicalActs.forEach(act => {
           this.totalPrice += act.price;
@@ -129,6 +136,12 @@ export class VisitDetailsComponent implements OnInit {
         this.noEdit = true;
       }
     })
+  }
+
+
+  public frDate(date : string) {
+    if ( date )
+     return this.dataservice.castFRDate(new Date(date)) ; 
   }
 
   public visitDone() {
@@ -237,4 +250,10 @@ export class VisitDetailsComponent implements OnInit {
     this.router.navigate([]);
     this.intervationService.openEditVisitWindow.next(this.visit);
   }
+
+  get status() {
+    if (this.visit)
+      return this.dataservice.castStatusToFr(this.visit.status);
+  }
+
 }

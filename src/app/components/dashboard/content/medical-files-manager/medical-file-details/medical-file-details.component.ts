@@ -16,6 +16,7 @@ export class MedicalFileDetailsComponent implements OnInit {
   public medicalFile: MedicalFile;
   @Output() closeEvent: EventEmitter<null>;
   public inVisit: boolean = false;
+  public age : number ; 
 
   constructor(
     private route: ActivatedRoute,
@@ -32,13 +33,14 @@ export class MedicalFileDetailsComponent implements OnInit {
     var medicalFileId = params["medical-file-id"];
     var currentDate = null;
 
+
     if (params["in-visit"] == "true") {
       this.inVisit = true;
 
-      if (params["current-date"]) {
-        currentDate = new Date(params["current-date"]);
-      }
-
+    
+    }
+    if (params["current-date"]) {
+      currentDate = new Date(params["current-date"]);
     }
 
     this.apollo.query({
@@ -72,7 +74,12 @@ export class MedicalFileDetailsComponent implements OnInit {
         }`
     }).pipe(map(value => (<any>value.data).getMedicalFile)).subscribe((data) => {
       this.medicalFile = data;
-      if (currentDate) { 
+
+
+
+      this.age = this.dataService.calculateAge(this.medicalFile.birthday , new Date(currentDate))
+
+      if (this.inVisit && currentDate) { 
         var index = this.medicalFile.visits.findIndex(
           value => this.dataService.castDateMDY(new Date(parseInt(value.createdAt))) == this.dataService.castDateMDY(new Date(currentDate))
         ) ;  
@@ -145,6 +152,11 @@ export class MedicalFileDetailsComponent implements OnInit {
       subs.unsubscribe();
 
     })
+  }
+
+
+  public frDate(date : string) { 
+    return this.dataService.castFRDate(new Date(date)) ; 
   }
 
 
