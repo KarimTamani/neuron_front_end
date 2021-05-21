@@ -17,7 +17,12 @@
                     <div *ngIf="form.get('exam').errors.maxlength">l'examn est requis</div>
                 </div>
             </div>
-            <button class="primary-button" [disabled]="form.invalid" (click)="addClinicalExam()"> Sauvgarder <i class="fa fa-save"></i></button>
+
+            <button class="secondary-button" (click)="closeEvent.emit()"> <i class="fa fa-arrow-left"></i> Annuler</button>
+            <button *ngIf="!editMode" class="primary-button" [disabled]="form.invalid" (click)="addClinicalExam()"> Sauvegarder <i class="fa fa-save"></i></button>
+            <button *ngIf="editMode" class="primary-button" [disabled]="form.invalid" (click)="editExam()"> Éditer <i class="fa fa-edit"></i></button>
+
+
             <div style="clear : both"></div>
         </form>
     </div>

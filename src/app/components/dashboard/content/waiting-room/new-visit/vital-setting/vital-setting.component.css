@@ -2,8 +2,12 @@
     padding: 16px;
 }
 
-.main-container.from-router {
+.content {
     background: white;
+    padding: 16px;
+}
+
+.main-container.from-router {
     width: 500px;
 }
 
@@ -37,8 +41,9 @@ h5 i {
 .label-container {
     width: 100%;
     color: #555555;
-    font-size: 14px;
-    padding-left: 16px
+    font-size: 12px;
+    padding-left: 16px;
+    text-transform: capitalize;
 }
 
 .icon-container,
@@ -81,7 +86,7 @@ h5 i {
 }
 
 .stretch-container {
-    margin: 16px 0px;
+    margin-bottom: 16px;
 }
 
 .input-container i.activated {
@@ -95,4 +100,8 @@ h5 i {
 
 .controller {
     margin-top: 20px;
+}
+
+.primary-button {
+    width: 176px;
 }

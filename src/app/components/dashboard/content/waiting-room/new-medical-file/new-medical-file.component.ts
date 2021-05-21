@@ -411,19 +411,11 @@ export class NewMedicalFileComponent implements OnInit {
     if ($event.key != "Enter")
       return true;
     else {
-
-
-
       if (!this.showSubmitter && this.form.valid) {
-
         this.save()  ;
-
       }
-
       return false;
-
     }
-
   }
 
   public clear() {

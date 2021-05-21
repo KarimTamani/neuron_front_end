@@ -1,5 +1,6 @@
 .main-container {
     padding: 16px;
+    position: relative;
 }
 
 h5 {
@@ -31,9 +32,17 @@ h5 {
 }
 
 .list {
-    height: 360px;
+    height: 460px;
+    max-height: 460px;
     overflow: auto;
     margin: 16px 0px;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.list .no-data-message {
+    margin: 0px;
 }
 
 .clinical-exam {
@@ -42,8 +51,12 @@ h5 {
 }
 
 .exam-header {
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.exam-header label {
+    margin-top: 4px;
 }
 
 .exam-header:hover {
@@ -53,7 +66,26 @@ h5 {
 .fa-edit,
 .fa-trash {
     float: right;
-    margin: 4px;
+    margin: 2px 4px;
+    border-radius: 50%;
+    padding: 8px;
+    font-size: 11px;
+    opacity: 0;
+}
+
+.exam-header:hover .fa-edit,
+.exam-header:hover .fa-trash {
+    opacity: 1;
+}
+
+.fa-edit:hover {
+    background: rgb(38, 94, 215);
+    color: white;
+}
+
+.fa-trash:hover {
+    background: rgb(254, 101, 85);
+    color: white;
 }
 
 .fa-edit {

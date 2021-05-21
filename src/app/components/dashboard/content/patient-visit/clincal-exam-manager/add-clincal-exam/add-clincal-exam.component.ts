@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ClinicalExam} from "../../../../../../classes/ClincalExam"  ; 
 import { Apollo } from 'apollo-angular';
@@ -18,18 +18,29 @@ export class AddClincalExamComponent implements OnInit {
       Validators.required , Validators.minLength(3)
     ])
   }) ; 
-  public clinicalExam : ClinicalExam ; 
+  @Input() clinicalExam : ClinicalExam ; 
   @Output() addClincalExamEvent : EventEmitter<ClinicalExam> ; 
-  @Output() closeEvent : EventEmitter<null> ; 
+  @Output() closeEvent : EventEmitter<null> ;
+  @Output() editClinicalExam : EventEmitter<ClinicalExam> ; 
+
+  public editMode : boolean = false ;
   constructor(private apollo : Apollo) {
     // init the clincal exam 
-    // and the clincal exam add event
-    this.clinicalExam = new ClinicalExam() ; 
+    // and the clincal exam add event   
     this.addClincalExamEvent = new EventEmitter<ClinicalExam>();  
     this.closeEvent = new EventEmitter<null>() ; 
+    this.editClinicalExam = new EventEmitter<ClinicalExam>() ; 
   }
 
   ngOnInit(): void {
+    if (!this.clinicalExam) { 
+      this.clinicalExam = new ClinicalExam() ; 
+    }else { 
+      this.editMode = true ; 
+    }
+
+
+  
   }
 
   public addClinicalExam()  {
@@ -54,6 +65,27 @@ export class AddClincalExamComponent implements OnInit {
       this.addClincalExamEvent.emit(data) ; 
       this.clinicalExam = new ClinicalExam() ; 
       this.closeEvent.emit()
+    })
+  }
+
+
+  public editExam () { 
+    this.apollo.mutate({
+      mutation : gql`
+        mutation EDIT_CLINICAL_EXAM($id : ID! , $name : String! , $exam : String!) { 
+          editClinicalExam(id : $id , clinicalExam : { 
+            name : $name , 
+            exam : $exam 
+          })
+        }
+      ` , 
+      variables : { 
+        id : this.clinicalExam.id , 
+        name : this.clinicalExam.name , 
+        exam : this.clinicalExam.exam 
+      } 
+    }).pipe(map(value => (<any>value.data).editClinicalExam)).subscribe((data) => { 
+      this.editClinicalExam.emit(this.clinicalExam) ; 
     })
   }
 }

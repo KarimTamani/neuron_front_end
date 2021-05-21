@@ -16,5 +16,16 @@ textarea {
 }
 
 button {
+    padding: 8px 16px;
+    width: 160px;
+    border-radius: 8px;
+}
+
+button.secondary-button:hover {
+    background: rgb(254, 101, 85);
+    color: white;
+}
+
+button.primary-button {
     float: right;
 }

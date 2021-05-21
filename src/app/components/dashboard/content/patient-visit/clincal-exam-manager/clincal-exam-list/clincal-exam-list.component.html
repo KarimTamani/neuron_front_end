@@ -1,16 +1,18 @@
 <div class="main-container">
     <h5>List des examens cliniques</h5>
     <div class="message stretch-container">
-        <p>Si l'examen que vous cherché n'existe pas </p>
-        <button (click)="addExamEvent.emit()" class="secondary-button">Creé le <i class="fa fa-plus"></i></button>
+        <p>Si l'examen que vous cherchez n'existe pas </p>
+        <button (click)="addExamEvent.emit()" class="secondary-button">Créé le <i class="fa fa-plus"></i></button>
     </div>
     <div class="list">
+        <p class="no-data-message" *ngIf="clinicalExams.length == 0 ">Aucun examen clinique n'a été trouvé</p>
         <div class="clinical-exam" *ngFor="let clinicalExam of clinicalExams">
             <div class="exam-header" (click)="selectClinicalExam(clinicalExam)">
                 <i class="fa fa-sort-down" *ngIf="selectedExam && selectedExam.id == clinicalExam.id"></i>
                 <label>{{clinicalExam.name}}</label>
-                <i class="fa fa-edit"></i>
-                <i class="fa fa-trash"></i>
+
+                <i class="fa fa-trash" (click)="delete($event , clinicalExam)"></i>
+                <i class="fa fa-edit" (click)="edit($event , clinicalExam)"></i>
             </div>
             <div class="exam" *ngIf="selectedExam && selectedExam.id == clinicalExam.id">
                 <p>

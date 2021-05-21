@@ -1,14 +1,12 @@
 <div class="main-container" [class.from-router]="fromRouter">
-    <h5>
-        <i class="fa fa-user-cog"></i> Les pramétres vitaux
-    </h5>
-    <div class="content">
+
+    <div class="content primary-radius">
         <div class="stretch-container">
             <div class="icon-container">
                 <i class="fa fa-temperature-low"></i>
             </div>
             <div class="label-container">
-                tempurature
+                Température
             </div>
             <div class="input-container">
                 <input type="number" [(ngModel)]="vitalSetting.temperature" placeholder="tempurature" class="primary-input">
@@ -24,7 +22,7 @@
                 <img src="../../../../../../../assets/lungs.png">
             </div>
             <div class="label-container">
-                La fréquence respiratoire
+                fréquence respiratoire
             </div>
             <div class="input-container">
                 <input type="number" [(ngModel)]="vitalSetting.respiratoryRate" class="primary-input" placeholder="fréquence">
@@ -40,7 +38,7 @@
                 <i class="fa fa-heartbeat"></i>
             </div>
             <div class="label-container">
-                La fréquence cardiaque
+                fréquence cardiaque
             </div>
             <div class="input-container">
                 <input type="number" [(ngModel)]="vitalSetting.cardiacFrequency" class=" primary-input " placeholder="fréquence ">
@@ -55,7 +53,7 @@
                 <i class="fa fa-tint "></i>
             </div>
             <div class="label-container ">
-                La Pression artérielle
+                Pression artérielle
             </div>
             <div class="input-container ">
                 <input type="number" [(ngModel)]="vitalSetting.bloodPressure" placeholder="pression " class="primary-input ">
@@ -70,7 +68,7 @@
                 <img src="../../../../../../../assets/kidney.png ">
             </div>
             <div class="label-container ">
-                La diurèse
+                Diurèse
             </div>
             <div class="input-container ">
                 <input type="number" class="primary-input" [(ngModel)]="vitalSetting.diuresis" placeholder="diurèse">
@@ -139,7 +137,7 @@
             </div>
         </div>
         <div class="controller">
-            <button class="primary-button" (click)="edit()">Modifier <i class="fa fa-edit"></i></button>
+            <button class="primary-button" (click)="edit()">Éditer <i class="fa fa-edit"></i></button>
             <div style="clear: both;"></div>
         </div>
     </div>
