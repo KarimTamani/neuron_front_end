@@ -1,9 +1,12 @@
 <div class="main-container">
-    <p>
-        {{message}}
-    </p>
-    <div class="controller">
-        <button class="primary-input" (click)="submit(false)">No</button>
-        <button class="primary-button" (click)="submit(true)">Oui</button>
+    <div class="content primary-radius">
+        <p>
+            {{message}}
+        </p>
+
+        <div class="controller">
+            <button class="primary-input" (click)="submit(false)">No</button>
+            <button class="primary-button" (click)="submit(true)">Oui</button>
+        </div>
     </div>
 </div>

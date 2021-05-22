@@ -5,8 +5,8 @@ export class Cabinet {
     
     public id : number ; 
     public name : string ; 
-    public header : string ; 
-    public headerAr : string ; 
+    public header : string = "Cabinet médical"; 
+    public headerAr : string = "عيادة طبية"; 
     public email : string ; 
     public phone : string ; 
     public address : Address ; 

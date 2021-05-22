@@ -12,16 +12,16 @@
     <app-pop-up-window></app-pop-up-window>
 </div>
 <div class="dashboard-container" [class.blur-filter]="showPopUpWindow">
-    <div class="sidebar-section">
+    <div class="sidebar-section" *ngIf="!noCabinet">
         <app-side-bar (activeEvent)="active()"></app-side-bar>
     </div>
-    <div class="content-section">
+    <div class="content-section" [class.no-cabinet]="noCabinet">
         <div class="active-background" *ngIf="isActive"></div>
         <app-content></app-content>
     </div>
 </div>
 
-<div class="virtual-assistant-container">
+<div class="virtual-assistant-container" *ngIf="!noCabinet">
     <app-virtual-assistant-controller></app-virtual-assistant-controller>
 </div>
 <app-success-and-fail-messages [message]="message" *ngIf="showMessage" (closeEvent)="closeMessage()"> </app-success-and-fail-messages>

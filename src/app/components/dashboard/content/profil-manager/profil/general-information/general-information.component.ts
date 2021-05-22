@@ -77,7 +77,8 @@ export class GeneralInformationComponent implements OnInit {
       this.doctor = data;
       if (this.doctor.speciality)
         this.selectedSpeciality = this.doctor.speciality.id
-  
+      if (this.doctor.gender === null) 
+        this.doctor.gender = true ; 
     });
     // get all the specialities that we have 
     this.apollo.query({
@@ -96,18 +97,18 @@ export class GeneralInformationComponent implements OnInit {
   submit() {
     this.apollo.mutate({
       mutation: gql`
-      mutation {
+      mutation EDIT_DOCTOR($name : String! , $lastname : String! , $email : String! , $phone : String! , $nameAr : String , $lastnameAr : String , $orderNumber : String , $graduation : String , $specialityId : ID , $gender : Boolean){
         editDoctor(doctorInput : {
-          name : "${this.form.value.name}" , 
-          lastname : "${this.form.value.lastname}" , 
-          email : "${this.form.value.email}" , 
-          phone : "${this.form.value.phone}" , 
-          gender : ${this.doctor.gender}
-          graduation : "${this.form.value.graduation}" , 
-          orderNumber : "${this.form.value.orderNumber}" 
-          specialityId : ${this.form.value.specialityId}, 
-          nameAr : "${this.form.value.nameAr}" ,
-          lastnameAr : "${this.form.value.lastnameAr}" ,
+          name : $name  , 
+          lastname : $lastname , 
+          email : $email , 
+          phone :  $phone , 
+          gender : $gender
+          graduation : $graduation , 
+          orderNumber : $orderNumber 
+          specialityId : $specialityId, 
+          nameAr : $nameAr ,
+          lastnameAr : $lastnameAr ,
         })  {
           token , 
           doctor {
@@ -127,10 +128,24 @@ export class GeneralInformationComponent implements OnInit {
           }
         }
       }
-      `
+      ` , variables : { 
+        name : this.form.value.name , 
+        lastname : this.form.value.lastname , 
+        nameAr : this.form.value.nameAr , 
+        lastnameAr : this.form.value.lastnameAr , 
+        gender : this.form.value.gender , 
+        email : this.form.value.email , 
+        graduation : this.form.value.graduation , 
+        orderNumber : this.form.value.orderNumber , 
+        phone : this.form.value.phone , 
+        specialityId : this.form.value.specialityId 
+      }
     }).pipe(map(value => (<any>value.data).editDoctor)).subscribe((data) => {
-      
-      localStorage.setItem("doctorAuth", JSON.stringify(data))
+      var doctorAuth = JSON.parse( localStorage.getItem("doctorAuth") )  ; 
+      var cabinet = doctorAuth.doctor.cabinet ; 
+      doctorAuth.doctor = data ; 
+      doctorAuth.doctor.cabinet = cabinet ; 
+      localStorage.setItem("doctorAuth", JSON.stringify(doctorAuth))
     })
   }
 }

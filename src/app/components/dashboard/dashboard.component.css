@@ -28,6 +28,11 @@
     transition-duration: 0.5s;
 }
 
+.content-section.no-cabinet {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
 .pop-up-window,
 .edit-visit-window {
     background: rgba(0, 0, 0, 0.5);

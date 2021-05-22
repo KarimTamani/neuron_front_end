@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit , OnDestroy {
   public showMessage : boolean = false ; 
   public message : Message ;  
   public subscriptions : Subscription[] = [] ; 
+  public noCabinet : boolean = false ; 
 
   constructor(
     private route: ActivatedRoute, 
@@ -33,6 +34,15 @@ export class DashboardComponent implements OnInit , OnDestroy {
     ) { }
 
   ngOnInit(): void {
+
+    var doctorAuth = JSON.parse(localStorage.getItem("doctorAuth")) ; 
+    if (doctorAuth.doctor.cabinet == null) 
+      this.noCabinet = true ;  
+
+    this.subscriptions.push(this.interactionService.cabinetCreated.subscribe((cabinet) => { 
+        this.noCabinet = false ; 
+    }))
+
     this.subscriptions.push(this.route.queryParamMap.subscribe((paramMap) => {
       // extract the pop up window 
       let popUpWindow = paramMap.get("pop-up-window")

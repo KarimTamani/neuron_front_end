@@ -70,7 +70,7 @@
                 <div class="col col-md-6">
                     <div class="form-group">
                         <label>
-                            Address
+                            Addresse
                         </label>
                         <input type="text" (change)="setChanged()" placeholder="Address" [(ngModel)]="cabinet.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
                         <div class="invalid-feedback" *ngIf="form.get('address').touched && form.get('address').invalid">
@@ -110,7 +110,7 @@
                     <app-services [services]="cabinet.services"></app-services>
                 </div>
                 <div class="col col-md-9">
-                    <p class="changed-message" *ngIf="isEdited">
+                    <p class="changed-message" *ngIf="isEdited && form.valid">
                         <i class="fa fa-exclamation"></i> il y a quelques modifications si vous voulez l'enregistrer cliquez sur Sauvegarder
                     </p>
                 </div>

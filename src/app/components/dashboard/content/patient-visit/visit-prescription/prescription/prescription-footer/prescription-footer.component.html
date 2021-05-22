@@ -21,8 +21,8 @@
                 {{cabinet.address.commune.name}}
             </span>
         </p>
-        <p *ngIf="doctor">
-            N Dorder : {{doctor.orderNumber}}
+        <p *ngIf="doctor && doctor.orderNumber">
+            N d'Order : {{doctor.orderNumber}}
         </p>
         <p *ngIf="cabinet && cabinet.email">
             <i class="fa fa-envelope"></i> {{cabinet.email}}

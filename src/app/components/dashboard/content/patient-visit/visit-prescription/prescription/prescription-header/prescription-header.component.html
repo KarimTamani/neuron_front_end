@@ -2,8 +2,10 @@
     <h2 class="amiri">{{title}}</h2>
     <div class="row doctor-info">
         <div class="col col-md-6">
-            <p>Dr <span>{{doctor.name}} {{doctor.lastname}}</span></p>
+            <p>Dr <span class="name">{{doctor.name}} {{doctor.lastname}}</span></p>
             <p *ngIf="doctor.speciality">Specialitié <span>{{doctor.speciality.name}}</span></p>
+            <p *ngIf="!doctor.speciality"> <span>Généraliste</span></p>
+
             <p *ngIf="doctor.graduation">Diplomé <span>{{doctor.graduation}}</span></p>
         </div>
         <img id="logo" src="../../../../../../../../assets/med_logo.png">
@@ -31,13 +33,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col col-md-6 services">
+        <div class="col services" [class.col-md-6]=" servicesAr && servicesAr.length != 0" [class.col-md-12]="servicesAr && servicesAr.length == 0">
             <label *ngIf="servicesFr.length > 0">Les Services</label>
             <div>
                 <span class="service" *ngFor="let service of servicesFr">{{service.name}}</span>
             </div>
         </div>
-        <div class="col col-md-6 services ar amiri">
+        <div class="col  services ar amiri" [class.col-md-6]="servicesFr && servicesFr.length != 0" [class.col-md-12]="servicesFr && servicesFr.length == 0">
             <label *ngIf="servicesAr.length > 0">الخدمات</label>
             <div>
                 <span class="service" *ngFor="let service of servicesAr">{{service.name}}</span>

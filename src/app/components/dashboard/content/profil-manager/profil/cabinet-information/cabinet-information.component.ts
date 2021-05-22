@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 import { map } from 'rxjs/operators';
 import { Cabinet } from 'src/app/classes/Cabinet';
+import { MedicalAct } from 'src/app/classes/MedicalAct';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -34,14 +36,14 @@ export class CabinetInformationComponent implements OnInit {
       this.phoneValidator
     ]),
     address: new FormControl("", [
-      Validators.required,
+
       Validators.minLength(4),
       Validators.maxLength(64),
     ]),
     wilayaId: new FormControl(null, [
       Validators.required
     ]),
-    communeId: new FormControl(null , [
+    communeId: new FormControl(null, [
       Validators.required
     ])
   });
@@ -49,9 +51,12 @@ export class CabinetInformationComponent implements OnInit {
   public selectedWilaya: any = null;
   public cabinet = null;
   public edit: boolean = false;
-  public isEdited : boolean = false ; 
+  public isEdited: boolean = false;
 
-  constructor(private apollo: Apollo , private interactionService : InteractionService) {
+  constructor(
+    private apollo: Apollo,
+    private interactionService: InteractionService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -106,17 +111,17 @@ export class CabinetInformationComponent implements OnInit {
     })
 
     this.interactionService.updateService.subscribe((services) => {
-      this.cabinet.services = services; 
-      this.isEdited = true ; 
+      this.cabinet.services = services;
+      this.isEdited = true;
     })
   }
 
   wilayaSelected() {
     // filter by if to find the selected wilaya 
     this.selectedWilaya = this.wilayas.find(wilaya => wilaya.id == this.form.value.wilayaId);
-    
-    this.cabinet.address.commune.id = this.selectedWilaya.communes[0].id ;  
-    this.isEdited = true ; 
+
+    this.cabinet.address.commune.id = this.selectedWilaya.communes[0].id;
+    this.isEdited = true;
   }
 
   private phoneValidator(formControl: FormControl): any {
@@ -131,20 +136,22 @@ export class CabinetInformationComponent implements OnInit {
     return null;
   }
   public submit() {
+
+    // ${}
     // in case creating the office for the first time
     if (!this.edit) {
       this.apollo.mutate({
         mutation: gql`
-      mutation {
+      mutation ADD_CABINET($name : String , $header : String! , $headerAr : String , $phone : String! , $email : String , $address : String , $communeId : ID!, $services : [ID!]){
         addCabinet(
           cabinet : {
-            name : "${this.form.value.name}" , 
-            header : "${this.form.value.header}" , 
-            headerAr : "${this.form.value.headerAr}" , 
-            phone : "${this.form.value.phone}" , 
-            email : "${this.form.value.email}" ,  
-            address : { address  : "${this.form.value.address}" , communeId : ${this.form.value.communeId} }
-            services : ${ this.cabinet.services.map(value => value.id) }
+            name : $name , 
+            header : $header , 
+            headerAr : $headerAr , 
+            phone : $phone , 
+            email : $email ,  
+            address : { address  : $address , communeId : $communeId }
+            services : $services
           }
         ) {  id
           name
@@ -159,25 +166,58 @@ export class CabinetInformationComponent implements OnInit {
             id name language
           }
         }
-
-      }`
+      }` , 
+      variables : { 
+        name : this.form.value.name , 
+        header : this.form.value.header , 
+        headerAr : this.form.value.headerAr , 
+        phone : this.form.value.phone , 
+        email : this.form.value.email , 
+        address : this.form.value.address , 
+        communeId : this.form.value.communeId , 
+        services : this.cabinet.services.map(value => value.id) 
+      }
       }).pipe(map(value => (<any>value.data).addCabinet)).subscribe((data) => {
         this.cabinet = data;
+
+        var doctorAuth = JSON.parse(localStorage.getItem("doctorAuth")) ; 
+        if (doctorAuth) { 
+          doctorAuth.doctor.cabinet = this.cabinet ; 
+          localStorage.setItem("doctorAuth" , JSON.stringify(doctorAuth)) ; 
+        }
+
+        this.interactionService.cabinetCreated.next(this.cabinet);
+
+        var medicalAct = new MedicalAct();
+        medicalAct.name = "Consultation";
+
+        this.router.navigate([], {
+          queryParams:
+          {
+            'pop-up-window': true,
+            'window-page': 'medical-act-submitter',
+            'medical-act': encodeURIComponent( JSON.stringify(medicalAct) ) ,
+            "title": "Ajouter au moins un Acte médicale"
+          }
+        });
+
+
+
       })
-    }else { 
+    } else {
       // in case we have an office and we want to edit it
       this.apollo.mutate({
-        mutation : gql`
-        mutation {
+        mutation: gql`
+        mutation EDIT_CABINET($name : String , $header : String! , $headerAr : String , $phone : String! , $email : String , $address : String , $communeId : ID!, $services : [ID!]){
           editCabinet(
             cabinet : {
-              name : "${this.form.value.name}" , 
-              header : "${this.form.value.header}" , 
-              headerAr : "${this.form.value.headerAr}" , 
-              phone : "${this.form.value.phone}" , 
-              email : "${this.form.value.email}" ,  
-              address : { address  : "${this.form.value.address}" , communeId : ${this.form.value.communeId} }
-              services : [${ this.cabinet.services.map(value => parseInt(value.id)) }]
+              name : $name , 
+              header : $header , 
+              headerAr : $headerAr , 
+              phone : $phone , 
+              email : $email ,  
+              address : { address  : $address , communeId : $communeId }
+              services : $services
             }
           ) {  id
             name
@@ -192,17 +232,27 @@ export class CabinetInformationComponent implements OnInit {
               id name language
             }
           }
+        }` ,
+        variables : { 
+          name : this.form.value.name , 
+          header : this.form.value.header , 
+          headerAr : this.form.value.headerAr , 
+          phone : this.form.value.phone , 
+          email : this.form.value.email , 
+          address : this.form.value.address , 
+          communeId : this.form.value.communeId , 
+          services : this.cabinet.services.map(value => value.id)       
         }
-        `
-      }).pipe(map(result => (<any>result.data).editCabinet)).subscribe((data) => { 
-        
-        this.cabinet = data ; 
+      }).pipe(map(result => (<any>result.data).editCabinet)).subscribe((data) => {
+
+        this.cabinet = data;
       })
     }
+
   }
 
-  public setChanged() { 
-    this.isEdited = true ; 
-  
+  public setChanged() {
+    this.isEdited = true;
+
   }
 }

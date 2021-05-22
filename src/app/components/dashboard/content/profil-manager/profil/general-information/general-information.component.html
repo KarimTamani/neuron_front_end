@@ -98,7 +98,7 @@
                         </label>
 
                         <select formControlName="specialityId" [(ngModel)]="selectedSpeciality">
-                            <option style="display:none;"  selected [value]="null ">Choisir une specialitie</option>
+                            <option style="display:none;"  selected [value]="null ">Généraliste</option>
                             <option *ngFor="let speciality of specialities" [value]="speciality.id">{{speciality.name}}</option>
                         </select>
                     </div>

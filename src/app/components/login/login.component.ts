@@ -28,8 +28,7 @@ export class LoginComponent implements OnInit {
     if (doctorAuth && doctorAuth.doctor.isValid)
       this.router.navigate(["dashboard/general"]);
     else
-      this.loaded = true;
-    console.log(this.loaded) ; 
+      this.loaded = true; 
   }
   login() {
     // login send the email and the password to the apollo server 
@@ -44,6 +43,9 @@ export class LoginComponent implements OnInit {
           }) {
             doctor {
               id , name , lastname , email , phone , createdAt , updatedAt , isValid , lastFeedback , premiumRequest
+              cabinet { 
+                id 
+              }
             } , token 
           }
         }
@@ -55,8 +57,12 @@ export class LoginComponent implements OnInit {
         if (doctorAuthResponse.doctor.isValid == false) {
           this.router.navigate(["not-valid-account"]);
         }
-        else {
+        else if (doctorAuthResponse.doctor.cabinet == null){
+          this.router.navigate(["dashboard/profil-manager/profil"])
+        
+        }else { 
           this.router.navigate(["dashboard/general"])
+        
         }
         localStorage.setItem("doctorAuth", JSON.stringify(data));
       },

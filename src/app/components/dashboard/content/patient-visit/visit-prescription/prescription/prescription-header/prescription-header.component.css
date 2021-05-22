@@ -11,6 +11,10 @@ h2 {
     margin-bottom: 8px;
 }
 
+.name {
+    text-transform: capitalize;
+}
+
 p {
     color: #666;
     margin: 0px;
@@ -56,6 +60,8 @@ h3 {
 
 .doctor-info {
     position: relative;
+    height: 58px;
+    text-transform: capitalize;
 }
 
 #logo {
@@ -75,11 +81,11 @@ h3 {
 }
 
 .services:not(.services.ar) span {
-    font-size: 11px;
+    font-size: 10px;
 }
 
 .services {
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .services span {
@@ -99,3 +105,5 @@ h3 {
     font-size: 16px;
     line-height: 14px;
 }
+
+.doctor-info {}

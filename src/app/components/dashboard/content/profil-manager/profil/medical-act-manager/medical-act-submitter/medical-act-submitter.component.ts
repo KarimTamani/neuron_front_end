@@ -33,16 +33,19 @@ export class MedicalActSubmitterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      var medicalAct = params["medical-act"];
 
-      if (medicalAct) {
-        // set the init medical act 
-        // and set the edit to true  
-        this.medicalAct = JSON.parse(medicalAct);
+    var params = this.route.snapshot.queryParams;
+
+
+    var medicalAct = JSON.parse(decodeURIComponent(params["medical-act"]));
+
+    if (medicalAct) {
+      // set the init medical act 
+      // and set the edit to true  
+      this.medicalAct = medicalAct;
+      if (this.medicalAct.id)
         this.edit = true;
-      }
-    })
+    }
   }
 
   submit() {
@@ -79,8 +82,8 @@ export class MedicalActSubmitterComponent implements OnInit {
           }
         `
       }).pipe(map(value => (<any>value.data).editMedicalAct)).subscribe((id) => {
-        this.interactionService.medicalActEdited.next(this.medicalAct) ; 
-        this.closeEvent.emit() ; 
+        this.interactionService.medicalActEdited.next(this.medicalAct);
+        this.closeEvent.emit();
       })
     }
   }
