@@ -5,7 +5,7 @@ export class Doctor {
     public lastname : string ; 
     public phone : string 
     public email : string ; 
-    public gender  :boolean ; 
+    public gender  :boolean = true ; 
     public speciality : Speciality ; 
     public graduation : string ; 
     public orderNumber : string ; 

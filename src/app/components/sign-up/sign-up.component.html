@@ -1,0 +1,182 @@
+<div class="main-container">
+    <div class="form-container primary-radius">
+        <div class="form-header">
+            <img src="../../../assets/logo.png">
+            <h5>Inscrivez-vous</h5>
+        </div>
+        <form name="form" [formGroup]="form">
+            <div class="row">
+                <div class="col col-md-6">
+                    <div class="form-group">
+
+                        <label>Nom</label>
+                        <input type="text" placeholder="Nom" [(ngModel)]="doctor.name" class="primary-input" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                            <div *ngIf="form.get('name').errors.required">le nom est requis</div>
+                            <div *ngIf="form.get('name').errors.minlength">au moins 4 caractères</div>
+                            <div *ngIf="form.get('name').errors.maxlength">moins de 20 caractères</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+
+                        <label>Prénom</label>
+                        <input type="text" placeholder="Prénom" class="primary-input" [(ngModel)]="doctor.lastname" formControlName="lastname" [ngClass]="{'is-invalid' : form.get('lastname').touched && form.get('lastname').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('lastname').touched && form.get('lastname').invalid">
+                            <div *ngIf="form.get('lastname').errors.required">le prénom est requis</div>
+                            <div *ngIf="form.get('lastname').errors.minlength">au moins 4 caractères</div>
+                            <div *ngIf="form.get('lastname').errors.maxlength">moins de 20 caractères</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="form-group" (click)="doctor.gender = true">
+                        <div class="gender">
+                            <label>Homme </label>
+                            <i class="fa fa-check" [class.active]="doctor.gender === true"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="form-group" (click)="doctor.gender = false">
+                        <div class="gender">
+                            <label>Femme </label>
+                            <i class="fa fa-check" [class.active]="doctor.gender === false"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-12">
+                    <div class="form-group">
+                        <label>
+                            Email
+                        </label>
+                        <input type="text" placeholder="Email" class="primary-input" formControlName="email" [(ngModel)]="doctor.email" [ngClass]="{'is-invalid' : form.get('email').touched && form.get('email').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('email').touched && form.get('email').invalid">
+                            <div *ngIf="form.get('email').errors.required">email est requis</div>
+                            <div *ngIf="form.get('email').errors.email">email invalide</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Numéro de telephone
+                        </label>
+                        <input type="text" placeholder="Numéro de telephone" class="primary-input" formControlName="phone" [(ngModel)]="doctor.phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('phone').touched && form.get('phone').invalid">
+                            <div *ngIf="form.get('phone').errors.required">Numéro de téléphone est requis</div>
+                            <div *ngIf="form.get('phone').errors.pattern">Numéro de téléphone invalide</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Spécialité
+                        </label>
+
+                        <select formControlName="specialityId" [(ngModel)]="selectedSpeciality">
+                            <option    selected [value]="null">Généraliste</option>
+                            <option *ngFor="let speciality of specialities" [value]="speciality.id">{{speciality.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col col-md-12">
+                    <div class="form-group">
+                        <label>
+                            telephone du cabinet (mobile / fix)
+                        </label>
+                        <input type="text" [(ngModel)]="cabinet.phone" placeholder="telephone" class="primary-input" formControlName="cabinetPhone" [ngClass]="{'is-invalid' : form.get('cabinetPhone').touched && form.get('cabinetPhone').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('cabinetPhone').touched && form.get('cabinetPhone').invalid">
+                            <div *ngIf="form.get('cabinetPhone').errors.required">le telephone est requis</div>
+                            <div *ngIf="form.get('cabinetPhone').errors.pattern">telephone invalide</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Addresse
+                        </label>
+                        <input type="text" placeholder="Address" [(ngModel)]="cabinet.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('address').touched && form.get('address').invalid">
+                            <div *ngIf="form.get('address').errors.required">l'address est requis</div>
+                            <div *ngIf="form.get('address').errors.minlength">au moins 4 caractères</div>
+                            <div *ngIf="form.get('address').errors.maxlength">moins de 64 caractères</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-3">
+                    <div class="form-group">
+                        <label>wilaya</label>
+                        <select (change)="wilayaSelected()" [(ngModel)]="cabinet.address.commune.wilaya.id" formControlName="wilayaId" [ngClass]="{'is-invalid' : form.get('wilayaId').touched && form.get('wilayaId').invalid}">
+                            <option  hidden [value]="undefined">Wilaya</option>
+                            <option *ngFor="let wilaya of wilayas" [value]="wilaya.id">{{wilaya.name}}</option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="form.get('wilayaId').touched && form.get('wilayaId').invalid">
+                            <div *ngIf="form.get('wilayaId').errors.required">wilaya est requis</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-3">
+                    <div class="form-group">
+                        <div *ngIf="selectedWilaya">
+                            <label>Commune</label>
+                            <select formControlName="communeId" [(ngModel)]="cabinet.address.commune.id" [ngClass]="{'is-invalid' : form.get('communeId').touched && form.get('communeId').invalid}">
+                            <option  hidden [value]="undefined">Commune</option>
+                            <option *ngFor="let commune of selectedWilaya.communes" [value]="commune.id">{{commune.name}}</option>
+                        </select>
+                            <div class="invalid-feedback" *ngIf="form.get('communeId').touched && form.get('communeId').invalid">
+                                <div *ngIf="form.get('communeId').errors.required">wilaya est requis</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col col-md-12">
+                    <div class="form-group">
+                        <label>Mote de pass</label>
+
+                        <input type="password" placeholder="Mote de pass" [(ngModel)]="password.value" class="primary-input" formControlName="password" [ngClass]="{'is-invalid' : form.get('password').touched && form.get('password').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('password').touched && form.get('password').invalid">
+                            <div *ngIf="form.get('password').errors.required">le mot de passe est requis</div>
+                            <div *ngIf="form.get('password').errors.minlength">au moins 7 caractères</div>
+                            <div *ngIf="form.get('password').errors.maxlength">moins de 20 caractères</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-12">
+                    <div class="form-group">
+                        <label>Confirmer le mot de pass</label>
+
+                        <input type="password" placeholder="Confirmer le mot de pass" class="primary-input" formControlName="passwordConfirm" [ngClass]="{'is-invalid' : form.get('passwordConfirm').touched && form.get('passwordConfirm').invalid}">
+                        <div class="invalid-feedback" *ngIf="form.get('passwordConfirm').touched && form.get('passwordConfirm').invalid">
+                            <div *ngIf="form.get('passwordConfirm').errors.required">la confirmation est requis</div>
+                            <div *ngIf="form.get('passwordConfirm').errors.minlength">au moins 7 caractères</div>
+                            <div *ngIf="form.get('passwordConfirm').errors.maxlength">moins de 20 caractères</div>
+                            <div *ngIf="form.get('passwordConfirm').errors.confirmedValidator">Conferme le mote pass</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+
+                </div>
+                <div class="col col-md-6">
+                    <button class="primary-button" [disabled]="!form.valid" (click)="submit()">S'inscrire</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

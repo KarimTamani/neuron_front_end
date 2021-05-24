@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-md-3" *ngIf="medicalFile.address">
+            <div class="col col-md-3" *ngIf="medicalFile.address && medicalFile.address.commune">
                 <div class="form-group">
                     <label>wilaya</label>
                     <select (change)="wilayaSelected()" [(ngModel)]="medicalFile.address.commune.wilaya.id" formControlName="wilayaId" [ngClass]="{'is-invalid' : form.get('wilayaId').touched && form.get('wilayaId').invalid}">

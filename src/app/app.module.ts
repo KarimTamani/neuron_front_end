@@ -170,6 +170,7 @@ import { PrescriptionModelsComponent } from './components/dashboard/content/pres
 import { CheckUpTypeSubmitterComponent } from './components/dashboard/content/prescription-manager/check-ups-models/check-up-type-submitter/check-up-type-submitter.component';
 import { ProfilManagerComponent } from './components/dashboard/content/profil-manager/profil-manager.component';
 import { StructureComponent } from './components/dashboard/content/profil-manager/structure/structure.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -328,7 +329,8 @@ import { StructureComponent } from './components/dashboard/content/profil-manage
     PrescriptionModelsComponent,
     CheckUpTypeSubmitterComponent,
     ProfilManagerComponent,
-    StructureComponent
+    StructureComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -373,7 +375,6 @@ export class AppModule {
       link: httpLink.create({uri: "http://127.0.0.1:5000/graphql"}) , 
       cache: new InMemoryCache({addTypename: false}),
       defaultOptions : this.defaultOptions  , 
-      
     })
   }
 }

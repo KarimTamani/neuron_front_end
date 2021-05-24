@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit , OnDestroy {
   ngOnInit(): void {
 
     var doctorAuth = JSON.parse(localStorage.getItem("doctorAuth")) ; 
+    console.log(doctorAuth) ; 
     if (doctorAuth.doctor.cabinet == null) 
       this.noCabinet = true ;  
 
@@ -72,7 +73,7 @@ export class DashboardComponent implements OnInit , OnDestroy {
       let deltaTime = currentDate.getTime() - new Date(doctorAuth.doctor.lastFeedback).getTime();
       deltaTime = deltaTime / 1000 / 3600 / 24;
       // if the period is more or equals to 3 days then show a new window of feedback 
-
+      /*
       if (deltaTime >= 4) {
         this.router.navigate([], {
           queryParams: {
@@ -82,6 +83,7 @@ export class DashboardComponent implements OnInit , OnDestroy {
           }
         })
       }
+      */
     }))
 
     this.subscriptions.push(this.interactionService.openEditVisitWindow.subscribe((visit) => { 

@@ -1,0 +1,56 @@
+.main-container {
+    background: #F5F6FA;
+    position: relative;
+    height: 100%;
+    padding: 56px 0px;
+}
+
+.form-header img {
+    width: 64px;
+    height: 64px;
+    background: #265ED7;
+    border-top-right-radius: 26px;
+    border-bottom-right-radius: 26px;
+}
+
+.form-header h5 {
+    display: inline-block;
+    font-weight: bold;
+    height: 100%;
+    padding: 10px 16px;
+    font-size: 18px;
+}
+
+.form-container {
+    background: white;
+    margin: 0px auto;
+    border: 1px solid #eeeeee;
+    overflow: hidden;
+    width: 460px;
+}
+
+form {
+    padding: 16px;
+}
+
+.form-group i {
+    float: right;
+    border: 1px solid rgb(254, 101, 85);
+    padding: 2px;
+    border-radius: 2px;
+    color: transparent;
+}
+
+.form-group i.active {
+    color: rgb(254, 101, 85);
+}
+
+.gender {
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    font-weight: bold;
+    margin-top: 16px;
+}

@@ -12,6 +12,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 import { ActivatedRoute } from '@angular/router';
 import { FAIL, Message, SUCCESS } from 'src/app/classes/Message';
+import { Commune } from 'src/app/classes/Commune';
 
 @Component({
   selector: 'app-new-medical-file',
@@ -176,18 +177,26 @@ export class NewMedicalFileComponent implements OnInit {
         }
         `
         }).pipe(map(value => (<any>value.data).getMedicalFile)).subscribe((data) => {
+
+          if (data.address == null)
+            data.address = new Address();
+
+          else if (data.address.commune == null)
+            data.address.commune = new Commune();
+
+
           this.medicalFile = data;
 
-          if (this.medicalFile.address == null)
-            this.medicalFile.address = new Address();
           if (this.medicalFile.profession == null)
             this.medicalFile.profession = new Profession();
 
-          if (this.medicalFile.address) {
-            if (this.medicalFile.address.commune) {
-              this.selectedWilaya = this.wilayas.find(value => value.id == this.medicalFile.address.commune.wilaya.id);
-            }
+          if (this.medicalFile.address && this.medicalFile.address.commune) {
+
+            this.selectedWilaya = this.wilayas.find(value => value.id == this.medicalFile.address.commune.wilaya.id);
+
           }
+
+
           this.edit = true;
         })
       }
@@ -260,11 +269,25 @@ export class NewMedicalFileComponent implements OnInit {
       antecedents: this.medicalFile.antecedents.map(value => value.id)
     }
 
-    if (this.medicalFile.address.commune.id)
+    if (this.medicalFile.address.commune.id && this.medicalFile.address.address && this.medicalFile.address.address.trim().length > 0) {
+
       variables.address = {
         address: this.medicalFile.address.address,
         communeId: this.medicalFile.address.commune.id
       };
+    }
+    else if (this.medicalFile.address.commune.id)
+      variables.address = {
+        address: null,
+        communeId: this.medicalFile.address.commune.id
+      };
+
+    else if (this.medicalFile.address.address && this.medicalFile.address.address.trim().length > 0) {
+      variables.address = {
+        address: this.medicalFile.address.address,
+        communeId: null
+      };
+    }
 
     this.apollo.mutate({
       mutation: gql`
@@ -326,17 +349,17 @@ export class NewMedicalFileComponent implements OnInit {
       catchError(error => {
         if (error.graphQLErrors) {
           this.interactionService.showMessage.next(<Message>{
-            message : error.message.replace('GraphQL error:', '').trim() , 
-            type : FAIL 
-          })  
+            message: error.message.replace('GraphQL error:', '').trim(),
+            type: FAIL
+          })
         }
         return of(null);
       })
     ).subscribe((data) => {
-      
+
       // check if the data exists that mean there is no error has been trigred
-      if (data == null) 
-        return ; 
+      if (data == null)
+        return;
 
       this.medicalFile = data;
       if (!this.throwInteraction)
@@ -366,11 +389,27 @@ export class NewMedicalFileComponent implements OnInit {
 
 
 
-    if (this.medicalFile.address.commune.id)
+
+    if (this.medicalFile.address.commune.id && this.medicalFile.address.address && this.medicalFile.address.address.trim().length > 0) {
+
       variables.address = {
         address: this.medicalFile.address.address,
         communeId: this.medicalFile.address.commune.id
       };
+    }
+    else if (this.medicalFile.address.commune.id)
+      variables.address = {
+        address: null,
+        communeId: this.medicalFile.address.commune.id
+      };
+
+    else if (this.medicalFile.address.address && this.medicalFile.address.address.trim().length > 0) {
+      variables.address = {
+        address: this.medicalFile.address.address,
+        communeId: null
+      };
+    }
+
 
     this.apollo.mutate({
       mutation: gql`
@@ -412,7 +451,7 @@ export class NewMedicalFileComponent implements OnInit {
       return true;
     else {
       if (!this.showSubmitter && this.form.valid) {
-        this.save()  ;
+        this.save();
       }
       return false;
     }

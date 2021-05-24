@@ -22,6 +22,7 @@ import { DiagnosisManagerComponent } from './components/dashboard/content/docume
 import { PrescriptionManagerComponent } from './components/dashboard/content/prescription-manager/prescription-manager.component';
 import { ProfilManagerComponent } from './components/dashboard/content/profil-manager/profil-manager.component';
 import { StructureComponent } from './components/dashboard/content/profil-manager/structure/structure.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,9 @@ const routes: Routes = [
 
   {
     path: "login", component: LoginComponent
+  },
+  {
+    path : "sign-up" , component : SignUpComponent
   },
   {
     path: "not-valid-account", component: NotValidAccountComponent
