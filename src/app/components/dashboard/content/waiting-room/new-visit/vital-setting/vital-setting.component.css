@@ -3,8 +3,9 @@
 }
 
 .content {
-    background: white;
     padding: 16px;
+    height: 740px;
+    position: relative;
 }
 
 .main-container.from-router {
@@ -100,6 +101,10 @@ h5 i {
 
 .controller {
     margin-top: 20px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
 }
 
 .primary-button {

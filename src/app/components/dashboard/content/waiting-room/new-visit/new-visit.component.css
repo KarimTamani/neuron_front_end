@@ -8,6 +8,17 @@
     background: white;
     width: 420px;
     padding: 16px;
+    position: relative;
+}
+
+.white-background {
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
 .row .col {
@@ -97,6 +108,10 @@ h5 {
     cursor: pointer;
 }
 
+.icon-container .fa-user-cog {
+    padding: 11px 10px;
+}
+
 .symptoms-input-container {
     margin-top: 16px
 }
@@ -130,38 +145,10 @@ h5 {
     padding: 8px 0px;
 }
 
-@keyframes expandMedicalFile {
-    from {
-        width: 0px;
-    }
-    to {
-        width: 560px;
-    }
-}
-
-@keyframes expandVitalSetting {
-    from {
-        width: 0px;
-    }
-    to {
-        width: 460px;
-    }
-}
-
-@keyframes showContent {
-    from {
-        display: none;
-    }
-    to {
-        display: block;
-    }
-}
-
 .medical-file-container {
     background: white;
     margin-left: 16px;
     width: 560px;
-    animation: expandMedicalFile 1s ease;
 }
 
 .medical-file.is-invalid {
@@ -174,12 +161,6 @@ h5 {
     background: white;
     margin-left: 16px;
     width: 460px;
-    animation: expandVitalSetting 1s ease;
-}
-
-.content {
-    animation: showContent 1s;
-    animation-delay: 2s;
 }
 
 p {
@@ -226,10 +207,16 @@ p i {
     padding: 16px;
 }
 
-.content-header button {
-    padding: 8px 16px;
-    width: 160px;
-    border-radius: 16px;
+.content-header i {
+    font-size: 14px;
+    border-radius: 50%;
+    padding: 10px 11px;
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.content-header h5 {
+    font-size: 16px;
 }
 
 .black-window {

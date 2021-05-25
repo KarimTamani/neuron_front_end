@@ -9,7 +9,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { ActivatedRoute } from '@angular/router';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 import { ALWAYS, YesNoVAResponse } from 'src/app/classes/VAResponse';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
+
 import { Subscription } from 'rxjs';
 import { Message, SUCCESS } from 'src/app/classes/Message';
 
@@ -166,7 +166,7 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
       }
       if (this.waitingRoom)
         this.interactionService.showMessage.next(<any>{
-          message: "la salle d'attente "+ this.dataService.castFRDate(new Date(this.currentDate))+ " a été chargée"
+          message: "Salle d'attente "+ this.dataService.castFRDate(new Date(this.currentDate))+ " a été chargée"
         });
 
 
@@ -193,7 +193,7 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
       this.waitingRoom.visits = [];
 
       this.interactionService.showMessage.next(<Message>{
-        message: "la salle d'attente "+this.dataService.castFRDate(new Date(this.currentDate))+" a été créée " ,
+        message: "Salle d'attente "+this.dataService.castFRDate(new Date(this.currentDate))+" a été créée " ,
         type: SUCCESS
       })
     })

@@ -1,17 +1,19 @@
 <div class="main-container stretch-container">
     <div class="black-window" *ngIf="blackWindow"></div>
     <div class="visit-container primary-radius">
+        <div class="white-background" *ngIf="whiteBackground && !blackWindow"></div>
         <div class="row">
             <div class="col col-md-12" *ngIf="visit.medicalFile == null">
-                <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Recherché un dossie medical'"></app-search-input>
+                <app-search-input (itemSelected)="selectMedicalFile($event)" [type]="'medicalFile'" [submittedItem]="submittedMedicalFile" [searchFunction]="searchFunction" [placeholder]="'Rechercher un dossier médical'"></app-search-input>
             </div>
             <div class="col col-md-12">
                 <div class="new-medicalfile-message stretch-container" *ngIf="visit.medicalFile == null">
                     <p>
-                        Si le dossie medical n'existe pas
+
+                        Si le dossier médical n'existe pas
                     </p>
-                    <button class="secondary-button" (click)="showNewMedicalFile = true">
-                        Creé le <i class="fa fa-plus"></i>
+                    <button class="secondary-button" (click)="showNewMedicalFile = true ; whiteBackground = true">
+                        Créé le <i class="fa fa-plus"></i>
                     </button>
                 </div>
                 <div class="medical-file" *ngIf="visit.medicalFile" [class.is-invalid]="medicalFileInvalid">
@@ -19,16 +21,19 @@
                 </div>
             </div>
             <div class="col col-md-12" *ngIf="visit.waitingRoom">
-                <h5>Salle d'attent</h5>
+                <h5>Salle d'attente</h5>
                 <p class="waiting-room-info">
-                    <span><i class="fa fa-calendar"></i>{{visit.waitingRoom.date}}</span>
-                    <span><i class="fa fa-sort-amount-up"></i>{{visit.order }} {{(visit.waitingRoom.visits.length == 0) ? ("er") : ("éme")}}</span>
+                    <span><i class="fa fa-calendar"></i>{{frDate(visit.waitingRoom.date)}}</span>
+                    <span><i class="fa fa-sort-amount-up"></i>{{visit.order }} {{(visit.order == 1) ? ("er") : ("éme")}}</span>
 
                 </p>
             </div>
             <div class="col col-md-12">
                 <h5>Les Actes medicaux</h5>
                 <div class="medical-acts-container">
+                    <p *ngIf="medicalActs.length == 0">
+                        aucun acte médical n'a été trouvé, veuillez vous rendre sur la page du gestionnaire de profil et en <a routerLink="/dashboard/profil-manager/structure">créer un nouveau</a>
+                    </p>
                     <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
                         <span>
                             {{medicalAct.name}} 
@@ -41,12 +46,12 @@
                     </div>
                 </div>
                 <p>
-                    <i class="fa fa-money-bill-wave"></i>Montant total <span class="hightlight">{{totalPrice }} DA</span>
+                    <i class="fa fa-money-bill-wave"></i>Montant Total <span class="hightlight">{{totalPrice }} DA</span>
                 </p>
             </div>
             <div class="col col-md-12" *ngIf="visit.medicalFile">
                 <h5>
-                    Pramaétres vitaux
+                    Paramètres vitaux
                 </h5>
                 <div class="row primary-vital">
 
@@ -68,14 +73,14 @@
                     </div>
                     <div class="col col-md-2">
                         <div class="button-icon icon-container">
-                            <i class="fa fa-plus primary-button" (click)="showVitalSetting = true"></i>
+                            <i class="fa fa-user-cog primary-button" (click)="showVitalSetting = true ; whiteBackground = true"></i>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col col-md-12">
                 <h5>
-                    Motif de consultation ou symptoms
+                    Motif de consultation et symptoms
                 </h5>
                 <div class="symptoms-input-container stretch-container">
                     <div class="search-input">
@@ -87,6 +92,7 @@
 
                 </div>
                 <div class="symptoms-container">
+                    <p class="no-data-message" *ngIf="symptoms.length == 0">aucune raison de consultation ou symptôme</p>
                     <span *ngFor="let symptom of symptoms" class="symptom">
                         {{symptom.name}} <i class="fa fa-times" (click)="removeSymptom(symptom)"></i>
                     </span>
@@ -95,9 +101,8 @@
             </div>
             <div class="col col-md-12">
                 <div class="controller">
-                    <button *ngIf="!edit" class="primary-button" [disabled]="visit.medicalFile == null" (click)="saveVisit()">Ajouter<i class="fa fa-plus"></i></button>
-                    <button *ngIf="edit" class="primary-button" [disabled]="visit.medicalFile == null" (click)="editVisit()">Modifier<i class="fa fa-edit"></i></button>
-
+                    <button *ngIf="!edit" class="primary-button" [disabled]="visit.medicalFile == null" (click)="saveVisit()">Ajouter <i class="fa fa-plus"></i></button>
+                    <button *ngIf="edit" class="primary-button" [disabled]="visit.medicalFile == null" (click)="editVisit()">Éditer <i class="fa fa-edit"></i></button>
                     <div style="clear: both;"></div>
                 </div>
             </div>
@@ -106,9 +111,9 @@
     <div class="medical-file-container primary-radius" *ngIf="showNewMedicalFile">
         <div class="content">
             <div class="content-header">
-                <button class="secondary-button" (click)="showNewMedicalFile = false ">
-                    <i class="fa fa-arrow-left"></i> Annuler
-                </button>
+                <h5>
+                    <i class="fa fa-arrow-left primary-button" (click)="showNewMedicalFile = false ; whiteBackground = false"></i> Créer Un Dossier médical
+                </h5>
             </div>
             <app-new-medical-file (newMedicalFileEvent)="newMedicalFile($event)" [medicalFile]="visit.medicalFile" (blackWindowEvent)="blackWindow = !blackWindow"></app-new-medical-file>
         </div>
@@ -116,6 +121,11 @@
 
     <div class="vital-setting-container primary-radius" *ngIf="showVitalSetting">
         <div class="content">
+            <div class="content-header">
+                <h5>
+                    <i class="fa fa-arrow-left primary-button" (click)="showVitalSetting = false ; whiteBackground = false"></i> Ajouter des Paramètres vitaux
+                </h5>
+            </div>
             <app-vital-setting [vitalSetting]="visit.vitalSetting"></app-vital-setting>
         </div>
     </div>

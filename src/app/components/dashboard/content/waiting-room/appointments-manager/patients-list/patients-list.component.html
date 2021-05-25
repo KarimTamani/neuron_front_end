@@ -3,7 +3,7 @@
         <h5 [ngStyle]="{'background-color' : color }">{{header}}</h5>
     </div>
     <div class="list" *ngIf="!done && controllable" cdkDropList (cdkDropListDropped)="drop($event)">
-        <p class="no-data-message" *ngIf="visits.length == 0">Acun patient en attente</p>
+        <p class="no-data-message" *ngIf="visits.length == 0">aucun visite en attente</p>
         <div class="visit" *ngFor="let visit of visits; let i = index" cdkDrag cdkDragLockAxis="y">
             <app-visit [controllable]="controllable" (visitDoneEvent)="visitDoneEvent.emit($event)" [waitingRoom]="waitingRoom" (outVisitEvent)="outVisitEvent.emit($event)" (restoreVisitEvent)="restoreVisitEvent.emit($event)" (ignoreVisitEvent)="ignoreVisitEvent.emit($event)"
                 (inVisitEvent)="inVisit($event)" [currentVisit]="currentVisit && currentVisit.id == visit.id" [visit]="visit" [nextSubject]="visitsSubjects[i].subject" [done]="done"></app-visit>

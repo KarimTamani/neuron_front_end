@@ -1,7 +1,15 @@
 .main-container {
+    padding: 16px;
+    width: 680px;
+}
+
+.content {
     background: white;
     padding: 16px;
-    width: 620px;
+}
+
+.content.submit {
+    margin-top: 16px;
 }
 
 .header {
@@ -61,9 +69,6 @@ p i {
 .controller button {
     width: 120px;
     padding: 8px 16px;
-}
-
-.controller button:last-child {
     float: right;
 }
 

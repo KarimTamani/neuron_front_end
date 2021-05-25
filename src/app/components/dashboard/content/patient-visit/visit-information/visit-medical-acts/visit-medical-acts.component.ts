@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -17,12 +17,15 @@ export class VisitMedicalActsComponent implements OnInit , OnDestroy{
   @Input() selectedMedicalActs: MedicalAct[] = [];
   @Input() active : boolean = false ;
   @Input() valid : boolean = true ; 
+  @Output() medicalActUpdate : EventEmitter<MedicalAct[]> ; 
   public totalPrice: number = 0;
   public subscriptions : Subscription[] = [] ;  
   constructor(
     private apollo: Apollo , 
     private interactionService : InteractionService , 
-    private router : Router) { }
+    private router : Router) {
+      this.medicalActUpdate = new EventEmitter<MedicalAct[]>() ; 
+    }
 
   ngOnInit(): void {
     this.apollo.query({
@@ -71,6 +74,8 @@ export class VisitMedicalActsComponent implements OnInit , OnDestroy{
     } else { 
       this.valid = true ; 
     }
+
+    this.medicalActUpdate.emit(this.selectedMedicalActs) ; 
   }
 
   public isMedicalActSelected(medicalAct) {

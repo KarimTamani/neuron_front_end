@@ -43,6 +43,10 @@ export class WaitingRoomReportComponent implements OnInit {
       })
   }
 
+  public castTime(time : string) { 
+    return this.dataService.castTime(time) ; 
+  }
+
   private loadWaitingRoomReport(date) {
     this.apollo.query({
       query: gql`

@@ -7,17 +7,17 @@
             <div class="info-side">
                 <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
                 <p>
-                    <i class="fa fa-clock"></i> Temps d'arrivée : <span class="hightlight">{{visit.arrivalTime}}</span>
+                    <i class="fa fa-clock"></i> Temps d'arrivée <span class="hightlight">{{visit.arrivalTime}}</span>
                 </p>
                 <p>
-                    <i class="fa fa-sort-amount-up"></i>Order :
+                    <i class="fa fa-sort-amount-up"></i>order
                     <span>
-                {{visit.order}}
-            </span>
+                        {{visit.order}}{{(visit.order == 1) ? ("er") : ("ème")}}
+                    </span>
                 </p>
                 <p>
                     <i class="round"></i>
-                    <span>{{visit.status}}</span>
+                    <span>{{frStatus( visit.status ) }}</span>
                 </p>
             </div>
         </div>
@@ -81,7 +81,7 @@
             </p>
             <p *ngIf="visit.status == 'visit done'">
                 <i class="round"></i>
-                <span>{{visit.status}}</span>
+                <span>{{frStatus( visit.status ) }}</span>
             </p>
         </div>
     </div>

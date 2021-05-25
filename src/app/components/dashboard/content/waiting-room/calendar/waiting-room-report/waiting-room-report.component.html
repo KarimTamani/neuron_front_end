@@ -8,10 +8,10 @@
         <div class="info-side">
             <div class="content">
                 <p>
-                    <span class="primary">{{waitingRoomReport.waiting.count }}</span> Visite{{( waitingRoomReport.waiting.count > 1) ? ("s") : ("") }} en attents
+                    <span class="primary">{{waitingRoomReport.waiting.count }}</span> visite{{( waitingRoomReport.waiting.count > 1) ? ("s") : ("") }} en attent{{( waitingRoomReport.waiting.count > 1) ? ("s") : ("e") }}
                 </p>
-                <p>
-                    esitimations du gain <span class="bold">{{waitingRoomReport.waiting.money}} DA</span>
+                <p *ngIf="waitingRoomReport.waiting.money != 0">
+                    <span class="bold">{{waitingRoomReport.waiting.money}} DA</span> Estimations de gain
                 </p>
             </div>
         </div>
@@ -25,14 +25,14 @@
         <div class="info-side">
             <div class="content">
                 <p *ngIf="waitingRoomReport.inVisit.name && waitingRoomReport.inVisit.lastname">
-                    <span class="bold">{{waitingRoomReport.inVisit.lastname}} {{waitingRoomReport.inVisit.name}}</span> en cours de visite
+                    <span class="bold">{{waitingRoomReport.inVisit.name}} {{waitingRoomReport.inVisit.lastname}}</span> en cours de visite
                 </p>
 
                 <p *ngIf="!waitingRoomReport.inVisit.name || !waitingRoomReport.inVisit.lastname">
                     Aucun patient dans la salle de consultation
                 </p>
                 <p *ngIf="waitingRoomReport.inVisit.name && waitingRoomReport.inVisit.lastname">
-                    debut <span class="bold">{{waitingRoomReport.inVisit.startTime}}</span> - periode <span class="bold">{{waitingRoomReport.inVisit.period}}</span>
+                    commencer à <span class="bold">{{waitingRoomReport.inVisit.startTime}}</span> periode <span class="bold">{{castTime(waitingRoomReport.inVisit.period)}}</span>
                 </p>
             </div>
         </div>
@@ -46,13 +46,13 @@
         <div class="info-side">
             <div class="content">
                 <p>
-                    <span class="primary">{{waitingRoomReport.done.count }}</span> Visite{{( waitingRoomReport.done.count > 1) ? ("s") : ("") }} est termineés
+                    <span class="primary">{{waitingRoomReport.done.count }}</span> Visite{{( waitingRoomReport.done.count > 1) ? ("s") : ("") }} effectuée{{( waitingRoomReport.done.count > 1) ? ("s") : ("") }}
                 </p>
-                <p>
-                    Gain : <span class="bold">{{waitingRoomReport.done.money}} DA</span> credit : <span class="bold">{{waitingRoomReport.done.debt}} DA</span>
+                <p *ngIf="waitingRoomReport.done.money > 0 || waitingRoomReport.done.debt > 0">
+                    Gain <span class="bold">{{waitingRoomReport.done.money}} DA</span> Crédit <span class="bold">{{waitingRoomReport.done.debt}} DA</span>
                 </p>
                 <p *ngIf="waitingRoomReport.done.period && waitingRoomReport.done.startTime">
-                    de <span class="bold">{{waitingRoomReport.done.startTime}}</span> a <span class="bold">{{waitingRoomReport.done.endTime}}</span> Periode <span class="bold">{{waitingRoomReport.done.period}}</span>
+                    de <span class="bold">{{waitingRoomReport.done.startTime}}</span> à <span class="bold">{{waitingRoomReport.done.endTime}}</span> Periode <span class="bold">{{castTime ( waitingRoomReport.done.period ) }}</span>
                 </p>
             </div>
         </div>
@@ -66,11 +66,10 @@
         <div class="info-side">
             <div class="content">
                 <p>
-                    <span class="primary">{{waitingRoomReport.ignored.count }}</span> Visite{{( waitingRoomReport.ignored.count > 1) ? ("s") : ("") }} est abondoner
+                    <span class="primary">{{waitingRoomReport.ignored.count }}</span> Visite{{( waitingRoomReport.ignored.count > 1) ? ("s") : ("") }} {{( waitingRoomReport.ignored.count > 1) ? ("ont") : ("a") }} été abandonnée{{( waitingRoomReport.ignored.count
+                    > 1) ? ("s") : ("") }}
                 </p>
-                <p>
-                    gain supposé : <span class="bold">{{waitingRoomReport.ignored.money}} DA</span>
-                </p>
+
             </div>
         </div>
     </div>

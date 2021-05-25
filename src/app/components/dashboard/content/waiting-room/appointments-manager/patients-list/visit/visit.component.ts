@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom';
 import { Message } from 'src/app/classes/Message';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-visit',
@@ -36,12 +37,21 @@ export class VisitComponent implements OnInit {
   @Output() outVisitEvent: EventEmitter<Visit>;
   @Output() visitDoneEvent: EventEmitter<Visit>;
   @Input() controllable : boolean ; 
-  constructor(private apollo: Apollo, private router: Router, private interactionService: InteractionService) {
+  constructor(
+    private apollo: Apollo,
+     private router: Router, 
+     private interactionService: InteractionService , 
+     private dataService : DataService) {
     this.inVisitEvent = new EventEmitter<Visit>();
     this.ignoreVisitEvent = new EventEmitter<Visit>();
     this.restoreVisitEvent = new EventEmitter<Visit>();
     this.outVisitEvent = new EventEmitter<Visit>();
     this.visitDoneEvent = new EventEmitter<Visit>();
+  }
+
+
+  public frStatus(status : string) { 
+    return this.dataService.castStatusToFr(status) 
   }
   ngOnInit(): void {
 
@@ -121,11 +131,9 @@ export class VisitComponent implements OnInit {
         this.ignoreVisitEvent.emit(this.visit);
         this.interactionService.updateReport.next();
         this.interactionService.showMessage.next(<Message> {
-          message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a été ignorée`
+          message : `Visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a été ignorée`
         })
       }, 1000)
-
-
     })
   }
 

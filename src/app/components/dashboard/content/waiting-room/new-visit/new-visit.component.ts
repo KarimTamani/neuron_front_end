@@ -11,6 +11,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 import { VitalSetting } from 'src/app/classes/VitalSetting';
 import { SUCCESS , Message, FAIL} from 'src/app/classes/Message';
 import { WaitingRoom } from 'src/app/classes/WaitingRoom'; 
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-new-visit',
@@ -34,7 +35,14 @@ export class NewVisitComponent implements OnInit {
   public medicalFileUnControl: boolean;
   public medicalFileInvalid : boolean = false ; 
   public waitingRoom : WaitingRoom ; 
-  constructor(private apollo: Apollo, private route: ActivatedRoute, private interactionservice: InteractionService) {
+
+  public whiteBackground : boolean = false ; 
+  constructor(
+    private apollo: Apollo, 
+    private route: ActivatedRoute, 
+    private interactionservice: InteractionService , 
+    private dataService : DataService) {
+
     this.closeEvent = new EventEmitter<null>();
     this.visit = new Visit();
     this.submittedSymptom = new Symptom();
@@ -268,6 +276,13 @@ export class NewVisitComponent implements OnInit {
   }
   public editMedicalFile() {
     this.showNewMedicalFile = true;
+    this.whiteBackground = true ; 
+  }
+
+ 
+
+  public frDate(date : string) { 
+    return this.dataService.castFRDate(new Date (date))  ;
   }
 
 }

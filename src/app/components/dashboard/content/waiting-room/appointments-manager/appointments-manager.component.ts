@@ -122,7 +122,7 @@ export class AppointmentsManagerComponent implements OnInit, OnDestroy {
 
       this.interactionService.updateReport.next();
       this.interactionService.showMessage.next(<Message>{
-        message : "la prochaine visite commence"
+        message : "Prochaine visite commencée"
       })
     })
   }

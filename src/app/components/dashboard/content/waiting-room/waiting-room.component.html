@@ -6,10 +6,10 @@
             <div class="no-waiting-room" *ngIf="waitingRoom == null">
                 <i class="fa fa-calendar-plus"></i>
                 <p>
-                    Aucun salle d'attent de : {{this.currentDay}} {{dataService.monthes[this.currentMonth]}} {{this.currentYear}}
+                    Pas de salle d'attente {{this.currentDay}} {{dataService.monthes[this.currentMonth]}} {{this.currentYear}}
                 </p>
                 <button class="secondary-button" (click)="createWaitingRoom()">
-                    Créé le 
+                    Créé
                 </button>
             </div>
         </div>

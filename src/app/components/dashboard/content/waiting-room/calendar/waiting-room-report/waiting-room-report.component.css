@@ -54,4 +54,5 @@ p {
 .bold {
     color: #444444;
     font-weight: bold;
+    text-transform: capitalize;
 }
