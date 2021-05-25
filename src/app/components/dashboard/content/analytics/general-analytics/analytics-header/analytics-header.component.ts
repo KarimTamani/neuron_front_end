@@ -80,8 +80,10 @@ export class AnalyticsHeaderComponent implements OnInit {
       
     }
     this.interactionService.showMessage.next(<any>{
-      message : "la période sélectionnée : " + this.selectedOption  ,
+      message : "Période sélectionnée " + this.selectedOption  ,
+      
     })
+     
   }
 
   public selectOption(option) {

@@ -1,13 +1,14 @@
-<div class="main-container primary-radius">
-    <div class="stretch-container">
-        <div class="center-v" *ngIf="message.type == 1">
+<div class="main-container">
+    <div class="stretch-container" [class.success]="message.type == 1" [class.fail]="message.type == -1">
+        <div class="icon-v" *ngIf="message.type == 1">
             <i class="fa fa-check"></i>
         </div>
 
-        <div class="center-v" *ngIf="message.type == -1">
-            <i class="fa fa-times"></i>
+        <div class="icon-v" *ngIf="message.type == -1">
+            <i class="fa fa-exclamation"></i>
         </div>
-        <p>{{message.message}}</p>
-
+        <div class="center-v">
+            <p>{{message.message}}</p>
+        </div>
     </div>
 </div>

@@ -17,10 +17,10 @@ export class SuccessAndFailMessagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     setTimeout(() => { 
       this.closeEvent.emit() ; 
     } , 5000 ) ; 
+    
   }
 
 }

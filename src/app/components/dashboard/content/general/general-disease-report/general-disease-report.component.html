@@ -1,5 +1,9 @@
 <div class="main-container primary-radius">
     <h5>Rapport des maladies</h5>
+    <p class="no-data-message" *ngIf="radarChartLabels.length ==0">
+
+        aucune maladie n'a été trouvée, veuillez effectuer quelques visites
+    </p>
     <div class="canvas-container">
         <canvas baseChart [legend]="false" height="220px" [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels" [chartType]="radarChartType"></canvas>
     </div>

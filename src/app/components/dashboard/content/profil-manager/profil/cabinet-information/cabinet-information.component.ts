@@ -188,19 +188,7 @@ export class CabinetInformationComponent implements OnInit {
 
         this.interactionService.cabinetCreated.next(this.cabinet);
 
-        var medicalAct = new MedicalAct();
-        medicalAct.name = "Consultation";
-
-        this.router.navigate([], {
-          queryParams:
-          {
-            'pop-up-window': true,
-            'window-page': 'medical-act-submitter',
-            'medical-act': encodeURIComponent( JSON.stringify(medicalAct) ) ,
-            "title": "Ajouter au moins un Acte médicale"
-          }
-        });
-
+       
 
 
       })

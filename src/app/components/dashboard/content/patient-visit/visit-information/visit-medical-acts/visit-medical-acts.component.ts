@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MedicalAct } from 'src/app/classes/MedicalAct';
 import { InteractionService } from 'src/app/services/interaction.service';
@@ -10,13 +12,17 @@ import { InteractionService } from 'src/app/services/interaction.service';
   templateUrl: './visit-medical-acts.component.html',
   styleUrls: ['./visit-medical-acts.component.css']
 })
-export class VisitMedicalActsComponent implements OnInit {
+export class VisitMedicalActsComponent implements OnInit , OnDestroy{
   public medicalActs: MedicalAct[] = [];
   @Input() selectedMedicalActs: MedicalAct[] = [];
   @Input() active : boolean = false ;
   @Input() valid : boolean = true ; 
   public totalPrice: number = 0;
-  constructor(private apollo: Apollo , private interactionService : InteractionService) { }
+  public subscriptions : Subscription[] = [] ;  
+  constructor(
+    private apollo: Apollo , 
+    private interactionService : InteractionService , 
+    private router : Router) { }
 
   ngOnInit(): void {
     this.apollo.query({
@@ -35,6 +41,13 @@ export class VisitMedicalActsComponent implements OnInit {
         this.totalPrice += act.price;
       })
     })
+
+    this.subscriptions.push(
+      this.interactionService.medicalActCreated.subscribe((medicalAct) => { 
+        this.medicalActs.push(medicalAct) ; 
+        this.selectedMedicalActs.push(medicalAct) ; 
+      })
+    )
 
   }
 
@@ -65,4 +78,24 @@ export class VisitMedicalActsComponent implements OnInit {
     return index >= 0;
   }
 
+
+  public open()  { 
+    var medicalAct = new MedicalAct();
+    medicalAct.name = "Consultation";
+
+    this.router.navigate([], {
+      queryParams:
+      {
+        'pop-up-window': true,
+        'window-page': 'medical-act-submitter',
+        'medical-act': encodeURIComponent( JSON.stringify(medicalAct) ) ,
+        "title": "Ajouter au moins un Acte médicale"
+      }
+    });
+  }
+
+
+  public ngOnDestroy() { 
+    this.subscriptions.forEach(subs => subs.unsubscribe()) 
+  }
 }

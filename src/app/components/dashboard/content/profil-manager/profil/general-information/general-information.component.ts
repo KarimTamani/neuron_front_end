@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 import { map } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { InteractionService } from 'src/app/services/interaction.service';
 @Component({
   selector: 'app-general-information',
   templateUrl: './general-information.component.html',
@@ -51,7 +52,7 @@ export class GeneralInformationComponent implements OnInit {
     ])
   });
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo , private interactionService : InteractionService) { }
   ngOnInit(): void {
     // get the doctor profil from the apollo server
     this.apollo.query<any>({
@@ -143,9 +144,10 @@ export class GeneralInformationComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).editDoctor)).subscribe((data) => {
       var doctorAuth = JSON.parse( localStorage.getItem("doctorAuth") )  ; 
       var cabinet = doctorAuth.doctor.cabinet ; 
-      doctorAuth.doctor = data ; 
-      doctorAuth.doctor.cabinet = cabinet ; 
-      localStorage.setItem("doctorAuth", JSON.stringify(doctorAuth))
+      data.doctor.cabinet = cabinet ; 
+
+      localStorage.setItem("doctorAuth", JSON.stringify(data)) ; 
+      this.interactionService.profilEdited.next(data.doctor) ; 
     })
   }
 }

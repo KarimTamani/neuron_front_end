@@ -1,7 +1,7 @@
 <div class="main-container">
     <app-analytics-header [showOptions]="false" (periodSelectedEvent)="periodSelected($event)" [title]="'Diagnostic intelligents'"></app-analytics-header>
     <div class="row">
-        <p class="no-data-message">aucun diagnostic intelligent n'a été affecté pendant cette période
+        <p class="no-data-message" *ngIf="analytics.length == 0">aucun diagnostic intelligent n'a été affecté pendant cette période
         </p>
         <div class="col col-md-4" *ngFor="let slice of analytics">
             <app-diagnosis-percentage [slice]="slice"></app-diagnosis-percentage>

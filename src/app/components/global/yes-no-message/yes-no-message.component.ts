@@ -8,23 +8,37 @@ import { InteractionService } from 'src/app/services/interaction.service';
   styleUrls: ['./yes-no-message.component.css']
 })
 export class YesNoMessageComponent implements OnInit, OnDestroy {
-  public message : string ; 
-  @Output() closeEvent : EventEmitter<null> ; 
-  constructor(private route : ActivatedRoute , private interactionService : InteractionService) {
-    this.closeEvent = new EventEmitter<null>() ; 
+  public message: string;
+  @Output() closeEvent: EventEmitter<null>;
+  public tag: string = null;
+  constructor(
+    private route: ActivatedRoute,
+    private interactionService: InteractionService) {
+    this.closeEvent = new EventEmitter<null>();
   }
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.message = params.message 
-    })
+
+    var params = this.route.snapshot.queryParams
+
+    this.message = params["message"];
+    if (params["tag"])
+      this.tag = params["tag"]
+
   }
 
-  submit(value : boolean) {
-    this.interactionService.yesOrNo.next(value) ; 
-    this.closeEvent.emit() ; 
+  submit(value: boolean) {
+    if (this.tag == null)
+      this.interactionService.yesOrNo.next(value);
+    else
+      this.interactionService.yesOrNo.next({
+        tag: this.tag,
+        response: value
+      });
+
+    this.closeEvent.emit();
   }
 
-  ngOnDestroy() { 
-    this.interactionService.yesOrNo.next(null) ; 
+  ngOnDestroy() {
+    this.interactionService.yesOrNo.next(null);
   }
 }

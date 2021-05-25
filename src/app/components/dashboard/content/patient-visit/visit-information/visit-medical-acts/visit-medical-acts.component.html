@@ -2,7 +2,10 @@
     <app-no-visit-background *ngIf="!active"></app-no-visit-background>
     <h5>Les Actes médicaux</h5>
     <div class="medical-acts-container" [class.is-invalid]="!valid">
-
+        <div class="create-one" *ngIf="medicalActs.length == 0">
+            <p class="no-data-message">aucun acte médical n'a été trouvé !</p>
+            <button class="secondary-button" (click)="open()">créer la consultation</button>
+        </div>
         <div class="medical-act stretch-container" *ngFor="let medicalAct of medicalActs" (click)="selectMedicalAct(medicalAct)" [class.selected]="isMedicalActSelected(medicalAct)">
             <span>
                 {{medicalAct.name}} 

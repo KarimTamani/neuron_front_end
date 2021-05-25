@@ -19,15 +19,15 @@ export class GeneralLineChartComponent implements OnInit {
   public lineChartLabels: Label[] = [];
   public lineChartOptions: ChartOptions;
   public lineChartColors: Color[] = [
-    { // red
-      backgroundColor: 'transparent',
-      borderColor: '#FE6555',
-    } , 
     { // dark grey
       backgroundColor: 'transparent',
       borderColor: '#265ED7',
 
-    } 
+    }  , 
+    { // red
+      backgroundColor: 'transparent',
+      borderColor: '#FE6555',
+    } , 
   ];
 
   // Set true to show legends

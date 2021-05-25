@@ -1,9 +1,8 @@
 <div class="header stretch-container">
     <h5>Vos activités</h5>
     <div class="controller stretch-container">
-        <p><span class="round"></span>Gain</p>
         <p><span class="round"></span>Visites</p>
-
+        <p><span class="round"></span>Gain</p>
         <div class="select-container">
             <select [(ngModel)]="selectedOption" (change)="selectPeriod()"> 
                 <option (click)="selectPeriod()" *ngFor="let option of options" [value]="option">{{option}}</option>

@@ -5,21 +5,18 @@
     transform: translateX(-50%);
     background: #212121;
     padding: 16px;
-    width: 260px;
+    width: 360px;
     color: white;
     font-size: 12px;
     animation: popUp 1s;
     z-index: 999;
-}
-
-.main-container i {
-    min-width: 26px;
-    max-width: 26px;
+    border-radius: 4px;
 }
 
 .main-container p {
     width: 100%;
     margin: 0px;
+    font-size: 14px;
 }
 
 @keyframes popUp {
@@ -31,4 +28,29 @@
         bottom: 16px;
         opacity: 1;
     }
+}
+
+.icon-v {
+    min-width: 56px;
+    max-width: 56px;
+    margin-right: 8px;
+}
+
+.icon-v i {
+    display: block;
+    margin: 0px auto;
+    padding: 8px 0px;
+    width: 40px;
+    text-align: center;
+    font-size: 18px;
+    border: 3px solid white;
+    border-radius: 50%;
+}
+
+.stretch-container.success .icon-v i {
+    background: rgb(38, 94, 215);
+}
+
+.stretch-container.fail .icon-v i {
+    background: rgb(254, 101, 85);
 }

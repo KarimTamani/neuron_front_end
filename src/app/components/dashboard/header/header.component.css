@@ -160,11 +160,53 @@ p {
 
 .username-container {
     width: 100%;
-    color: #27272F;
-    font-size: 14px;
+    color: #555;
+    font-size: 13px;
     text-transform: capitalize;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.username-container:hover .menu-options {
+    display: block;
+}
+
+.username-container:hover p {
+    color: #212121;
+}
+
+.username-container:hover p i {
+    color: rgb(38, 94, 215);
 }
 
 .username-container p i {
     margin-left: 16px;
+}
+
+.menu-options {
+    position: absolute;
+    padding: 16px;
+    background: white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), -2px -2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 86px;
+    z-index: 99;
+    display: none;
+}
+
+.menu-options ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.menu-options ul li:hover {
+    color: rgb(38, 94, 215);
+}
+
+.menu-options ul li i {
+    color: rgb(38, 94, 215);
+    margin-right: 4px;
 }

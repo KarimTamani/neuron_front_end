@@ -10,7 +10,7 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./diagnosis-analytics.component.css']
 })
 export class DiagnosisAnalyticsComponent implements OnInit {
-  public analytics: any;
+  public analytics: any[] = [];
   public interval: any = {
     startDate: null,
     endDate: null

@@ -58,9 +58,9 @@ export class GeneralLineChartHeaderComponent implements OnInit {
       default:
         break;
     }
- 
     this.interactionService.showMessage.next(<any>{
-      message : "la période sélectionnée : " + this.selectedOption  ,
+      message : "Période sélectionnée " + this.selectedOption  ,
+      
     })
   }
 

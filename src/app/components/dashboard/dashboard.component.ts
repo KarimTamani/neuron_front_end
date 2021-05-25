@@ -5,7 +5,7 @@ import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 import { Subscription } from 'rxjs';
 import { map } from "rxjs/operators";
-import { Message } from 'src/app/classes/Message';
+import { FAIL, Message, SUCCESS } from 'src/app/classes/Message';
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
@@ -95,6 +95,7 @@ export class DashboardComponent implements OnInit , OnDestroy {
       this.editedVisit = visit ; 
     }))
 
+ 
     this.subscriptions.push(this.interactionService.showMessage.subscribe((data) => {
       this.message = data ; 
       this.showMessage = true ; 

@@ -39,10 +39,17 @@
                     <i class="fa fa-bell"></i>
                 </div>
                 <div class="center-v profil-image-container">
-                    <img src="../../../../assets/male.jpg" id="profil-image">
+                    <img src="../../../../assets/male.jpg" id="profil-image" *ngIf="doctor.gender">
+                    <img src="../../../../assets/female.jpg" id="profil-image" *ngIf="!doctor.gender">
+
                 </div>
                 <div class="center-v username-container">
-                    <p>Dr : {{doctor.lastname }} {{doctor.name}} <i class="fa fa-sort-down"></i></p>
+                    <p>Dr {{doctor.name }} {{doctor.lastname }} <i class="fa fa-sort-down"></i></p>
+                    <div class="menu-options">
+                        <ul (click)="disconnect()">
+                            <li><i class="fa fa-sign-out-alt"></i> Déconnecter </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

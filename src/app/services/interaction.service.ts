@@ -18,6 +18,7 @@ import { CheckUpType } from '../classes/CheckUpType';
 import { CheckUp } from '../classes/CheckUp';
 import { Symptom } from '../classes/Symptom';
 import { Cabinet } from '../classes/Cabinet';
+import { Doctor } from '../classes/Doctor';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ import { Cabinet } from '../classes/Cabinet';
 export class InteractionService {
   public askForPremiumRequestSubject: Subject<null>;
   public updateService: Subject<Service[]>;
-  public yesOrNo: Subject<boolean>;
+  public yesOrNo: Subject<boolean  | any>;
   public assistantCreated: Subject<Assistant>;
   public medicalActCreated: Subject<MedicalAct>;
   public medicalActEdited: Subject<MedicalAct>;
@@ -58,20 +59,18 @@ export class InteractionService {
 
   public checkUpCreated : Subject<CheckUp>  ; 
   public checkUpEdited : Subject<CheckUp> ; 
-  
 
   public blackBackgroundActive :Subject<boolean> ; 
   public updateVisitSymptoms : Subject<Symptom[]> ; 
   public medicalFileEdited : Subject<MedicalFile> ; 
-  
-
   public cabinetCreated : Subject<Cabinet> ; 
 
+  public profilEdited : Subject<Doctor> ; 
 
   constructor() {
     this.askForPremiumRequestSubject = new Subject<null>();
     this.updateService = new Subject<Service[]>();
-    this.yesOrNo = new Subject<boolean>();
+    this.yesOrNo = new Subject<boolean | any >();
     this.assistantCreated = new Subject<Assistant>();
     this.medicalActCreated = new Subject<MedicalAct>();
     this.medicalActEdited = new Subject<MedicalAct>();
@@ -112,6 +111,7 @@ export class InteractionService {
 
     this.medicalFileEdited = new Subject<MedicalFile>() ; 
     this.cabinetCreated = new Subject<Cabinet>() ; 
-    
+
+    this.profilEdited = new Subject<Doctor>()  ;
    }
 }

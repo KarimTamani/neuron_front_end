@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild("queryInput", { static: true }) queryInput: any;
   public currentDate: Date;
 
-
+  public exitRequest : boolean = false ; 
 
   constructor(
     private router: Router,
@@ -37,7 +37,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private virtualAssistantService: VirtualAssistantService) { }
 
   ngOnInit(): void {
-    this.doctor = JSON.parse(localStorage.getItem("doctorAuth")).doctor;
+
+
+    var doctorAuth = JSON.parse(localStorage.getItem("doctorAuth"));
+    console.log(doctorAuth) ; 
+
+    this.doctor = doctorAuth.doctor ; 
+    console.log(this.doctor)  ; 
+
+    if ( this.doctor.gender ==  null)
+      this.doctor.gender = true ; 
+
     this.title = this.getPageTitle(this.router.url);
 
     this.subscriptions.push(this.router.events.subscribe((event) => {
@@ -45,6 +55,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.title = this.getPageTitle(this.router.url);
       }
     }));
+
+
+    this.subscriptions.push(this.interactionService.profilEdited.subscribe((data) => { 
+      this.doctor.name = data.name ; 
+      this.doctor.lastname = data.lastname ; 
+      this.doctor.gender = data.gender ; 
+       
+    }))
+
+
 
 
     this.subscriptions.push(this.apollo.query({
@@ -67,6 +87,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.search();
       }
 
+    })) ; 
+
+
+    this.subscriptions.push(this.interactionService.yesOrNo.subscribe((response) => { 
+      if (response && response.tag == "HEADER") { 
+        localStorage.removeItem("doctorAuth") ; 
+        this.exitRequest = true ; 
+      }
+      else if (response == null && this.exitRequest) { 
+        this.router.navigate(["/login"]) ; 
+    
+      }
     }))
   }
 
@@ -143,8 +175,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       queryParams: {
         "window-page": "medical-file-details",
         "pop-up-window": true,
-        "title": "Dossie Médical",
-        "medical-file-id": medicalFile.id
+        "title": "Dossier Médical",
+        "medical-file-id": medicalFile.id , 
+      
       }
     });
 
@@ -181,5 +214,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public frDate(date: string) {
 
     return this.dataService.castFRDate(new Date(date));
+  }
+
+
+  public disconnect() { 
+ 
+    this.router.navigate([] , { 
+      queryParams : { 
+        "pop-up-window" : true , 
+        "window-page" : "yes-no-message" , 
+        "title" : "Déconnexion" , 
+        "message" : "tu veux te déconnecter ?" , 
+        "tag" : "HEADER"
+      }
+    })
+ 
   }
 }
