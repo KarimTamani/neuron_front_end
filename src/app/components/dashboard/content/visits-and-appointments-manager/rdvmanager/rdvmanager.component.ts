@@ -77,7 +77,7 @@ export class RDVManagerComponent implements OnInit, OnDestroy {
           "pop-up-window" : true , 
           "window-page" : "yes-no-message" , 
           "title" : "Suppression de rendez-vous" , 
-          "message" : `Vous voulez vraiment supprimer le rendez-vous de ${appointment.visit.medicalFile.name} ${appointment.visit.medicalFile.lastname} ?`
+          "message" : `Vous souhaitez supprimer le rendez-vous de ${appointment.visit.medicalFile.name} ${appointment.visit.medicalFile.lastname} ?`
         }
       })
       const subs = this.interactionService.yesOrNo.subscribe((response) => { 
@@ -176,7 +176,7 @@ export class RDVManagerComponent implements OnInit, OnDestroy {
     this.router.navigate([] , {
       queryParams : { 
         "pop-up-window" : true , 
-        "title" : "Modifer le Rendez-vous" , 
+        "title" : "Modifier le Rendez-vous" , 
         "window-page" : "visit-appointment" , 
         "visit" : encodeURIComponent(JSON.stringify(visit))
       }

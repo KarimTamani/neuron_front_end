@@ -1,6 +1,6 @@
 <div class="main-container primary-radius">
     <app-no-visit-background *ngIf="!active"></app-no-visit-background>
-    <h5>Les Actes médicaux</h5>
+    <h5>Actes Médicaux</h5>
     <div class="medical-acts-container" [class.is-invalid]="!valid">
         <div class="create-one" *ngIf="medicalActs.length == 0">
             <p class="no-data-message">aucun acte médical n'a été trouvé !</p>
@@ -15,10 +15,7 @@
             </span>
             <i class="fa fa-check"></i>
         </div>
-
     </div>
-
-
     <div class="info">
         Montant Total <span class="hightlight">{{totalPrice}} DA</span>
     </div>

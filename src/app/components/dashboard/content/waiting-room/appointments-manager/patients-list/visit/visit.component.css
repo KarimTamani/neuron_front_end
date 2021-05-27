@@ -336,11 +336,11 @@
     }
     
     .controller span.visit:after {
-        content: "Lancer la visite";
+        content: "lancer";
     }
     
     .controller span.igonre:after {
-        content: "Annuler la visite";
+        content: "Annuler";
     }
     
     .controller span.restore:after {
@@ -352,15 +352,15 @@
     }
     
     .controller span.start-visit:after {
-        content: "Lancer la visite";
+        content: "Lancer";
     }
     
     .controller span.paye-visit:after {
-        content: "Payer la visite"
+        content: "Paiment"
     }
     
     .controller span.visit-done:after {
-        content: "Terminé la visite "
+        content: "Terminer"
     }
     
     .visit-container.fade-in {

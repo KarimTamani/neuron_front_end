@@ -36,7 +36,7 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
       queryParams: {
         "pop-up-window": true,
         "window-page": "check-up-type-submitter",
-        "title": "Modifer le type de bilan",
+        "title": "Modifier le type de bilan",
         "check-up-type": encodeURIComponent(JSON.stringify(this.checkUpType))
       }
     });
@@ -54,8 +54,8 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
       queryParams :  { 
         "pop-up-window" : true ,
         "window-page" : "yes-no-message" , 
-        "message" : "Voulais vous vraiment suprimer le "+this.checkUpType.name , 
-        "title" : "Suprission d'un bilan" 
+        "message" : "vous voulez supprimer le bilan "+this.checkUpType.name , 
+        "title" : "Suppression du bilan" 
       }
     }); 
     const subs = this.interactionService.yesOrNo.subscribe((response) => {
@@ -86,7 +86,7 @@ export class CheckUpTypeComponent implements OnInit, OnDestroy {
       queryParams : { 
         "pop-up-window" : true , 
         "window-page" : "check-up-submitter" , 
-        "title" : "Ajoter un paramétre de bilan" , 
+        "title" : "Ajouter un paramétre de bilan" , 
         "check-up-type" : encodeURIComponent(JSON.stringify(this.checkUpType))
       }
     }); 

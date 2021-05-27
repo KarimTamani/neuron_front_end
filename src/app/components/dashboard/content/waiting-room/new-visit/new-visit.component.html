@@ -115,7 +115,7 @@
                     <i class="fa fa-arrow-left primary-button" (click)="showNewMedicalFile = false ; whiteBackground = false"></i> Créer Un Dossier médical
                 </h5>
             </div>
-            <app-new-medical-file (newMedicalFileEvent)="newMedicalFile($event)" [medicalFile]="visit.medicalFile" (blackWindowEvent)="blackWindow = !blackWindow"></app-new-medical-file>
+            <app-new-medical-file (newMedicalFileEvent)="newMedicalFile($event)" [medicalFile]="visit.medicalFile" (blackWindowEvent)="blackWindow = !blackWindow" (closeEvent)="showNewMedicalFile = false ; whiteBackground = false"></app-new-medical-file>
         </div>
     </div>
 
@@ -126,7 +126,7 @@
                     <i class="fa fa-arrow-left primary-button" (click)="showVitalSetting = false ; whiteBackground = false"></i> Ajouter des Paramètres vitaux
                 </h5>
             </div>
-            <app-vital-setting [vitalSetting]="visit.vitalSetting"></app-vital-setting>
+            <app-vital-setting [vitalSetting]="visit.vitalSetting" (closeEvent)="showVitalSetting = false ; whiteBackground = false"></app-vital-setting>
         </div>
     </div>
 </div>

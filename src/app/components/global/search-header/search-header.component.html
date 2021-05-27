@@ -1,10 +1,10 @@
 <div class="main-container primary-radius">
     <div class="stretch-container">
         <div class="search-input">
-            <input type="text" [(ngModel)]="searchQuery.searchQuery" placeholder="Rechercher nom prénom email telephone date de n'assance" class="primary-input">
+            <input type="text" (keyup)="keyup($event)" [(ngModel)]="searchQuery.searchQuery" placeholder="Rechercher nom prénom email telephone date de naissance" class="primary-input">
         </div>
         <div class="address">
-            <input type="text" placeholder="Adresse" class="primary-input" [(ngModel)]="searchQuery.address">
+            <input type="text" (keyup)="keyup($event)" placeholder="Adresse" class="primary-input" [(ngModel)]="searchQuery.address">
         </div>
         <div class="wilaya">
             <select (change)="wilayaSelected()" [(ngModel)]="searchQuery.wilayaId">

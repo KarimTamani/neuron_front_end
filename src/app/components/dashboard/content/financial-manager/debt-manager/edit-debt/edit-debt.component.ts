@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { SUCCESS } from 'src/app/classes/Message';
 
 import { Visit } from 'src/app/classes/Visit';
 import { InteractionService } from 'src/app/services/interaction.service';
@@ -50,6 +51,10 @@ export class EditDebtComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).editVisitPayment)).subscribe((data) => {
       
       this.interactionService.visitPayed.next(this.visit);
+      this.interactionService.showMessage.next({
+        message : "dette réglée" , 
+        type : SUCCESS 
+      })
       this.closeEvent.emit();
     })
 

@@ -39,8 +39,8 @@ export class VisitRowComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "visit-details",
-        "title": "Visiste en details",
-        "visit-id": this.visit.id
+        "title": "Détails de la visite",
+        "visit-id": this.visit.id ,  
       }
     })
   }

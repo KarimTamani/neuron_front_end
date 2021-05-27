@@ -6,6 +6,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { Message, SUCCESS } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-paye-visit',
@@ -88,8 +89,7 @@ export class PayeVisitComponent implements OnInit {
   public async payeVisit() {
 
     if (this.submitFirst) {
-      var result = await this.addVisitMedicalActs();
-
+      await this.addVisitMedicalActs();
     }
 
     this.apollo.mutate({
@@ -103,6 +103,10 @@ export class PayeVisitComponent implements OnInit {
       this.visit.status = "visit payed";
       this.interactionService.visitPayed.next(this.visit);
       this.closeEvent.emit();
+      this.interactionService.showMessage.next(<Message>{
+        message : `paiement effectué ${(this.visit.debt) ? ("avec crédit") : ("")}` , 
+        type : SUCCESS
+      })
     })
   }
 
@@ -145,9 +149,6 @@ export class PayeVisitComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).addVisitMedicalActs)).toPromise()
   }
 
-
-
-
   public editVisitPayment() {
     this.apollo.mutate({
       mutation: gql`
@@ -160,6 +161,10 @@ export class PayeVisitComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).editVisitPayment)).subscribe((data) => {
       this.visit.status = "visit payed";
       this.interactionService.visitPayed.next(this.visit);
+      this.interactionService.showMessage.next(<Message>{
+        message : `paiement effectué ${(this.visit.debt) ? ("avec crédit") : ("")}` , 
+        type : SUCCESS
+      })
       this.closeEvent.emit();
     })
   }

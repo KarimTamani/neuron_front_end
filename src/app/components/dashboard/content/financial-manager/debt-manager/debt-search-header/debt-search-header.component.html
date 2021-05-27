@@ -2,21 +2,22 @@
 
     <div class="stretch-container">
         <div class="search-input">
-            <input type="text" [(ngModel)]="searchQuery.searchQuery" placeholder="Rechercher nom prénom date de naissance telephone email" class="primary-input">
+            <input type="text" (keyup)="keyup($event)" [(ngModel)]="searchQuery.searchQuery" placeholder="Rechercher nom prénom date de naissance telephone email" class="primary-input">
         </div>
         <div class="hint center-v">
             <p>Débute</p>
         </div>
         <div class="date-input">
-            <input type="date" placeholder="Date de debut" class="primary-input" [(ngModel)]="searchQuery.startDate">
+            <input type="date" (keyup)="keyup($event)" placeholder="Date de debut" class="primary-input" [(ngModel)]="searchQuery.startDate">
         </div>
 
         <div class="hint center-v">
             <p>Fin</p>
         </div>
         <div class="date-input">
-            <input type="date" placeholder="Date de debut" class="primary-input" [(ngModel)]="searchQuery.endDate">
+            <input type="date" (keyup)="keyup($event)" placeholder="Date de debut" class="primary-input" [(ngModel)]="searchQuery.endDate">
         </div>
+
         <div class="control-icons">
 
             <i class="fa fa-times" (click)="clear()"></i>

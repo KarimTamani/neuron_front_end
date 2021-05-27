@@ -15,7 +15,7 @@ export class ExpensesManagerComponent implements OnInit , OnDestroy {
   public expenses: Expense[] = [];
   public searchQuery : any = {} ; 
   public offset : number = 0 ; 
-  public limit : number = 1  ;  
+  public limit : number = 30 ;  
   public count : number = 0 ; 
   public subscriptions : Subscription[] = [] ; 
   constructor(private apollo: Apollo , private interactionSerivce : InteractionService , private router : Router) {}
@@ -85,7 +85,7 @@ export class ExpensesManagerComponent implements OnInit , OnDestroy {
       queryParams : { 
         "pop-up-window" : true , 
         "window-page" : "add-expense" , 
-        "title" :"ajouter un frais" , 
+        "title" :"Modifier le coût" , 
         "expense" : encodeURIComponent(JSON.stringify(expense)) 
       }
     })  

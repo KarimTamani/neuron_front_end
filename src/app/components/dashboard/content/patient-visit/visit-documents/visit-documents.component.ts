@@ -68,7 +68,7 @@ export class VisitDocumentsComponent implements OnInit, OnDestroy {
        
       this.delete(event);
       this.interactionService.showMessage.next(<Message>{
-        message: `le document ${event.name} est supprimé`,
+        message: `Document ${event.name} est supprimé`,
         type: SUCCESS
       })
     }));
@@ -145,7 +145,7 @@ export class VisitDocumentsComponent implements OnInit, OnDestroy {
       queryParams: {
         "pop-up-window": true,
         "window-page": "document-details",
-        "title": "Details du document",
+        "title": "Détails du document",
         "document": encodeURIComponent(JSON.stringify(document))
       }
     });

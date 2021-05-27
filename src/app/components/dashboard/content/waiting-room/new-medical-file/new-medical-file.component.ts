@@ -189,7 +189,8 @@ export class NewMedicalFileComponent implements OnInit {
 
           if (this.medicalFile.profession == null)
             this.medicalFile.profession = new Profession();
-
+          if (!this.medicalFile.antecedents)
+            this.medicalFile.antecedents = [];
           if (this.medicalFile.address && this.medicalFile.address.commune) {
 
             this.selectedWilaya = this.wilayas.find(value => value.id == this.medicalFile.address.commune.wilaya.id);
@@ -368,9 +369,9 @@ export class NewMedicalFileComponent implements OnInit {
         this.interactionService.newMedicalFile.next(data);
 
       this.interactionService.showMessage.next(<Message>{
-        message: `le dossier médical de ${this.medicalFile.name} ${this.medicalFile.lastname} a été créé`,
+        message: `Dossier médical de ${this.medicalFile.name} ${this.medicalFile.lastname} a été créé`,
         type: SUCCESS
-      })
+      }) ; 
       this.closeEvent.emit()
     })
   }
@@ -442,6 +443,11 @@ export class NewMedicalFileComponent implements OnInit {
       variables: variables
     }).pipe(map(value => (<any>value.data).editMedicalFile)).subscribe((data) => {
       this.interactionService.medicalFileEdited.next(this.medicalFile);
+      
+      this.interactionService.showMessage.next(<Message>{
+        message: `Dossier médical de ${this.medicalFile.name} ${this.medicalFile.lastname} a édité`,
+        type: SUCCESS
+      }) ; 
       this.closeEvent.emit();
     })
   }

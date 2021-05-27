@@ -14,12 +14,13 @@ export class LoginComponent implements OnInit {
   // for group for validation of input fields 
   public form: FormGroup = new FormGroup({
     email: new FormControl("", [
-      Validators.required, Validators.email
+      Validators.required, this.identifierValidator  
     ]),
     password: new FormControl("", [
       Validators.required, Validators.maxLength(20), Validators.minLength(7)
     ])
-  })
+  }) ; 
+  public errorMessage : string ; 
   public loaded: boolean = false;
   constructor(private apollo: Apollo, private router: Router) { }
 
@@ -67,8 +68,24 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("doctorAuth", JSON.stringify(data));
       },
       (error) => {
-
+        this.errorMessage = error.message.replace('GraphQL error:', '').trim()
+        
       })
+  }
+
+
+  private identifierValidator(formControl: FormControl): any {
+    let identifier = formControl.value;
+    const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    // validate the phone to algerian phone and fix 
+    if (identifier && !identifier.match(/^(00213|\+213|0)(5|6|7)[0-9]{8}$/) && !identifier.match(re))
+      return {
+        pattern: {
+          identifier: identifier
+        }
+      };
+    return null;
   }
 
 }

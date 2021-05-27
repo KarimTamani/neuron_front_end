@@ -49,7 +49,7 @@ export class DrugDosagesLibraryComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "prescription-model-submitter",
-        "title": "Ajouter un nouvelle model de traitments"
+        "title": "Ajouter un nouveau modèle de traitements"
       }
     });
     const subscription = this.interactionService.addprescriptionModel.subscribe((prescriptionModel) => {

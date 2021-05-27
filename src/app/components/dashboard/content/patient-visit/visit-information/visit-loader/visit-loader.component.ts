@@ -18,29 +18,32 @@ import { FAIL, Message } from 'src/app/classes/Message';
 })
 export class VisitLoaderComponent implements OnInit {
   @Input() visit: Visit;
-  @Input() isEdit : boolean = false ; 
+  @Input() isEdit: boolean = false;
   @Output() visitSelectedEvent: EventEmitter<Visit>;
-  @Output() editVisitEvent : EventEmitter<Visit> ; 
-  @Output() saveVisitEvent : EventEmitter<Visit> ; 
+  @Output() editVisitEvent: EventEmitter<Visit>;
+  @Output() saveVisitEvent: EventEmitter<Visit>;
 
   public showSearch: boolean = false;
   public submittedMedicalFile: MedicalFile;
   public waitingRoom: WaitingRoom;
-  public medicalFileValid : boolean = true ; 
-  public currentDate : Date ; 
+  public medicalFileValid: boolean = true;
+  public currentDate: Date;
   constructor(
-    private apollo: Apollo, 
-    private dataService: DataService , 
-    private router : Router , 
-    private interactionService : InteractionService) {
+    private apollo: Apollo,
+    private dataService: DataService,
+    private router: Router,
+    private interactionService: InteractionService) {
 
     this.submittedMedicalFile = new MedicalFile();
     this.visitSelectedEvent = new EventEmitter<Visit>();
 
-    this.editVisitEvent = new EventEmitter<Visit>() ; 
-    this.saveVisitEvent = new EventEmitter<Visit>() ; 
+    this.editVisitEvent = new EventEmitter<Visit>();
+    this.saveVisitEvent = new EventEmitter<Visit>();
 
   }
+
+
+
   ngOnInit(): void {
     if (this.visit.medicalFile == null)
       this.showSearch = true;
@@ -51,7 +54,7 @@ export class VisitLoaderComponent implements OnInit {
             getCurrentDate
           }`
     }).pipe(map(value => (<any>value.data).getCurrentDate)).subscribe((data) => {
-      this.currentDate = data ; 
+      this.currentDate = data;
       this.apollo.query({
         query: gql`
           { 
@@ -62,7 +65,7 @@ export class VisitLoaderComponent implements OnInit {
             }
           }`
       }).pipe(map(value => (<any>value.data).getWaitingRoom)).subscribe((data) => {
-        if (data == null) { 
+        if (data == null) {
           this.apollo.mutate({
             mutation: gql`
               mutation {
@@ -74,10 +77,10 @@ export class VisitLoaderComponent implements OnInit {
               } 
             `
           }).pipe(map(value => (<any>value.data).addWaitingRoom)).subscribe((data) => {
-           
+
             this.waitingRoom = data;
             this.waitingRoom.visits = [];
-           
+
           })
         } else
           this.waitingRoom = data;
@@ -88,15 +91,19 @@ export class VisitLoaderComponent implements OnInit {
 
 
 
-  public clickMedicalFile($event) { 
-    this.router.navigate([]  , { 
-      queryParams : { 
-        "window-page" : "medical-file-details" , 
-        "pop-up-window" : true , 
-        "title" : "Dossie Médical" , 
-        "medical-file-id" : $event.id , 
-        "in-visit" : true , 
-        "current-date" : this.currentDate 
+  public frDate(date: string) {
+    return this.dataService.castFRDate(new Date(date));
+  }
+
+  public clickMedicalFile($event) {
+    this.router.navigate([], {
+      queryParams: {
+        "window-page": "medical-file-details",
+        "pop-up-window": true,
+        "title": "Dossier Médical",
+        "medical-file-id": $event.id,
+        "in-visit": true,
+        "current-date": this.currentDate
       }
     })
   }
@@ -191,18 +198,18 @@ export class VisitLoaderComponent implements OnInit {
         this.visit.waitingRoomId = this.waitingRoom.id;
         this.visit.order = this.visit.waitingRoom.visits.length + 1
       }
-      
+
       this.visitSelectedEvent.emit(this.visit);
-      this.medicalFileValid = true ; 
+      this.medicalFileValid = true;
 
     })
   }
 
 
 
-  public change($event) { 
-    if ($event.name && $event.name.trim().length > 0) { 
-      this.interactionService.visitEdited.next() ; 
+  public change($event) {
+    if ($event.name && $event.name.trim().length > 0) {
+      this.interactionService.visitEdited.next();
     }
   }
   public closeMedicalFile() {
@@ -249,40 +256,40 @@ export class VisitLoaderComponent implements OnInit {
   }
 
   public saveVsit() {
-    if (!this.visit.medicalFile) { 
-      this.medicalFileValid = false ; 
+    if (!this.visit.medicalFile) {
+      this.medicalFileValid = false;
       this.interactionService.showMessage.next(<Message>{
-        message : "choisissez un dossier médical" , 
-        type : FAIL
+        message: "choisissez un dossier médical",
+        type: FAIL
       })
-      return ; 
+      return;
     }
 
-    if (this.visit.id) { 
-      this.editVisitEvent.emit(this.visit) ; 
-    }else { 
-      this.saveVisitEvent.emit(this.visit) ;  
-    } 
+    if (this.visit.id) {
+      this.editVisitEvent.emit(this.visit);
+    } else {
+      this.saveVisitEvent.emit(this.visit);
+    }
   }
- 
 
-  public openMedicalFileSubmitter() { 
-    this.router.navigate([] , { 
-      queryParams : { 
-        "title" : "Ajouter un nouveau Dossie Medical" , 
-        "window-page" : "medical-file-submitter" , 
-        "pop-up-window" : true , 
+
+  public openMedicalFileSubmitter() {
+    this.router.navigate([], {
+      queryParams: {
+        "title": "Ajouter un nouveau Dossier Médical",
+        "window-page": "medical-file-submitter",
+        "pop-up-window": true,
       }
-    }); 
-    const subscription = this.interactionService.newMedicalFile.subscribe((data) => { 
-      this.visit.medicalFile = data ; 
-      this.submittedMedicalFile = this.visit.medicalFile ; 
-      
+    });
+    const subscription = this.interactionService.newMedicalFile.subscribe((data) => {
+      this.visit.medicalFile = data;
+      this.submittedMedicalFile = this.visit.medicalFile;
+
       this.visit.waitingRoom = this.waitingRoom;
       this.visit.waitingRoomId = this.waitingRoom.id;
-      this.visit.order = this.visit.waitingRoom.visits.length + 1 ;       
-      this.medicalFileValid = true 
-      subscription.unsubscribe() ; 
+      this.visit.order = this.visit.waitingRoom.visits.length + 1;
+      this.medicalFileValid = true
+      subscription.unsubscribe();
 
     })
   }

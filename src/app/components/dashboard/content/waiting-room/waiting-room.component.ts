@@ -65,8 +65,6 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
       this.waitingRoom = null;
       this.loadWaitingRoom();
       this.interactionService.updateReport.next();
-      
-      
     }));
 
     this.subscriptions.push(this.virtualAssistantService.onVACommand.subscribe((data) => {

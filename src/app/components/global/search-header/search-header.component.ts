@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { Subscription } from 'rxjs';
+import { SUCCESS } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-search-header',
@@ -54,6 +55,16 @@ export class SearchHeaderComponent implements OnInit {
 
   public search() {
     this.searchEvent.emit (this.searchQuery) ; 
+    this.interactionService.showMessage.next({
+      message : "Recherche effectuée" , 
+      type : SUCCESS
+    })
+  }
+
+  public keyup($event) { 
+    if ($event.key == "Enter") { 
+      this.search() ; 
+    }
   }
 
   public clear() { 
@@ -68,7 +79,7 @@ export class SearchHeaderComponent implements OnInit {
       queryParams : { 
         "pop-up-window" : true , 
         "window-page" : this.advancedSearchOption  , 
-        "title" : "La recherche avancé"  , 
+        "title" : "Recherche Avancée"  , 
         "search-query" : encodeURIComponent(JSON.stringify(this.searchQuery)) 
       }
     }); 

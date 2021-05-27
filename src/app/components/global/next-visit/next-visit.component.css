@@ -54,7 +54,7 @@ p i {
     padding: 16px;
 }
 
-.footer .price {
+.footer .info {
     width: 100%;
 }
 
@@ -67,7 +67,7 @@ p i {
     min-width: 160px;
 }
 
-.footer .price span {
+.footer .info span {
     color: rgb(254, 101, 85);
     background: rgb(254, 101, 85, 0.3);
     padding: 2px 6px;

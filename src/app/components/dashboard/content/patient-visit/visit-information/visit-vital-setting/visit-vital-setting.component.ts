@@ -33,7 +33,7 @@ export class VisitVitalSettingComponent implements OnInit {
         "pop-up-window": true,
         "window-page": "vital-setting",
         "vital-setting": encodeURIComponent(JSON.stringify(this.vitalSetting)),
-        "title": "Modifier les paramétres vitaux"
+        "title": "Modifier les paramètres vitaux"
       }
     });
     const subscription = this.interactionService.vitalSettingEdited.subscribe((data) => {

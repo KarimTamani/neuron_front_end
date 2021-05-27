@@ -8,10 +8,10 @@
         <div class="col col-md-12">
             <div class="new-medicalfile-message stretch-container" *ngIf="visit.medicalFile == null">
                 <p>
-                    Si le dossie médical n'existe pas
+                    Si le dossier médical n'existe pas
                 </p>
                 <button class="secondary-button" (click)="showNewMedicalFile = true" (click)="openMedicalFileSubmitter()">
-                    Creé le <i class="fa fa-plus"></i>
+                    Créé  <i class="fa fa-plus"></i>
                 </button>
             </div>
             <div class="medical-file" *ngIf="visit.medicalFile && currentDate">
@@ -19,9 +19,9 @@
             </div>
         </div>
         <div class="col col-md-12" *ngIf="visit.waitingRoom">
-            <h5>Salle d'attent</h5>
+            <h5>Salle d'attente</h5>
             <p class="waiting-room-info">
-                <span><i class="fa fa-calendar"></i>{{visit.waitingRoom.date}}</span>
+                <span><i class="fa fa-calendar"></i>{{frDate(visit.waitingRoom.date)}}</span>
                 <span><i class="fa fa-sort-amount-up"></i>{{visit.order}} {{(visit.order == 1) ? ("er") : ("éme")}}</span>
             </p>
         </div>

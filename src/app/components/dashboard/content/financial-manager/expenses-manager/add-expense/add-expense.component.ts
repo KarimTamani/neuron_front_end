@@ -6,6 +6,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Expense } from 'src/app/classes/Expense';
+import { SUCCESS } from 'src/app/classes/Message';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -73,6 +74,10 @@ export class AddExpenseComponent implements OnInit {
         }
     }).pipe(map(value => (<any>value.data).addExpense)).subscribe((data) => { 
       this.interactionService.newExpenseAdded.next(data) ; 
+      this.interactionService.showMessage.next({
+        message : "coût ajouté" , 
+        type : SUCCESS 
+      })
       this.closeEvent.emit() ; 
     })
   }
@@ -90,6 +95,10 @@ export class AddExpenseComponent implements OnInit {
         }
     }).pipe(map(value => (<any>value.data).addExpense)).subscribe((data) => { 
       this.interactionService.editExpense.next(this.expense) ; 
+      this.interactionService.showMessage.next({
+        message : "coût modifié" , 
+        type : SUCCESS 
+      })
       this.closeEvent.emit() ; 
     })
   }

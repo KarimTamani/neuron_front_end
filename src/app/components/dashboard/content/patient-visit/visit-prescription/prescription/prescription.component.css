@@ -3,11 +3,54 @@
     position: relative;
 }
 
+.black-background {
+    background: rgba(0, 0, 0, 0.5);
+    width: 520px;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    height: 680px;
+    border-radius: 4px;
+}
+
+.black-background {
+    color: white;
+    opacity: 0;
+    transition-duration: 0.3s;
+}
+
+.main-container:hover .black-background {
+    opacity: 1;
+}
+
+.printer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.printer:hover {
+    color: rgb(38, 94, 215);
+    cursor: pointer;
+}
+
+.printer i {
+    font-size: 52px;
+    transition-duration: 0.3s;
+}
+
+.printer h5 {
+    font-weight: bold;
+    transition-duration: 0.3s;
+}
+
 .prescription {
     border: 1px solid #212121;
     border-radius: 8px;
     padding: 16px;
     height: 680px;
+    width: 520px;
 }
 
 .body {

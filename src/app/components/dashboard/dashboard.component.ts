@@ -125,7 +125,7 @@ export class DashboardComponent implements OnInit , OnDestroy {
                 queryParams : { 
                   "pop-up-window" : true , 
                   "window-page" : "next-visit" , 
-                  "title" : "la prochaine visite" , 
+                  "title" : "Prochaine visite" , 
                   "visit" : encodeURIComponent(JSON.stringify(data))
                 }
               })

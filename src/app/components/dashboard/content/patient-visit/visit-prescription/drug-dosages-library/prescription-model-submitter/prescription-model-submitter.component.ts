@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { Message, SUCCESS } from 'src/app/classes/Message';
 import { PrescriptionModel } from 'src/app/classes/PrescriptionModel';
 import { InteractionService } from 'src/app/services/interaction.service';
 
@@ -60,6 +61,10 @@ export class PrescriptionModelSubmitterComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).addPrescriptionModel)).subscribe((data) => {
       this.prescriptionModel = data;
       this.interactionService.addprescriptionModel.next(this.prescriptionModel);
+      this.interactionService.showMessage.next(<Message>{
+        message : "Modèle de traitement est ajouté" ,
+        type : SUCCESS  
+      }) ; 
       this.closeEvent.emit();
     })
   }
@@ -90,6 +95,10 @@ export class PrescriptionModelSubmitterComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).addPrescriptionModel)).subscribe((data) => {
       
       this.interactionService.editPrescriptionModel.next(this.prescriptionModel);
+      this.interactionService.showMessage.next(<Message>{
+        message : "Modèle de traitement est Édité" ,
+        type : SUCCESS  
+      }) ; 
       this.closeEvent.emit();
     })
     

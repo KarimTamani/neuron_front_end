@@ -80,7 +80,7 @@ export class DocumentSubmitterComponent implements OnInit {
     }).pipe(map(value => (<any>value.data).addDocument)).subscribe((data) => {
       this.interactionService.documentAdded.next(data);
       this.interactionService.showMessage.next(<Message> {
-        message : `le document ${this.document.name} est ajouté` , 
+        message : `Document ${this.document.name} est ajouté` , 
         type : SUCCESS
       })
       this.closeEvent.emit();
@@ -113,7 +113,7 @@ export class DocumentSubmitterComponent implements OnInit {
       
       this.interactionService.documentEdit.next(data);
       this.interactionService.showMessage.next(<Message> {
-        message : `le document ${this.document.name} est édité` , 
+        message : `Document ${this.document.name} est édité` , 
         type : SUCCESS
       })
       this.closeEvent.emit();

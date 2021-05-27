@@ -21,7 +21,7 @@
 }
 
 .search-result ul li {
-    padding: 4px 12px;
+    padding: 6px 12px;
     color: #555555;
     transition-duration: 0.3s;
     cursor: pointer;
@@ -37,6 +37,19 @@
     float: right;
 }
 
+p {
+    margin: 0px;
+    font-size: 12px;
+}
+
+.info {
+    margin-top: 6px;
+}
+
 .medicalFile span {
     font-weight: bold;
+}
+
+.name {
+    text-transform: capitalize;
 }

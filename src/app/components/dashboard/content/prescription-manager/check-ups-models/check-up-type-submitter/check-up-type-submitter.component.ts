@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { CheckUp } from 'src/app/classes/CheckUp';
 import { CheckUpType } from 'src/app/classes/CheckUpType';
+import { SUCCESS } from 'src/app/classes/Message';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -62,7 +63,11 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       map(value => (<any>value.data).addCheckUpType)
     ).subscribe((data) => { 
       data.checkUps = [] ; 
-      this.interactionService.checkUpTypeCreated.next(data) ; 
+      this.interactionService.checkUpTypeCreated.next(data) ;
+      this.interactionService.showMessage.next({
+        message : "Modèle de bilan est ajouté" , 
+        type : SUCCESS
+      }); 
       this.closeEvent.emit() ; 
     })
   }
@@ -79,6 +84,10 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       map(value => (<any>value.data).addCheckUpType)
     ).subscribe((data) => { 
       this.interactionService.checkUpTypeEdited.next(this.checkUpType) ; 
+      this.interactionService.showMessage.next({
+        message : "Modèle de bilan est édité" , 
+        type : SUCCESS
+      }); 
       this.closeEvent.emit() ; 
     })
   }
@@ -98,6 +107,11 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       this.checkUp = data ; 
       this.checkUp.checkUpType = this.checkUpType ; 
       this.interactionService.checkUpCreated.next(this.checkUp) ; 
+      this.interactionService.showMessage.next({
+        message : "Paramètre de bilan est ajouté" , 
+        type : SUCCESS
+      }); 
+      
       this.closeEvent.emit() ; 
     })
   }
@@ -111,6 +125,10 @@ export class CheckUpTypeSubmitterComponent implements OnInit {
       `
     }).pipe(map(value => (<any>value.data).editCheckUp)).subscribe((data) => { 
       this.interactionService.checkUpEdited.next(this.checkUp) ; 
+      this.interactionService.showMessage.next({
+        message : "Paramètre de bilan est édité" , 
+        type : SUCCESS
+      }); 
       this.closeEvent.emit() ; 
     })
   }

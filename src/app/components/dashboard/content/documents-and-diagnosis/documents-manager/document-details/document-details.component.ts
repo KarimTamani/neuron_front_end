@@ -33,8 +33,8 @@ export class DocumentDetailsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "yes-no-message",
-        "title": "Subpresion d'un document",
-        "message": "Voulais vous vraiments suprimer le document " + this.document.name + " ? "
+        "title": "Suppression de document",
+        "message": "vous voulez supprimer le document " + this.document.name + " ? "
       }
     });
 
@@ -60,7 +60,7 @@ export class DocumentDetailsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "document-submitter",
-        "title": "Modifer le document " + this.document.name,
+        "title": "Modifier le document " + this.document.name,
         "document": encodeURIComponent(JSON.stringify(this.document)) , 
       }
     });

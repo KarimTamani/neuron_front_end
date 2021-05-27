@@ -3,7 +3,7 @@
         <form name="form" [formGroup]="form">
             <div class="form-group" *ngIf="type == 'check-up-type'">
 
-                <input type="text" [(ngModel)]="checkUpType.name" class="primary-input" placeholder="Le type de bilan" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                <input type="text" [(ngModel)]="checkUpType.name" class="primary-input" placeholder="type de bilan" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
                 <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
                     <div *ngIf="form.get('name').errors.required">le nom est requis</div>
                     <div *ngIf="form.get('name').errors.minlength">au moins 3 caractères</div>
@@ -12,7 +12,7 @@
 
             <div class="form-group" *ngIf="type == 'check-up'">
 
-                <input type="text" [(ngModel)]="checkUp.name" class="primary-input" placeholder="Le parmetre de bilan" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
+                <input type="text" [(ngModel)]="checkUp.name" class="primary-input" placeholder="paramètre de bilan" formControlName="name" [ngClass]="{'is-invalid' : form.get('name').touched && form.get('name').invalid}">
                 <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
                     <div *ngIf="form.get('name').errors.required">le nom est requis</div>
                     <div *ngIf="form.get('name').errors.minlength">au moins 3 caractères</div>

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { SUCCESS } from 'src/app/classes/Message';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-expenses-header',
@@ -13,7 +15,7 @@ export class ExpensesHeaderComponent implements OnInit {
   public types: string[] = [];
   public searchQuery: any = {};
   @Output() searchEvent: EventEmitter<any>;
-  constructor(private apollo: Apollo, private router: Router) {
+  constructor(private apollo: Apollo, private router: Router , private interactionService : InteractionService ) {
     this.searchEvent = new EventEmitter<any>();
   }
 
@@ -32,12 +34,18 @@ export class ExpensesHeaderComponent implements OnInit {
   public clear() {
     this.searchQuery = {type : "Tout"};
   }
+
+  
   public search() {
     this.searchEvent.emit({
       type: (this.searchQuery && this.searchQuery.type == "Tout") ? (null) : (this.searchQuery.type),
       startDate: this.searchQuery.startDate,
       endDate: this.searchQuery.endDate
     });
+    this.interactionService.showMessage.next({
+      message : "Recherche effectuée" , 
+      type : SUCCESS
+    })
   }
 
   public openAddExpense() {
@@ -45,8 +53,14 @@ export class ExpensesHeaderComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "add-expense",
-        "title": "ajouter un frais"
+        "title": "Ajouter un coût"
       }
     })
+  }
+
+  public keyup($event) { 
+    if ($event.key == "Enter") { 
+      this.search() ; 
+    }
   }
 }

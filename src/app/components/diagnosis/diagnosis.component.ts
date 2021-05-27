@@ -23,7 +23,7 @@ export class DiagnosisComponent implements OnInit {
   public allSymptoms: Symptom[] = [];
   public bodyParts: any[] = [];
 
-  public newResult : boolean = false ; 
+  public newResult: boolean = false;
   // global body part symptoms to allocate each symptom in his properiate body area   
   public bodyAreaSymptoms = {
     head: [],
@@ -42,10 +42,10 @@ export class DiagnosisComponent implements OnInit {
   // select either all symptoms list or search for a semptoms 
   public symptomsControllerMode: boolean = true;
 
-  constructor(private apollo: Apollo, 
-    private route: ActivatedRoute, 
-    private virtualAssistantService: VirtualAssistantService , 
-    private interactionService : InteractionService) { }
+  constructor(private apollo: Apollo,
+    private route: ActivatedRoute,
+    private virtualAssistantService: VirtualAssistantService,
+    private interactionService: InteractionService) { }
 
   ngOnInit(): void {
 
@@ -55,7 +55,7 @@ export class DiagnosisComponent implements OnInit {
 
     if (this.visit.symptoms) {
       this.selectedSymptoms = this.visit.symptoms;
-      this.updateBodyAreaSymptoms();
+      this.updateBodyAreaSymptoms(false);
     };
 
 
@@ -73,9 +73,10 @@ export class DiagnosisComponent implements OnInit {
         }
       }`
     }).pipe(map(value => (<any>value.data).getAllBodyParts)).subscribe((data) => {
+      
       this.bodyParts = data;
-
       this.bodyParts.forEach(part => this.allSymptoms = this.allSymptoms.concat(part.symptoms));
+      
       if (params.symptoms && params.result) {
         this.selectedSymptoms = this.loadSymptomsFromString(decodeURIComponent(params.symptoms));
         this.updateBodyAreaSymptoms();
@@ -100,11 +101,12 @@ export class DiagnosisComponent implements OnInit {
   }
 
 
-  private updateBodyAreaSymptoms() {
+  private updateBodyAreaSymptoms(emit = true) {
     // update the body area symptoms each time a new symptom added or deleted
     // empty the symptoms 
-    this.interactionService.updateVisitSymptoms.next(this.selectedSymptoms) ; 
-    this.bodyAreaSymptoms.clear(); 
+    if (emit)
+      this.interactionService.updateVisitSymptoms.next(this.selectedSymptoms);
+    this.bodyAreaSymptoms.clear();
     for (let index = 0; index < this.selectedSymptoms.length; index++)
       switch (parseInt(this.selectedSymptoms[index].bodyPartId)) {
         case 1:
@@ -178,7 +180,7 @@ export class DiagnosisComponent implements OnInit {
     }).pipe(map(result => (<any>result.data).performNeuronRequest)).subscribe((data: string) => {
       this.predictions = JSON.parse(data)[0].output.predictions;
       this.showResult = true;
-      this.newResult = true ; 
+      this.newResult = true;
     })
   }
 }

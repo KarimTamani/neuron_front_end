@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ALWAYS, YesNoVAResponse } from 'src/app/classes/VAResponse';
 import { Visit } from 'src/app/classes/Visit';
+import { DataService } from 'src/app/services/data.service';
 import { VirtualAssistantService } from 'src/app/services/virtual-assistant-service';
 
 @Component({
@@ -22,7 +23,8 @@ export class NextVisitComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute, 
     private virtualAssistantService: VirtualAssistantService, 
     private apollo : Apollo , 
-    private router : Router) { }
+    private router : Router , 
+    private dataService : DataService) { }
 
   ngOnInit(): void {
     var params = this.route.snapshot.queryParams;
@@ -38,7 +40,7 @@ export class NextVisitComponent implements OnInit, OnDestroy {
     var l = (this.visit.medicalFile.gender) ? ("e") : ("a");
     var e = (this.visit.medicalFile.gender) ? ("") : ("e");
     this.virtualAssistantService.onVaResponse.next({
-      message: `la prochaine visite est avec l${l} patient${e} ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname}, voulais vous que je lance la visite`,
+      message: `voici la prochaine visite , voulez-vous que je le démare ?`,
       command: "lancer",
       type: ALWAYS,
       yesNo: true
@@ -76,5 +78,9 @@ export class NextVisitComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => { 
       sub.unsubscribe() ; 
     })
+  }
+
+  public frDate ( date : string)  {
+     return this.dataService.castFRDate(new Date(date)) ; 
   }
 }

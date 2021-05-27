@@ -86,7 +86,7 @@ export class NeuronResponseComponent implements OnInit {
           "window-page": "diagnosis",
           "result": decodeURIComponent(this.neuronResponse.neuronPrediction) , 
           "symptoms" : decodeURIComponent(this.neuronResponse.input) , 
-          "title": "Diagnositiuqe symptomsique", 
+          "title": "Diagnostic symptomatique", 
           "visit" : decodeURIComponent(JSON.stringify(this.neuronResponse.visit)) , 
           "referer" : referer ,   
         }

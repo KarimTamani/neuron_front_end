@@ -78,8 +78,8 @@ p i {
 }
 
 .info-side {
-    min-width: 380px;
-    max-width: 380px;
+    min-width: 400px;
+    max-width: 400px;
 }
 
 .vital-setting {
@@ -187,6 +187,7 @@ p i {
 
 .controller .delete {
     background: rgb(254, 101, 85);
+    float: right;
 }
 
 .more-details-container h5 {

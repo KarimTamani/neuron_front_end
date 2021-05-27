@@ -10,8 +10,8 @@
         </ul>
         <ul *ngIf="type == 'medicalFile'">
             <li *ngFor="let result of results" (click)="select(result)" class="medicalFile">
-                <p>{{result.name}} {{result.lastname}} <span class="right">{{result.birthday}}</span></p>
-                <p> {{result.email}} <span class="right">{{result.phone}}</span><span style="clear : both"></span></p>
+                <p class="name">{{result.name}} {{result.lastname}} <span class="right">{{frDate ( result.birthday) }}</span></p>
+                <p class="info" *ngIf="result.email || result.phone"> {{result.email}} <span class="right">{{result.phone}}</span><span style="clear : both"></span></p>
             </li>
         </ul>
     </div>

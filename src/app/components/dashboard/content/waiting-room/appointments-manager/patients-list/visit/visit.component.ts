@@ -104,7 +104,7 @@ export class VisitComponent implements OnInit {
         this.interactionService.updateReport.next();
 
         this.interactionService.showMessage.next(<Message> {
-          message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a commencé`
+          message : `Visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a commencé`
         })
       }, 1000)
     })
@@ -155,7 +155,7 @@ export class VisitComponent implements OnInit {
         this.restoreVisitEvent.emit(this.visit);
         this.interactionService.updateReport.next();
         this.interactionService.showMessage.next(<Message> {
-          message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a été renouvelée`
+          message : `Visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a été renouvelée`
         })
       }, 500)
     })
@@ -181,7 +181,7 @@ export class VisitComponent implements OnInit {
       this.fadeIn = false;
       this.interactionService.updateReport.next();
       this.interactionService.showMessage.next(<Message> {
-        message : `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} en attente`
+        message : `Visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} en attente`
       })
     })
   }
@@ -191,7 +191,7 @@ export class VisitComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "paye-visit",
-        "title": "Payer la visite",
+        "title": "Paiment",
         "visit": encodeURIComponent(JSON.stringify(this.visit))
       }
     });

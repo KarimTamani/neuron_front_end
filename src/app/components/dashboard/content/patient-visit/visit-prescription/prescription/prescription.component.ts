@@ -6,6 +6,7 @@ import { Cabinet } from 'src/app/classes/Cabinet';
 import { CheckUpType } from 'src/app/classes/CheckUpType';
 import { Doctor } from 'src/app/classes/Doctor';
 import { Visit } from 'src/app/classes/Visit';
+import html2canvas from "html2canvas" ; 
 
 @Component({
   selector: 'app-prescription',
@@ -20,7 +21,7 @@ export class PrescriptionComponent implements OnInit {
   @Input() certificat : any ; 
   public doctor : Doctor ; 
   public cabinet : Cabinet ; 
-  constructor(private apollo : Apollo) {
+  constructor(private apollo : Apollo  ) {
 
   }
 
@@ -72,4 +73,13 @@ export class PrescriptionComponent implements OnInit {
     })
   }
 
+
+  public print(container) { 
+    html2canvas(container).then(function (canvas) {
+      var a = document.createElement("a"); 
+      a.href = canvas.toDataURL() 
+      a.download = "Image.png";  
+      a.click();
+    })
+  }
 }

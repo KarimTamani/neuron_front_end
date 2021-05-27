@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { map } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { Message, SUCCESS } from 'src/app/classes/Message';
 @Component({
   selector: 'app-general-information',
   templateUrl: './general-information.component.html',
@@ -148,6 +149,12 @@ export class GeneralInformationComponent implements OnInit {
 
       localStorage.setItem("doctorAuth", JSON.stringify(data)) ; 
       this.interactionService.profilEdited.next(data.doctor) ; 
+
+
+      this.interactionService.showMessage.next(<Message>{
+        message : "Votre profil est modifié" , 
+        type : SUCCESS
+      })
     })
   }
 }

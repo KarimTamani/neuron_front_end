@@ -7,7 +7,7 @@
     <div class="search-field-section center-v" [class.active]="activeSearch">
         <div class="stretch-container input-container primary-radius">
             <i class="fa fa-search"></i>
-            <input type="text" placeholder="Recherche de patient" #queryInput [(ngModel)]="query" (keyup)="search()" (focus)="onFocus()" (blur)="onBlur()">
+            <input type="text" placeholder="Recherche de patients" #queryInput [(ngModel)]="query" (keyup)="search()" (focus)="onFocus()" (blur)="onBlur()">
         </div>
         <div class="medical-files" *ngIf="medicalFiles.length > 0">
             <div class="medical-file" *ngFor="let medicalFile of medicalFiles" (click)="selectMedicalFile(medicalFile)">

@@ -178,7 +178,7 @@ export class MedicalFilesManagerComponent implements OnInit {
   public add() { 
     this.router.navigate([] , { 
       queryParams : { 
-        "title" : "Ajouter un nouveau Dossier Médical" , 
+        "title" : "Ajouter un nouveau dossier Médical" , 
         "window-page" : "medical-file-submitter" , 
         "pop-up-window" : true , 
       }

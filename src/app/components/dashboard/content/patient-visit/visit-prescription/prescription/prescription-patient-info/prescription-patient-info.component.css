@@ -3,6 +3,10 @@
     font-size: 12px;
 }
 
+p {
+    text-transform: capitalize;
+}
+
 p i {
     margin-right: 4px;
 }

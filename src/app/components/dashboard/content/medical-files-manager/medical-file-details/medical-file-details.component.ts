@@ -102,7 +102,7 @@ export class MedicalFileDetailsComponent implements OnInit {
         "pop-up-window": true,
         "window-page": "visit-details",
         "visit-id": visit.id,
-        "title": "Details de visite",
+        "title": "Détails de la visite",
         "referer": this.router.url
       }
     })
@@ -114,7 +114,7 @@ export class MedicalFileDetailsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "medical-file-submitter",
-        "title": "Mpdification du dossie medical",
+        "title": "Modification du dossier médical",
         "referer": this.router.url,
         "medical-file": encodeURIComponent(JSON.stringify(this.medicalFile))
       }
@@ -129,7 +129,7 @@ export class MedicalFileDetailsComponent implements OnInit {
         "window-page": "yes-no-message",
         "title": "Suprission du dossie medical",
         "referer": this.router.url,
-        "message": "Si vous suprimer le dossie medical de " + this.medicalFile.lastname + " " + this.medicalFile.name + " tout les donnes et les visites seront suprimer"
+        "message": "vous souhaitez supprimer le dossier médical de " + this.medicalFile.lastname + " " + this.medicalFile.name + ", si vous effectuez toutes les visites et données de ce patient, seront supprimées"
       }
     })
 

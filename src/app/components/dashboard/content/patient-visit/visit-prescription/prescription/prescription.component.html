@@ -1,5 +1,13 @@
 <div class="main-container">
-    <div class="prescription">
+    <div class="black-background">
+        <div class="printer">
+            <i class="fa fa-print" (click)="print(container)"></i>
+            <h5>imprimer</h5>
+
+        </div>
+    </div>
+    <div class="prescription" #container>
+
         <div class="header" *ngIf="doctor && cabinet">
             <app-prescription-header [title]="title" [doctor]="doctor" [cabinet]="cabinet"></app-prescription-header>
         </div>

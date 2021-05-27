@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="col col-md-12">
-            <textarea placeholder="Votre remarque " [(ngModel)]="notice"></textarea>
+            <textarea placeholder="Votre remarque" [(ngModel)]="notice"></textarea>
         </div>
         <div class="col col-md-12">
             <button class="primary-button" (click)="sendFeedback()" [disabled]="marks.length == 0 && notice.trim() == ''">Envoyer</button>

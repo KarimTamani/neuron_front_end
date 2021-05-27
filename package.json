@@ -32,6 +32,7 @@
         "esm": "^3.2.25",
         "graphql": "^15.4.0",
         "graphql-tag": "^2.11.0",
+        "html2canvas": "^1.0.0-rc.7",
         "ng2-charts": "^2.4.2",
         "ngx-editor": "^8.1.0",
         "ngx-image-zoom": "^0.6.0",

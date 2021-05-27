@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col col-md-6" *ngIf="medicalFile.address">
                         <div class="address">
-                            <label>Addresse</label>
+                            <label>Adresse</label>
                             <p>
                                 <i class="fa fa-map-marked-alt"></i>
                                 <span *ngIf="medicalFile.address && medicalFile.address.address">
@@ -55,6 +55,9 @@
                 <div class="antecedents">
                     <label>Antécédents</label>
                     <div class="antecedents-container">
+                        <p class="no-data-message" *ngIf="medicalFile.antecedents.length == 0">
+                            aucun antécédent
+                        </p>
                         <span class="antecedent" *ngFor="let antecedent of medicalFile.antecedents">
                             {{antecedent.name}}
                         </span>

@@ -84,7 +84,7 @@
                         <label>
                             Numéro de telephone
                         </label>
-                        <input type="text" placeholder="Numéro de telephone" class="primary-input" formControlName="phone" [(ngModel)]="doctor.phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
+                        <input type="text" placeholder="Numéro de téléphone" class="primary-input" formControlName="phone" [(ngModel)]="doctor.phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
                         <div class="invalid-feedback" *ngIf="form.get('phone').touched && form.get('phone').invalid">
                             <div *ngIf="form.get('phone').errors.required">Numéro de téléphone est requis</div>
                             <div *ngIf="form.get('phone').errors.pattern">Numéro de téléphone invalide</div>
@@ -122,7 +122,7 @@
                         <label>
                             Numéro d'order
                         </label>
-                        <input type="text" placeholder="Numéro d'order " class="primary-input" formControlName="orderNumber" [(ngModel)]="doctor.orderNumber" [ngClass]="{'is-invalid' : form.get('orderNumber').touched && form.get('orderNumber').invalid}">
+                        <input type="text" placeholder="Numéro d'ordre " class="primary-input" formControlName="orderNumber" [(ngModel)]="doctor.orderNumber" [ngClass]="{'is-invalid' : form.get('orderNumber').touched && form.get('orderNumber').invalid}">
                         <div class="invalid-feedback" *ngIf="form.get('orderNumber').touched && form.get('orderNumber').invalid">
                             <div *ngIf="form.get('orderNumber').errors.required">Numéro de téléphone est requis</div>
                             <div *ngIf="form.get('orderNumber').errors.pattern">Numéro de téléphone invalide</div>

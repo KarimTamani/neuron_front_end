@@ -33,7 +33,7 @@
                     <i class="fa fa-heartbeat"></i>
                 </div>
                 <div class="value-container">
-                    <span [class.value]="vitalSetting.cardiacFrequency">{{(vitalSetting.cardiacFrequency) ? (vitalSetting.cardiacFrequency + " °C") : ("Inconnue")}} </span>
+                    <span [class.value]="vitalSetting.cardiacFrequency">{{(vitalSetting.cardiacFrequency) ? (vitalSetting.cardiacFrequency + " CPM") : ("Inconnue")}} </span>
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@
             <div class="stretch-container edit">
                 <div>
                 </div>
-                <button (click)="openVitalSetting()" class="secondary-button">Modifier <i class="fa fa-edit"></i></button>
+                <button (click)="openVitalSetting()" class="secondary-button">Éditer <i class="fa fa-edit"></i></button>
             </div>
         </div>
 

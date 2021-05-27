@@ -22,7 +22,7 @@
     color: rgb(38, 94, 215);
 }
 
-.main-container i.selected {
+.main-container p i.selected {
     border-color: rgb(38, 94, 215) !important;
     color: rgb(38, 94, 215) !important;
 }

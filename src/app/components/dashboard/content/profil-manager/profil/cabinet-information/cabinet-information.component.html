@@ -47,7 +47,7 @@
                         <label>
                             Numéro de telephone (mobile / fix)
                         </label>
-                        <input type="text" (change)="setChanged()" [(ngModel)]="cabinet.phone" placeholder="telephone" class="primary-input" formControlName="phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
+                        <input type="text" (change)="setChanged()" [(ngModel)]="cabinet.phone" placeholder="Téléphone" class="primary-input" formControlName="phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
                         <div class="invalid-feedback" *ngIf="form.get('phone').touched && form.get('phone').invalid">
                             <div *ngIf="form.get('phone').errors.required">le telephone est requis</div>
                             <div *ngIf="form.get('phone').errors.pattern">telephone invalide</div>
@@ -70,9 +70,9 @@
                 <div class="col col-md-6">
                     <div class="form-group">
                         <label>
-                            Addresse
+                            Adresse
                         </label>
-                        <input type="text" (change)="setChanged()" placeholder="Address" [(ngModel)]="cabinet.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
+                        <input type="text" (change)="setChanged()" placeholder="Adresse" [(ngModel)]="cabinet.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
                         <div class="invalid-feedback" *ngIf="form.get('address').touched && form.get('address').invalid">
                             <div *ngIf="form.get('address').errors.required">l'address est requis</div>
                             <div *ngIf="form.get('address').errors.minlength">au moins 4 caractères</div>

@@ -11,7 +11,7 @@
     <form name="form" [formGroup]="form">
         <div class="stretch-container">
             <div class="form-group">
-                <input type="text" [(ngModel)]="certificatModel.title" placeholder="Le Titre de Certificat" class="primary-input" formControlName="title" [ngClass]="{'is-invalid' : form.get('title').touched && form.get('title').invalid}">
+                <input type="text" [(ngModel)]="certificatModel.title" placeholder="Titre du Certificat" class="primary-input" formControlName="title" [ngClass]="{'is-invalid' : form.get('title').touched && form.get('title').invalid}">
                 <div class="invalid-feedback" *ngIf="form.get('title').touched && form.get('title').invalid">
                     <div *ngIf="form.get('title').errors.required">Le titre est requis</div>
                     <div *ngIf="form.get('title').errors.minlength">au mois 3 characters</div>

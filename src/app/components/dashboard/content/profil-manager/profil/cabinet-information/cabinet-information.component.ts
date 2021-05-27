@@ -5,7 +5,8 @@ import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 import { map } from 'rxjs/operators';
 import { Cabinet } from 'src/app/classes/Cabinet';
-import { MedicalAct } from 'src/app/classes/MedicalAct';
+
+import { SUCCESS } from 'src/app/classes/Message';
 import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
@@ -188,7 +189,10 @@ export class CabinetInformationComponent implements OnInit {
 
         this.interactionService.cabinetCreated.next(this.cabinet);
 
-       
+        this.interactionService.showMessage.next({
+          message : "Votre Cabinet Médical est créée" , 
+          type : SUCCESS
+        }) ; 
 
 
       })
@@ -233,6 +237,10 @@ export class CabinetInformationComponent implements OnInit {
         }
       }).pipe(map(result => (<any>result.data).editCabinet)).subscribe((data) => {
 
+        this.interactionService.showMessage.next({
+          message : "Votre Cabinet Médical est édité" , 
+          type : SUCCESS
+        }) ; 
         this.cabinet = data;
       })
     }

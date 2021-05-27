@@ -106,11 +106,11 @@
                 <div class="col col-md-6">
                     <div class="form-group">
                         <label>
-                            Addresse
+                            Adresse
                         </label>
-                        <input type="text" placeholder="Address" [(ngModel)]="cabinet.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
+                        <input type="text" placeholder="Adresse" [(ngModel)]="cabinet.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
                         <div class="invalid-feedback" *ngIf="form.get('address').touched && form.get('address').invalid">
-                            <div *ngIf="form.get('address').errors.required">l'address est requis</div>
+                            <div *ngIf="form.get('address').errors.required">l'adresse est requis</div>
                             <div *ngIf="form.get('address').errors.minlength">au moins 4 caractères</div>
                             <div *ngIf="form.get('address').errors.maxlength">moins de 64 caractères</div>
                         </div>
@@ -147,9 +147,9 @@
 
                 <div class="col col-md-12">
                     <div class="form-group">
-                        <label>Mote de pass</label>
+                        <label>Mot de passe</label>
 
-                        <input type="password" placeholder="Mote de pass" [(ngModel)]="password.value" class="primary-input" formControlName="password" [ngClass]="{'is-invalid' : form.get('password').touched && form.get('password').invalid}">
+                        <input type="password" placeholder="Mot de passe" [(ngModel)]="password.value" class="primary-input" formControlName="password" [ngClass]="{'is-invalid' : form.get('password').touched && form.get('password').invalid}">
                         <div class="invalid-feedback" *ngIf="form.get('password').touched && form.get('password').invalid">
                             <div *ngIf="form.get('password').errors.required">le mot de passe est requis</div>
                             <div *ngIf="form.get('password').errors.minlength">au moins 7 caractères</div>
@@ -166,7 +166,7 @@
                             <div *ngIf="form.get('passwordConfirm').errors.required">la confirmation est requis</div>
                             <div *ngIf="form.get('passwordConfirm').errors.minlength">au moins 7 caractères</div>
                             <div *ngIf="form.get('passwordConfirm').errors.maxlength">moins de 20 caractères</div>
-                            <div *ngIf="form.get('passwordConfirm').errors.confirmedValidator">Conferme le mote pass</div>
+                            <div *ngIf="form.get('passwordConfirm').errors.confirmedValidator">Confirmer le mot passe</div>
                         </div>
                     </div>
                 </div>

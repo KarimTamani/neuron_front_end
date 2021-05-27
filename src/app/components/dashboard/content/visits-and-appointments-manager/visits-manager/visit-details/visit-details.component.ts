@@ -45,7 +45,13 @@ export class VisitDetailsComponent implements OnInit {
         this.moreDetails = false;
     })
 
+
+
+
+
     var params = this.route.snapshot.queryParams;
+
+    console.log(params) ; 
 
     if (params["visit-id"])
       this.visitId = parseInt(params["visit-id"]);
@@ -169,7 +175,7 @@ export class VisitDetailsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "paye-visit",
-        "title": "Payé la visite",
+        "title": "Paiement",
         "referer": this.router.url,
         "visit": encodeURIComponent(JSON.stringify(this.visit))
       }
@@ -185,7 +191,7 @@ export class VisitDetailsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "paye-visit",
-        "title": "Payé la visite",
+        "title": "Paiement",
         "referer": this.router.url,
         "visit": encodeURIComponent(JSON.stringify(this.visit))
       }
@@ -204,7 +210,7 @@ export class VisitDetailsComponent implements OnInit {
 
         "pop-up-window": true,
         "window-page": "visit-details",
-        "title": "Visite en details",
+        "title": "détails de la visite",
         "referer": this.router.url,
         "visit-id": this.visit.id,
         "more-details": true
@@ -216,7 +222,6 @@ export class VisitDetailsComponent implements OnInit {
     var params = this.route.snapshot.queryParams;
     var referer = params["referer"];
     this.router.navigateByUrl(referer);
-
   }
 
   public delete() {
@@ -224,9 +229,8 @@ export class VisitDetailsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "yes-no-message",
-        "title": "Suprission",
-        "message": "Voulais vous vraiment suprimer la visite de : " + this.visit.medicalFile.name + " " + this.visit.medicalFile.lastname,
-        "referer": this.router.url
+        "title": "Suppression du visite",
+        "message": "vous souhaitez supprimer la visite de " + this.visit.medicalFile.name + " " + this.visit.medicalFile.lastname + " ? ",
       }
     });
     const subs = this.intervationService.yesOrNo.subscribe((response) => {
@@ -239,7 +243,6 @@ export class VisitDetailsComponent implements OnInit {
         }).pipe(map(value => (<any>value.data).removeVisit)).subscribe((data) => {
           this.intervationService.visitDeleted.next(this.visit);
           this.closeEvent.emit();
-
         });
       }
       subs.unsubscribe();

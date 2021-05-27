@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
 import { PatientsListComponent } from './patients-list/patients-list.component';
 import { AppointmentsControllerComponent } from './appointments-controller/appointments-controller.component';
-import { Message } from 'src/app/classes/Message';
+import { FAIL, Message, SUCCESS } from 'src/app/classes/Message';
 
 @Component({
   selector: 'app-appointments-manager',
@@ -104,6 +104,12 @@ export class AppointmentsManagerComponent implements OnInit, OnDestroy {
         this.currentVisit.endTime = currentTime;
         this.currentVisit.status = "visit done";
       }
+      else if ( this.waitingVisits.length == 0 ) {
+        this.interactionService.showMessage.next(<Message>{
+          message: "aucune visite en attente" , 
+          type : FAIL
+        })
+      }
       // if there is a waiting patients in the waiting room then
       if (this.waitingVisits.length > 0) {
         // notify the visit subject to go to the doctor office
@@ -118,12 +124,15 @@ export class AppointmentsManagerComponent implements OnInit, OnDestroy {
           // in case there is no waiting patients
           // assign current visit to null 
           this.currentVisit = null;
-      }
 
+        this.interactionService.showMessage.next(<Message>{
+          message: "Prochaine visite commencée" , 
+          type :  SUCCESS
+        })
+      }
+ 
       this.interactionService.updateReport.next();
-      this.interactionService.showMessage.next(<Message>{
-        message : "Prochaine visite commencée"
-      })
+
     })
   }
   public inVisit($event) {

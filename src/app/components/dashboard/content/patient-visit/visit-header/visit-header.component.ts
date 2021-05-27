@@ -38,7 +38,7 @@ export class VisitHeaderComponent implements OnInit {
       queryParams : {
        'pop-up-window' : true , 
        'window-page' : 'speciality-diagnosis' , 
-       'title' : "Diagnostic Avancées" , 
+       'title' : "Diagnostics avancés" , 
        'visit' : encodeURIComponent(JSON.stringify(this.visit))
       }
     }) ; 

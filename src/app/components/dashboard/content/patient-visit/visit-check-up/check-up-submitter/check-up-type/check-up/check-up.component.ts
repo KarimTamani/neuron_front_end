@@ -56,7 +56,7 @@ export class CheckUpComponent implements OnInit , OnDestroy {
         "pop-up-window" : true , 
         "window-page" : "check-up-submitter" , 
         "check-up" : encodeURIComponent(JSON.stringify(this.checkUp)) , 
-        "title" : "Modifer le parémetre de bilan"
+        "title" : "Modifier le paramètre de bilan"
       }
     }); 
 
@@ -74,8 +74,8 @@ export class CheckUpComponent implements OnInit , OnDestroy {
       queryParams: { 
         "pop-up-window" : true , 
         "window-page" : "yes-no-message" , 
-        "message" : "Voulais vous vraiments suprimer le paramétre de bilan " + this.checkUp.name , 
-        "title" :"Suprission de parametre de bilan" 
+        "message" : "Voulez vous supprimer le paramétre de bilan " + this.checkUp.name , 
+        "title" :"Suppression du paramètre du bilan" 
       }
     }) ; 
 

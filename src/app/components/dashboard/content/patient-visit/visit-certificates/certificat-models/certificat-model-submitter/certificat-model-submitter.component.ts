@@ -6,6 +6,8 @@ import gql from 'graphql-tag';
 import { Editor } from 'ngx-editor';
 import { map } from 'rxjs/operators';
 import { CertificatModel } from 'src/app/classes/CertificatModel';
+import { SUCCESS } from 'src/app/classes/Message';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-certificat-model-submitter',
@@ -32,7 +34,7 @@ export class CertificatModelSubmitterComponent implements OnInit {
   public toolbar = [
     ["bold", "italic", "underline"]
   ]
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo , private interactionService : InteractionService) {
     this.editor = new Editor();
     this.backEvent = new EventEmitter<null>();
     this.saveEvent = new EventEmitter<CertificatModel>();
@@ -50,9 +52,7 @@ export class CertificatModelSubmitterComponent implements OnInit {
       this.certificatModel.title = this.initModel.title ; 
     }
 
-    console.log(this.editMode) ; 
-    //this.insertedPosition = this.certificatModel.html.lastIndexOf("</p>");
-
+    
     this.editor.view.dom.addEventListener("click", (event) => {
       this.insertedPosition = this.editor.view.state.selection.$anchor;
 
@@ -87,7 +87,15 @@ export class CertificatModelSubmitterComponent implements OnInit {
     }).pipe(
       map(value => (<any>value.data).addCertificatModel)
     ).subscribe((data) => {
+      
+      this.interactionService.showMessage.next({
+        message : "Modèle de certificat est ajouté"  , 
+        type : SUCCESS 
+      })
       this.saveEvent.emit(data);
+    
+    
+    
     })
   }
 
@@ -146,6 +154,10 @@ export class CertificatModelSubmitterComponent implements OnInit {
           })
         }`
     }).pipe(map(value => (<any>value.data).editCertificatModel)).subscribe((data) => { 
+      this.interactionService.showMessage.next({
+        message : "Modèle de certificat est édité"  , 
+        type : SUCCESS 
+      })
       this.editEvent.emit(this.certificatModel) ; 
     })
   }

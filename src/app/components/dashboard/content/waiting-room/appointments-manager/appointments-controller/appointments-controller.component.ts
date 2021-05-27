@@ -48,7 +48,7 @@ export class AppointmentsControllerComponent implements OnInit  , OnDestroy {
     }).pipe(map(value => (<any>value.data).searchAppointments)).subscribe((data) => {
       var currentAppointments = this.waitingRoom.visits ; 
       this.appointments = data.rows.filter(function(appointment) { 
-        var index = currentAppointments.findIndex((value) => value.medicalFile.id == appointment.visit.medicalFile.id) ; 
+        var index = currentAppointments.findIndex((value) => value.medicalFile.id == appointment.visit.medicalFile.id && value.status == "waiting" ) ; 
         return index < 0 ; 
       })   
     })

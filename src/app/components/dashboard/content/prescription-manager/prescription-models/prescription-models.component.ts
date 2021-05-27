@@ -48,7 +48,7 @@ export class PrescriptionModelsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "prescription-model-submitter",
-        "title": "Ajouter un nouvelle model de traitments",
+        "title": "Ajouter un nouvelle model de traitements",
         "prescription-model": decodeURIComponent(JSON.stringify($event))
       }
     });
@@ -65,8 +65,8 @@ export class PrescriptionModelsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "yes-no-message",
-        "title": "Ajouter un nouvelle model de traitments",
-        "message": "Voulais vous vraiment suprimer le " + $event.name + " ?"
+        "title": "Suppression du modèle de traitement",
+        "message": "Voulez vous vraiment supprimer le mode de traitement " + $event.name + " ?"
       }
     });
 
@@ -99,7 +99,7 @@ export class PrescriptionModelsComponent implements OnInit {
       queryParams: {
         "pop-up-window": true,
         "window-page": "prescription-model-submitter",
-        "title": "Ajouter un nouvelle model de traitments"
+        "title": "Ajouter un nouveau model de traitements"
       }
     });
     const subscription = this.interactionService.addprescriptionModel.subscribe((prescriptionModel) => {

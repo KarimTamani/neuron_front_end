@@ -11,7 +11,7 @@ import { NeuronResponse } from 'src/app/classes/NeuronResponse';
 })
 export class DiagnosisManagerComponent implements OnInit {
   public offset : number = 0 ; 
-  public limit : number = 10 ; 
+  public limit : number = 30 ; 
   public lastSearch : any = {} ; 
   public count : number = 0 ; 
   public neuronResponses : NeuronResponse[] = [] ; 

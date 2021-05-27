@@ -60,7 +60,7 @@
 
             <div class="col col-md-6">
                 <div class="form-group">
-                    <input type="text" placeholder="Numéro de telephone" class="primary-input" formControlName="phone" [(ngModel)]="medicalFile.phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
+                    <input type="text" placeholder="Numéro de téléphone" class="primary-input" formControlName="phone" [(ngModel)]="medicalFile.phone" [ngClass]="{'is-invalid' : form.get('phone').touched && form.get('phone').invalid}">
                     <div class="invalid-feedback" *ngIf="form.get('phone').touched && form.get('phone').invalid">
                         <div *ngIf="form.get('phone').errors.required">Numéro de téléphone est requis</div>
                         <div *ngIf="form.get('phone').errors.pattern">Numéro de téléphone invalide</div>
@@ -71,9 +71,9 @@
             <div class="col col-md-6" *ngIf="medicalFile.address">
                 <div class="form-group">
                     <label>
-                        Addresse
+                        Adresse
                     </label>
-                    <input type="text" placeholder="Addresse" [(ngModel)]="medicalFile.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
+                    <input type="text" placeholder="Adresse" [(ngModel)]="medicalFile.address.address" class="primary-input" formControlName="address" [ngClass]="{'is-invalid' : form.get('address').touched && form.get('address').invalid}">
                     <div class="invalid-feedback" *ngIf="form.get('address').touched && form.get('address').invalid">
                         <div *ngIf="form.get('address').errors.required">l'address est requis</div>
                         <div *ngIf="form.get('address').errors.minlength">au moins 4 caractères</div>

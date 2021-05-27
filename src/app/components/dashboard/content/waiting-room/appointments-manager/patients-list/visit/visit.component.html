@@ -7,7 +7,7 @@
             <div class="info-side">
                 <h5>{{visit.medicalFile.name}} {{visit.medicalFile.lastname}}</h5>
                 <p>
-                    <i class="fa fa-clock"></i> Temps d'arrivée <span class="hightlight">{{visit.arrivalTime}}</span>
+                    <i class="fa fa-clock"></i> Heure d'arrivée <span class="hightlight">{{visit.arrivalTime}}</span>
                 </p>
                 <p>
                     <i class="fa fa-sort-amount-up"></i>order
@@ -73,11 +73,11 @@
                 <i class="fa fa-clock"></i> de <span class="hightlight"> {{visit.startTime}}</span> à <span class="hightlight">   {{visit.endTime}}</span>
             </p>
             <p>
-                <i class="fa fa-money-bill-wave"></i>Montant total <span>{{totalMoney}} DA</span>
+                <i class="fa fa-money-bill-wave"></i>Montant Total <span>{{totalMoney}} DA</span>
             </p>
 
             <p *ngIf="visit.status =='visit payed' ">
-                Payé <span>{{visit.payedMoney}} DA</span> Credit <span>{{visit.debt}} DA</span>
+                Paiment <span>{{visit.payedMoney}} DA</span> Crédit <span>{{visit.debt}} DA</span>
             </p>
             <p *ngIf="visit.status == 'visit done'">
                 <i class="round"></i>

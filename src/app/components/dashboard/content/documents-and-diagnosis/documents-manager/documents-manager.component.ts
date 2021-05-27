@@ -14,7 +14,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 })
 export class DocumentsManagerComponent implements OnInit, OnDestroy{
   public offset: number = 0;
-  public limit: number = 10;
+  public limit: number = 30;
   public lastSearch: any = {};
   public count: number = 0;
   public documents: Document[] = [];
@@ -108,7 +108,7 @@ export class DocumentsManagerComponent implements OnInit, OnDestroy{
       queryParams: {
         "pop-up-window": true,
         "window-page": "document-details",
-        "title": "Details du document",
+        "title": "Détails du document",
         "document": encodeURIComponent(JSON.stringify(document))
       }
     }) ; 

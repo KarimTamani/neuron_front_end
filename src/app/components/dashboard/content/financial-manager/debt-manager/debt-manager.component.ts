@@ -17,7 +17,7 @@ import { VirtualAssistantService } from 'src/app/services/virtual-assistant-serv
 })
 export class DebtManagerComponent implements OnInit , OnDestroy {
   public offset: number = 0;
-  public limit: number = 20;
+  public limit: number = 30;
 
   public visits: Visit[] = [];
   public count: number = 0;

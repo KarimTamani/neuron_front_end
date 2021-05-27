@@ -76,8 +76,8 @@ export class CertificatsModelsComponent implements OnInit, OnDestroy {
       queryParams: {
         "pop-up-window": true,
         "window-page": "yes-no-message",
-        "title": "Supression du model de " + this.selectedType,
-        "message": "Vouslais vous vraiment suprimer " + $event.title
+        "title": "Suppression du modèle de certificat",
+        "message": "vous souhaitez supprimer le modèle de certificat " + $event.title
       }
     });
 

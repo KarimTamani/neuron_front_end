@@ -19,7 +19,7 @@
                 <div class="col col-md-6">
                     <div class="form-group">
                         <select formControlName="type" [(ngModel)]="expense.type" [ngClass]="{'is-invalid' : form.get('type').touched && form.get('type').invalid}">
-                            <option hidden [value]="undefined">Selectioner</option>
+                            <option hidden [value]="undefined">Type</option>
                             <option *ngFor="let type of types" [value]="type">{{type}}</option>
                         </select>
                         <div class="invalid-feedback" *ngIf="form.get('type').touched && form.get('type').invalid">

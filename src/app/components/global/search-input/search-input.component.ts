@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MedicalFile } from 'src/app/classes/MedicalFile';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-search-input',
@@ -23,7 +24,7 @@ export class SearchInputComponent implements OnInit {
   public results: any[] = [];
   private handler: any = null;
 
-  constructor() {
+  constructor(private dataService : DataService) {
     this.itemSelected = new EventEmitter<any>();
     this.searchSubmitted = new EventEmitter<any>() ; 
     this.onChange = new EventEmitter<any>() ; 
@@ -71,5 +72,9 @@ export class SearchInputComponent implements OnInit {
         observable.subscribe(results => this.results = results);
       }
     }, 100);
+  }
+
+  public frDate ( date : string ) { 
+    return this.dataService.castFRDate(new Date ( date )) ; 
   }
 }

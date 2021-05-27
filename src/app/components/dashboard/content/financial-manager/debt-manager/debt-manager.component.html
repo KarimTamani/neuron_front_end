@@ -29,6 +29,8 @@
         </span>
     </div>
     <div class="body  primary-radius">
+        <p class="no-data-message" *ngIf="visits.length == 0">aucune dette n'a été trouvée
+        </p>
         <div class="visit-container" (click)="editDebt(visit)" *ngFor="let visit of visits">
             <div class="stretch-container">
                 <span>{{visit.medicalFile.name}}</span>

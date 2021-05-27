@@ -153,7 +153,7 @@ export class SpecialityDiagnosisComponent implements OnInit {
     
       
       this.interactionService.showMessage.next(<Message>{
-        message : "s'il vous plaît ajouter une image"  , 
+        message : "Image est obligatoire"  , 
         type : FAIL
       })
     

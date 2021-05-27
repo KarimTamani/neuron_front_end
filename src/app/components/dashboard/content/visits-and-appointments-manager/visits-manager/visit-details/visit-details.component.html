@@ -171,15 +171,15 @@
                     <div class="col col-md-6">
 
                         <a *ngIf="visit.status == 'in visit'" (click)="visitDone()">
-                            Terminé la visite <i class="fa fa-check"></i>
+                            Terminer la visite <i class="fa fa-check"></i>
                         </a>
 
                         <a *ngIf="visit.status == 'visit done'" (click)="visitPaye()">
-                            Payé la visite <i class="fa fa-check"></i>
+                            Payer <i class="fa fa-check"></i>
                         </a>
 
                         <a *ngIf="visit.status == 'visit payed'" (click)="editPayment()">
-                            Modifier le payment <i class="fa fa-edit"></i>
+                            Modifier le paiement <i class="fa fa-edit"></i>
                         </a>
 
                     </div>
@@ -188,10 +188,10 @@
             <div class="col col-md-6 controller" *ngIf="!noEdit">
                 <div class="row">
                     <div class="col col-md-6">
-                        <button class="primary-button" (click)="edit()">Modifer La visite <i class="fa fa-edit"></i></button>
+                        <button *ngIf="visit.status == 'visit done' || visit.status == 'visit payed'" class="primary-button" (click)="edit()">Modifier La visite <i class="fa fa-edit"></i></button>
                     </div>
                     <div class="col col-md-6">
-                        <button class="primary-button delete" (click)="delete()">Suprimer La visite <i class="fa fa-trash"></i></button>
+                        <button class="primary-button delete" (click)="delete()">Supprimer La visite <i class="fa fa-trash"></i></button>
                     </div>
                 </div>
             </div>

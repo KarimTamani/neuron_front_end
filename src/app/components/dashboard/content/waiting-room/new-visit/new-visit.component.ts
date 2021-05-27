@@ -90,6 +90,7 @@ export class NewVisitComponent implements OnInit {
       })
       if (this.visit.id) {
         this.edit = true;
+        this.medicalFileUnControl = true ; 
       }
     }
     if (params["waiting-room"]) {
@@ -179,7 +180,8 @@ export class NewVisitComponent implements OnInit {
     this.visit.medicalFile = $event;
     this.submittedMedicalFile = new MedicalFile();
    
-    const index = this.waitingRoom.visits.findIndex(value => value.medicalFile.id == this.visit.medicalFile.id) ; 
+    const index = this.waitingRoom.visits.findIndex(value => value.medicalFile.id == this.visit.medicalFile.id && (value.status == "waiting" || value.status == "in visit")  ) ; 
+    
     if (index >= 0 )  { 
       this.medicalFileInvalid = true ; 
       this.interactionservice.showMessage.next(<Message> { 
@@ -222,7 +224,7 @@ export class NewVisitComponent implements OnInit {
       this.closeEvent.emit();
       this.interactionservice.newVisitAdded.next();
       this.interactionservice.showMessage.next({
-        message: `Le patient ${this.visit.medicalFile.lastname} ${this.visit.medicalFile.name} est present dans la salle d'attente`,
+        message: `le patient ${this.visit.medicalFile.lastname} ${this.visit.medicalFile.name} est present dans la salle d'attente`,
         type: SUCCESS
       })
     })
@@ -262,6 +264,7 @@ export class NewVisitComponent implements OnInit {
   public newMedicalFile($event) {
     this.visit.medicalFile = $event;
     this.showNewMedicalFile = false;
+    this.whiteBackground = false ; 
   }
 
 

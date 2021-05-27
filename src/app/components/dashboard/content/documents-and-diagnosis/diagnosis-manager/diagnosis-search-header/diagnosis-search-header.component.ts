@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { SUCCESS } from 'src/app/classes/Message';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-diagnosis-search-header',
@@ -15,7 +17,7 @@ export class DiagnosisSearchHeaderComponent implements OnInit {
   public searchQuery: any = {};
 
   @Output() searchEvent: EventEmitter<any>;
-  constructor() {
+  constructor(private interactionService : InteractionService) {
     this.searchEvent = new EventEmitter<any>();
     this.selectedOption = this.diagnosisOptions[0];
   }
@@ -45,5 +47,17 @@ export class DiagnosisSearchHeaderComponent implements OnInit {
 
   public search() {
     this.searchEvent.emit(this.searchQuery) ;  
+    this.interactionService.showMessage.next({
+      message : "Recherche effectuée" , 
+      type : SUCCESS
+    })
   }
+
+
+  public keyup($event) {  
+    if ($event.key == "Enter") { 
+      this.search() ; 
+    }
+  }
+
 }

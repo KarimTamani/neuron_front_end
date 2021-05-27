@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="controller" *ngIf="visit.medicalActs.length > 0">
-                <button class="primary-button" *ngIf="!edit" (click)="payeVisit()" [disabled]="!form.valid">Payé</button>
+                <button class="primary-button" *ngIf="!edit" (click)="payeVisit()" [disabled]="!form.valid">payer</button>
                 <button class="primary-button" *ngIf="edit" (click)="editVisitPayment()" [disabled]="!form.valid">Modifier <i class="fa fa-edit"></i></button>
                 <div style="clear : both"></div>
             </div>

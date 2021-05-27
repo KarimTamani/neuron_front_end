@@ -2,26 +2,35 @@
     <div class="login-form primary-radius">
         <div class="login-header">
             <img src="../../../assets/logo.png">
-            <h5>S'identifier</h5>
+            <h5>Identifier</h5>
         </div>
         <form name="form" [formGroup]="form">
             <div class="form-group">
-                <label>Email</label>
-                <input type="text" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid' : form.get('email').touched && form.get('email').invalid}">
+                <label>Email ou télephone</label>
+                <input type="text" placeholder="email ou télephone" formControlName="email" [ngClass]="{'is-invalid' : form.get('email').touched && form.get('email').invalid}">
                 <div class="invalid-feedback" *ngIf="form.get('email').touched && form.get('email').invalid">
-                    <div *ngIf="form.get('email').errors.required">email est requis</div>
-                    <div *ngIf="form.get('email').errors.email">email invalide</div>
+                    <div *ngIf="form.get('email').errors.required">identifiant est requis</div>
+                    <div *ngIf="form.get('email').errors.pattern">identifiant invalide</div>
                 </div>
             </div>
             <div class="form-group">
-                <label>mote de pass</label>
-                <input type="password" placeholder="Mote pass" formControlName="password" [ngClass]="{'is-invalid' : form.get('password').touched && form.get('password').invalid}">
+                <label>Mot de passe</label>
+                <input type="password" placeholder="mot de passe" formControlName="password" [ngClass]="{'is-invalid' : form.get('password').touched && form.get('password').invalid}">
                 <div class="invalid-feedback" *ngIf="form.get('password').touched && form.get('password').invalid">
                     <div *ngIf="form.get('password').errors.required">le mot de passe est requis</div>
                     <div *ngIf="form.get('password').errors.minlength">au moins 7 caractères</div>
                     <div *ngIf="form.get('password').errors.maxlength">moins de 20 caractères</div>
                 </div>
             </div>
+
+            <div class="stretch-container error-message" *ngIf="errorMessage">
+                <div class="center-v">
+                    <i class="fa fa-exclamation"></i>
+                </div>
+                <p>{{errorMessage}}</p>
+
+            </div>
+
             <div class="row">
                 <div class="col col-md-6">
 

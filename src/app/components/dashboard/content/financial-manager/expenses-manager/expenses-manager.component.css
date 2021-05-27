@@ -2,3 +2,7 @@
     margin-top: 16px;
     height: 480px;
 }
+
+.row .col {
+    margin-bottom: 16px;
+}

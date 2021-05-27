@@ -32,6 +32,7 @@
     font-weight: bold;
     height: 100%;
     padding: 6px 12px;
+    font-size: 16px;
 }
 
 .form-group label {
@@ -62,7 +63,7 @@
 }
 
 .form-group input.is-invalid {
-    border: 1px solid red;
+    border: 1px solid rgb(254, 101, 85);
 }
 
 .invalid-feedback {
@@ -78,4 +79,32 @@
     text-align: center;
     padding: 0px 8px;
     margin-top: 16px;
+}
+
+
+/*
+.error-message .center-v {
+    background: rgb(254, 101, 85);
+}
+*/
+
+.error-message {
+    background: rgba(254, 101, 85, 0.4);
+    padding: 8px 16px;
+    border: 1px solid rgb(254, 101, 85);
+    border-radius: 8px;
+    color: rgb(254, 101, 85);
+    margin-bottom: 8px;
+}
+
+.error-message .center-v {
+    max-width: 28px;
+    min-width: 28px;
+}
+
+.error-message p {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0px;
 }

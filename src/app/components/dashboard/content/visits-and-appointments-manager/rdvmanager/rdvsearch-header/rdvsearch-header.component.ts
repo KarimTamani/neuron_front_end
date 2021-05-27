@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SUCCESS } from 'src/app/classes/Message';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-rdvsearch-header',
@@ -9,7 +11,7 @@ export class RDVSearchHeaderComponent implements OnInit {
   @Input() startDate : string ; 
   @Output() searchEvent : EventEmitter<any> ; 
   @Input() searchQuery : any = {} ; 
-  constructor() {
+  constructor(private interactionService : InteractionService) {
     this.searchEvent = new EventEmitter<null>() ;  
   }
 
@@ -24,6 +26,16 @@ export class RDVSearchHeaderComponent implements OnInit {
 
   public search() { 
     this.searchQuery.startDate = this.startDate ; 
-    this.searchEvent.emit(this.searchQuery)
+    this.searchEvent.emit(this.searchQuery) ; 
+    this.interactionService.showMessage.next({
+      message : "Recherche effectuée" , 
+      type : SUCCESS
+    })
+  }
+
+  public keyup($event) { 
+    if ($event.key == "Enter") { 
+      this.search() ; 
+    }
   }
 }

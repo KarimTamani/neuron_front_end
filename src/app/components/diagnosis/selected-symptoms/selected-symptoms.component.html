@@ -1,6 +1,6 @@
 <div class="main-container">
     <div class="search-container">
-        <input type="text" (keyup)="search()" placeholder="Rechercher un symptôme .." [(ngModel)]="searchQuery">
+        <input type="text" (keyup)="search()" placeholder="Recherchez un symptôme" [(ngModel)]="searchQuery">
         <div class="suggestions">
             <ul>
                 <li *ngFor="let suggestion of searchResult" (click)="selectSymptom(suggestion)">{{suggestion.name}}</li>

@@ -177,36 +177,38 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
     }));
 
     this.subscriptions.push(this.interactionService.clearAppointment.subscribe(() => {
-
-      this.apollo.mutate({
-        mutation: gql`
+      if (this.visit.appointment)
+        this.apollo.mutate({
+          mutation: gql`
           mutation { 
             removeAppointment(appointmentId : ${this.visit.appointment.id}) 
           }
         `
-      }).pipe(map(value => (<any>value.data).removeAppointment)).subscribe((data) => {
-        this.visit.appointment = null;
-      })
+        }).pipe(map(value => (<any>value.data).removeAppointment)).subscribe((data) => {
+          this.visit.appointment = null;
+        })
 
     }));
 
 
     this.subscriptions.push(this.interactionService.visitEdited.subscribe(() => {
       this.isEdited = true;
-    })) ; 
+    }));
 
     this.subscriptions.push(this.interactionService.visitDone.subscribe((data) => {
       this.visit = new Visit();
       this.initVisit();
     }))
 
-    this.subscriptions.push(this.interactionService.updateVisitSymptoms.subscribe((symptoms) => { 
-      this.visit.symptoms = symptoms ; 
+    this.subscriptions.push(this.interactionService.updateVisitSymptoms.subscribe((symptoms) => {
+      this.visit.symptoms = symptoms;
+      if (this.visit.symptoms.length != 0)
+        this.isEdited = true;
     }))
 
 
-    this.subscriptions.push(this.interactionService.medicalFileEdited.subscribe((data) => { 
-      this.visit.medicalFile = data ; 
+    this.subscriptions.push(this.interactionService.medicalFileEdited.subscribe((data) => {
+      this.visit.medicalFile = data;
     }))
   }
 
@@ -264,7 +266,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
         condition: (this.visit.condition && this.visit.condition.name && this.visit.condition.name.trim().length > 0) ? ({
           name: this.visit.condition.name
         }) : (null),
-        status: "in visit" 
+        status: "in visit"
       }
     }).pipe(map(value => (<any>value.data).addVisit)).subscribe(async (data) => {
       this.visit.id = data.id;
@@ -279,7 +281,7 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       this.isEdited = false;
 
       this.interactionService.showMessage.next(<Message>{
-        message: `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.name} a commencé`,
+        message: `Visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.name} a commencé`,
         type: SUCCESS
       })
 
@@ -320,21 +322,26 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
       await this.submitVisitCheckUps();
       await this.submitCertificats();
       await this.submitAppointment();
-      
-      this.isEdited = false; 
+
+      this.isEdited = false;
+
+      this.interactionService.showMessage.next(<Message>{
+        message: `Visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.name} est enregistrée`,
+        type: SUCCESS
+      })
 
       if (!this.isEdit) {
         this.router.navigate([], {
           queryParams: {
             "pop-up-window": true,
             "window-page": "visit-details",
-            "title": "les details de la visite",
+            "title": "détails de la visite",
             "visit-id": this.visit.id,
             "no-edit": true
           }
         })
-      } else { 
-        this.closeEvent.emit() ; 
+      } else {
+        this.closeEvent.emit();
       }
     })
   }
@@ -447,14 +454,14 @@ export class PatientVisitComponent implements OnInit, OnDestroy {
 
 
   public ngOnDestroy() {
-    console.log(this.isEdited) ; 
+    
     if (this.isEdited) {
       this.router.navigate([], {
         queryParams: {
           "pop-up-window": true,
           "window-page": "yes-no-message",
-          "title": "Savgarder la visite",
-          "message": `La Viiste de : ${this.visit.medicalFile.name} ${this.visit.medicalFile.name} a des modification voulais vous que le sauvgarde`
+          "title": "Sauvegarder la visite",
+          "message": `la visite de ${this.visit.medicalFile.name} ${this.visit.medicalFile.lastname} a des modifications, vous voulez la sauvegarder ?`
         }
       });
       this.interactionService.yesOrNo.subscribe((response) => {
